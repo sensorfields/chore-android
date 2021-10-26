@@ -1,17 +1,17 @@
 package com.sensorfields.chore.android
 
 import dagger.hilt.android.HiltAndroidApp
-import timber.log.Timber
+import logcat.AndroidLogcatLogger
 
 @HiltAndroidApp
 class Application : android.app.Application() {
 
     override fun onCreate() {
         super.onCreate()
-        setupTimber()
+        setupLogcat()
     }
 
-    private fun setupTimber() {
-        Timber.plant(Timber.DebugTree())
+    private fun setupLogcat() {
+        AndroidLogcatLogger.installOnDebuggableApp(this)
     }
 }

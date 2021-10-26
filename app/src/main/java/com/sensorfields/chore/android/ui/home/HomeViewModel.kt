@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
-import timber.log.Timber
+import logcat.logcat
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,6 +20,6 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     val action: Flow<HomeAction> = _action.receiveAsFlow()
 
     fun trySend(event: HomeEvent) {
-        Timber.i("trySend: $event")
+        logcat { "trySend: $event" }
     }
 }

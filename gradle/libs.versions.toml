@@ -67,9 +67,9 @@ google-firebase-analyticsKtx = "com.google.firebase:firebase-analytics-ktx:19.0.
 squareup-okhttp-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "squareup-okhttp" }
 squareup-okhttp-logginInterceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "squareup-okhttp" }
 squareup-retrofit-retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
+squareup-logcat-logcat = "com.squareup.logcat:logcat:0.1"
 
 jakewharton-retrofit-kotlinxSerializationConverter = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
-jakewharton-timber-timber = "com.jakewharton.timber:timber:4.7.1"
 
 coil-coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }

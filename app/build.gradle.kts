@@ -19,12 +19,6 @@ android {
         targetSdk = 31
         versionCode = 1
         versionName = "1.0.0${property("appVersionNameSuffix")}"
-        kapt {
-            arguments {
-                arg("room.schemaLocation", "$projectDir/schemas")
-                arg("room.incremental", "true")
-            }
-        }
     }
     signingConfigs {
         maybeCreate("debug").apply {
@@ -105,5 +99,5 @@ dependencies {
     implementation(libs.coil.coil)
     implementation(libs.coil.compose)
 
-    implementation(libs.jakewharton.timber.timber)
+    implementation(libs.squareup.logcat.logcat)
 }
