@@ -1,0 +1,19 @@
+complexity:
+  LongParameterList:
+    active: false
+  TooManyFunctions:
+    active: false
+
+empty-blocks:
+  EmptyFunctionBlock:
+    ignoreOverridden: true
+
+exceptions:
+  TooGenericExceptionCaught:
+    active: false
+
+style:
+  ReturnCount:
+    active: false
+  MagicNumber:
+    active: false
