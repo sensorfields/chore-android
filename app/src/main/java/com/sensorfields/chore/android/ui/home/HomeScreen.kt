@@ -17,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -36,7 +37,6 @@ fun HomeScreen(
 ) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val navHierarchy = navBackStackEntry?.destination?.hierarchy
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -45,7 +45,7 @@ fun HomeScreen(
                 HomeRoutes.entries.forEach { route ->
                     val labelText = stringResource(route.labelId)
                     NavigationBarItem(
-                        selected = navHierarchy?.any { it.route == route.route } == true,
+                        selected = navBackStackEntry.isSelected(route.route),
                         onClick = {
                             navController.navigate(route.route) {
                                 popUpTo(navController.graph.startDestinationId) {
@@ -62,13 +62,13 @@ fun HomeScreen(
             }
         },
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = onCreateChoreClick
-            ) {
-                Icon(
-                    Icons.Default.Add,
-                    contentDescription = stringResource(R.string.home_chore_create_button)
-                )
+            if (navBackStackEntry.isSelected(HomeRoutes.DASHBOARD.route)) {
+                FloatingActionButton(onClick = onCreateChoreClick) {
+                    Icon(
+                        Icons.Default.Add,
+                        contentDescription = stringResource(R.string.home_chore_create_button)
+                    )
+                }
             }
         }
     ) { innerPadding ->
@@ -85,6 +85,10 @@ fun HomeScreen(
             composable(HomeRoutes.SETTINGS.route) { SettingsScreen() }
         }
     }
+}
+
+private fun NavBackStackEntry?.isSelected(route: String): Boolean {
+    return this?.destination?.hierarchy?.any { it.route == route } == true
 }
 
 @Preview
