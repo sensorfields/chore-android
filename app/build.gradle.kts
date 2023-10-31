@@ -1,24 +1,22 @@
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
-    kotlin("plugin.serialization") version libs.versions.kotlin
-    kotlin("plugin.parcelize")
-    id("dagger.hilt.android.plugin")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.google.hilt)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.detekt)
 }
 
 android {
-    compileSdk = 31
+    namespace = "com.sensorfields.chore.android"
+    compileSdk = 34
     defaultConfig {
         applicationId = "com.sensorfields.chore"
-        minSdk = 21
-        targetSdk = 31
+        minSdk = 29
+        targetSdk = 34
         versionCode = 1
-        versionName = "1.0.0${property("appVersionNameSuffix")}"
+        versionName = "1.0.0${findProperty("appVersionNameSuffix") ?: ""}"
     }
     signingConfigs {
         maybeCreate("debug").apply {
@@ -31,25 +29,21 @@ android {
             signingConfig = signingConfigs["debug"]
         }
     }
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+    }
     buildFeatures {
         compose = true
-    }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
-        freeCompilerArgs = listOf(
-            "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi",
-            "-Xopt-in=androidx.compose.foundation.ExperimentalFoundationApi",
-            "-Xopt-in=androidx.compose.material.ExperimentalMaterialApi",
-            "-Xopt-in=coil.annotation.ExperimentalCoilApi"
-        )
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        buildConfig = true
+        viewBinding = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidx.compose.get()
+        kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
     }
+}
+
+kotlin {
+    jvmToolchain(17)
 }
 
 detekt {
@@ -59,45 +53,46 @@ detekt {
 dependencies {
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
 
-    implementation(kotlin("stdlib"))
+    detektPlugins(libs.detekt.plugin.twitter.compose)
+
+    implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.playServices)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.collections.immutable)
 
-    implementation(libs.androidx.annotation.annotation)
     implementation(libs.androidx.core.coreKtx)
-    implementation(libs.androidx.activity.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.activityKtx)
+    implementation(libs.androidx.fragmentKtx)
+    implementation(libs.androidx.lifecycle.common.java8)
+    implementation(libs.androidx.lifecycle.viewmodelKtx)
+    implementation(libs.androidx.lifecycle.viewmodel.savedstate)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.work.runtimeKtx)
+    kapt(libs.androidx.hilt.compiler)
+    implementation(libs.androidx.hilt.work)
     implementation(libs.androidx.hilt.navigation.compose)
-
-    implementation(libs.androidx.compose.material)
-    implementation(libs.androidx.compose.uiTooling)
-
-    implementation(libs.androidx.paging.commonKtx)
-    implementation(libs.androidx.paging.runtimeKtx)
-    implementation(libs.androidx.paging.compose)
-
-    implementation(libs.androidx.room.roomKtx)
-    kapt(libs.androidx.room.compiler)
-
-    implementation(libs.google.accompanist.insets)
-    implementation(libs.google.accompanist.insetsUi)
-    implementation(libs.google.accompanist.systemuicontroller)
-
-    implementation(libs.google.firebase.crashlyticsKtx)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    debugImplementation(libs.androidx.compose.ui.tooling)
 
     implementation(libs.google.hilt.android)
     kapt(libs.google.hilt.compiler)
+    implementation(libs.google.android.material)
 
-    implementation(libs.squareup.okhttp.okhttp)
-    implementation(libs.squareup.okhttp.logginInterceptor)
-    implementation(libs.squareup.retrofit.retrofit)
-    implementation(libs.jakewharton.retrofit.kotlinxSerializationConverter)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlyticsKtx)
+    implementation(libs.firebase.analyticsKtx)
+    implementation(libs.firebase.messagingKtx)
 
+    implementation(libs.logcat)
     implementation(libs.coil.coil)
     implementation(libs.coil.compose)
-
-    implementation(libs.squareup.logcat.logcat)
 }
