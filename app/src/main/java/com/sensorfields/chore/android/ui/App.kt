@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.sensorfields.chore.android.Screen
+import com.sensorfields.chore.android.ui.chore.create.ChoreCreateScreen
 import com.sensorfields.chore.android.ui.home.HomeScreen
 
 @Composable
@@ -13,7 +14,14 @@ fun App() {
     val navController = rememberNavController()
     MaterialTheme {
         NavHost(navController = navController, startDestination = Screen.Home.route) {
-            composable(Screen.Home.route) { HomeScreen() }
+            composable(Screen.Home.route) {
+                HomeScreen(
+                    onCreateChoreClick = { navController.navigate(Screen.ChoreCreate.route) }
+                )
+            }
+            composable(Screen.ChoreCreate.route) {
+                ChoreCreateScreen()
+            }
         }
     }
 }

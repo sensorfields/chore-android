@@ -4,6 +4,9 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -20,6 +23,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.sensorfields.chore.android.HomeRoutes
+import com.sensorfields.chore.android.R
 import com.sensorfields.chore.android.ui.dashboard.DashboardScreen
 import com.sensorfields.chore.android.ui.history.HistoryScreen
 import com.sensorfields.chore.android.ui.settings.SettingsScreen
@@ -27,6 +31,7 @@ import com.sensorfields.chore.android.ui.settings.SettingsScreen
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun HomeScreen(
+    onCreateChoreClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val navController = rememberNavController()
@@ -38,6 +43,7 @@ fun HomeScreen(
         bottomBar = {
             NavigationBar {
                 HomeRoutes.entries.forEach { route ->
+                    val labelText = stringResource(route.labelId)
                     NavigationBarItem(
                         selected = navHierarchy?.any { it.route == route.route } == true,
                         onClick = {
@@ -49,10 +55,20 @@ fun HomeScreen(
                                 restoreState = true
                             }
                         },
-                        icon = { Icon(route.iconVector, contentDescription = null) },
-                        label = { Text(stringResource(route.labelId)) }
+                        icon = { Icon(route.iconVector, contentDescription = labelText) },
+                        label = { Text(labelText) }
                     )
                 }
+            }
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = onCreateChoreClick
+            ) {
+                Icon(
+                    Icons.Default.Add,
+                    contentDescription = stringResource(R.string.home_chore_create_button)
+                )
             }
         }
     ) { innerPadding ->
@@ -74,5 +90,7 @@ fun HomeScreen(
 @Preview
 @Composable
 private fun Preview() {
-    HomeScreen()
+    HomeScreen(
+        onCreateChoreClick = {}
+    )
 }
