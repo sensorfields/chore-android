@@ -7,14 +7,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import com.sensorfields.chore.android.R
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Text(stringResource(R.string.application_name))
     }
+}
+
+@Preview
+@Composable
+private fun Preview() {
+    HomeScreen()
 }
