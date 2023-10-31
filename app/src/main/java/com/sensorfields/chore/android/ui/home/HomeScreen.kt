@@ -1,10 +1,13 @@
 package com.sensorfields.chore.android.ui.home
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,7 +20,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.sensorfields.chore.android.HomeRoutes
+import com.sensorfields.chore.android.ui.dashboard.DashboardScreen
+import com.sensorfields.chore.android.ui.history.HistoryScreen
+import com.sensorfields.chore.android.ui.settings.SettingsScreen
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
@@ -26,39 +33,40 @@ fun HomeScreen(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val navHierarchy = navBackStackEntry?.destination?.hierarchy
 
-    Column(modifier = modifier.fillMaxSize()) {
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        bottomBar = {
+            NavigationBar {
+                HomeRoutes.entries.forEach { route ->
+                    NavigationBarItem(
+                        selected = navHierarchy?.any { it.route == route.route } == true,
+                        onClick = {
+                            navController.navigate(route.route) {
+                                popUpTo(navController.graph.startDestinationId) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        },
+                        icon = { Icon(route.iconVector, contentDescription = null) },
+                        label = { Text(stringResource(route.labelId)) }
+                    )
+                }
+            }
+        }
+    ) { innerPadding ->
         NavHost(
             navController = navController,
             startDestination = HomeRoutes.DASHBOARD.route,
-            modifier = modifier.weight(1f)
+            modifier = Modifier
+                .fillMaxSize()
+                .consumeWindowInsets(innerPadding)
+                .padding(innerPadding)
         ) {
-            composable(HomeRoutes.DASHBOARD.route) {
-                Text("DASHBOARD YO YOO")
-            }
-            composable(HomeRoutes.HISTORY.route) {
-                Text("HISTORY YO YOO")
-            }
-            composable(HomeRoutes.SETTINGS.route) {
-                Text("SETTINGS YO YOO")
-            }
-        }
-        NavigationBar {
-            HomeRoutes.entries.forEach { route ->
-                NavigationBarItem(
-                    selected = navHierarchy?.any { it.route == route.route } == true,
-                    onClick = {
-                        navController.navigate(route.route) {
-                            popUpTo(navController.graph.startDestinationId) {
-                                saveState = true
-                            }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                    },
-                    icon = { Icon(route.iconVector, contentDescription = null) },
-                    label = { Text(stringResource(route.labelId)) }
-                )
-            }
+            composable(HomeRoutes.DASHBOARD.route) { DashboardScreen() }
+            composable(HomeRoutes.HISTORY.route) { HistoryScreen() }
+            composable(HomeRoutes.SETTINGS.route) { SettingsScreen() }
         }
     }
 }
