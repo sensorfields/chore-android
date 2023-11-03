@@ -28,8 +28,10 @@ fun App() {
                 val state by viewModel.state.collectAsStateWithLifecycle()
                 ChoreCreateScreen(
                     state = state,
+                    action = viewModel.action,
                     onUpClick = { navController.navigateUp() },
                     onNameChange = viewModel::onNameChange,
+                    onDateChange = viewModel::onDateChange,
                     onNextClick = viewModel::onNextClick
                 )
             }
