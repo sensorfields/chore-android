@@ -4,4 +4,5 @@ data class ChoreCreateState(
     val name: String = "",
     val date: Long? = null,
     val isNextButtonEnabled: Boolean = false,
+    val isLoadingVisible: Boolean = false,
 )

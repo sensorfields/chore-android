@@ -1,18 +1,25 @@
 package com.sensorfields.chore.android.ui.chore.create
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.sensorfields.chore.android.domain.usecases.CreateChoreUseCase
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhen
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhere
+import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateUp
+import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import java.time.Instant
 import javax.inject.Inject
 
 @HiltViewModel
 class ChoreCreateViewModel @Inject constructor(
+    private val createChoreUseCase: CreateChoreUseCase,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ChoreCreateState())
@@ -24,6 +31,7 @@ class ChoreCreateViewModel @Inject constructor(
     private var screen: Screen = Screen.WHAT
     private var name: String = ""
     private var date: Long? = null
+    private var isLoading: Boolean = false
 
     fun onScreenChange(screen: Screen) {
         this.screen = screen
@@ -54,8 +62,26 @@ class ChoreCreateViewModel @Inject constructor(
                 }
             }
 
-            Screen.WHERE -> {
-                // TODO create chore and finish flow
+            Screen.WHERE -> viewModelScope.launch {
+                isLoading = true
+                updateState()
+
+                when (
+                    val result = createChoreUseCase(
+                        name = name,
+                        date = date?.let { Instant.ofEpochMilli(it) }
+                    )
+                ) {
+                    CreateChoreUseCase.Result.Success -> {
+                        _action.trySend(NavigateUp)
+                    }
+
+                    is CreateChoreUseCase.Result.Failure -> {
+                        isLoading = false
+                        updateState()
+                        _action.trySend(ShowError(error = result.error))
+                    }
+                }
             }
         }
     }
@@ -71,7 +97,8 @@ class ChoreCreateViewModel @Inject constructor(
             it.copy(
                 name = name,
                 date = date,
-                isNextButtonEnabled = isNextButtonEnabled
+                isNextButtonEnabled = isNextButtonEnabled,
+                isLoadingVisible = isLoading
             )
         }
     }

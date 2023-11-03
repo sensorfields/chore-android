@@ -39,6 +39,7 @@ firebase-bom = "32.5.0"
 detekt = "1.23.1"
 detekt-plugin-twitter-compose = "0.0.26"
 logcat = "0.1"
+realm = "1.12.0"
 coil = "2.4.0"
 
 [plugins]
@@ -49,6 +50,7 @@ google-hilt = { id = "com.google.dagger.hilt.android", version.ref = "google-hil
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics-plugin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+realm = { id = "io.realm.kotlin", version.ref = "realm" }
 
 [libraries]
 android-tools-desugarJdkLibs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-tools-desugar" }
@@ -92,6 +94,7 @@ firebase-analyticsKtx = { module = "com.google.firebase:firebase-analytics-ktx" 
 firebase-messagingKtx = { module = "com.google.firebase:firebase-messaging-ktx" }
 
 logcat = { module = "com.squareup.logcat:logcat", version.ref = "logcat" }
+realm-library-base = { module = "io.realm.kotlin:library-base", version.ref = "realm" }
 coil-coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 

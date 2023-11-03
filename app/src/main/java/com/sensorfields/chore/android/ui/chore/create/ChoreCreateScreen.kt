@@ -24,6 +24,8 @@ import com.sensorfields.chore.android.R
 import com.sensorfields.chore.android.ui.UpButton
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhen
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhere
+import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateUp
+import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.emptyFlow
@@ -60,6 +62,10 @@ fun ChoreCreateScreen(
                 when (action) {
                     NavigateToWhen -> navController.navigate(Screen.WHEN.name)
                     NavigateToWhere -> navController.navigate(Screen.WHERE.name)
+                    NavigateUp -> onUpClick()
+                    is ShowError -> {
+                        // TODO show error
+                    }
                 }
             }
         }
