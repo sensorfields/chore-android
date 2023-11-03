@@ -1,11 +1,17 @@
 <resources>
 
     <string name="application_name">Chore Alert</string>
+    <string name="up_button">Back</string>
 
     <!-- Home -->
     <string name="home_chore_create_button">Add</string>
     <string name="home_navigation_dashboard">Dashboard</string>
     <string name="home_navigation_history">History</string>
     <string name="home_navigation_settings">Settings</string>
+
+    <!-- Chore - Create -->
+    <string name="chore_create_title">Add a chore</string>
+    <string name="chore_create_name">Chore name</string>
+    <string name="chore_create_next_button">Continue</string>
 
 </resources>
