@@ -24,7 +24,11 @@ import com.sensorfields.chore.android.R
 import com.sensorfields.chore.android.ui.UpButton
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhen
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.launch
+import logcat.asLog
+import logcat.logcat
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -32,6 +36,7 @@ fun ChoreCreateScreen(
     state: ChoreCreateState,
     action: Flow<ChoreCreateAction>,
     onUpClick: () -> Unit,
+    onScreenChange: (Screen) -> Unit,
     onNameChange: (String) -> Unit,
     onDateChange: (Long?) -> Unit,
     onNextClick: () -> Unit,
@@ -40,9 +45,20 @@ fun ChoreCreateScreen(
     val navController = rememberNavController()
 
     LaunchedEffect(Unit) {
-        action.collect { action ->
-            when (action) {
-                NavigateToWhen -> navController.navigate(Screen.WHEN.name)
+        launch {
+            navController.currentBackStackEntryFlow.collectLatest {
+                try {
+                    it.destination.route?.let { route -> onScreenChange(Screen.valueOf(route)) }
+                } catch (e: Exception) {
+                    logcat { e.asLog() }
+                }
+            }
+        }
+        launch {
+            action.collect { action ->
+                when (action) {
+                    NavigateToWhen -> navController.navigate(Screen.WHEN.name)
+                }
             }
         }
     }
@@ -95,7 +111,7 @@ fun ChoreCreateScreen(
     }
 }
 
-private enum class Screen {
+enum class Screen {
     WHAT, WHEN
 }
 
@@ -106,6 +122,7 @@ private fun Preview() {
         state = ChoreCreateState(),
         action = emptyFlow(),
         onUpClick = {},
+        onScreenChange = {},
         onNameChange = {},
         onDateChange = {},
         onNextClick = {}

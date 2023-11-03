@@ -30,6 +30,7 @@ fun App() {
                     state = state,
                     action = viewModel.action,
                     onUpClick = { navController.navigateUp() },
+                    onScreenChange = viewModel::onScreenChange,
                     onNameChange = viewModel::onNameChange,
                     onDateChange = viewModel::onDateChange,
                     onNextClick = viewModel::onNextClick

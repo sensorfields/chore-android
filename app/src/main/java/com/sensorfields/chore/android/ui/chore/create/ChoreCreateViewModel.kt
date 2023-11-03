@@ -20,8 +20,14 @@ class ChoreCreateViewModel @Inject constructor(
     private val _action = Channel<ChoreCreateAction>(capacity = Channel.UNLIMITED)
     val action = _action.receiveAsFlow()
 
+    private var screen: Screen = Screen.WHAT
     private var name: String = ""
     private var date: Long? = null
+
+    fun onScreenChange(screen: Screen) {
+        this.screen = screen
+        updateState()
+    }
 
     fun onNameChange(name: String) {
         this.name = name
@@ -34,17 +40,30 @@ class ChoreCreateViewModel @Inject constructor(
     }
 
     fun onNextClick() {
-        if (name.isNotEmpty()) {
-            _action.trySend(NavigateToWhen)
+        when (screen) {
+            Screen.WHAT -> {
+                if (name.isNotEmpty()) {
+                    _action.trySend(NavigateToWhen)
+                }
+            }
+
+            Screen.WHEN -> {
+
+            }
         }
     }
 
     private fun updateState() {
+        val isNextButtonEnabled = when (screen) {
+            Screen.WHAT -> name.isNotBlank()
+            Screen.WHEN -> date != null
+        }
+
         _state.update {
             it.copy(
                 name = name,
                 date = date,
-                isNextButtonEnabled = name.isNotBlank()
+                isNextButtonEnabled = isNextButtonEnabled
             )
         }
     }
