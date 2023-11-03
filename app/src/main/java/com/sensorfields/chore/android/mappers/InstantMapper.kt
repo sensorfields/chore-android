@@ -9,3 +9,10 @@ fun Instant.toRealmInstant(): RealmInstant {
         nanosecondAdjustment = nano
     )
 }
+
+fun RealmInstant.toInstant(): Instant {
+    return Instant.ofEpochSecond(
+        epochSeconds,
+        nanosecondsOfSecond.toLong()
+    )
+}

@@ -17,6 +17,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.NavHost
@@ -26,6 +28,7 @@ import androidx.navigation.compose.rememberNavController
 import com.sensorfields.chore.android.HomeRoutes
 import com.sensorfields.chore.android.R
 import com.sensorfields.chore.android.ui.dashboard.DashboardScreen
+import com.sensorfields.chore.android.ui.dashboard.DashboardViewModel
 import com.sensorfields.chore.android.ui.history.HistoryScreen
 import com.sensorfields.chore.android.ui.settings.SettingsScreen
 
@@ -80,7 +83,13 @@ fun HomeScreen(
                 .consumeWindowInsets(innerPadding)
                 .padding(innerPadding)
         ) {
-            composable(HomeRoutes.DASHBOARD.route) { DashboardScreen() }
+            composable(HomeRoutes.DASHBOARD.route) {
+                val viewModel = hiltViewModel<DashboardViewModel>()
+                val state by viewModel.state.collectAsStateWithLifecycle()
+                DashboardScreen(
+                    state = state
+                )
+            }
             composable(HomeRoutes.HISTORY.route) { HistoryScreen() }
             composable(HomeRoutes.SETTINGS.route) { SettingsScreen() }
         }
