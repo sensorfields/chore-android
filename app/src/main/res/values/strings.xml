@@ -2,6 +2,7 @@
 
     <string name="application_name">Chore Alert</string>
     <string name="up_button">Back</string>
+    <string name="error_general">Something went wrong</string>
 
     <!-- Home -->
     <string name="home_chore_create_button">Add</string>

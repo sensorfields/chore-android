@@ -4,7 +4,6 @@ import com.sensorfields.chore.android.data.realm.entities.ChoreEntity
 import com.sensorfields.chore.android.mappers.toRealmInstant
 import dagger.Reusable
 import io.realm.kotlin.Realm
-import kotlinx.coroutines.delay
 import java.time.Instant
 import javax.inject.Inject
 
@@ -14,9 +13,6 @@ class CreateChoreUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(name: String, date: Instant?): Result {
         return try {
-
-            delay(5000L)
-
             realm.write {
                 copyToRealm(ChoreEntity().apply {
                     this@apply.name = name

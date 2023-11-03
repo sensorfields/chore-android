@@ -5,15 +5,18 @@ import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,11 +24,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.sensorfields.chore.android.R
+import com.sensorfields.chore.android.ui.LoadingButton
 import com.sensorfields.chore.android.ui.UpButton
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhen
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhere
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateUp
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
+import com.sensorfields.chore.android.ui.getErrorMessage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.emptyFlow
@@ -46,6 +51,8 @@ fun ChoreCreateScreen(
     modifier: Modifier = Modifier,
 ) {
     val navController = rememberNavController()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         launch {
@@ -64,7 +71,9 @@ fun ChoreCreateScreen(
                     NavigateToWhere -> navController.navigate(Screen.WHERE.name)
                     NavigateUp -> onUpClick()
                     is ShowError -> {
-                        // TODO show error
+                        snackbarHostState.showSnackbar(
+                            message = context.getErrorMessage(action.error)
+                        )
                     }
                 }
             }
@@ -85,14 +94,16 @@ fun ChoreCreateScreen(
                     .fillMaxWidth()
                     .padding(16.dp)
             ) {
-                Button(
+                LoadingButton(
                     onClick = onNextClick,
+                    loading = state.isLoadingVisible,
                     enabled = state.isNextButtonEnabled
                 ) {
                     Text(stringResource(R.string.chore_create_next_button))
                 }
             }
-        }
+        },
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { innerPadding ->
         NavHost(
             navController = navController,
