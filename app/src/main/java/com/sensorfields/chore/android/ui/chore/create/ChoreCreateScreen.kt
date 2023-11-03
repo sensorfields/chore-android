@@ -23,6 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import com.sensorfields.chore.android.R
 import com.sensorfields.chore.android.ui.UpButton
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhen
+import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhere
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.emptyFlow
@@ -58,6 +59,7 @@ fun ChoreCreateScreen(
             action.collect { action ->
                 when (action) {
                     NavigateToWhen -> navController.navigate(Screen.WHEN.name)
+                    NavigateToWhere -> navController.navigate(Screen.WHERE.name)
                 }
             }
         }
@@ -107,12 +109,15 @@ fun ChoreCreateScreen(
                     onDateChanged = onDateChange
                 )
             }
+            composable(Screen.WHERE.name) {
+                ChoreCreateWhereScreen()
+            }
         }
     }
 }
 
 enum class Screen {
-    WHAT, WHEN
+    WHAT, WHEN, WHERE
 }
 
 @Preview

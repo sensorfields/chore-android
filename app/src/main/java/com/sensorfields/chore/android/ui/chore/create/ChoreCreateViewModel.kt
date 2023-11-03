@@ -2,6 +2,7 @@ package com.sensorfields.chore.android.ui.chore.create
 
 import androidx.lifecycle.ViewModel
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhen
+import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhere
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -48,7 +49,13 @@ class ChoreCreateViewModel @Inject constructor(
             }
 
             Screen.WHEN -> {
+                if (date != null) {
+                    _action.trySend(NavigateToWhere)
+                }
+            }
 
+            Screen.WHERE -> {
+                // TODO create chore and finish flow
             }
         }
     }
@@ -57,6 +64,7 @@ class ChoreCreateViewModel @Inject constructor(
         val isNextButtonEnabled = when (screen) {
             Screen.WHAT -> name.isNotBlank()
             Screen.WHEN -> date != null
+            Screen.WHERE -> true
         }
 
         _state.update {
