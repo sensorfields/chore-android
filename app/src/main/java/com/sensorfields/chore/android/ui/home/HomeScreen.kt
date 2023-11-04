@@ -6,6 +6,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Dashboard
+import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -13,44 +16,76 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.sensorfields.chore.android.HomeRoutes
 import com.sensorfields.chore.android.R
-import com.sensorfields.chore.android.ui.dashboard.DashboardScreen
-import com.sensorfields.chore.android.ui.dashboard.DashboardViewModel
-import com.sensorfields.chore.android.ui.history.HistoryScreen
-import com.sensorfields.chore.android.ui.settings.SettingsScreen
+import com.sensorfields.chore.android.ui.dashboard.DASHBOARD_ROUTE
+import com.sensorfields.chore.android.ui.dashboard.dashboard
+import com.sensorfields.chore.android.ui.history.HISTORY_ROUTE
+import com.sensorfields.chore.android.ui.history.history
+import com.sensorfields.chore.android.ui.settings.SETTINGS_ROUTE
+import com.sensorfields.chore.android.ui.settings.settings
+import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun HomeScreen(
+    state: HomeState,
+    onScreenChange: (HomeState.Screen) -> Unit,
     onCreateChoreClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val navController = rememberNavController()
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
+
+    LaunchedEffect(Unit) {
+        navController.currentBackStackEntryFlow.collectLatest {
+            when {
+                it.isSelected(DASHBOARD_ROUTE) -> onScreenChange(HomeState.Screen.DASHBOARD)
+                it.isSelected(HISTORY_ROUTE) -> onScreenChange(HomeState.Screen.HISTORY)
+                it.isSelected(SETTINGS_ROUTE) -> onScreenChange(HomeState.Screen.SETTINGS)
+            }
+        }
+    }
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
         bottomBar = {
             NavigationBar {
-                HomeRoutes.entries.forEach { route ->
-                    val labelText = stringResource(route.labelId)
+                HomeState.Screen.entries.forEach { navigationItem ->
+                    val route: String
+                    val labelText: String
+                    val iconVector: ImageVector
+                    when (navigationItem) {
+                        HomeState.Screen.DASHBOARD -> {
+                            route = DASHBOARD_ROUTE
+                            labelText = stringResource(R.string.home_navigation_dashboard)
+                            iconVector = Icons.Default.Dashboard
+                        }
+
+                        HomeState.Screen.HISTORY -> {
+                            route = HISTORY_ROUTE
+                            labelText = stringResource(R.string.home_navigation_history)
+                            iconVector = Icons.Default.History
+                        }
+
+                        HomeState.Screen.SETTINGS -> {
+                            route = SETTINGS_ROUTE
+                            labelText = stringResource(R.string.home_navigation_settings)
+                            iconVector = Icons.Default.Settings
+                        }
+                    }
+
                     NavigationBarItem(
-                        selected = navBackStackEntry.isSelected(route.route),
+                        selected = state.currentScreen == navigationItem,
                         onClick = {
-                            navController.navigate(route.route) {
+                            navController.navigate(route) {
                                 popUpTo(navController.graph.startDestinationId) {
                                     saveState = true
                                 }
@@ -58,14 +93,14 @@ fun HomeScreen(
                                 restoreState = true
                             }
                         },
-                        icon = { Icon(route.iconVector, contentDescription = labelText) },
+                        icon = { Icon(iconVector, contentDescription = labelText) },
                         label = { Text(labelText) }
                     )
                 }
             }
         },
         floatingActionButton = {
-            if (navBackStackEntry.isSelected(HomeRoutes.DASHBOARD.route)) {
+            if (state.isCreateChoreButtonVisible) {
                 FloatingActionButton(onClick = onCreateChoreClick) {
                     Icon(
                         Icons.Default.Add,
@@ -77,24 +112,15 @@ fun HomeScreen(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = HomeRoutes.DASHBOARD.route,
+            startDestination = DASHBOARD_ROUTE,
             modifier = Modifier
                 .fillMaxSize()
                 .consumeWindowInsets(innerPadding)
                 .padding(innerPadding)
         ) {
-            composable(HomeRoutes.DASHBOARD.route) {
-                val viewModel = hiltViewModel<DashboardViewModel>()
-                val state by viewModel.state.collectAsStateWithLifecycle()
-                DashboardScreen(
-                    state = state,
-                    onChoreClick = {
-                        // TODO navigate
-                    }
-                )
-            }
-            composable(HomeRoutes.HISTORY.route) { HistoryScreen() }
-            composable(HomeRoutes.SETTINGS.route) { SettingsScreen() }
+            dashboard(onNavigateToChoreUpdate = {})
+            history()
+            settings()
         }
     }
 }
@@ -107,6 +133,8 @@ private fun NavBackStackEntry?.isSelected(route: String): Boolean {
 @Composable
 private fun Preview() {
     HomeScreen(
+        state = HomeState(),
+        onScreenChange = {},
         onCreateChoreClick = {}
     )
 }

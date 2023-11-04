@@ -1,3 +1,8 @@
 package com.sensorfields.chore.android.ui.home
 
-class HomeState
+data class HomeState(
+    val currentScreen: Screen = Screen.DASHBOARD,
+    val isCreateChoreButtonVisible: Boolean = true,
+) {
+    enum class Screen { DASHBOARD, HISTORY, SETTINGS }
+}
