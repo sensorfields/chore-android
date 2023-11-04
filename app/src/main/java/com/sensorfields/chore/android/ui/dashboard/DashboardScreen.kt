@@ -9,13 +9,17 @@ import androidx.compose.ui.tooling.preview.Preview
 @Composable
 fun DashboardScreen(
     state: DashboardState,
+    onChoreClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
         modifier = modifier
     ) {
         items(state.chores, key = { it.id }) { itemState ->
-            DashboardChoreItem(state = itemState)
+            DashboardChoreItem(
+                state = itemState,
+                onClick = { onChoreClick(itemState.id) }
+            )
         }
     }
 }
@@ -24,6 +28,7 @@ fun DashboardScreen(
 @Composable
 private fun Preview() {
     DashboardScreen(
-        state = DashboardState()
+        state = DashboardState(),
+        onChoreClick = {}
     )
 }

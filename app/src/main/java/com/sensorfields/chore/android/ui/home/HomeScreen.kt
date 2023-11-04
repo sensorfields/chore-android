@@ -87,7 +87,10 @@ fun HomeScreen(
                 val viewModel = hiltViewModel<DashboardViewModel>()
                 val state by viewModel.state.collectAsStateWithLifecycle()
                 DashboardScreen(
-                    state = state
+                    state = state,
+                    onChoreClick = {
+                        // TODO navigate
+                    }
                 )
             }
             composable(HomeRoutes.HISTORY.route) { HistoryScreen() }
