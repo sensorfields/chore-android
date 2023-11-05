@@ -3,9 +3,9 @@ package com.sensorfields.chore.android.ui.chore.create
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sensorfields.chore.android.domain.usecases.CreateChoreUseCase
+import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.Finish
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhen
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhere
-import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateUp
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -73,7 +73,7 @@ class ChoreCreateViewModel @Inject constructor(
                     )
                 ) {
                     CreateChoreUseCase.Result.Success -> {
-                        _action.trySend(NavigateUp)
+                        _action.trySend(Finish)
                     }
 
                     is CreateChoreUseCase.Result.Failure -> {

@@ -26,9 +26,9 @@ import androidx.navigation.compose.rememberNavController
 import com.sensorfields.chore.android.R
 import com.sensorfields.chore.android.ui.LoadingButton
 import com.sensorfields.chore.android.ui.UpButton
+import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.Finish
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhen
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhere
-import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateUp
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
 import com.sensorfields.chore.android.ui.getErrorMessage
 import kotlinx.coroutines.flow.Flow
@@ -48,6 +48,7 @@ fun ChoreCreateScreen(
     onNameChange: (String) -> Unit,
     onDateChange: (Long?) -> Unit,
     onNextClick: () -> Unit,
+    onFinish: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val navController = rememberNavController()
@@ -69,7 +70,7 @@ fun ChoreCreateScreen(
                 when (action) {
                     NavigateToWhen -> navController.navigate(Screen.WHEN.name)
                     NavigateToWhere -> navController.navigate(Screen.WHERE.name)
-                    NavigateUp -> onUpClick()
+                    Finish -> onFinish()
                     is ShowError -> {
                         snackbarHostState.showSnackbar(
                             message = context.getErrorMessage(action.error)
@@ -147,6 +148,7 @@ private fun Preview() {
         onScreenChange = {},
         onNameChange = {},
         onDateChange = {},
-        onNextClick = {}
+        onNextClick = {},
+        onFinish = {}
     )
 }
