@@ -1,3 +1,5 @@
 package com.sensorfields.chore.android.ui.home
 
-sealed class HomeAction
+sealed interface HomeAction {
+    data object ShowChoreCreatedMessage : HomeAction
+}

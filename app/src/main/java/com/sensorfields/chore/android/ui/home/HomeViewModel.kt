@@ -1,6 +1,7 @@
 package com.sensorfields.chore.android.ui.home
 
 import androidx.lifecycle.ViewModel
+import com.sensorfields.chore.android.ui.home.HomeAction.ShowChoreCreatedMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,10 +16,14 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     private val _state = MutableStateFlow(HomeState())
     val state = _state.asStateFlow()
 
-    private val _action = Channel<HomeAction>(capacity = Channel.UNLIMITED)
-    val action = _action.receiveAsFlow()
+    private val _actions = Channel<HomeAction>(capacity = Channel.UNLIMITED)
+    val actions = _actions.receiveAsFlow()
 
     private var currentScreen: HomeState.Screen = HomeState.Screen.DASHBOARD
+
+    fun onChoreCreateResult(result: Boolean) {
+        _actions.trySend(ShowChoreCreatedMessage)
+    }
 
     fun onScreenChange(screen: HomeState.Screen) {
         this.currentScreen = screen

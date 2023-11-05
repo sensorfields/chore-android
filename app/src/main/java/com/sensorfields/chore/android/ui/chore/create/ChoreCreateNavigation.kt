@@ -2,8 +2,8 @@ package com.sensorfields.chore.android.ui.chore.create
 
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -32,9 +32,9 @@ fun NavController.navigateToChoreCreate() {
     navigate(ROUTE)
 }
 
-fun SavedStateHandle.getChoreCreateResult(): Boolean? {
-    return get<Boolean>(RESULT)?.also {
-        remove<Boolean>(RESULT)
+fun NavBackStackEntry.getChoreCreateResult(): Boolean? {
+    return savedStateHandle.get<Boolean>(RESULT)?.also {
+        savedStateHandle.remove<Boolean>(RESULT)
     }
 }
 

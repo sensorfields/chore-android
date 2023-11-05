@@ -14,11 +14,15 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavBackStackEntry
@@ -30,19 +34,37 @@ import com.sensorfields.chore.android.ui.dashboard.DASHBOARD_ROUTE
 import com.sensorfields.chore.android.ui.dashboard.dashboard
 import com.sensorfields.chore.android.ui.history.HISTORY_ROUTE
 import com.sensorfields.chore.android.ui.history.history
+import com.sensorfields.chore.android.ui.home.HomeAction.ShowChoreCreatedMessage
 import com.sensorfields.chore.android.ui.settings.SETTINGS_ROUTE
 import com.sensorfields.chore.android.ui.settings.settings
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.emptyFlow
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun HomeScreen(
     state: HomeState,
+    actions: Flow<HomeAction>,
     onScreenChange: (HomeState.Screen) -> Unit,
     onCreateChoreClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val navController = rememberNavController()
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        actions.collect { action ->
+            when (action) {
+                ShowChoreCreatedMessage -> {
+                    snackbarHostState.showSnackbar(
+                        context.getString(R.string.home_chore_created_message)
+                    )
+                }
+            }
+        }
+    }
 
     LaunchedEffect(Unit) {
         navController.currentBackStackEntryFlow.collectLatest {
@@ -99,6 +121,7 @@ fun HomeScreen(
                 }
             }
         },
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         floatingActionButton = {
             if (state.isCreateChoreButtonVisible) {
                 FloatingActionButton(onClick = onCreateChoreClick) {
@@ -134,6 +157,7 @@ private fun NavBackStackEntry?.isSelected(route: String): Boolean {
 private fun Preview() {
     HomeScreen(
         state = HomeState(),
+        actions = emptyFlow(),
         onScreenChange = {},
         onCreateChoreClick = {}
     )
