@@ -20,6 +20,7 @@ fun NavGraphBuilder.home(navController: NavController) {
             state = state,
             actions = viewModel.actions,
             onScreenChange = viewModel::onScreenChange,
+            onChoreSortByClick = viewModel::onChoreSortByClick,
             onCreateChoreClick = navController::navigateToChoreCreate
         )
     }

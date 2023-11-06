@@ -5,11 +5,19 @@
     <string name="error_general">Something went wrong</string>
 
     <!-- Home -->
+    <string name="home_title_dashboard">Chores to do</string>
+    <string name="home_sort_button">Sort</string>
     <string name="home_chore_create_button">Add</string>
     <string name="home_navigation_dashboard">Dashboard</string>
     <string name="home_navigation_history">History</string>
     <string name="home_navigation_settings">Settings</string>
     <string name="home_chore_created_message">Chore successfully created</string>
+
+    <string name="home_chore_sort_title">Sort by</string>
+    <string name="home_chore_sort_ascending">Ascending</string>
+    <string name="home_chore_sort_descending">Descending</string>
+    <string name="home_chore_sort_name">Name</string>
+    <string name="home_chore_sort_date">Date</string>
 
     <!-- Chore - Create -->
     <string name="chore_create_title">Add a chore</string>

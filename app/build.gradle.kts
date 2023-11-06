@@ -20,12 +20,12 @@ android {
         versionName = "1.0.0${findProperty("appVersionNameSuffix") ?: ""}"
     }
     signingConfigs {
-        maybeCreate("debug").apply {
+        named("debug") {
             storeFile = File(projectDir, "debug.keystore")
         }
     }
     buildTypes {
-        maybeCreate("debug").apply {
+        debug {
             applicationIdSuffix = ".debug"
             signingConfig = signingConfigs["debug"]
         }

@@ -9,8 +9,12 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Dashboard
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Sort
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -19,7 +23,10 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
@@ -41,17 +48,19 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.emptyFlow
 
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     state: HomeState,
     actions: Flow<HomeAction>,
     onScreenChange: (HomeState.Screen) -> Unit,
+    onChoreSortByClick: (HomeState.ChoreSortBy) -> Unit,
     onCreateChoreClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val navController = rememberNavController()
     val snackbarHostState = remember { SnackbarHostState() }
+    var isChoreSortDialogVisible by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
     LaunchedEffect(Unit) {
@@ -78,6 +87,19 @@ fun HomeScreen(
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = { Text(stringResource(R.string.home_title_dashboard)) },
+                actions = {
+                    IconButton(onClick = { isChoreSortDialogVisible = true }) {
+                        Icon(
+                            Icons.Default.Sort,
+                            contentDescription = stringResource(R.string.home_sort_button)
+                        )
+                    }
+                }
+            )
+        },
         bottomBar = {
             NavigationBar {
                 HomeState.Screen.entries.forEach { navigationItem ->
@@ -146,6 +168,14 @@ fun HomeScreen(
             settings()
         }
     }
+
+    if (isChoreSortDialogVisible) {
+        HomeChoreSortDialog(
+            sort = state.choreSort,
+            onSortByClick = onChoreSortByClick,
+            onDismissRequest = { isChoreSortDialogVisible = false }
+        )
+    }
 }
 
 private fun NavBackStackEntry?.isSelected(route: String): Boolean {
@@ -159,6 +189,7 @@ private fun Preview() {
         state = HomeState(),
         actions = emptyFlow(),
         onScreenChange = {},
+        onChoreSortByClick = {},
         onCreateChoreClick = {}
     )
 }
