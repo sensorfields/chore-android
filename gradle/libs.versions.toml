@@ -1,46 +1,42 @@
 [versions]
-android-tools-build = "8.1.2"
+android-tools-build = "8.2.2"
 android-tools-desugar = "2.0.4"
 
-kotlin = "1.9.0"
+kotlin = "1.9.22"
 kotlinx-coroutines = "1.7.3"
-kotlinx-serialization = "1.6.0"
-kotlinx-collections-immutable = "0.3.5"
+kotlinx-serialization = "1.6.2"
+kotlinx-collections-immutable = "0.3.7"
 
 androidx-core = "1.12.0"
 androidx-core-splashscreen = "1.0.1"
 androidx-appcompat = "1.6.1"
-androidx-activity = "1.8.0"
+androidx-activity = "1.8.2"
 androidx-fragment = "1.6.2"
-androidx-lifecycle = "2.6.2"
-androidx-navigation = "2.7.5"
-androidx-palette = "1.0.0"
+androidx-lifecycle = "2.7.0"
+androidx-navigation = "2.7.6"
 androidx-datastore = "1.0.0"
-androidx-work = "2.8.1"
-androidx-hilt = "1.0.0"
-androidx-browser = "1.6.0"
-androidx-constraintlayout = "2.1.4"
-androidx-constraintlayout-compose = "1.0.1"
-androidx-compose-compiler = "1.5.2"
-androidx-compose-bom = "2023.10.01"
+androidx-work = "2.9.0"
+androidx-hilt = "1.1.0"
+androidx-compose-compiler = "1.5.8"
+androidx-compose-bom = "2024.01.00"
 
 google-hilt = "2.48.1"
-google-services = "4.3.15"
-google-android-material = "1.10.0"
+google-services = "4.4.0"
+google-android-material = "1.11.0"
 google-maps-android = "3.4.0"
 google-maps-android-compose = "2.14.0"
 google-android-playservices-maps = "18.2.0"
 google-android-playservices-location = "21.0.1"
-google-accompanist = "0.32.0"
+google-accompanist = "0.34.0"
 
-firebase-crashlytics-plugin = "2.9.8"
-firebase-bom = "32.5.0"
+firebase-crashlytics-plugin = "2.9.9"
+firebase-bom = "32.7.1"
 
-detekt = "1.23.1"
+detekt = "1.23.4"
 detekt-plugin-twitter-compose = "0.0.26"
 logcat = "0.1"
-realm = "1.12.0"
-coil = "2.4.0"
+realm = "1.13.0"
+coil = "2.5.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-tools-build" }
@@ -71,7 +67,6 @@ androidx-lifecycle-viewmodelKtx = { module = "androidx.lifecycle:lifecycle-viewm
 androidx-lifecycle-viewmodel-savedstate = { module = "androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
-androidx-navigation-uiKtx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx-navigation" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "androidx-datastore" }
 androidx-work-runtimeKtx = { module = "androidx.work:work-runtime-ktx", version.ref = "androidx-work" }
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }

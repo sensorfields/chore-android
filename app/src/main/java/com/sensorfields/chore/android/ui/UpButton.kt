@@ -1,7 +1,7 @@
 package com.sensorfields.chore.android.ui
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
@@ -16,7 +16,10 @@ fun UpButton(
     modifier: Modifier = Modifier,
 ) {
     IconButton(onClick = onClick, modifier = modifier) {
-        Icon(Icons.Default.ArrowBack, contentDescription = stringResource(R.string.up_button))
+        Icon(
+            Icons.AutoMirrored.Default.ArrowBack,
+            contentDescription = stringResource(R.string.up_button)
+        )
     }
 }
 
