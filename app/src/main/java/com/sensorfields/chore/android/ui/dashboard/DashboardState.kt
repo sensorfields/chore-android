@@ -6,8 +6,11 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 
 data class DashboardState(
+    val choreSort: ChoreSort = ChoreSort(sortBy = ChoreSortBy.NAME, isAscending = true),
     val chores: ImmutableList<Chore> = persistentListOf(),
 ) {
+    enum class ChoreSortBy { NAME, DATE }
+    data class ChoreSort(val sortBy: ChoreSortBy, val isAscending: Boolean)
     data class Chore(val id: String, val name: String)
 }
 

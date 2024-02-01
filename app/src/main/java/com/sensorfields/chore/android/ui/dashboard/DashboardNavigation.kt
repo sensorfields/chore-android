@@ -8,13 +8,18 @@ import androidx.navigation.compose.composable
 
 const val DASHBOARD_ROUTE = "dashboard"
 
-fun NavGraphBuilder.dashboard(onNavigateToChoreUpdate: (String) -> Unit) {
+fun NavGraphBuilder.dashboard(
+    onCreateChoreClick: () -> Unit,
+    onChoreClick: (String) -> Unit,
+) {
     composable(route = DASHBOARD_ROUTE) {
         val viewModel = hiltViewModel<DashboardViewModel>()
         val state by viewModel.state.collectAsStateWithLifecycle()
         DashboardScreen(
             state = state,
-            onChoreClick = onNavigateToChoreUpdate
+            onChoreSortByClick = viewModel::onChoreSortByClick,
+            onCreateChoreClick = onCreateChoreClick,
+            onChoreClick = onChoreClick
         )
     }
 }

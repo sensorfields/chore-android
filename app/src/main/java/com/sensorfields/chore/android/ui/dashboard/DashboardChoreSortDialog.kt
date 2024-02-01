@@ -1,4 +1,4 @@
-package com.sensorfields.chore.android.ui.home
+package com.sensorfields.chore.android.ui.dashboard
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer
@@ -20,9 +20,9 @@ import com.sensorfields.chore.android.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeChoreSortDialog(
-    sort: HomeState.ChoreSort,
-    onSortByClick: (HomeState.ChoreSortBy) -> Unit,
+fun DashboardChoreSortDialog(
+    sort: DashboardState.ChoreSort,
+    onSortByClick: (DashboardState.ChoreSortBy) -> Unit,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -36,21 +36,31 @@ fun HomeChoreSortDialog(
         Divider()
         ListItem(
             headlineContent = { Text(stringResource(R.string.home_chore_sort_name)) },
-            modifier = Modifier.clickable { onSortByClick(HomeState.ChoreSortBy.NAME) },
-            leadingContent = { AscendingIcon(sort = sort, sortBy = HomeState.ChoreSortBy.NAME) }
+            modifier = Modifier.clickable { onSortByClick(DashboardState.ChoreSortBy.NAME) },
+            leadingContent = {
+                AscendingIcon(
+                    sort = sort,
+                    sortBy = DashboardState.ChoreSortBy.NAME
+                )
+            }
         )
         ListItem(
             headlineContent = { Text(stringResource(R.string.home_chore_sort_date)) },
-            modifier = Modifier.clickable { onSortByClick(HomeState.ChoreSortBy.DATE) },
-            leadingContent = { AscendingIcon(sort = sort, sortBy = HomeState.ChoreSortBy.DATE) }
+            modifier = Modifier.clickable { onSortByClick(DashboardState.ChoreSortBy.DATE) },
+            leadingContent = {
+                AscendingIcon(
+                    sort = sort,
+                    sortBy = DashboardState.ChoreSortBy.DATE
+                )
+            }
         )
     }
 }
 
 @Composable
 private fun AscendingIcon(
-    sort: HomeState.ChoreSort,
-    sortBy: HomeState.ChoreSortBy,
+    sort: DashboardState.ChoreSort,
+    sortBy: DashboardState.ChoreSortBy,
     modifier: Modifier = Modifier,
 ) {
     when {
