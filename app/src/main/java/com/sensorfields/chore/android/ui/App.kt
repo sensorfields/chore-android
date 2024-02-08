@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.sensorfields.chore.android.ui.chore.create.choreCreate
+import com.sensorfields.chore.android.ui.chore.view.choreView
 import com.sensorfields.chore.android.ui.home.HOME_ROUTE
 import com.sensorfields.chore.android.ui.home.home
 
@@ -24,6 +25,7 @@ fun App() {
         NavHost(navController = navController, startDestination = HOME_ROUTE) {
             home(navController)
             choreCreate(navController)
+            choreView(navController)
         }
     }
 }

@@ -8,6 +8,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.sensorfields.chore.android.ui.chore.create.getChoreCreateResult
 import com.sensorfields.chore.android.ui.chore.create.navigateToChoreCreate
+import com.sensorfields.chore.android.ui.chore.view.navigateToChoreView
 
 const val HOME_ROUTE = "home"
 
@@ -21,9 +22,7 @@ fun NavGraphBuilder.home(navController: NavController) {
             actions = viewModel.actions,
             onScreenChange = viewModel::onScreenChange,
             onCreateChoreClick = navController::navigateToChoreCreate,
-            onChoreClick = {
-                // TODO navigate to chore view
-            }
+            onChoreClick = { navController.navigateToChoreView(it) }
         )
     }
 }
