@@ -14,7 +14,7 @@ fun NavGraphBuilder.choreCreate(navController: NavController) {
         val state by viewModel.state.collectAsStateWithLifecycle()
         ChoreCreateScreen(
             state = state,
-            action = viewModel.action,
+            actions = viewModel.action,
             onUpClick = navController::navigateUp,
             onScreenChange = viewModel::onScreenChange,
             onNameChange = viewModel::onNameChange,

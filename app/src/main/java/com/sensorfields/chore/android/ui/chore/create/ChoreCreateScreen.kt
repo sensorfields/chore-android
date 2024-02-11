@@ -15,7 +15,6 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -33,18 +32,16 @@ import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.Navigate
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhere
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
 import com.sensorfields.chore.android.ui.getErrorMessage
+import com.sensorfields.chore.android.utils.FlowCollectEffect
+import com.sensorfields.chore.android.utils.FlowCollectLatestEffect
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.launch
-import logcat.asLog
-import logcat.logcat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChoreCreateScreen(
     state: ChoreCreateState,
-    action: Flow<ChoreCreateAction>,
+    actions: Flow<ChoreCreateAction>,
     onUpClick: () -> Unit,
     onScreenChange: (Screen) -> Unit,
     onNameChange: (String) -> Unit,
@@ -57,28 +54,19 @@ fun ChoreCreateScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
 
-    LaunchedEffect(Unit) {
-        launch {
-            navController.currentBackStackEntryFlow.collectLatest {
-                try {
-                    it.destination.route?.let { route -> onScreenChange(Screen.valueOf(route)) }
-                } catch (e: Exception) {
-                    logcat { e.asLog() }
-                }
-            }
-        }
-        launch {
-            action.collect { action ->
-                when (action) {
-                    NavigateToWhen -> navController.navigate(Screen.WHEN.name)
-                    NavigateToWhere -> navController.navigate(Screen.WHERE.name)
-                    Finish -> onFinish()
-                    is ShowError -> {
-                        snackbarHostState.showSnackbar(
-                            message = context.getErrorMessage(action.error)
-                        )
-                    }
-                }
+    FlowCollectLatestEffect(navController.currentBackStackEntryFlow) {
+        it.destination.route?.let { route -> onScreenChange(Screen.valueOf(route)) }
+    }
+
+    FlowCollectEffect(actions) { action ->
+        when (action) {
+            NavigateToWhen -> navController.navigate(Screen.WHEN.name)
+            NavigateToWhere -> navController.navigate(Screen.WHERE.name)
+            Finish -> onFinish()
+            is ShowError -> {
+                snackbarHostState.showSnackbar(
+                    message = context.getErrorMessage(action.error)
+                )
             }
         }
     }
@@ -147,7 +135,7 @@ enum class Screen {
 private fun Preview() {
     ChoreCreateScreen(
         state = ChoreCreateState(),
-        action = emptyFlow(),
+        actions = emptyFlow(),
         onUpClick = {},
         onScreenChange = {},
         onNameChange = {},

@@ -22,7 +22,7 @@ fun NavGraphBuilder.home(navController: NavController) {
             actions = viewModel.actions,
             onScreenChange = viewModel::onScreenChange,
             onCreateChoreClick = navController::navigateToChoreCreate,
-            onChoreClick = { navController.navigateToChoreView(it) }
+            onChoreClick = navController::navigateToChoreView
         )
     }
 }
