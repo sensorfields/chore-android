@@ -3,18 +3,15 @@ package com.sensorfields.chore.android.ui.home
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.sensorfields.chore.android.ui.chore.create.getChoreCreateResult
-import com.sensorfields.chore.android.ui.chore.create.navigateToChoreCreate
-import com.sensorfields.chore.android.ui.chore.view.navigateToChoreView
 import com.sensorfields.chore.android.utils.FlowCollectEffect
 import logcat.logcat
 
 const val HOME_ROUTE = "home"
 
-fun NavGraphBuilder.home(navController: NavController) {
+fun NavGraphBuilder.home() {
     composable(route = HOME_ROUTE) { backStackEntry ->
         val viewModel = hiltViewModel<HomeViewModel>()
         FlowCollectEffect(backStackEntry.getChoreCreateResult()) {
@@ -24,9 +21,7 @@ fun NavGraphBuilder.home(navController: NavController) {
         HomeScreen(
             state = state,
             actions = viewModel.actions,
-            onScreenChange = viewModel::onScreenChange,
-            onCreateChoreClick = navController::navigateToChoreCreate,
-            onChoreClick = navController::navigateToChoreView
+            onScreenChange = viewModel::onScreenChange
         )
     }
 }

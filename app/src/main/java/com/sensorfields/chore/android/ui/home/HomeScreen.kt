@@ -7,7 +7,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Dashboard
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -33,14 +32,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.emptyFlow
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     state: HomeState,
     actions: Flow<HomeAction>,
     onScreenChange: (HomeState.Screen) -> Unit,
-    onCreateChoreClick: () -> Unit,
-    onChoreClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val navController = rememberNavController()
@@ -63,10 +59,7 @@ fun HomeScreen(
                 .fillMaxWidth()
                 .weight(1f)
         ) {
-            dashboard(
-                onCreateChoreClick = onCreateChoreClick,
-                onChoreClick = onChoreClick
-            )
+            dashboard()
             history()
             settings()
         }
@@ -124,8 +117,6 @@ private fun Preview() {
     HomeScreen(
         state = HomeState(),
         actions = emptyFlow(),
-        onScreenChange = {},
-        onCreateChoreClick = {},
-        onChoreClick = {}
+        onScreenChange = {}
     )
 }

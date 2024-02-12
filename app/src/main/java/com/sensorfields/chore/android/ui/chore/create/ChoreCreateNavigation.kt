@@ -8,24 +8,26 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.sensorfields.chore.android.ui.LocalAppNavController
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onEach
 
-fun NavGraphBuilder.choreCreate(navController: NavController) {
+fun NavGraphBuilder.choreCreate() {
     composable(route = ROUTE) {
+        val appNavController = LocalAppNavController.current
         val viewModel = hiltViewModel<ChoreCreateViewModel>()
         val state by viewModel.state.collectAsStateWithLifecycle()
         ChoreCreateScreen(
             state = state,
             actions = viewModel.action,
-            onUpClick = navController::navigateUp,
+            onUpClick = appNavController::navigateUp,
             onScreenChange = viewModel::onScreenChange,
             onNameChange = viewModel::onNameChange,
             onDateChange = viewModel::onDateChange,
             onNextClick = viewModel::onNextClick,
             onFinish = {
-                navController.previousBackStackEntry?.savedStateHandle?.set(RESULT, true)
-                navController.navigateUp()
+                appNavController.previousBackStackEntry?.savedStateHandle?.set(RESULT, true)
+                appNavController.navigateUp()
             }
         )
     }

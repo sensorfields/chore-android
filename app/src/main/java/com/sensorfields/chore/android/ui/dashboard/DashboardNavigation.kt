@@ -5,21 +5,22 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.sensorfields.chore.android.ui.LocalAppNavController
+import com.sensorfields.chore.android.ui.chore.create.navigateToChoreCreate
+import com.sensorfields.chore.android.ui.chore.view.navigateToChoreView
 
 const val DASHBOARD_ROUTE = "dashboard"
 
-fun NavGraphBuilder.dashboard(
-    onCreateChoreClick: () -> Unit,
-    onChoreClick: (String) -> Unit,
-) {
+fun NavGraphBuilder.dashboard() {
     composable(route = DASHBOARD_ROUTE) {
+        val appNavController = LocalAppNavController.current
         val viewModel = hiltViewModel<DashboardViewModel>()
         val state by viewModel.state.collectAsStateWithLifecycle()
         DashboardScreen(
             state = state,
             onChoreSortByClick = viewModel::onChoreSortByClick,
-            onCreateChoreClick = onCreateChoreClick,
-            onChoreClick = onChoreClick
+            onCreateChoreClick = appNavController::navigateToChoreCreate,
+            onChoreClick = appNavController::navigateToChoreView
         )
     }
 }
