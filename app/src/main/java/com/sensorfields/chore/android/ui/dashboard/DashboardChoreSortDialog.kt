@@ -12,11 +12,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sensorfields.chore.android.R
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,9 +29,21 @@ fun DashboardChoreSortDialog(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val coroutineScope = rememberCoroutineScope()
+    val sheetState = rememberModalBottomSheetState()
+
+    fun onClick(sortBy: DashboardState.ChoreSortBy) {
+        coroutineScope.launch {
+            onSortByClick(sortBy)
+            sheetState.hide()
+            onDismissRequest()
+        }
+    }
+
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
-        modifier = modifier
+        modifier = modifier,
+        sheetState = sheetState
     ) {
         ListItem(
             headlineContent = { Text(stringResource(R.string.dashboard_chore_sort_title)) }
@@ -36,7 +51,7 @@ fun DashboardChoreSortDialog(
         HorizontalDivider()
         ListItem(
             headlineContent = { Text(stringResource(R.string.dashboard_chore_sort_name)) },
-            modifier = Modifier.clickable { onSortByClick(DashboardState.ChoreSortBy.NAME) },
+            modifier = Modifier.clickable { onClick(DashboardState.ChoreSortBy.NAME) },
             leadingContent = {
                 AscendingIcon(
                     sort = sort,
@@ -46,7 +61,7 @@ fun DashboardChoreSortDialog(
         )
         ListItem(
             headlineContent = { Text(stringResource(R.string.dashboard_chore_sort_date)) },
-            modifier = Modifier.clickable { onSortByClick(DashboardState.ChoreSortBy.DATE) },
+            modifier = Modifier.clickable { onClick(DashboardState.ChoreSortBy.DATE) },
             leadingContent = {
                 AscendingIcon(
                     sort = sort,

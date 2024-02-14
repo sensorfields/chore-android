@@ -6,10 +6,13 @@ import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.domain.usecases.ObserveChoresUseCase
 import com.sensorfields.chore.android.ui.dashboard.DashboardAction.ShowChoreCreatedMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -26,7 +29,8 @@ class DashboardViewModel @Inject constructor(
     private val _actions = Channel<DashboardAction>(capacity = Channel.UNLIMITED)
     val actions = _actions.receiveAsFlow()
 
-    private var choreSort: DashboardState.ChoreSort = state.value.choreSort
+    private var choreSort: MutableStateFlow<DashboardState.ChoreSort> =
+        MutableStateFlow(state.value.choreSort)
     private var chores: List<Chore> = emptyList()
 
     init {
@@ -38,22 +42,24 @@ class DashboardViewModel @Inject constructor(
     }
 
     fun onChoreSortByClick(sortBy: DashboardState.ChoreSortBy) {
-        choreSort = if (choreSort.sortBy == sortBy) {
-            choreSort.copy(isAscending = !choreSort.isAscending)
-        } else {
-            DashboardState.ChoreSort(
-                sortBy = sortBy,
-                isAscending = when (sortBy) {
-                    DashboardState.ChoreSortBy.NAME -> true
-                    DashboardState.ChoreSortBy.DATE -> false
-                }
-            )
+        choreSort.getAndUpdate { current ->
+            if (current.sortBy == sortBy) {
+                current.copy(isAscending = !current.isAscending)
+            } else {
+                DashboardState.ChoreSort(
+                    sortBy = sortBy,
+                    isAscending = when (sortBy) {
+                        DashboardState.ChoreSortBy.NAME -> true
+                        DashboardState.ChoreSortBy.DATE -> false
+                    }
+                )
+            }
         }
-        updateState()
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     private fun observeChores() = viewModelScope.launch {
-        observeChoresUseCase().collectLatest {
+        choreSort.flatMapLatest { observeChoresUseCase(sort = it) }.collectLatest {
             chores = it
             updateState()
         }
@@ -62,7 +68,7 @@ class DashboardViewModel @Inject constructor(
     private fun updateState() {
         _state.update {
             it.copy(
-                choreSort = choreSort,
+                choreSort = choreSort.value,
                 chores = chores.toState()
             )
         }
