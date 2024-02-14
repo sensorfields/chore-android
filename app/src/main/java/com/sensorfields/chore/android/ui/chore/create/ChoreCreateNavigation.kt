@@ -1,15 +1,16 @@
 package com.sensorfields.chore.android.ui.chore.create
 
+import android.annotation.SuppressLint
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.sensorfields.chore.android.ui.LocalAppNavController
-import kotlinx.coroutines.flow.Flow
+import com.sensorfields.chore.android.utils.FlowCollectEffect
 import kotlinx.coroutines.flow.onEach
 
 fun NavGraphBuilder.choreCreate() {
@@ -37,9 +38,14 @@ fun NavController.navigateToChoreCreate() {
     navigate(ROUTE)
 }
 
-fun NavBackStackEntry.getChoreCreateResult(): Flow<Boolean> {
-    return savedStateHandle.getLiveData<Boolean>(RESULT).asFlow()
-        .onEach { savedStateHandle.remove<Boolean>(RESULT) }
+@SuppressLint("ComposableNaming")
+@Composable
+fun NavController.onChoreCreateResult(onResult: (Boolean) -> Unit) {
+    FlowCollectEffect(
+        currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(RESULT)?.asFlow()
+            ?.onEach { currentBackStackEntry?.savedStateHandle?.remove<Boolean>(RESULT) },
+        onResult
+    )
 }
 
 private const val ROUTE = "chore/create"
