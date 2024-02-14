@@ -23,35 +23,36 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.sensorfields.chore.android.R
+import com.sensorfields.chore.android.ui.dashboard.DashboardAction.ShowChoreCreatedMessage
+import com.sensorfields.chore.android.utils.FlowCollectEffect
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashboardScreen(
     state: DashboardState,
+    actions: Flow<DashboardAction>,
     onChoreSortByClick: (DashboardState.ChoreSortBy) -> Unit,
     onCreateChoreClick: () -> Unit,
     onChoreClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
     var isChoreSortDialogVisible by remember { mutableStateOf(false) }
 
-    // TODO snackbar
-//    val context = LocalContext.current
-//    LaunchedEffect(Unit) {
-//        actions.collect { action ->
-//            when (action) {
-//                HomeAction.ShowChoreCreatedMessage -> {
-//                    snackbarHostState.showSnackbar(
-//                        context.getString(R.string.home_chore_created_message)
-//                    )
-//                }
-//            }
-//        }
-//    }
+    FlowCollectEffect(actions) { action ->
+        when (action) {
+            ShowChoreCreatedMessage -> snackbarHostState.showSnackbar(
+                message = context.getString(R.string.dashboard_chore_created_message)
+            )
+        }
+    }
 
     if (isChoreSortDialogVisible) {
         DashboardChoreSortDialog(
@@ -65,12 +66,12 @@ fun DashboardScreen(
         modifier = modifier.fillMaxSize(),
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text(stringResource(R.string.home_title_dashboard)) },
+                title = { Text(stringResource(R.string.dashboard_title)) },
                 actions = {
                     IconButton(onClick = { isChoreSortDialogVisible = true }) {
                         Icon(
                             Icons.AutoMirrored.Default.Sort,
-                            contentDescription = stringResource(R.string.home_sort_button)
+                            contentDescription = stringResource(R.string.dashboard_sort_button)
                         )
                     }
                 }
@@ -81,7 +82,7 @@ fun DashboardScreen(
             FloatingActionButton(onClick = onCreateChoreClick) {
                 Icon(
                     Icons.Default.Add,
-                    contentDescription = stringResource(R.string.home_chore_create_button)
+                    contentDescription = stringResource(R.string.dashboard_chore_create_button)
                 )
             }
         }
@@ -107,6 +108,7 @@ fun DashboardScreen(
 private fun Preview() {
     DashboardScreen(
         state = DashboardState(),
+        actions = emptyFlow(),
         onChoreSortByClick = {},
         onCreateChoreClick = {},
         onChoreClick = {}

@@ -31,11 +31,11 @@ fun DashboardChoreSortDialog(
         modifier = modifier
     ) {
         ListItem(
-            headlineContent = { Text(stringResource(R.string.home_chore_sort_title)) }
+            headlineContent = { Text(stringResource(R.string.dashboard_chore_sort_title)) }
         )
         HorizontalDivider()
         ListItem(
-            headlineContent = { Text(stringResource(R.string.home_chore_sort_name)) },
+            headlineContent = { Text(stringResource(R.string.dashboard_chore_sort_name)) },
             modifier = Modifier.clickable { onSortByClick(DashboardState.ChoreSortBy.NAME) },
             leadingContent = {
                 AscendingIcon(
@@ -45,7 +45,7 @@ fun DashboardChoreSortDialog(
             }
         )
         ListItem(
-            headlineContent = { Text(stringResource(R.string.home_chore_sort_date)) },
+            headlineContent = { Text(stringResource(R.string.dashboard_chore_sort_date)) },
             modifier = Modifier.clickable { onSortByClick(DashboardState.ChoreSortBy.DATE) },
             leadingContent = {
                 AscendingIcon(
@@ -67,7 +67,7 @@ private fun AscendingIcon(
         sort.sortBy == sortBy && sort.isAscending -> {
             Icon(
                 Icons.Default.ArrowUpward,
-                contentDescription = stringResource(R.string.home_chore_sort_ascending),
+                contentDescription = stringResource(R.string.dashboard_chore_sort_ascending),
                 modifier = modifier
             )
         }
@@ -75,7 +75,7 @@ private fun AscendingIcon(
         sort.sortBy == sortBy -> {
             Icon(
                 Icons.Default.ArrowDownward,
-                contentDescription = stringResource(R.string.home_chore_sort_descending),
+                contentDescription = stringResource(R.string.dashboard_chore_sort_descending),
                 modifier = modifier
             )
         }

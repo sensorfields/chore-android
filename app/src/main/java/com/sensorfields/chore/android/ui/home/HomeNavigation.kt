@@ -14,7 +14,6 @@ fun NavGraphBuilder.home() {
         val state by viewModel.state.collectAsStateWithLifecycle()
         HomeScreen(
             state = state,
-            actions = viewModel.actions,
             onScreenChange = viewModel::onScreenChange
         )
     }

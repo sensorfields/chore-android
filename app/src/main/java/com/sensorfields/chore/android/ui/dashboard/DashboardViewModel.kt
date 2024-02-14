@@ -4,10 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.domain.usecases.ObserveChoresUseCase
+import com.sensorfields.chore.android.ui.dashboard.DashboardAction.ShowChoreCreatedMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,11 +23,18 @@ class DashboardViewModel @Inject constructor(
     private val _state = MutableStateFlow(DashboardState())
     val state = _state.asStateFlow()
 
+    private val _actions = Channel<DashboardAction>(capacity = Channel.UNLIMITED)
+    val actions = _actions.receiveAsFlow()
+
     private var choreSort: DashboardState.ChoreSort = state.value.choreSort
     private var chores: List<Chore> = emptyList()
 
     init {
         observeChores()
+    }
+
+    fun onChoreCreateResult(result: Boolean) {
+        _actions.trySend(ShowChoreCreatedMessage)
     }
 
     fun onChoreSortByClick(sortBy: DashboardState.ChoreSortBy) {

@@ -28,14 +28,11 @@ import com.sensorfields.chore.android.ui.history.HISTORY_ROUTE
 import com.sensorfields.chore.android.ui.history.history
 import com.sensorfields.chore.android.ui.settings.SETTINGS_ROUTE
 import com.sensorfields.chore.android.ui.settings.settings
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.emptyFlow
 
 @Composable
 fun HomeScreen(
     state: HomeState,
-    actions: Flow<HomeAction>,
     onScreenChange: (HomeState.Screen) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -116,7 +113,6 @@ private fun NavBackStackEntry?.isSelected(route: String): Boolean {
 private fun Preview() {
     HomeScreen(
         state = HomeState(),
-        actions = emptyFlow(),
         onScreenChange = {}
     )
 }

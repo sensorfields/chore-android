@@ -9,7 +9,6 @@ import com.sensorfields.chore.android.ui.LocalAppNavController
 import com.sensorfields.chore.android.ui.chore.create.navigateToChoreCreate
 import com.sensorfields.chore.android.ui.chore.create.onChoreCreateResult
 import com.sensorfields.chore.android.ui.chore.view.navigateToChoreView
-import logcat.logcat
 
 const val DASHBOARD_ROUTE = "dashboard"
 
@@ -18,13 +17,12 @@ fun NavGraphBuilder.dashboard() {
         val appNavController = LocalAppNavController.current
         val viewModel = hiltViewModel<DashboardViewModel>()
 
-        appNavController.onChoreCreateResult {
-            logcat { "Chore Create Result: $it" }
-        }
+        appNavController.onChoreCreateResult(viewModel::onChoreCreateResult)
 
         val state by viewModel.state.collectAsStateWithLifecycle()
         DashboardScreen(
             state = state,
+            actions = viewModel.actions,
             onChoreSortByClick = viewModel::onChoreSortByClick,
             onCreateChoreClick = appNavController::navigateToChoreCreate,
             onChoreClick = appNavController::navigateToChoreView
