@@ -25,7 +25,7 @@ google-services = "4.4.1"
 google-android-material = "1.11.0"
 
 firebase-crashlytics-plugin = "2.9.9"
-firebase-bom = "32.7.1"
+firebase-bom = "32.7.2"
 
 detekt = "1.23.5"
 detekt-plugin-twitter-compose = "0.0.26"
