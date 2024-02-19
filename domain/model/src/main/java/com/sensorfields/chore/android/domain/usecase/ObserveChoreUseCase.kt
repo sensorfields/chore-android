@@ -1,8 +1,8 @@
-package com.sensorfields.chore.android.domain.usecases
+package com.sensorfields.chore.android.domain.usecase
 
 import com.sensorfields.chore.android.data.realm.entities.ChoreEntity
+import com.sensorfields.chore.android.domain.mapper.toModel
 import com.sensorfields.chore.android.domain.model.Chore
-import com.sensorfields.chore.android.mappers.toModel
 import dagger.Reusable
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
@@ -12,10 +12,10 @@ import org.mongodb.kbson.ObjectId
 import javax.inject.Inject
 
 @Reusable
-class ObserveChoreUseCase @Inject constructor(
+public class ObserveChoreUseCase @Inject constructor(
     private val realm: Realm,
 ) {
-    operator fun invoke(choreId: String): Flow<Result<Chore>> {
+    public operator fun invoke(choreId: String): Flow<Result<Chore>> {
         return realm
             .query<ChoreEntity>("_id == $0", ObjectId(choreId))
             .first()

@@ -3,7 +3,7 @@ package com.sensorfields.chore.android.ui.dashboard
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sensorfields.chore.android.domain.model.Chore
-import com.sensorfields.chore.android.domain.usecases.ObserveChoresUseCase
+import com.sensorfields.chore.android.domain.usecase.ObserveChoresUseCase
 import com.sensorfields.chore.android.ui.dashboard.DashboardAction.ShowChoreCreatedMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -41,7 +41,7 @@ class DashboardViewModel @Inject constructor(
         _actions.trySend(ShowChoreCreatedMessage)
     }
 
-    fun onChoreSortByClick(sortBy: DashboardState.ChoreSortBy) {
+    fun onChoreSortByClick(sortBy: Chore.SortProperty) {
         choreSort.getAndUpdate { current ->
             if (current.sortBy == sortBy) {
                 current.copy(isAscending = !current.isAscending)
@@ -49,8 +49,8 @@ class DashboardViewModel @Inject constructor(
                 DashboardState.ChoreSort(
                     sortBy = sortBy,
                     isAscending = when (sortBy) {
-                        DashboardState.ChoreSortBy.NAME -> true
-                        DashboardState.ChoreSortBy.DATE -> false
+                        Chore.SortProperty.NAME -> true
+                        Chore.SortProperty.DATE -> false
                     }
                 )
             }
@@ -59,17 +59,21 @@ class DashboardViewModel @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     private fun observeChores() = viewModelScope.launch {
-        choreSort.flatMapLatest { observeChoresUseCase(sort = it) }.collectLatest {
-            chores = it
-            updateState()
-        }
+        choreSort
+            .flatMapLatest {
+                observeChoresUseCase(sortBy = it.sortBy, isAscending = it.isAscending)
+            }
+            .collectLatest {
+                chores = it
+                updateState()
+            }
     }
 
     private fun updateState() {
         _state.update {
             it.copy(
                 choreSort = choreSort.value,
-                chores = chores.toState()
+                choreItems = chores.toState()
             )
         }
     }

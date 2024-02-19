@@ -19,20 +19,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sensorfields.chore.android.R
+import com.sensorfields.chore.android.domain.model.Chore
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashboardChoreSortDialog(
     sort: DashboardState.ChoreSort,
-    onSortByClick: (DashboardState.ChoreSortBy) -> Unit,
+    onSortByClick: (Chore.SortProperty) -> Unit,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val coroutineScope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState()
 
-    fun onClick(sortBy: DashboardState.ChoreSortBy) {
+    fun onClick(sortBy: Chore.SortProperty) {
         coroutineScope.launch {
             onSortByClick(sortBy)
             sheetState.hide()
@@ -51,21 +52,21 @@ fun DashboardChoreSortDialog(
         HorizontalDivider()
         ListItem(
             headlineContent = { Text(stringResource(R.string.dashboard_chore_sort_name)) },
-            modifier = Modifier.clickable { onClick(DashboardState.ChoreSortBy.NAME) },
+            modifier = Modifier.clickable { onClick(Chore.SortProperty.NAME) },
             leadingContent = {
                 AscendingIcon(
                     sort = sort,
-                    sortBy = DashboardState.ChoreSortBy.NAME
+                    sortBy = Chore.SortProperty.NAME
                 )
             }
         )
         ListItem(
             headlineContent = { Text(stringResource(R.string.dashboard_chore_sort_date)) },
-            modifier = Modifier.clickable { onClick(DashboardState.ChoreSortBy.DATE) },
+            modifier = Modifier.clickable { onClick(Chore.SortProperty.DATE) },
             leadingContent = {
                 AscendingIcon(
                     sort = sort,
-                    sortBy = DashboardState.ChoreSortBy.DATE
+                    sortBy = Chore.SortProperty.DATE
                 )
             }
         )
@@ -75,7 +76,7 @@ fun DashboardChoreSortDialog(
 @Composable
 private fun AscendingIcon(
     sort: DashboardState.ChoreSort,
-    sortBy: DashboardState.ChoreSortBy,
+    sortBy: Chore.SortProperty,
     modifier: Modifier = Modifier,
 ) {
     when {

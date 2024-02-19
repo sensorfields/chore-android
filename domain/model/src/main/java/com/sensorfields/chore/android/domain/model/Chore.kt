@@ -6,4 +6,6 @@ public data class Chore(
     val id: String,
     val name: String,
     val date: Instant?,
-)
+) {
+    public enum class SortProperty { NAME, DATE }
+}

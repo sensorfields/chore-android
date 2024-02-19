@@ -10,6 +10,9 @@ plugins {
 android {
     namespace = "com.sensorfields.chore.android.data.realm"
     compileSdk = 34
+    defaultConfig {
+        minSdk = 29
+    }
 }
 
 kotlin {
@@ -22,6 +25,7 @@ detekt {
 }
 
 dependencies {
+    coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
     implementation(libs.google.hilt.android)
     kapt(libs.google.hilt.compiler)
     api(libs.realm.library.base)

@@ -27,6 +27,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.sensorfields.chore.android.R
+import com.sensorfields.chore.android.domain.model.Chore
 import com.sensorfields.chore.android.ui.dashboard.DashboardAction.ShowChoreCreatedMessage
 import com.sensorfields.chore.android.utils.FlowCollectEffect
 import kotlinx.coroutines.flow.Flow
@@ -37,7 +38,7 @@ import kotlinx.coroutines.flow.emptyFlow
 fun DashboardScreen(
     state: DashboardState,
     actions: Flow<DashboardAction>,
-    onChoreSortByClick: (DashboardState.ChoreSortBy) -> Unit,
+    onChoreSortByClick: (Chore.SortProperty) -> Unit,
     onCreateChoreClick: () -> Unit,
     onChoreClick: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -93,7 +94,7 @@ fun DashboardScreen(
                 .consumeWindowInsets(innerPadding)
                 .padding(innerPadding)
         ) {
-            items(state.chores, key = { it.id }) { itemState ->
+            items(state.choreItems, key = { it.id }) { itemState ->
                 DashboardChoreItem(
                     state = itemState,
                     onClick = { onChoreClick(itemState.id) }

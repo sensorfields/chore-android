@@ -1,17 +1,17 @@
-package com.sensorfields.chore.android.domain.usecases
+package com.sensorfields.chore.android.domain.usecase
 
 import com.sensorfields.chore.android.data.realm.entities.ChoreEntity
-import com.sensorfields.chore.android.mappers.toRealmInstant
+import com.sensorfields.chore.android.domain.mapper.toRealmInstant
 import dagger.Reusable
 import io.realm.kotlin.Realm
 import java.time.Instant
 import javax.inject.Inject
 
 @Reusable
-class CreateChoreUseCase @Inject constructor(
+public class CreateChoreUseCase @Inject constructor(
     private val realm: Realm,
 ) {
-    suspend operator fun invoke(name: String, date: Instant?): Result {
+    public suspend operator fun invoke(name: String, date: Instant?): Result {
         return try {
             realm.write {
                 copyToRealm(ChoreEntity().apply {
@@ -25,8 +25,8 @@ class CreateChoreUseCase @Inject constructor(
         }
     }
 
-    sealed interface Result {
-        data object Success : Result
-        data class Failure(val error: Exception) : Result
+    public sealed interface Result {
+        public data object Success : Result
+        public data class Failure(val error: Exception) : Result
     }
 }

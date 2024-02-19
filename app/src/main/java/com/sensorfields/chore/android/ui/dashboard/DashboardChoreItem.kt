@@ -12,7 +12,7 @@ import java.time.Instant
 
 @Composable
 fun DashboardChoreItem(
-    state: DashboardState.Chore,
+    state: DashboardState.ChoreItem,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -28,7 +28,7 @@ fun DashboardChoreItem(
 @Composable
 private fun Preview() {
     DashboardChoreItem(
-        state = DashboardState.Chore(
+        state = DashboardState.ChoreItem(
             id = "one",
             name = "Some Chore that needs to be done",
             date = Instant.parse("1988-02-13T13:00:00Z")

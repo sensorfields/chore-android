@@ -7,17 +7,16 @@ import kotlinx.collections.immutable.toImmutableList
 import java.time.Instant
 
 data class DashboardState(
-    val choreSort: ChoreSort = ChoreSort(sortBy = ChoreSortBy.NAME, isAscending = true),
-    val chores: ImmutableList<Chore> = persistentListOf(),
+    val choreSort: ChoreSort = ChoreSort(sortBy = Chore.SortProperty.NAME, isAscending = true),
+    val choreItems: ImmutableList<ChoreItem> = persistentListOf(),
 ) {
-    enum class ChoreSortBy { NAME, DATE }
-    data class ChoreSort(val sortBy: ChoreSortBy, val isAscending: Boolean)
-    data class Chore(val id: String, val name: String, val date: Instant?)
+    data class ChoreSort(val sortBy: Chore.SortProperty, val isAscending: Boolean)
+    data class ChoreItem(val id: String, val name: String, val date: Instant?)
 }
 
-fun List<Chore>.toState(): ImmutableList<DashboardState.Chore> {
+fun List<Chore>.toState(): ImmutableList<DashboardState.ChoreItem> {
     return map {
-        DashboardState.Chore(
+        DashboardState.ChoreItem(
             id = it.id,
             name = it.name,
             date = it.date
