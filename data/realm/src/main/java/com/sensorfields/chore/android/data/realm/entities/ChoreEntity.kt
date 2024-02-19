@@ -7,13 +7,13 @@ import io.realm.kotlin.types.annotations.PrimaryKey
 import org.mongodb.kbson.ObjectId
 
 @PersistedName("Chore")
-class ChoreEntity : RealmObject {
+public class ChoreEntity : RealmObject {
 
     @PrimaryKey
     @PersistedName("_id")
-    var id: ObjectId = ObjectId()
+    public var id: ObjectId = ObjectId()
 
-    var name: String = ""
+    public var name: String = ""
 
-    var date: RealmInstant? = null
+    public var date: RealmInstant? = null
 }

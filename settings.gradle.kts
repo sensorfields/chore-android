@@ -15,5 +15,7 @@ dependencyResolutionManagement {
     }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 rootProject.name = "chore-android"
-include(":app")
+include(":data:realm", ":app")

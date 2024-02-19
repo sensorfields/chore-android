@@ -1,4 +1,4 @@
-package com.sensorfields.chore.android
+package com.sensorfields.chore.android.data.realm
 
 import com.sensorfields.chore.android.data.realm.entities.ChoreEntity
 import dagger.Module
@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object ApplicationModule {
+internal object DataRealmModule {
 
     @Provides
     @Singleton

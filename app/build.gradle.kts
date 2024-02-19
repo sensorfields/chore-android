@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.detekt)
-    alias(libs.plugins.realm)
 }
 
 android {
@@ -52,6 +51,8 @@ detekt {
 }
 
 dependencies {
+    implementation(projects.data.realm)
+
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
 
     detektPlugins(libs.detekt.plugin.twitter.compose)
@@ -95,7 +96,6 @@ dependencies {
     implementation(libs.firebase.messagingKtx)
 
     implementation(libs.logcat)
-    implementation(libs.realm.library.base)
     implementation(libs.coil.coil)
     implementation(libs.coil.compose)
 }
