@@ -1,7 +1,7 @@
 package com.sensorfields.chore.android.domain.usecases
 
 import com.sensorfields.chore.android.data.realm.entities.ChoreEntity
-import com.sensorfields.chore.android.domain.models.Chore
+import com.sensorfields.chore.android.domain.model.Chore
 import com.sensorfields.chore.android.mappers.toModel
 import dagger.Reusable
 import io.realm.kotlin.Realm

@@ -1,7 +1,7 @@
 package com.sensorfields.chore.android.mappers
 
 import com.sensorfields.chore.android.data.realm.entities.ChoreEntity
-import com.sensorfields.chore.android.domain.models.Chore
+import com.sensorfields.chore.android.domain.model.Chore
 
 fun List<ChoreEntity>.toModels(): List<Chore> = map { it.toModel() }
 

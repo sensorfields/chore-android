@@ -52,6 +52,7 @@ detekt {
 
 dependencies {
     implementation(projects.data.realm)
+    implementation(projects.domain.model)
 
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
 

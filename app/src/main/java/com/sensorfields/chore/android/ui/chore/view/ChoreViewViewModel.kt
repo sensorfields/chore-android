@@ -3,7 +3,7 @@ package com.sensorfields.chore.android.ui.chore.view
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sensorfields.chore.android.domain.models.Chore
+import com.sensorfields.chore.android.domain.model.Chore
 import com.sensorfields.chore.android.domain.usecases.ObserveChoreUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

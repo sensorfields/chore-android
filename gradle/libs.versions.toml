@@ -37,6 +37,7 @@ coil = "2.5.0"
 android-application = { id = "com.android.application", version.ref = "android-tools-build" }
 android-library = { id = "com.android.library", version.ref = "android-tools-build" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 google-hilt = { id = "com.google.dagger.hilt.android", version.ref = "google-hilt" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }

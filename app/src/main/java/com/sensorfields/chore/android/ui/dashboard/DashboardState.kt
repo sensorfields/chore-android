@@ -1,6 +1,6 @@
 package com.sensorfields.chore.android.ui.dashboard
 
-import com.sensorfields.chore.android.domain.models.Chore
+import com.sensorfields.chore.android.domain.model.Chore
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
