@@ -40,7 +40,7 @@ fun DashboardScreen(
     actions: Flow<DashboardAction>,
     onChoreSortByClick: (Chore.SortProperty) -> Unit,
     onCreateChoreClick: () -> Unit,
-    onChoreClick: (String) -> Unit,
+    onChoreClick: (Chore.Id) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
@@ -94,7 +94,7 @@ fun DashboardScreen(
                 .consumeWindowInsets(innerPadding)
                 .padding(innerPadding)
         ) {
-            items(state.choreItems, key = { it.id }) { itemState ->
+            items(state.choreItems, key = { it.id.value }) { itemState ->
                 DashboardChoreItem(
                     state = itemState,
                     onClick = { onChoreClick(itemState.id) }

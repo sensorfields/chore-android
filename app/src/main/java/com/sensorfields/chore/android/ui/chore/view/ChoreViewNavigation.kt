@@ -10,6 +10,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.sensorfields.chore.android.domain.model.Chore
 import com.sensorfields.chore.android.ui.LocalAppNavController
 
 fun NavGraphBuilder.choreView() {
@@ -29,17 +30,19 @@ fun NavGraphBuilder.choreView() {
     }
 }
 
-fun NavController.navigateToChoreView(choreId: String) {
+fun NavController.navigateToChoreView(choreId: Chore.Id) {
     navigate(
         Uri.Builder()
             .path(PREFIX)
-            .appendPath(choreId)
+            .appendPath(choreId.value)
             .build()
             .toString()
     )
 }
 
-fun SavedStateHandle.getChoreViewId(): String = get(ID) ?: error("$ID not provided")
+fun SavedStateHandle.getChoreViewId(): Chore.Id {
+    return get<String>(ID)?.let { Chore.Id(it) } ?: error("$ID not provided")
+}
 
 private const val PREFIX = "chore/view"
 private const val ID = "id"

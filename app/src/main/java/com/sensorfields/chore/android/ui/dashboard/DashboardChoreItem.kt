@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import com.sensorfields.chore.android.domain.model.Chore
 import com.sensorfields.chore.android.utils.formatDate
 import java.time.Instant
 
@@ -29,7 +30,7 @@ fun DashboardChoreItem(
 private fun Preview() {
     DashboardChoreItem(
         state = DashboardState.ChoreItem(
-            id = "one",
+            id = Chore.Id("one"),
             name = "Some Chore that needs to be done",
             date = Instant.parse("1988-02-13T13:00:00Z")
         ),
