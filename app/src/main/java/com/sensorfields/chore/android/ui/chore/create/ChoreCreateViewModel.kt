@@ -2,7 +2,7 @@ package com.sensorfields.chore.android.ui.chore.create
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sensorfields.chore.android.domain.usecase.CreateChoreUseCase
+import com.sensorfields.chore.android.domain.usecases.CreateChoreUseCase
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.Finish
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhen
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhere

@@ -1,4 +1,4 @@
-package com.sensorfields.chore.android.domain.mapper
+package com.sensorfields.chore.android.domain.mappers
 
 import io.realm.kotlin.types.RealmInstant
 import java.time.Instant

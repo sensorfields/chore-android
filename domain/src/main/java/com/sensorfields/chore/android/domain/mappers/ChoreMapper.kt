@@ -1,7 +1,7 @@
-package com.sensorfields.chore.android.domain.mapper
+package com.sensorfields.chore.android.domain.mappers
 
 import com.sensorfields.chore.android.data.realm.entities.ChoreEntity
-import com.sensorfields.chore.android.domain.model.Chore
+import com.sensorfields.chore.android.domain.models.Chore
 import org.mongodb.kbson.ObjectId
 
 public fun ObjectId.toChoreId(): Chore.Id = Chore.Id(toHexString())

@@ -10,7 +10,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.sensorfields.chore.android.domain.model.Chore
+import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.ui.LocalAppNavController
 
 fun NavGraphBuilder.choreView() {

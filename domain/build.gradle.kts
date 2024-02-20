@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.sensorfields.chore.android.domain.model"
+    namespace = "com.sensorfields.chore.android.domain"
     compileSdk = 34
     defaultConfig {
         minSdk = 29

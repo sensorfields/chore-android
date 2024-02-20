@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sensorfields.chore.android.R
-import com.sensorfields.chore.android.domain.model.Chore
+import com.sensorfields.chore.android.domain.models.Chore
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)

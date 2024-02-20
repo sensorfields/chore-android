@@ -1,7 +1,7 @@
-package com.sensorfields.chore.android.domain.usecase
+package com.sensorfields.chore.android.domain.usecases
 
 import com.sensorfields.chore.android.data.realm.entities.ChoreEntity
-import com.sensorfields.chore.android.domain.mapper.toRealmInstant
+import com.sensorfields.chore.android.domain.mappers.toRealmInstant
 import dagger.Reusable
 import io.realm.kotlin.Realm
 import java.time.Instant

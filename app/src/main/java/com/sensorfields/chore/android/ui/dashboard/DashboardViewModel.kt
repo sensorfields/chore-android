@@ -2,8 +2,8 @@ package com.sensorfields.chore.android.ui.dashboard
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sensorfields.chore.android.domain.model.Chore
-import com.sensorfields.chore.android.domain.usecase.ObserveChoresUseCase
+import com.sensorfields.chore.android.domain.models.Chore
+import com.sensorfields.chore.android.domain.usecases.ObserveChoresUseCase
 import com.sensorfields.chore.android.ui.dashboard.DashboardAction.ShowChoreCreatedMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi

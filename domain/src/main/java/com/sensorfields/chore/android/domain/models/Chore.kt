@@ -1,4 +1,4 @@
-package com.sensorfields.chore.android.domain.model
+package com.sensorfields.chore.android.domain.models
 
 import java.time.Instant
 
@@ -9,5 +9,6 @@ public data class Chore(
 ) {
     @JvmInline
     public value class Id(public val value: String)
+
     public enum class SortProperty { NAME, DATE }
 }

@@ -27,7 +27,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.sensorfields.chore.android.R
-import com.sensorfields.chore.android.domain.model.Chore
+import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.ui.dashboard.DashboardAction.ShowChoreCreatedMessage
 import com.sensorfields.chore.android.utils.FlowCollectEffect
 import kotlinx.coroutines.flow.Flow

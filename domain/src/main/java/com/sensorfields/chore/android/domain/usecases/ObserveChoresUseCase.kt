@@ -1,8 +1,8 @@
-package com.sensorfields.chore.android.domain.usecase
+package com.sensorfields.chore.android.domain.usecases
 
 import com.sensorfields.chore.android.data.realm.entities.ChoreEntity
-import com.sensorfields.chore.android.domain.mapper.toModels
-import com.sensorfields.chore.android.domain.model.Chore
+import com.sensorfields.chore.android.domain.mappers.toModels
+import com.sensorfields.chore.android.domain.models.Chore
 import dagger.Reusable
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
