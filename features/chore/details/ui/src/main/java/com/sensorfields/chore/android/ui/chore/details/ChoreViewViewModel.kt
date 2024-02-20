@@ -1,4 +1,4 @@
-package com.sensorfields.chore.android.ui.chore.view
+package com.sensorfields.chore.android.ui.chore.details
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -16,7 +16,7 @@ import logcat.logcat
 import javax.inject.Inject
 
 @HiltViewModel
-class ChoreViewViewModel @Inject constructor(
+internal class ChoreViewViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val observeChoreUseCase: ObserveChoreUseCase,
 ) : ViewModel() {

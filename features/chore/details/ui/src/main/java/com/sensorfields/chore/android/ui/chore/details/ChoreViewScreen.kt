@@ -1,4 +1,4 @@
-package com.sensorfields.chore.android.ui.chore.view
+package com.sensorfields.chore.android.ui.chore.details
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.consumeWindowInsets
@@ -11,11 +11,11 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.sensorfields.chore.android.ui.UpButton
+import com.sensorfields.chore.android.utils.UpButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChoreViewScreen(
+internal fun ChoreViewScreen(
     state: ChoreViewState,
     onUpClick: () -> Unit,
     modifier: Modifier = Modifier,

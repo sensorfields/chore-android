@@ -1,4 +1,4 @@
-package com.sensorfields.chore.android.ui.chore.view
+package com.sensorfields.chore.android.ui.chore.details
 
 import android.net.Uri
 import androidx.compose.runtime.getValue
@@ -11,9 +11,9 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.sensorfields.chore.android.domain.models.Chore
-import com.sensorfields.chore.android.ui.LocalAppNavController
+import com.sensorfields.chore.android.utils.LocalAppNavController
 
-fun NavGraphBuilder.choreView() {
+public fun NavGraphBuilder.choreView() {
     composable(
         route = ROUTE,
         arguments = listOf(
@@ -30,7 +30,7 @@ fun NavGraphBuilder.choreView() {
     }
 }
 
-fun NavController.navigateToChoreView(choreId: Chore.Id) {
+public fun NavController.navigateToChoreView(choreId: Chore.Id) {
     navigate(
         Uri.Builder()
             .path(PREFIX)
@@ -40,7 +40,7 @@ fun NavController.navigateToChoreView(choreId: Chore.Id) {
     )
 }
 
-fun SavedStateHandle.getChoreViewId(): Chore.Id {
+public fun SavedStateHandle.getChoreViewId(): Chore.Id {
     return get<String>(ID)?.let { Chore.Id(it) } ?: error("$ID not provided")
 }
 

@@ -1,4 +1,4 @@
-package com.sensorfields.chore.android.ui
+package com.sensorfields.chore.android.utils
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LoadingButton(
+public fun LoadingButton(
     onClick: () -> Unit,
     loading: Boolean,
     modifier: Modifier = Modifier,

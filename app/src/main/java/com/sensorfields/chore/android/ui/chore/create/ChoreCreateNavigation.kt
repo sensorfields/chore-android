@@ -9,8 +9,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.sensorfields.chore.android.ui.LocalAppNavController
 import com.sensorfields.chore.android.utils.FlowCollectEffect
+import com.sensorfields.chore.android.utils.LocalAppNavController
 import kotlinx.coroutines.flow.onEach
 
 fun NavGraphBuilder.choreCreate() {

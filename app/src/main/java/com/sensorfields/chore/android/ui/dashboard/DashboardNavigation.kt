@@ -5,10 +5,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.sensorfields.chore.android.ui.LocalAppNavController
 import com.sensorfields.chore.android.ui.chore.create.navigateToChoreCreate
 import com.sensorfields.chore.android.ui.chore.create.onChoreCreateResult
-import com.sensorfields.chore.android.ui.chore.view.navigateToChoreView
+import com.sensorfields.chore.android.ui.chore.details.navigateToChoreView
+import com.sensorfields.chore.android.utils.LocalAppNavController
 
 const val DASHBOARD_ROUTE = "dashboard"
 

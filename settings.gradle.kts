@@ -22,5 +22,6 @@ include(
     ":utils",
     ":data:realm",
     ":domain",
+    ":features:chore:details:ui",
     ":app"
 )

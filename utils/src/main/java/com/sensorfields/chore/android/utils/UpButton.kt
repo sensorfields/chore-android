@@ -1,4 +1,4 @@
-package com.sensorfields.chore.android.ui
+package com.sensorfields.chore.android.utils
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -8,10 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.sensorfields.chore.android.R
 
 @Composable
-fun UpButton(
+public fun UpButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -26,7 +25,5 @@ fun UpButton(
 @Preview
 @Composable
 private fun Preview() {
-    UpButton(
-        onClick = {}
-    )
+    UpButton(onClick = {})
 }

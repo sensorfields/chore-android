@@ -1,0 +1,6 @@
+<resources>
+
+    <string name="up_button">Back</string>
+    <string name="error_general">Something went wrong</string>
+
+</resources>
