@@ -5,6 +5,6 @@ import android.text.format.DateFormat
 import java.time.Instant
 import java.util.Date
 
-fun Context.formatDate(instant: Instant): String {
+public fun Context.formatDate(instant: Instant): String {
     return DateFormat.getDateFormat(this).format(Date(instant.toEpochMilli()))
 }

@@ -35,7 +35,6 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
-        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
@@ -51,6 +50,7 @@ detekt {
 }
 
 dependencies {
+    implementation(projects.utils)
     implementation(projects.domain)
 
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)

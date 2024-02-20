@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @Composable
-fun <T> FlowCollectEffect(flow: Flow<T>?, collector: FlowCollector<T>) {
+public fun <T> FlowCollectEffect(flow: Flow<T>?, collector: FlowCollector<T>) {
     if (flow == null) return
     LaunchedEffect(Unit) {
         launch { flow.collect(collector) }
@@ -16,7 +16,7 @@ fun <T> FlowCollectEffect(flow: Flow<T>?, collector: FlowCollector<T>) {
 }
 
 @Composable
-fun <T> FlowCollectLatestEffect(flow: Flow<T>, action: suspend (value: T) -> Unit) {
+public fun <T> FlowCollectLatestEffect(flow: Flow<T>, action: suspend (value: T) -> Unit) {
     LaunchedEffect(Unit) {
         launch { flow.collectLatest(action) }
     }
