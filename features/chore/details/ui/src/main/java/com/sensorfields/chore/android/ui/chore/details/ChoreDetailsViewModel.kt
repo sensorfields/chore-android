@@ -16,14 +16,14 @@ import logcat.logcat
 import javax.inject.Inject
 
 @HiltViewModel
-internal class ChoreViewViewModel @Inject constructor(
+internal class ChoreDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val observeChoreUseCase: ObserveChoreUseCase,
 ) : ViewModel() {
 
-    private val choreId = savedStateHandle.getChoreViewId()
+    private val choreId = savedStateHandle.getChoreDetailsArgs()
 
-    private val _state = MutableStateFlow(ChoreViewState())
+    private val _state = MutableStateFlow(ChoreDetailsState())
     val state = _state.asStateFlow()
 
     private var chore: Chore? = null

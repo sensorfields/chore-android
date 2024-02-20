@@ -15,8 +15,8 @@ import com.sensorfields.chore.android.utils.UpButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun ChoreViewScreen(
-    state: ChoreViewState,
+internal fun ChoreDetailsScreen(
+    state: ChoreDetailsState,
     onUpClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {

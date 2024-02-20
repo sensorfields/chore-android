@@ -13,7 +13,7 @@ import androidx.navigation.navArgument
 import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.utils.LocalAppNavController
 
-public fun NavGraphBuilder.choreView() {
+public fun NavGraphBuilder.choreDetails() {
     composable(
         route = ROUTE,
         arguments = listOf(
@@ -21,16 +21,16 @@ public fun NavGraphBuilder.choreView() {
         )
     ) {
         val appNavController = LocalAppNavController.current
-        val viewModel = hiltViewModel<ChoreViewViewModel>()
+        val viewModel = hiltViewModel<ChoreDetailsViewModel>()
         val state by viewModel.state.collectAsStateWithLifecycle()
-        ChoreViewScreen(
+        ChoreDetailsScreen(
             state = state,
             onUpClick = appNavController::navigateUp
         )
     }
 }
 
-public fun NavController.navigateToChoreView(choreId: Chore.Id) {
+public fun NavController.navigateToChoreDetails(choreId: Chore.Id) {
     navigate(
         Uri.Builder()
             .path(PREFIX)
@@ -40,10 +40,10 @@ public fun NavController.navigateToChoreView(choreId: Chore.Id) {
     )
 }
 
-public fun SavedStateHandle.getChoreViewId(): Chore.Id {
+public fun SavedStateHandle.getChoreDetailsArgs(): Chore.Id {
     return get<String>(ID)?.let { Chore.Id(it) } ?: error("$ID not provided")
 }
 
-private const val PREFIX = "chore/view"
+private const val PREFIX = "chore/details"
 private const val ID = "id"
 private const val ROUTE = "$PREFIX/{$ID}"

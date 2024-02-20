@@ -7,7 +7,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.sensorfields.chore.android.ui.chore.create.navigateToChoreCreate
 import com.sensorfields.chore.android.ui.chore.create.onChoreCreateResult
-import com.sensorfields.chore.android.ui.chore.details.navigateToChoreView
+import com.sensorfields.chore.android.ui.chore.details.navigateToChoreDetails
 import com.sensorfields.chore.android.utils.LocalAppNavController
 
 const val DASHBOARD_ROUTE = "dashboard"
@@ -25,7 +25,7 @@ fun NavGraphBuilder.dashboard() {
             actions = viewModel.actions,
             onChoreSortByClick = viewModel::onChoreSortByClick,
             onCreateChoreClick = appNavController::navigateToChoreCreate,
-            onChoreClick = appNavController::navigateToChoreView
+            onChoreClick = appNavController::navigateToChoreDetails
         )
     }
 }
