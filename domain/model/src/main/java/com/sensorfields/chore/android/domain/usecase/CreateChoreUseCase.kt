@@ -11,7 +11,7 @@ import javax.inject.Inject
 public class CreateChoreUseCase @Inject constructor(
     private val realm: Realm,
 ) {
-    public suspend operator fun invoke(name: String, date: Instant?): Result {
+    public suspend operator fun invoke(name: String, date: Instant?): Result<Unit> {
         return try {
             realm.write {
                 copyToRealm(ChoreEntity().apply {
@@ -19,14 +19,9 @@ public class CreateChoreUseCase @Inject constructor(
                     this@apply.date = date?.toRealmInstant()
                 })
             }
-            Result.Success
+            Result.success(Unit)
         } catch (e: Exception) {
-            Result.Failure(e)
+            Result.failure(e)
         }
-    }
-
-    public sealed interface Result {
-        public data object Success : Result
-        public data class Failure(val error: Exception) : Result
     }
 }

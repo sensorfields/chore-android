@@ -66,21 +66,15 @@ class ChoreCreateViewModel @Inject constructor(
                 isLoading = true
                 updateState()
 
-                when (
-                    val result = createChoreUseCase(
-                        name = name,
-                        date = date?.let { Instant.ofEpochMilli(it) }
-                    )
-                ) {
-                    CreateChoreUseCase.Result.Success -> {
-                        _action.trySend(Finish)
-                    }
-
-                    is CreateChoreUseCase.Result.Failure -> {
-                        isLoading = false
-                        updateState()
-                        _action.trySend(ShowError(error = result.error))
-                    }
+                createChoreUseCase(
+                    name = name,
+                    date = date?.let { Instant.ofEpochMilli(it) }
+                ).onSuccess {
+                    _action.trySend(Finish)
+                }.onFailure {
+                    isLoading = false
+                    updateState()
+                    _action.trySend(ShowError(it))
                 }
             }
         }

@@ -5,7 +5,7 @@ import com.sensorfields.chore.android.R
 import logcat.asLog
 import logcat.logcat
 
-fun Context.getErrorMessage(error: Exception): String {
+fun Context.getErrorMessage(error: Throwable): String {
     logcat { error.asLog() }
     return getString(R.string.error_general)
 }

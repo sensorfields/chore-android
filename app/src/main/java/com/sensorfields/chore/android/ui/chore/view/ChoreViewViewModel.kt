@@ -33,8 +33,8 @@ class ChoreViewViewModel @Inject constructor(
     }
 
     private fun observeChore() = viewModelScope.launch {
-        observeChoreUseCase(choreId = choreId).collectLatest {
-            it.onSuccess {
+        observeChoreUseCase(choreId = choreId).collectLatest { result ->
+            result.onSuccess {
                 chore = it
                 updateState()
             }.onFailure { logcat { it.asLog() } }
