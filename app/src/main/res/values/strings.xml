@@ -1,11 +1,3 @@
 <resources>
-
     <string name="application_name">Chore Alert</string>
-
-    <!-- Home -->
-
-    <string name="home_navigation_dashboard">Dashboard</string>
-    <string name="home_navigation_stats">Stats</string>
-    <string name="home_navigation_settings">Settings</string>
-
 </resources>
