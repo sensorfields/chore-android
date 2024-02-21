@@ -3,9 +3,9 @@ package com.sensorfields.chore.android.ui.settings
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 
-const val SETTINGS_ROUTE = "settings"
+public const val SETTINGS_ROUTE: String = "settings"
 
-fun NavGraphBuilder.settings() {
+public fun NavGraphBuilder.settings() {
     composable(route = SETTINGS_ROUTE) {
         SettingsScreen()
     }
