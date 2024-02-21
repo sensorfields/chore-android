@@ -9,7 +9,10 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.sensorfields.chore.android.ui.chore.create.choreCreate
+import com.sensorfields.chore.android.ui.chore.create.choreCreateResults
+import com.sensorfields.chore.android.ui.chore.create.navigateToChoreCreate
 import com.sensorfields.chore.android.ui.chore.details.choreDetails
+import com.sensorfields.chore.android.ui.chore.details.navigateToChoreDetails
 import com.sensorfields.chore.android.ui.home.HOME_ROUTE
 import com.sensorfields.chore.android.ui.home.home
 import com.sensorfields.chore.android.utils.LocalAppNavController
@@ -26,7 +29,11 @@ fun App() {
         val navController = rememberNavController()
         CompositionLocalProvider(LocalAppNavController provides navController) {
             NavHost(navController = navController, startDestination = HOME_ROUTE) {
-                home()
+                home(
+                    onNavigateToChoreCreate = navController::navigateToChoreCreate,
+                    choreCreateResults = navController.choreCreateResults,
+                    onNavigateToChoreDetails = navController::navigateToChoreDetails
+                )
                 choreCreate()
                 choreDetails()
             }

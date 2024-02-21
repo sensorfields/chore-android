@@ -1,40 +1,19 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.google.hilt)
-    alias(libs.plugins.google.services)
-    alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.detekt)
 }
 
 android {
-    namespace = "com.sensorfields.chore.android"
+    namespace = "com.sensorfields.chore.android.ui.home"
     compileSdk = 34
     defaultConfig {
-        applicationId = "com.sensorfields.chore"
         minSdk = 29
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0${findProperty("appVersionNameSuffix") ?: ""}"
-    }
-    signingConfigs {
-        named("debug") {
-            storeFile = File(projectDir, "debug.keystore")
-        }
-    }
-    buildTypes {
-        debug {
-            applicationIdSuffix = ".debug"
-            signingConfig = signingConfigs["debug"]
-        }
-    }
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
     }
     buildFeatures {
         compose = true
-        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
@@ -43,6 +22,7 @@ android {
 
 kotlin {
     jvmToolchain(17)
+    explicitApi()
 }
 
 detekt {
@@ -52,9 +32,9 @@ detekt {
 dependencies {
     implementation(projects.utils)
     implementation(projects.domain)
-    implementation(projects.features.home.ui)
-    implementation(projects.features.chore.create.ui)
-    implementation(projects.features.chore.details.ui)
+    implementation(projects.features.dashboard.ui)
+    implementation(projects.features.stats.ui)
+    implementation(projects.features.settings.ui)
 
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
 
@@ -62,25 +42,15 @@ dependencies {
 
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.coroutines.playServices)
-    implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.collections.immutable)
 
-    implementation(libs.androidx.core.coreKtx)
-    implementation(libs.androidx.core.splashscreen)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.activityKtx)
-    implementation(libs.androidx.fragmentKtx)
     implementation(libs.androidx.lifecycle.common.java8)
     implementation(libs.androidx.lifecycle.viewmodelKtx)
     implementation(libs.androidx.lifecycle.viewmodel.savedstate)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.datastore.preferences)
-    implementation(libs.androidx.work.runtimeKtx)
     kapt(libs.androidx.hilt.compiler)
-    implementation(libs.androidx.hilt.work)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.runtime.android)
@@ -93,11 +63,6 @@ dependencies {
     implementation(libs.google.hilt.android)
     kapt(libs.google.hilt.compiler)
     implementation(libs.google.android.material)
-
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.crashlyticsKtx)
-    implementation(libs.firebase.analyticsKtx)
-    implementation(libs.firebase.messagingKtx)
 
     implementation(libs.logcat)
     implementation(libs.coil.coil)

@@ -25,26 +25,25 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.sensorfields.chore.android.R
-import com.sensorfields.chore.android.ui.chore.create.choreCreateResults
-import com.sensorfields.chore.android.ui.chore.create.navigateToChoreCreate
-import com.sensorfields.chore.android.ui.chore.details.navigateToChoreDetails
+import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.ui.dashboard.DASHBOARD_ROUTE
 import com.sensorfields.chore.android.ui.dashboard.dashboard
 import com.sensorfields.chore.android.ui.settings.SETTINGS_ROUTE
 import com.sensorfields.chore.android.ui.settings.settings
 import com.sensorfields.chore.android.ui.stats.STATS_ROUTE
 import com.sensorfields.chore.android.ui.stats.stats
-import com.sensorfields.chore.android.utils.LocalAppNavController
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
-fun HomeScreen(
+internal fun HomeScreen(
     state: HomeState,
     onScreenChange: (HomeState.Screen) -> Unit,
+    onNavigateToChoreCreate: () -> Unit,
+    choreCreateResults: Flow<Boolean>?,
+    onNavigateToChoreDetails: (Chore.Id) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val appNavController = LocalAppNavController.current
     val navController = rememberNavController()
 
     LaunchedEffect(Unit) {
@@ -67,9 +66,9 @@ fun HomeScreen(
                 .weight(1f)
         ) {
             dashboard(
-                onNavigateToChoreCreate = appNavController::navigateToChoreCreate,
-                choreCreateResults = appNavController.choreCreateResults,
-                onNavigateToChoreDetails = appNavController::navigateToChoreDetails
+                onNavigateToChoreCreate = onNavigateToChoreCreate,
+                choreCreateResults = choreCreateResults,
+                onNavigateToChoreDetails = onNavigateToChoreDetails
             )
             stats()
             settings()
@@ -127,6 +126,9 @@ private fun NavBackStackEntry?.isSelected(route: String): Boolean {
 private fun Preview() {
     HomeScreen(
         state = HomeState(),
-        onScreenChange = {}
+        onScreenChange = {},
+        onNavigateToChoreCreate = {},
+        choreCreateResults = null,
+        onNavigateToChoreDetails = {}
     )
 }
