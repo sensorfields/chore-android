@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.sensorfields.chore.android.R
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.Finish
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhen
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhere
@@ -39,7 +38,7 @@ import kotlinx.coroutines.flow.emptyFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChoreCreateScreen(
+internal fun ChoreCreateScreen(
     state: ChoreCreateState,
     actions: Flow<ChoreCreateAction>,
     onUpClick: () -> Unit,
@@ -126,7 +125,7 @@ fun ChoreCreateScreen(
     }
 }
 
-enum class Screen {
+internal enum class Screen {
     WHAT, WHEN, WHERE
 }
 

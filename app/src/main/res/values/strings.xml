@@ -1,8 +1,6 @@
 <resources>
 
     <string name="application_name">Chore Alert</string>
-    <string name="up_button">Back</string>
-    <string name="error_general">Something went wrong</string>
 
     <!-- Home -->
 
@@ -21,10 +19,5 @@
     <string name="dashboard_chore_sort_descending">Descending</string>
     <string name="dashboard_chore_sort_name">Name</string>
     <string name="dashboard_chore_sort_date">Date</string>
-
-    <!-- Chore - Create -->
-    <string name="chore_create_title">Add a chore</string>
-    <string name="chore_create_name">Chore name</string>
-    <string name="chore_create_next_button">Continue</string>
 
 </resources>

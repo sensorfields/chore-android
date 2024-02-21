@@ -18,7 +18,7 @@ import java.time.Instant
 import javax.inject.Inject
 
 @HiltViewModel
-class ChoreCreateViewModel @Inject constructor(
+internal class ChoreCreateViewModel @Inject constructor(
     private val createChoreUseCase: CreateChoreUseCase,
 ) : ViewModel() {
 

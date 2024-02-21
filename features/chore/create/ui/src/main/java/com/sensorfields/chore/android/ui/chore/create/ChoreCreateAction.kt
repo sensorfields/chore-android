@@ -1,6 +1,6 @@
 package com.sensorfields.chore.android.ui.chore.create
 
-sealed interface ChoreCreateAction {
+internal sealed interface ChoreCreateAction {
     data object NavigateToWhen : ChoreCreateAction
     data object NavigateToWhere : ChoreCreateAction
     data object Finish : ChoreCreateAction

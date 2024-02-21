@@ -21,10 +21,9 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.sensorfields.chore.android.R
 
 @Composable
-fun ChoreCreateWhatScreen(
+internal fun ChoreCreateWhatScreen(
     name: String,
     onNameChange: (String) -> Unit,
     onDoneClick: () -> Unit,

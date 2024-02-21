@@ -13,7 +13,7 @@ import com.sensorfields.chore.android.utils.FlowCollectEffect
 import com.sensorfields.chore.android.utils.LocalAppNavController
 import kotlinx.coroutines.flow.onEach
 
-fun NavGraphBuilder.choreCreate() {
+public fun NavGraphBuilder.choreCreate() {
     composable(route = ROUTE) {
         val appNavController = LocalAppNavController.current
         val viewModel = hiltViewModel<ChoreCreateViewModel>()
@@ -34,13 +34,13 @@ fun NavGraphBuilder.choreCreate() {
     }
 }
 
-fun NavController.navigateToChoreCreate() {
+public fun NavController.navigateToChoreCreate() {
     navigate(ROUTE)
 }
 
 @SuppressLint("ComposableNaming")
 @Composable
-fun NavController.onChoreCreateResult(onResult: (Boolean) -> Unit) {
+public fun NavController.onChoreCreateResult(onResult: (Boolean) -> Unit) {
     FlowCollectEffect(
         currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(RESULT)?.asFlow()
             ?.onEach { currentBackStackEntry?.savedStateHandle?.remove<Boolean>(RESULT) },

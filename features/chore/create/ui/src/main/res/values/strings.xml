@@ -1,0 +1,5 @@
+<resources>
+    <string name="chore_create_title">Add a chore</string>
+    <string name="chore_create_name">Chore name</string>
+    <string name="chore_create_next_button">Continue</string>
+</resources>
