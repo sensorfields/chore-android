@@ -11,21 +11,19 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.sensorfields.chore.android.domain.models.Chore
-import com.sensorfields.chore.android.utils.LocalAppNavController
 
-public fun NavGraphBuilder.choreDetails() {
+public fun NavGraphBuilder.choreDetails(navController: NavController) {
     composable(
         route = ROUTE,
         arguments = listOf(
             navArgument(ID) { type = NavType.StringType }
         )
     ) {
-        val appNavController = LocalAppNavController.current
         val viewModel = hiltViewModel<ChoreDetailsViewModel>()
         val state by viewModel.state.collectAsStateWithLifecycle()
         ChoreDetailsScreen(
             state = state,
-            onUpClick = appNavController::navigateUp
+            onUpClick = navController::navigateUp
         )
     }
 }
