@@ -6,7 +6,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.sensorfields.chore.android.domain.models.Chore
-import com.sensorfields.chore.android.utils.FlowCollectEffect
+import com.sensorfields.chore.android.utils.collectInEffect
 import kotlinx.coroutines.flow.Flow
 
 public const val DASHBOARD_ROUTE: String = "dashboard"
@@ -19,7 +19,7 @@ public fun NavGraphBuilder.dashboard(
     composable(route = DASHBOARD_ROUTE) {
         val viewModel = hiltViewModel<DashboardViewModel>()
 
-        FlowCollectEffect(choreCreateResults, viewModel::onChoreCreateResult)
+        choreCreateResults?.collectInEffect(viewModel::onChoreCreateResult)
 
         val state by viewModel.state.collectAsStateWithLifecycle()
         DashboardScreen(

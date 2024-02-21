@@ -28,7 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.ui.dashboard.DashboardAction.ShowChoreCreatedMessage
-import com.sensorfields.chore.android.utils.FlowCollectEffect
+import com.sensorfields.chore.android.utils.collectInEffect
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
@@ -46,7 +46,7 @@ internal fun DashboardScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     var isChoreSortDialogVisible by remember { mutableStateOf(false) }
 
-    FlowCollectEffect(actions) { action ->
+    actions.collectInEffect { action ->
         when (action) {
             ShowChoreCreatedMessage -> snackbarHostState.showSnackbar(
                 message = context.getString(R.string.dashboard_chore_created_message)

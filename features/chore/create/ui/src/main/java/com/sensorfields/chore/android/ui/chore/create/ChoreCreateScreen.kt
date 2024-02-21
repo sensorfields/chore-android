@@ -28,10 +28,10 @@ import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.Finish
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhen
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhere
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
-import com.sensorfields.chore.android.utils.FlowCollectEffect
-import com.sensorfields.chore.android.utils.FlowCollectLatestEffect
 import com.sensorfields.chore.android.utils.LoadingButton
 import com.sensorfields.chore.android.utils.UpButton
+import com.sensorfields.chore.android.utils.collectInEffect
+import com.sensorfields.chore.android.utils.collectLatestInEffect
 import com.sensorfields.chore.android.utils.getErrorMessage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
@@ -53,11 +53,11 @@ internal fun ChoreCreateScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
 
-    FlowCollectLatestEffect(navController.currentBackStackEntryFlow) {
+    navController.currentBackStackEntryFlow.collectLatestInEffect {
         it.destination.route?.let { route -> onScreenChange(Screen.valueOf(route)) }
     }
 
-    FlowCollectEffect(actions) { action ->
+    actions.collectInEffect { action ->
         when (action) {
             NavigateToWhen -> navController.navigate(Screen.WHEN.name)
             NavigateToWhere -> navController.navigate(Screen.WHERE.name)
