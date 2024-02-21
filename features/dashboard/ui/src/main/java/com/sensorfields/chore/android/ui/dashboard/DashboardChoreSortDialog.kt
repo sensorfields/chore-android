@@ -18,13 +18,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.sensorfields.chore.android.R
 import com.sensorfields.chore.android.domain.models.Chore
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DashboardChoreSortDialog(
+internal fun DashboardChoreSortDialog(
     sort: DashboardState.ChoreSort,
     onSortByClick: (Chore.SortProperty) -> Unit,
     onDismissRequest: () -> Unit,

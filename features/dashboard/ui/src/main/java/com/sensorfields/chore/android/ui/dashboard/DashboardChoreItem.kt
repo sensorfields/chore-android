@@ -12,7 +12,7 @@ import com.sensorfields.chore.android.utils.formatDate
 import java.time.Instant
 
 @Composable
-fun DashboardChoreItem(
+internal fun DashboardChoreItem(
     state: DashboardState.ChoreItem,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,

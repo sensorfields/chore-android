@@ -6,7 +6,7 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import java.time.Instant
 
-data class DashboardState(
+internal data class DashboardState(
     val choreSort: ChoreSort = ChoreSort(sortBy = Chore.SortProperty.NAME, isAscending = true),
     val choreItems: ImmutableList<ChoreItem> = persistentListOf(),
 ) {
@@ -14,7 +14,7 @@ data class DashboardState(
     data class ChoreItem(val id: Chore.Id, val name: String, val date: Instant?)
 }
 
-fun List<Chore>.toState(): ImmutableList<DashboardState.ChoreItem> {
+internal fun List<Chore>.toState(): ImmutableList<DashboardState.ChoreItem> {
     return map {
         DashboardState.ChoreItem(
             id = it.id,

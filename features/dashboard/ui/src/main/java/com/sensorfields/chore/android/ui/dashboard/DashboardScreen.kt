@@ -26,7 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.sensorfields.chore.android.R
 import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.ui.dashboard.DashboardAction.ShowChoreCreatedMessage
 import com.sensorfields.chore.android.utils.FlowCollectEffect
@@ -35,7 +34,7 @@ import kotlinx.coroutines.flow.emptyFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DashboardScreen(
+internal fun DashboardScreen(
     state: DashboardState,
     actions: Flow<DashboardAction>,
     onChoreSortByClick: (Chore.SortProperty) -> Unit,

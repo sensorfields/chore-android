@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DashboardViewModel @Inject constructor(
+internal class DashboardViewModel @Inject constructor(
     private val observeChoresUseCase: ObserveChoresUseCase,
 ) : ViewModel() {
 

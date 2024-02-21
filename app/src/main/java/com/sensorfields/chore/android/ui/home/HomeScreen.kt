@@ -26,12 +26,16 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.sensorfields.chore.android.R
+import com.sensorfields.chore.android.ui.chore.create.choreCreateResults
+import com.sensorfields.chore.android.ui.chore.create.navigateToChoreCreate
+import com.sensorfields.chore.android.ui.chore.details.navigateToChoreDetails
 import com.sensorfields.chore.android.ui.dashboard.DASHBOARD_ROUTE
 import com.sensorfields.chore.android.ui.dashboard.dashboard
 import com.sensorfields.chore.android.ui.history.HISTORY_ROUTE
 import com.sensorfields.chore.android.ui.history.history
 import com.sensorfields.chore.android.ui.settings.SETTINGS_ROUTE
 import com.sensorfields.chore.android.ui.settings.settings
+import com.sensorfields.chore.android.utils.LocalAppNavController
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -40,6 +44,7 @@ fun HomeScreen(
     onScreenChange: (HomeState.Screen) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val appNavController = LocalAppNavController.current
     val navController = rememberNavController()
 
     LaunchedEffect(Unit) {
@@ -61,7 +66,11 @@ fun HomeScreen(
                 .consumeWindowInsets(NavigationBarDefaults.windowInsets.only(WindowInsetsSides.Bottom))
                 .weight(1f)
         ) {
-            dashboard()
+            dashboard(
+                onNavigateToChoreCreate = appNavController::navigateToChoreCreate,
+                choreCreateResults = appNavController.choreCreateResults,
+                onNavigateToChoreDetails = appNavController::navigateToChoreDetails
+            )
             history()
             settings()
         }
