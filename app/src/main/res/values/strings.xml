@@ -5,19 +5,7 @@
     <!-- Home -->
 
     <string name="home_navigation_dashboard">Dashboard</string>
-    <string name="home_navigation_history">History</string>
+    <string name="home_navigation_stats">Stats</string>
     <string name="home_navigation_settings">Settings</string>
-
-    <!-- Dashboard -->
-    <string name="dashboard_title">Chores to do</string>
-    <string name="dashboard_sort_button">Sort</string>
-    <string name="dashboard_chore_create_button">Add</string>
-    <string name="dashboard_chore_created_message">Chore successfully created</string>
-
-    <string name="dashboard_chore_sort_title">Sort by</string>
-    <string name="dashboard_chore_sort_ascending">Ascending</string>
-    <string name="dashboard_chore_sort_descending">Descending</string>
-    <string name="dashboard_chore_sort_name">Name</string>
-    <string name="dashboard_chore_sort_date">Date</string>
 
 </resources>

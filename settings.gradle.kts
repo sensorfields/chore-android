@@ -23,6 +23,7 @@ include(
     ":data:realm",
     ":domain",
     ":features:dashboard:ui",
+    ":features:stats:ui",
     ":features:settings:ui",
     ":features:chore:create:ui",
     ":features:chore:details:ui",

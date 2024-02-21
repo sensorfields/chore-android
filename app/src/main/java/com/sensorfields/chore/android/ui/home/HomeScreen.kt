@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Dashboard
-import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.QueryStats
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -31,10 +31,10 @@ import com.sensorfields.chore.android.ui.chore.create.navigateToChoreCreate
 import com.sensorfields.chore.android.ui.chore.details.navigateToChoreDetails
 import com.sensorfields.chore.android.ui.dashboard.DASHBOARD_ROUTE
 import com.sensorfields.chore.android.ui.dashboard.dashboard
-import com.sensorfields.chore.android.ui.history.HISTORY_ROUTE
-import com.sensorfields.chore.android.ui.history.history
 import com.sensorfields.chore.android.ui.settings.SETTINGS_ROUTE
 import com.sensorfields.chore.android.ui.settings.settings
+import com.sensorfields.chore.android.ui.stats.STATS_ROUTE
+import com.sensorfields.chore.android.ui.stats.stats
 import com.sensorfields.chore.android.utils.LocalAppNavController
 import kotlinx.coroutines.flow.collectLatest
 
@@ -51,7 +51,7 @@ fun HomeScreen(
         navController.currentBackStackEntryFlow.collectLatest {
             when {
                 it.isSelected(DASHBOARD_ROUTE) -> onScreenChange(HomeState.Screen.DASHBOARD)
-                it.isSelected(HISTORY_ROUTE) -> onScreenChange(HomeState.Screen.HISTORY)
+                it.isSelected(STATS_ROUTE) -> onScreenChange(HomeState.Screen.STATS)
                 it.isSelected(SETTINGS_ROUTE) -> onScreenChange(HomeState.Screen.SETTINGS)
             }
         }
@@ -71,7 +71,7 @@ fun HomeScreen(
                 choreCreateResults = appNavController.choreCreateResults,
                 onNavigateToChoreDetails = appNavController::navigateToChoreDetails
             )
-            history()
+            stats()
             settings()
         }
         NavigationBar(modifier = Modifier.fillMaxWidth()) {
@@ -86,10 +86,10 @@ fun HomeScreen(
                         iconVector = Icons.Default.Dashboard
                     }
 
-                    HomeState.Screen.HISTORY -> {
-                        route = HISTORY_ROUTE
-                        labelText = stringResource(R.string.home_navigation_history)
-                        iconVector = Icons.Default.History
+                    HomeState.Screen.STATS -> {
+                        route = STATS_ROUTE
+                        labelText = stringResource(R.string.home_navigation_stats)
+                        iconVector = Icons.Default.QueryStats
                     }
 
                     HomeState.Screen.SETTINGS -> {
