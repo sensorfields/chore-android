@@ -41,7 +41,7 @@ public fun NavController.navigateToChoreDetails(choreId: Chore.Id) {
 }
 
 private fun NavBackStackEntry.getChoreId(): String {
-    return savedStateHandle.get<String>(CHORE_ID) ?: error("$CHORE_ID not provided")
+    return arguments?.getString(CHORE_ID) ?: error("$CHORE_ID not provided")
 }
 
 private const val PREFIX = "chore/details"
