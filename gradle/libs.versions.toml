@@ -1,5 +1,5 @@
 [versions]
-android-tools-build = "8.2.2"
+android-tools-build = "8.3.0"
 android-tools-desugar = "2.0.4"
 
 kotlin = "1.9.22"
@@ -26,7 +26,7 @@ google-services = "4.4.1"
 google-android-material = "1.11.0"
 
 firebase-crashlytics-plugin = "2.9.9"
-firebase-bom = "32.7.2"
+firebase-bom = "32.7.3"
 
 detekt = "1.23.5"
 detekt-plugin-twitter-compose = "0.0.26"
