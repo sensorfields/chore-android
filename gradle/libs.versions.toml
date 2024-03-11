@@ -3,8 +3,8 @@ android-tools-build = "8.3.0"
 android-tools-desugar = "2.0.4"
 
 kotlin = "1.9.22"
-kotlinx-coroutines = "1.7.3"
-kotlinx-serialization = "1.6.2"
+kotlinx-coroutines = "1.8.0"
+kotlinx-serialization = "1.6.3"
 kotlinx-collections-immutable = "0.3.7"
 
 androidx-core = "1.12.0"
@@ -18,21 +18,21 @@ androidx-datastore = "1.0.0"
 androidx-work = "2.9.0"
 androidx-hilt = "1.2.0"
 androidx-compose-compiler = "1.5.10"
-androidx-compose-bom = "2024.02.01"
+androidx-compose-bom = "2024.02.02"
 
-google-ksp = "1.9.22-1.0.17"
-google-hilt = "2.50"
+google-ksp = "1.9.23-1.0.19"
+google-hilt = "2.51"
 google-services = "4.4.1"
 google-android-material = "1.11.0"
 
 firebase-crashlytics-plugin = "2.9.9"
-firebase-bom = "32.7.3"
+firebase-bom = "32.7.4"
 
 detekt = "1.23.5"
 detekt-plugin-twitter-compose = "0.0.26"
 logcat = "0.1"
-realm = "1.13.0"
-coil = "2.5.0"
+realm = "1.14.0"
+coil = "2.6.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-tools-build" }

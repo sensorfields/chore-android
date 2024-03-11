@@ -22,7 +22,7 @@ public fun UpButton(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun Preview() {
     UpButton(onClick = {})

@@ -31,7 +31,7 @@ detekt {
 
 dependencies {
     implementation(projects.utils)
-    implementation(projects.domain)
+    api(projects.domain)
     implementation(projects.features.dashboard.ui)
     implementation(projects.features.stats.ui)
     implementation(projects.features.settings.ui)
