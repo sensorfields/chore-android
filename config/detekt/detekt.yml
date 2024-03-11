@@ -1,8 +1,11 @@
 complexity:
   LongParameterList:
-    active: false
+    functionThreshold: 18
+    ignoreDefaultParameters: true
   TooManyFunctions:
-    active: false
+    ignoreAnnotated: [ 'Preview' ]
+  LongMethod:
+    threshold: 180
 
 empty-blocks:
   EmptyFunctionBlock:
@@ -16,9 +19,12 @@ style:
   ReturnCount:
     active: false
   MagicNumber:
-    active: false
+    ignorePropertyDeclaration: true
+  UnusedPrivateMember:
+    ignoreAnnotated: [ 'Preview' ]
 
 naming:
   FunctionNaming:
-    ignoreAnnotated:
-      - 'Composable'
+    ignoreAnnotated: [ 'Composable' ]
+  TopLevelPropertyNaming:
+    constantPattern: '[A-Z][_A-Za-z0-9]*'

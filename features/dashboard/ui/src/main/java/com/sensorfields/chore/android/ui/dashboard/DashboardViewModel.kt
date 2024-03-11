@@ -10,12 +10,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.getAndUpdate
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,6 +37,7 @@ internal class DashboardViewModel @Inject constructor(
         observeChores()
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun onChoreCreateResult(result: Boolean) {
         _actions.trySend(ShowChoreCreatedMessage)
     }
@@ -58,15 +59,16 @@ internal class DashboardViewModel @Inject constructor(
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    private fun observeChores() = viewModelScope.launch {
+    private fun observeChores() {
         choreSort
             .flatMapLatest {
                 observeChoresUseCase(sortBy = it.sortBy, isAscending = it.isAscending)
             }
-            .collectLatest {
+            .onEach {
                 chores = it
                 updateState()
             }
+            .launchIn(viewModelScope)
     }
 
     private fun updateState() {

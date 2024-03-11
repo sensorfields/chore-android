@@ -10,11 +10,9 @@ import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
-import logcat.asLog
-import logcat.logcat
 
 @HiltViewModel(assistedFactory = ChoreDetailsViewModel.Factory::class)
 internal class ChoreDetailsViewModel @AssistedInject constructor(
@@ -33,13 +31,13 @@ internal class ChoreDetailsViewModel @AssistedInject constructor(
         observeChore()
     }
 
-    private fun observeChore() = viewModelScope.launch {
-        observeChoreUseCase(choreId = choreId).collectLatest { result ->
-            result.onSuccess {
+    private fun observeChore() {
+        observeChoreUseCase(choreId = choreId)
+            .onEach {
                 chore = it
                 updateState()
-            }.onFailure { logcat { it.asLog() } }
-        }
+            }
+            .launchIn(viewModelScope)
     }
 
     private fun updateState() {

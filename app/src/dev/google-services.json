@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "108395265669",
+    "project_id": "chore-dev-95f73",
+    "storage_bucket": "chore-dev-95f73.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108395265669:android:9223a5ad9e1eb2a8b973ec",
+        "android_client_info": {
+          "package_name": "com.sensorfields.chore.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuz--xoT8WrUtsATHlFZsFMS6vKd7Ao3s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108395265669:android:1db5d4ff68d43ef6b973ec",
+        "android_client_info": {
+          "package_name": "com.sensorfields.chore.dev.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuz--xoT8WrUtsATHlFZsFMS6vKd7Ao3s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

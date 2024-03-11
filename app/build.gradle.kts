@@ -29,6 +29,12 @@ android {
             signingConfig = signingConfigs["debug"]
         }
     }
+    flavorDimensions += "environment"
+    productFlavors {
+        create("dev") {
+            applicationIdSuffix = ".dev"
+        }
+    }
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
     }

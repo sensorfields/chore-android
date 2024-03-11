@@ -15,14 +15,11 @@ import javax.inject.Inject
 public class ObserveChoreUseCase @Inject constructor(
     private val realm: Realm,
 ) {
-    public operator fun invoke(choreId: Chore.Id): Flow<Result<Chore>> {
+    public operator fun invoke(choreId: Chore.Id): Flow<Chore?> {
         return realm
             .query<ChoreEntity>("_id == $0", choreId.toObjectId())
             .first()
             .asFlow()
-            .map { change ->
-                change.obj?.toModel()?.let { Result.success(it) }
-                    ?: Result.failure(IllegalArgumentException())
-            }
+            .map { it.obj?.toModel() }
     }
 }

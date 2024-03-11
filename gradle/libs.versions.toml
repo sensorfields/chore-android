@@ -20,7 +20,7 @@ androidx-hilt = "1.2.0"
 androidx-compose-compiler = "1.5.10"
 androidx-compose-bom = "2024.02.02"
 
-google-ksp = "1.9.23-1.0.19"
+google-ksp = "1.9.22-1.0.18"
 google-hilt = "2.51"
 google-services = "4.4.1"
 google-android-material = "1.11.0"
