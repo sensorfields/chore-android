@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.google.ksp)
     alias(libs.plugins.google.hilt)
     alias(libs.plugins.detekt)
+    alias(libs.plugins.realm)
 }
 
 android {
@@ -30,4 +31,8 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.google.hilt.android)
     ksp(libs.google.hilt.compiler)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.google.truth)
+    testImplementation(libs.kotlinx.coroutines.test)
 }

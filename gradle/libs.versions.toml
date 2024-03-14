@@ -24,6 +24,7 @@ google-ksp = "1.9.22-1.0.18"
 google-hilt = "2.51"
 google-services = "4.4.1"
 google-android-material = "1.11.0"
+google-truth = "1.4.2"
 
 firebase-crashlytics-plugin = "2.9.9"
 firebase-bom = "32.7.4"
@@ -33,6 +34,7 @@ detekt-plugin-twitter-compose = "0.0.26"
 logcat = "0.1"
 realm = "1.14.0"
 coil = "2.6.0"
+junit = "4.13.2"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-tools-build" }
@@ -52,6 +54,7 @@ android-tools-desugarJdkLibs = { module = "com.android.tools:desugar_jdk_libs", 
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-playServices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx-collections-immutable" }
 
@@ -82,6 +85,7 @@ androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling
 google-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "google-hilt" }
 google-hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "google-hilt" }
 google-android-material = { module = "com.google.android.material:material", version.ref = "google-android-material" }
+google-truth = { module = "com.google.truth:truth", version.ref = "google-truth" }
 
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
 firebase-crashlyticsKtx = { module = "com.google.firebase:firebase-crashlytics-ktx" }
@@ -92,5 +96,6 @@ logcat = { module = "com.squareup.logcat:logcat", version.ref = "logcat" }
 realm-library-base = { module = "io.realm.kotlin:library-base", version.ref = "realm" }
 coil-coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+junit = { module = "junit:junit", version.ref = "junit" }
 
 detekt-plugin-twitter-compose = { module = "com.twitter.compose.rules:detekt", version.ref = "detekt-plugin-twitter-compose" }
