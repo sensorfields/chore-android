@@ -40,7 +40,7 @@ internal fun HomeScreen(
     state: HomeState,
     onScreenChange: (HomeState.Screen) -> Unit,
     onNavigateToChoreCreate: () -> Unit,
-    choreCreateResults: Flow<Boolean>?,
+    choreCreateResults: () -> Flow<Boolean>?,
     onNavigateToChoreDetails: (Chore.Id) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -128,7 +128,7 @@ private fun Preview() {
         state = HomeState(),
         onScreenChange = {},
         onNavigateToChoreCreate = {},
-        choreCreateResults = null,
+        choreCreateResults = { null },
         onNavigateToChoreDetails = {}
     )
 }

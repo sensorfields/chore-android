@@ -13,13 +13,13 @@ public const val DASHBOARD_ROUTE: String = "dashboard"
 
 public fun NavGraphBuilder.dashboard(
     onNavigateToChoreCreate: () -> Unit,
-    choreCreateResults: Flow<Boolean>?,
+    choreCreateResults: () -> Flow<Boolean>?,
     onNavigateToChoreDetails: (Chore.Id) -> Unit,
 ) {
     composable(route = DASHBOARD_ROUTE) {
         val viewModel = hiltViewModel<DashboardViewModel>()
 
-        choreCreateResults?.collectInEffect(viewModel::onChoreCreateResult)
+        choreCreateResults()?.collectInEffect(viewModel::onChoreCreateResult)
 
         val state by viewModel.state.collectAsStateWithLifecycle()
         DashboardScreen(

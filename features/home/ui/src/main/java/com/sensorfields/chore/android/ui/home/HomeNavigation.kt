@@ -12,7 +12,7 @@ public const val HOME_ROUTE: String = "home"
 
 public fun NavGraphBuilder.home(
     onNavigateToChoreCreate: () -> Unit,
-    choreCreateResults: Flow<Boolean>?,
+    choreCreateResults: () -> Flow<Boolean>?,
     onNavigateToChoreDetails: (Chore.Id) -> Unit,
 ) {
     composable(route = HOME_ROUTE) {

@@ -28,7 +28,7 @@ fun App() {
         NavHost(navController = navController, startDestination = HOME_ROUTE) {
             home(
                 onNavigateToChoreCreate = navController::navigateToChoreCreate,
-                choreCreateResults = navController.choreCreateResults,
+                choreCreateResults = { navController.choreCreateResults },
                 onNavigateToChoreDetails = navController::navigateToChoreDetails
             )
             choreCreate(navController)
