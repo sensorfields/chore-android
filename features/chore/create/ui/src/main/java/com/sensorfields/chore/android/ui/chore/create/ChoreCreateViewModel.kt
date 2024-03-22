@@ -70,7 +70,7 @@ internal class ChoreCreateViewModel @Inject constructor(
                     name = name,
                     date = date?.let { Instant.ofEpochMilli(it) }
                 ).onSuccess {
-                    _action.trySend(Finish)
+                    _action.trySend(Finish(it))
                 }.onFailure {
                     isLoading = false
                     updateState()

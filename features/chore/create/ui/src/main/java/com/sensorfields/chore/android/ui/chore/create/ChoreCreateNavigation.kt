@@ -7,7 +7,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.sensorfields.chore.android.domain.models.Chore
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.onEach
 
 public fun NavGraphBuilder.choreCreate(navController: NavController) {
@@ -22,8 +24,8 @@ public fun NavGraphBuilder.choreCreate(navController: NavController) {
             onNameChange = viewModel::onNameChange,
             onDateChange = viewModel::onDateChange,
             onNextClick = viewModel::onNextClick,
-            onFinish = {
-                navController.previousBackStackEntry?.savedStateHandle?.set(RESULT, true)
+            onFinish = { chore ->
+                navController.previousBackStackEntry?.savedStateHandle?.set(RESULT, chore)
                 navController.popBackStack()
             }
         )
@@ -34,10 +36,12 @@ public fun NavController.navigateToChoreCreate() {
     navigate(ROUTE)
 }
 
-public val NavController.choreCreateResults: Flow<Boolean>?
+public val NavController.choreCreateResults: Flow<Chore>
     get() {
-        return currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(RESULT)?.asFlow()
-            ?.onEach { currentBackStackEntry?.savedStateHandle?.remove<Boolean>(RESULT) }
+        return currentBackStackEntry?.savedStateHandle?.getLiveData<Chore>(RESULT)
+            ?.asFlow()
+            ?.onEach { currentBackStackEntry?.savedStateHandle?.remove<Chore>(RESULT) }
+            ?: emptyFlow()
     }
 
 private const val ROUTE = "chore/create"

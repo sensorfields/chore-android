@@ -38,7 +38,7 @@ internal class DashboardViewModel @Inject constructor(
     }
 
     @Suppress("UNUSED_PARAMETER")
-    fun onChoreCreateResult(result: Boolean) {
+    fun onChoreCreateResult(chore: Chore) {
         _actions.trySend(ShowChoreCreatedMessage)
     }
 

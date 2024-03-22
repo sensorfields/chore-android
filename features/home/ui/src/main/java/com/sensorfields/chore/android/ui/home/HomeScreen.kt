@@ -34,13 +34,14 @@ import com.sensorfields.chore.android.ui.stats.STATS_ROUTE
 import com.sensorfields.chore.android.ui.stats.stats
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.emptyFlow
 
 @Composable
 internal fun HomeScreen(
     state: HomeState,
     onScreenChange: (HomeState.Screen) -> Unit,
     onNavigateToChoreCreate: () -> Unit,
-    choreCreateResults: () -> Flow<Boolean>?,
+    choreCreateResults: () -> Flow<Chore>,
     onNavigateToChoreDetails: (Chore.Id) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -128,7 +129,7 @@ private fun Preview() {
         state = HomeState(),
         onScreenChange = {},
         onNavigateToChoreCreate = {},
-        choreCreateResults = { null },
+        choreCreateResults = { emptyFlow() },
         onNavigateToChoreDetails = {}
     )
 }
