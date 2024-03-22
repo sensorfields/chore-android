@@ -3,12 +3,12 @@ package com.sensorfields.chore.android.ui.chore.create
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sensorfields.chore.android.domain.usecases.CreateChoreUseCase
-import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.Finish
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhen
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhere
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
+import com.sensorfields.chore.android.ui.chore.create.ChoreCreateNavigationAction.Finish
+import com.sensorfields.chore.android.utils.ActionChannel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -25,7 +25,10 @@ internal class ChoreCreateViewModel @Inject constructor(
     private val _state = MutableStateFlow(ChoreCreateState())
     val state = _state.asStateFlow()
 
-    private val _action = Channel<ChoreCreateAction>(capacity = Channel.UNLIMITED)
+    private val _navigationAction = ActionChannel<ChoreCreateNavigationAction>()
+    val navigationAction = _navigationAction.receiveAsFlow()
+
+    private val _action = ActionChannel<ChoreCreateAction>()
     val action = _action.receiveAsFlow()
 
     private var screen: Screen = Screen.WHAT
@@ -70,7 +73,7 @@ internal class ChoreCreateViewModel @Inject constructor(
                     name = name,
                     date = date?.let { Instant.ofEpochMilli(it) }
                 ).onSuccess {
-                    _action.trySend(Finish(it))
+                    _navigationAction.trySend(Finish(it))
                 }.onFailure {
                     isLoading = false
                     updateState()

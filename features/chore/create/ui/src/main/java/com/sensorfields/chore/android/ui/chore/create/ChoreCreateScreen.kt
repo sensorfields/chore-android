@@ -15,9 +15,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -26,8 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.sensorfields.chore.android.domain.models.Chore
-import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.Finish
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhen
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhere
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
@@ -49,7 +45,6 @@ internal fun ChoreCreateScreen(
     onNameChange: (String) -> Unit,
     onDateChange: (Long?) -> Unit,
     onNextClick: () -> Unit,
-    onFinish: (Chore) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val navController = rememberNavController()
@@ -60,10 +55,8 @@ internal fun ChoreCreateScreen(
         it.destination.route?.let { route -> onScreenChange(Screen.valueOf(route)) }
     }
 
-    val latestOnFinish by rememberUpdatedState(onFinish)
     actions.collectInEffect { action ->
         when (action) {
-            is Finish -> latestOnFinish(action.chore)
             NavigateToWhen -> navController.navigate(Screen.WHEN.name)
             NavigateToWhere -> navController.navigate(Screen.WHERE.name)
             is ShowError -> {
@@ -143,7 +136,6 @@ private fun Preview() {
         onScreenChange = {},
         onNameChange = {},
         onDateChange = {},
-        onNextClick = {},
-        onFinish = {}
+        onNextClick = {}
     )
 }

@@ -48,8 +48,11 @@ internal fun DashboardScreen(
 
     actions.collectInEffect { action ->
         when (action) {
-            ShowChoreCreatedMessage -> snackbarHostState.showSnackbar(
-                message = context.getString(R.string.dashboard_chore_created_message)
+            is ShowChoreCreatedMessage -> snackbarHostState.showSnackbar(
+                message = context.getString(
+                    R.string.dashboard_chore_created_message,
+                    action.choreName
+                )
             )
         }
     }

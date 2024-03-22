@@ -2,7 +2,7 @@
     <string name="dashboard_title">Chores to do</string>
     <string name="dashboard_sort_button">Sort</string>
     <string name="dashboard_chore_create_button">Add</string>
-    <string name="dashboard_chore_created_message">Chore successfully created</string>
+    <string name="dashboard_chore_created_message">Chore successfully created: %s</string>
 
     <string name="dashboard_chore_sort_title">Sort by</string>
     <string name="dashboard_chore_sort_ascending">Ascending</string>

@@ -37,9 +37,8 @@ internal class DashboardViewModel @Inject constructor(
         observeChores()
     }
 
-    @Suppress("UNUSED_PARAMETER")
     fun onChoreCreateResult(chore: Chore) {
-        _actions.trySend(ShowChoreCreatedMessage)
+        _actions.trySend(ShowChoreCreatedMessage(choreName = chore.name))
     }
 
     fun onChoreSortByClick(sortBy: Chore.SortProperty) {
