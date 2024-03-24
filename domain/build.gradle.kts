@@ -33,6 +33,7 @@ dependencies {
     implementation(libs.google.hilt.android)
     ksp(libs.google.hilt.compiler)
 
+    testImplementation(projects.data.realm.test)
     testImplementation(libs.junit)
     testImplementation(libs.google.truth)
     testImplementation(libs.kotlinx.coroutines.test)

@@ -1,13 +1,13 @@
-package com.sensorfields.chore.android.domain
+package com.sensorfields.chore.android.data.realm.test
 
 import com.sensorfields.chore.android.data.realm.entities.ChoreEntity
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
 import org.junit.rules.ExternalResource
 
-class RealmRule : ExternalResource() {
+public class RealmRule : ExternalResource() {
 
-    lateinit var realm: Realm
+    public lateinit var realm: Realm
 
     override fun before() {
         realm = Realm.open(
