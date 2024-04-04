@@ -11,6 +11,8 @@ android {
     compileSdk = 34
     defaultConfig {
         minSdk = 29
+        testInstrumentationRunner =
+            "com.sensorfields.chore.android.ui.chore.create.AndroidTestRunner"
     }
     buildFeatures {
         compose = true
@@ -64,4 +66,10 @@ dependencies {
     implementation(libs.logcat)
     implementation(libs.coil.coil)
     implementation(libs.coil.compose)
+
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
+    androidTestImplementation(libs.google.hilt.testing)
+    kspAndroidTest(libs.google.hilt.compiler)
 }
