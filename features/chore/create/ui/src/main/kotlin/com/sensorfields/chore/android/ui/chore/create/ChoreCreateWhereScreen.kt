@@ -37,7 +37,7 @@ internal fun ChoreCreateWhereScreen(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun Preview() {
     ChoreCreateWhereScreen()
