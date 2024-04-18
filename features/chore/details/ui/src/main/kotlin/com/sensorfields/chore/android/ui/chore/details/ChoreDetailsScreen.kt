@@ -1,16 +1,20 @@
 package com.sensorfields.chore.android.ui.chore.details
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import com.sensorfields.chore.android.utils.UpButton
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -29,13 +33,50 @@ internal fun ChoreDetailsScreen(
             )
         }
     ) { innerPadding ->
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .consumeWindowInsets(innerPadding)
-                .padding(innerPadding)
+                .padding(innerPadding),
+            verticalArrangement = Arrangement.Center,
         ) {
-            Text(state.name, modifier = Modifier.align(Alignment.Center))
+            Text(
+                state.name,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center
+            )
+            state.date?.let {
+                Text(
+                    state.date,
+                    modifier = Modifier.fillMaxWidth(),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
         }
     }
+}
+
+@Preview
+@Composable
+private fun PreviewFull() {
+    ChoreDetailsScreen(
+        state = ChoreDetailsState(
+            name = "This is name",
+            date = "2/13/88"
+        ),
+        onUpClick = {}
+    )
+}
+
+@Preview
+@Composable
+private fun PreviewMin() {
+    ChoreDetailsScreen(
+        state = ChoreDetailsState(
+            name = "This is name"
+        ),
+        onUpClick = {}
+    )
 }

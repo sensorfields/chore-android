@@ -5,11 +5,8 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.sensorfields.chore.android.domain.models.Chore
-import com.sensorfields.chore.android.utils.formatDate
-import java.time.Instant
 
 @Composable
 internal fun DashboardChoreItem(
@@ -17,22 +14,34 @@ internal fun DashboardChoreItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val context = LocalContext.current
     ListItem(
         headlineContent = { Text(state.name) },
         modifier = modifier.clickable(onClick = onClick),
-        supportingContent = { state.date?.let { Text(context.formatDate(it)) } }
+        supportingContent = state.date?.let { { Text(it) } }
     )
 }
 
 @Preview
 @Composable
-private fun Preview() {
+private fun PreviewFull() {
     DashboardChoreItem(
         state = DashboardState.ChoreItem(
             id = Chore.Id("one"),
             name = "Some Chore that needs to be done",
-            date = Instant.parse("1988-02-13T13:00:00Z")
+            date = "2/13/88"
+        ),
+        onClick = {}
+    )
+}
+
+@Preview
+@Composable
+private fun PreviewMin() {
+    DashboardChoreItem(
+        state = DashboardState.ChoreItem(
+            id = Chore.Id("one"),
+            name = "Some Chore that needs to be done",
+            date = null
         ),
         onClick = {}
     )

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.domain.usecases.ObserveChoresUseCase
+import com.sensorfields.chore.android.ui.chore.FormatChoreDateUseCase
 import com.sensorfields.chore.android.ui.dashboard.DashboardAction.ShowChoreCreatedMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -21,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class DashboardViewModel @Inject constructor(
     private val observeChoresUseCase: ObserveChoresUseCase,
+    private val formatChoreDateUseCase: FormatChoreDateUseCase,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(DashboardState())
@@ -74,7 +76,9 @@ internal class DashboardViewModel @Inject constructor(
         _state.update {
             it.copy(
                 choreSort = choreSort.value,
-                choreItems = chores.toState()
+                choreItems = chores.toState(
+                    formatDate = formatChoreDateUseCase
+                )
             )
         }
     }

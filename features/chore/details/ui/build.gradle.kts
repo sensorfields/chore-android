@@ -32,6 +32,7 @@ detekt {
 dependencies {
     implementation(projects.utils)
     api(projects.domain)
+    implementation(projects.features.chore.ui)
 
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
 
@@ -59,7 +60,6 @@ dependencies {
 
     implementation(libs.google.hilt.android)
     ksp(libs.google.hilt.compiler)
-    implementation(libs.google.android.material)
 
     implementation(libs.logcat)
     implementation(libs.coil.coil)

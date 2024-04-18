@@ -61,7 +61,6 @@ dependencies {
 
     implementation(libs.google.hilt.android)
     ksp(libs.google.hilt.compiler)
-    implementation(libs.google.android.material)
 
     implementation(libs.logcat)
     implementation(libs.coil.coil)
