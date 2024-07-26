@@ -19,6 +19,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 rootProject.name = "chore-android"
 include(
+    ":lint",
     ":utils",
     ":data:realm",
     ":data:realm:test",
