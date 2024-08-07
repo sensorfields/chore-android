@@ -47,5 +47,5 @@ jobs:
           NEXT_VERSION_NAME=`java -jar fob-cli.jar project update-version $GITHUB_RUN_NUMBER --next-version-name=${{ inputs.nextVersionName }}`
           git add .
           git restore --staged fob-cli.jar
-          git commit -m "Create release $VERSION_NAME and update $GITHUB_REF_NAME to $NEXT_VERSION_NAME"
+          git commit -m "Create release $VERSION_NAME and update $GITHUB_REF_NAME to $NEXT_VERSION_NAME [skip ci]"
           git push

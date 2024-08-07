@@ -45,5 +45,5 @@ jobs:
           git add .
           git restore --staged fob-cli.jar
           git restore --staged $GOOGLE_APPLICATION_CREDENTIALS
-          git commit -m "Version code $GITHUB_RUN_NUMBER"
+          git commit -m "Version code $GITHUB_RUN_NUMBER [skip ci]"
           git push
