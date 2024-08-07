@@ -16,12 +16,26 @@ android {
         applicationId = "com.sensorfields.chore"
         minSdk = 29
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0${findProperty("appVersionNameSuffix") ?: ""}"
+        versionCode = property("application.versionCode") as Int
+        versionName = property("application.versionName") as String
     }
     signingConfigs {
         named("debug") {
             storeFile = File(projectDir, "debug.keystore")
+        }
+        register("devRelease") {
+            storeFile = file("dev-release.jks")
+            keyAlias = "upload"
+            keyPassword = System.getenv("DEV_RELEASE_PASSWORD")
+            storePassword = System.getenv("DEV_RELEASE_PASSWORD")
+        }
+    }
+    flavorDimensions += "environment"
+    productFlavors {
+        create("dev") {
+            isDefault = true
+            dimension = "environment"
+            applicationIdSuffix = ".dev"
         }
     }
     buildTypes {
@@ -29,11 +43,15 @@ android {
             applicationIdSuffix = ".debug"
             signingConfig = signingConfigs["debug"]
         }
-    }
-    flavorDimensions += "environment"
-    productFlavors {
-        create("dev") {
-            applicationIdSuffix = ".dev"
+        release {
+            isDebuggable = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            productFlavors["dev"].signingConfig = signingConfigs["devRelease"]
         }
     }
     compileOptions {
