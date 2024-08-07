@@ -1,16 +1,15 @@
-name: Update version code and publish the app
+name: Publish release app
 on:
   push:
-    branches:
-      - main
-      - 'release/**'
+    tags:
+      - '**'
 
 env:
   GOOGLE_APPLICATION_CREDENTIALS: google_credentials.json
 
 jobs:
-  publish:
-    name: Publish
+  check:
+    name: Check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -18,14 +17,8 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Download FOB CLI
-        run: 'curl https://api.bitbucket.org/2.0/repositories/fobsolutions/fob-cli/downloads/fob-cli-1.0.1.jar -o fob-cli.jar -H "Authorization: Bearer $FOB_CLI_ACCESS_TOKEN" -L -s'
-        env:
-          FOB_CLI_ACCESS_TOKEN: ${{ secrets.FOB_CLI_ACCESS_TOKEN }}
-      - name: Update version code
-        run: java -jar fob-cli.jar project update-version $GITHUB_RUN_NUMBER
       - name: Assemble dev app
-        run: ./gradlew app:bundleDevRelease --no-daemon -Psnapshot
+        run: ./gradlew app:bundleDevRelease --no-daemon
         env:
           DEV_RELEASE_PASSWORD: ${{ secrets.DEV_RELEASE_PASSWORD }}
 #      - name: Publish to Google Play
@@ -36,10 +29,5 @@ jobs:
 #          java -jar fob-cli.jar play-store deploy app/build/outputs/bundle/devRelease/app-dev-release.aab --package-name com.sensorfields.chore.dev --release-notes "$COMMIT_MESSAGE"
 #        env:
 #          PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA: ${{ secrets.PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA }}
-      - name: Commit and push changes
-        run: |
-          git add .
-          git restore --staged fob-cli.jar
-          git restore --staged $GOOGLE_APPLICATION_CREDENTIALS
-          git commit -m "Version code $GITHUB_RUN_NUMBER"
-          git push
+      - name: Delete release branch
+        run: git push origin -d release/GITHUB_REF_NAME 2> /dev/null || echo "Branch release/GITHUB_REF_NAME already deleted"
