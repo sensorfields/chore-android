@@ -30,8 +30,8 @@ jobs:
       - name: Validate that release does not exist yet and is properly merged
         run: |
           VERSION_NAME=`java -jar fob-cli.jar project get-version-name`
-          '! git ls-remote --exit-code --tags origin refs/tags/$VERSION_NAME || (exit 2)'
-          'git diff --exit-code ${{ inputs.mainBranch }}... -- ":(exclude)version.properties" || (exit 2)'
+          ! git ls-remote --exit-code --tags origin refs/tags/$VERSION_NAME || (exit 2)
+          git diff --exit-code ${{ inputs.mainBranch }}... -- ":(exclude)version.properties" || (exit 2)
       - name: Create a tag
         run: |
           git tag -a $VERSION_NAME -m "Release version $VERSION_NAME"
