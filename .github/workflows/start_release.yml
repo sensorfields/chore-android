@@ -32,6 +32,8 @@ jobs:
           ! git ls-remote --exit-code --tags origin refs/tags/$VERSION_NAME || (exit 2)
       - name: Create a release branch
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b release/$VERSION_NAME
           java -jar fob-cli.jar project update-version $GITHUB_RUN_NUMBER --next-version-name=$VERSION_NAME
           git add .
