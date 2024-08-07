@@ -5,6 +5,9 @@ on:
       - main
       - 'release/**'
 
+env:
+  GOOGLE_APPLICATION_CREDENTIALS: google_credentials.json
+
 jobs:
   publish:
     name: Publish
@@ -20,7 +23,7 @@ jobs:
         env:
           FOB_CLI_ACCESS_TOKEN: ${{ secrets.FOB_CLI_ACCESS_TOKEN }}
       - name: Update version code
-        run: java -jar fob-cli.jar project update-version ${{ vars.GITHUB_RUN_NUMBER }}
+        run: java -jar fob-cli.jar project update-version ${{ env.GITHUB_RUN_NUMBER }}
       - name: Assemble dev app
         run: ./gradlew app:bundleDevRelease --no-daemon -Psnapshot
         env:
@@ -29,15 +32,14 @@ jobs:
         run: |
           export GOOGLE_APPLICATION_CREDENTIALS="google_credentials.json"
           echo $PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA > $GOOGLE_APPLICATION_CREDENTIALS
-          COMMIT_MESSAGE=`git log --format=%B -n 1 ${{ vars.GITHUB_SHA }}`
+          COMMIT_MESSAGE=`git log --format=%B -n 1 ${{ env.GITHUB_SHA }}`
           java -jar fob-cli.jar play-store deploy app/build/outputs/bundle/devRelease/app-dev-release.aab --package-name com.sensorfields.chore.dev --release-notes "$COMMIT_MESSAGE"
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: google_credentials.json
           PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA: ${{ secrets.PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA }}
       - name: Commit and push changes
         run: |
           git add .
           git restore --staged fob-cli.jar
           git restore --staged $GOOGLE_APPLICATION_CREDENTIALS
-          git commit -m "Version code ${{ vars.GITHUB_RUN_NUMBER }}"
+          git commit -m "Version code ${{ env.GITHUB_RUN_NUMBER }}"
           git push
