@@ -28,8 +28,8 @@ jobs:
       - name: Validate inputs and get version name
         run: |
           VERSION_NAME=`java -jar fob-cli.jar project get-version-name ${{ inputs.versionName }} --next-version-name=${{ inputs.nextVersionName }}`
-          '! git ls-remote --exit-code --heads origin refs/heads/release/$VERSION_NAME || (exit 2)'
-          '! git ls-remote --exit-code --tags origin refs/tags/$VERSION_NAME || (exit 2)'
+          ! git ls-remote --exit-code --heads origin refs/heads/release/$VERSION_NAME || (exit 2)
+          ! git ls-remote --exit-code --tags origin refs/tags/$VERSION_NAME || (exit 2)
       - name: Create a release branch
         run: |
           git checkout -b release/$VERSION_NAME

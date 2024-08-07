@@ -28,9 +28,9 @@ jobs:
         run: ./gradlew app:bundleDevRelease --no-daemon -Psnapshot
         env:
           DEV_RELEASE_PASSWORD: ${{ secrets.DEV_RELEASE_PASSWORD }}
-#      - name: Publish to Google Play
-#        run: |
-#          export GOOGLE_APPLICATION_CREDENTIALS="google_credentials.json"
+      - name: Publish to Google Play
+        run: |
+          echo "testing" > $GOOGLE_APPLICATION_CREDENTIALS
 #          echo $PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA > $GOOGLE_APPLICATION_CREDENTIALS
 #          COMMIT_MESSAGE=`git log --format=%B -n 1 $GITHUB_SHA`
 #          java -jar fob-cli.jar play-store deploy app/build/outputs/bundle/devRelease/app-dev-release.aab --package-name com.sensorfields.chore.dev --release-notes "$COMMIT_MESSAGE"
