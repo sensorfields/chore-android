@@ -31,7 +31,7 @@ jobs:
       - name: Fetch main branch (so diff is possible)
         run: |
           git checkout ${{ inputs.mainBranch }}
-          git checkout $BITBUCKET_BRANCH
+          git checkout $GITHUB_REF_NAME
       - name: Validate that release does not exist yet and is properly merged
         id: version
         run: |
