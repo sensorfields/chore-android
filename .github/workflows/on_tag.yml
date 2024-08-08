@@ -31,4 +31,4 @@ jobs:
       #        env:
       #          PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA: ${{ secrets.PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA }}
       - name: Delete release branch
-        run: git push origin -d release/GITHUB_REF_NAME 2> /dev/null || echo "Branch release/GITHUB_REF_NAME already deleted"
+        run: git push origin -d release/$GITHUB_REF_NAME 2> /dev/null || echo "Branch release/$GITHUB_REF_NAME already deleted"
