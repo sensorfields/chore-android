@@ -2,7 +2,7 @@ name: Publish release app
 on:
   push:
     tags:
-      - '**'
+      - '[0-9]+.[0-9]+.[0-9]+'
 
 env:
   GOOGLE_APPLICATION_CREDENTIALS: google_credentials.json
@@ -23,12 +23,12 @@ jobs:
         run: ./gradlew app:bundleDevRelease --no-daemon
         env:
           DEV_RELEASE_PASSWORD: ${{ secrets.DEV_RELEASE_PASSWORD }}
-#      - name: Publish to Google Play
-#        run: |
-#          echo $PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA > $GOOGLE_APPLICATION_CREDENTIALS
-#          COMMIT_MESSAGE=`git log --format=%B -n 1 $GITHUB_SHA`
-#          java -jar fob-cli.jar play-store deploy app/build/outputs/bundle/devRelease/app-dev-release.aab --package-name com.sensorfields.chore.dev --release-notes "$COMMIT_MESSAGE"
-#        env:
-#          PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA: ${{ secrets.PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA }}
+      #      - name: Publish to Google Play
+      #        run: |
+      #          echo $PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA > $GOOGLE_APPLICATION_CREDENTIALS
+      #          COMMIT_MESSAGE=`git log --format=%B -n 1 $GITHUB_SHA`
+      #          java -jar fob-cli.jar play-store deploy app/build/outputs/bundle/devRelease/app-dev-release.aab --package-name com.sensorfields.chore.dev --release-notes "$COMMIT_MESSAGE"
+      #        env:
+      #          PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA: ${{ secrets.PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA }}
       - name: Delete release branch
         run: git push origin -d release/GITHUB_REF_NAME 2> /dev/null || echo "Branch release/GITHUB_REF_NAME already deleted"

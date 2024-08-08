@@ -30,6 +30,8 @@ jobs:
           -L -s
         env:
           FOB_CLI_ACCESS_TOKEN: ${{ secrets.FOB_CLI_ACCESS_TOKEN }}
+      - uses: onyxmueller/build-tag-number@v1
+        id: buildnumber
       - name: Validate inputs and get version name
         id: version
         run: |
@@ -42,7 +44,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b release/${{ steps.version.outputs.name }}
-          java -jar fob-cli.jar project update-version $GITHUB_RUN_NUMBER --next-version-name=${{ steps.version.outputs.name }}
+          java -jar fob-cli.jar project update-version ${{ steps.buildnumber.outputs.build_number }} --next-version-name=${{ steps.version.outputs.name }}
           git add .
           git restore --staged fob-cli.jar
           git commit -m "Create release ${{ steps.version.outputs.name }}"
@@ -50,7 +52,7 @@ jobs:
       - name: Update current branch
         run: |
           git checkout $GITHUB_REF_NAME
-          NEXT_VERSION_NAME=`java -jar fob-cli.jar project update-version $GITHUB_RUN_NUMBER --next-version-name=${{ inputs.nextVersionName }}`
+          NEXT_VERSION_NAME=`java -jar fob-cli.jar project update-version ${{ steps.buildnumber.outputs.build_number }} --next-version-name=${{ inputs.nextVersionName }}`
           git add .
           git restore --staged fob-cli.jar
           git commit -m "Create release ${{ steps.version.outputs.name }} and update $GITHUB_REF_NAME to $NEXT_VERSION_NAME [skip ci]"
