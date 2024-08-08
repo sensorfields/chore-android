@@ -23,29 +23,35 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download FOB CLI
-        run: 'curl https://api.bitbucket.org/2.0/repositories/fobsolutions/fob-cli/downloads/fob-cli-1.0.1.jar -o fob-cli.jar -H "Authorization: Bearer $FOB_CLI_ACCESS_TOKEN" -L -s'
+        run: |
+          curl https://api.bitbucket.org/2.0/repositories/fobsolutions/fob-cli/downloads/fob-cli-1.0.1.jar \
+          -o fob-cli.jar \
+          -H "Authorization: Bearer $FOB_CLI_ACCESS_TOKEN" \
+          -L -s
         env:
           FOB_CLI_ACCESS_TOKEN: ${{ secrets.FOB_CLI_ACCESS_TOKEN }}
       - name: Validate inputs and get version name
+        id: version
         run: |
           VERSION_NAME=`java -jar fob-cli.jar project get-version-name ${{ inputs.versionName }} --next-version-name=${{ inputs.nextVersionName }}`
           ! git ls-remote --exit-code --heads origin refs/heads/release/$VERSION_NAME || (exit 2)
           ! git ls-remote --exit-code --tags origin refs/tags/$VERSION_NAME || (exit 2)
+          echo "name=$VERSION_NAME" >> $GITHUB_OUTPUT
       - name: Create a release branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -b release/$VERSION_NAME
-          java -jar fob-cli.jar project update-version $GITHUB_RUN_NUMBER --next-version-name=$VERSION_NAME
+          git checkout -b release/${{ steps.version.outputs.name }}
+          java -jar fob-cli.jar project update-version $GITHUB_RUN_NUMBER --next-version-name=${{ steps.version.outputs.name }}
           git add .
           git restore --staged fob-cli.jar
-          git commit -m "Create release $VERSION_NAME"
-          git push origin release/$VERSION_NAME
+          git commit -m "Create release ${{ steps.version.outputs.name }}"
+          git push origin release/${{ steps.version.outputs.name }}
       - name: Update current branch
         run: |
           git checkout $GITHUB_REF_NAME
           NEXT_VERSION_NAME=`java -jar fob-cli.jar project update-version $GITHUB_RUN_NUMBER --next-version-name=${{ inputs.nextVersionName }}`
           git add .
           git restore --staged fob-cli.jar
-          git commit -m "Create release $VERSION_NAME and update $GITHUB_REF_NAME to $NEXT_VERSION_NAME [skip ci]"
+          git commit -m "Create release ${{ steps.version.outputs.name }} and update $GITHUB_REF_NAME to $NEXT_VERSION_NAME [skip ci]"
           git push
