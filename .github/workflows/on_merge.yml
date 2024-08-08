@@ -28,8 +28,10 @@ jobs:
           -L -s
         env:
           FOB_CLI_ACCESS_TOKEN: ${{ secrets.FOB_CLI_ACCESS_TOKEN }}
+      - uses: onyxmueller/build-tag-number@v1
+        id: buildnumber
       - name: Update version code
-        run: java -jar fob-cli.jar project update-version $GITHUB_RUN_NUMBER
+        run: java -jar fob-cli.jar project update-version ${{ steps.buildnumber.outputs.build_number }}
       - name: Assemble dev app
         run: ./gradlew app:bundleDevRelease --no-daemon -Psnapshot
         env:
@@ -37,11 +39,11 @@ jobs:
       - name: Publish to Google Play
         run: |
           echo "testing" > $GOOGLE_APPLICATION_CREDENTIALS
-#          echo $PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA > $GOOGLE_APPLICATION_CREDENTIALS
-#          COMMIT_MESSAGE=`git log --format=%B -n 1 $GITHUB_SHA`
-#          java -jar fob-cli.jar play-store deploy app/build/outputs/bundle/devRelease/app-dev-release.aab --package-name com.sensorfields.chore.dev --release-notes "$COMMIT_MESSAGE"
-#        env:
-#          PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA: ${{ secrets.PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA }}
+      #          echo $PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA > $GOOGLE_APPLICATION_CREDENTIALS
+      #          COMMIT_MESSAGE=`git log --format=%B -n 1 $GITHUB_SHA`
+      #          java -jar fob-cli.jar play-store deploy app/build/outputs/bundle/devRelease/app-dev-release.aab --package-name com.sensorfields.chore.dev --release-notes "$COMMIT_MESSAGE"
+      #        env:
+      #          PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA: ${{ secrets.PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA }}
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
@@ -49,5 +51,5 @@ jobs:
           git add .
           git restore --staged fob-cli.jar
           git restore --staged $GOOGLE_APPLICATION_CREDENTIALS
-          git commit -m "Version code $GITHUB_RUN_NUMBER [skip ci]"
+          git commit -m "Version code ${{ steps.buildnumber.outputs.build_number }} [skip ci]"
           git push
