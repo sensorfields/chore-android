@@ -30,6 +30,8 @@ jobs:
           FOB_CLI_ACCESS_TOKEN: ${{ secrets.FOB_CLI_ACCESS_TOKEN }}
       - uses: onyxmueller/build-tag-number@v1
         id: buildnumber
+        with:
+          token: ${{ secrets.github_token }}
       - name: Update version code
         run: java -jar fob-cli.jar project update-version ${{ steps.buildnumber.outputs.build_number }}
       - name: Assemble dev app

@@ -32,6 +32,8 @@ jobs:
           FOB_CLI_ACCESS_TOKEN: ${{ secrets.FOB_CLI_ACCESS_TOKEN }}
       - uses: onyxmueller/build-tag-number@v1
         id: buildnumber
+        with:
+          token: ${{ secrets.github_token }}
       - name: Validate inputs and get version name
         id: version
         run: |
