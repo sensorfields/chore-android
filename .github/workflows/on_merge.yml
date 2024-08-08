@@ -53,5 +53,6 @@ jobs:
           git add .
           git restore --staged fob-cli.jar
           git restore --staged $GOOGLE_APPLICATION_CREDENTIALS
+          git restore --staged BUILD_NUMBER
           git commit -m "Version code ${{ steps.buildnumber.outputs.build_number }} [skip ci]"
           git push
