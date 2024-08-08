@@ -49,6 +49,7 @@ jobs:
           java -jar fob-cli.jar project update-version ${{ steps.buildnumber.outputs.build_number }} --next-version-name=${{ steps.version.outputs.name }}
           git add .
           git restore --staged fob-cli.jar
+          git restore --staged BUILD_NUMBER
           git commit -m "Create release ${{ steps.version.outputs.name }}"
           git push origin release/${{ steps.version.outputs.name }}
       - name: Update current branch
@@ -57,5 +58,6 @@ jobs:
           NEXT_VERSION_NAME=`java -jar fob-cli.jar project update-version ${{ steps.buildnumber.outputs.build_number }} --next-version-name=${{ inputs.nextVersionName }}`
           git add .
           git restore --staged fob-cli.jar
+          git restore --staged BUILD_NUMBER
           git commit -m "Create release ${{ steps.version.outputs.name }} and update $GITHUB_REF_NAME to $NEXT_VERSION_NAME [skip ci]"
           git push
