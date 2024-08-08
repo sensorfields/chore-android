@@ -21,7 +21,11 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download FOB CLI
-        run: 'curl https://api.bitbucket.org/2.0/repositories/fobsolutions/fob-cli/downloads/fob-cli-1.0.1.jar -o fob-cli.jar -H "Authorization: Bearer $FOB_CLI_ACCESS_TOKEN" -L -s'
+        run: |
+          curl https://api.bitbucket.org/2.0/repositories/fobsolutions/fob-cli/downloads/fob-cli-1.0.1.jar \
+          -o fob-cli.jar \
+          -H "Authorization: Bearer $FOB_CLI_ACCESS_TOKEN" \
+          -L -s
         env:
           FOB_CLI_ACCESS_TOKEN: ${{ secrets.FOB_CLI_ACCESS_TOKEN }}
       - name: Fetch main branch (so diff is possible)
@@ -29,13 +33,15 @@ jobs:
           git checkout ${{ inputs.mainBranch }}
           git checkout $BITBUCKET_BRANCH
       - name: Validate that release does not exist yet and is properly merged
+        id: version
         run: |
           VERSION_NAME=`java -jar fob-cli.jar project get-version-name`
           ! git ls-remote --exit-code --tags origin refs/tags/$VERSION_NAME || (exit 2)
           git diff --exit-code ${{ inputs.mainBranch }}... -- ":(exclude)version.properties" || (exit 2)
+          echo "name=$VERSION_NAME" >> $GITHUB_OUTPUT
       - name: Create a tag
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git tag -a $VERSION_NAME -m "Release version $VERSION_NAME"
-          git push origin $VERSION_NAME
+          git tag -a $VERSION_NAME -m "Release version ${{ steps.version.outputs.name }}"
+          git push origin ${{ steps.version.outputs.name }}

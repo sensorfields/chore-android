@@ -21,7 +21,11 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download FOB CLI
-        run: 'curl https://api.bitbucket.org/2.0/repositories/fobsolutions/fob-cli/downloads/fob-cli-1.0.1.jar -o fob-cli.jar -H "Authorization: Bearer $FOB_CLI_ACCESS_TOKEN" -L -s'
+        run: |
+          curl https://api.bitbucket.org/2.0/repositories/fobsolutions/fob-cli/downloads/fob-cli-1.0.1.jar \
+          -o fob-cli.jar \
+          -H "Authorization: Bearer $FOB_CLI_ACCESS_TOKEN" \
+          -L -s
         env:
           FOB_CLI_ACCESS_TOKEN: ${{ secrets.FOB_CLI_ACCESS_TOKEN }}
       - name: Update version code
