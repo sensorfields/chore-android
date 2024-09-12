@@ -1,34 +1,34 @@
 [versions]
-android-tools-build = "8.5.1"
-android-tools-desugar = "2.0.4"
-android-tools-lint = "31.5.1"
+android-tools-build = "8.6.0"
+android-tools-desugar = "2.1.2"
+android-tools-lint = "31.6.0"
 
 kotlin = "2.0.0"
 kotlinx-coroutines = "1.8.1"
-kotlinx-serialization = "1.7.1"
+kotlinx-serialization = "1.7.2"
 kotlinx-collections-immutable = "0.3.7"
 
 androidx-core = "1.13.1"
 androidx-core-splashscreen = "1.0.1"
 androidx-appcompat = "1.7.0"
-androidx-activity = "1.9.1"
-androidx-fragment = "1.8.2"
-androidx-lifecycle = "2.8.4"
-androidx-navigation = "2.7.7"
+androidx-activity = "1.9.2"
+androidx-fragment = "1.8.3"
+androidx-lifecycle = "2.8.5"
+androidx-navigation = "2.8.0"
 androidx-datastore = "1.1.1"
-androidx-work = "2.9.0"
+androidx-work = "2.9.1"
 androidx-hilt = "1.2.0"
-androidx-compose-bom = "2024.06.00"
-androidx-test-runner = "1.6.1"
+androidx-compose-bom = "2024.09.01"
+androidx-test-runner = "1.6.2"
 
 google-ksp = "2.0.0-1.0.23"
-google-hilt = "2.51.1"
+google-hilt = "2.52"
 google-services = "4.4.2"
 google-android-material = "1.12.0"
 google-truth = "1.4.4"
 
 firebase-crashlytics-plugin = "3.0.2"
-firebase-bom = "33.1.2"
+firebase-bom = "33.3.0"
 
 detekt = "1.23.6"
 detekt-plugin-twitter-compose = "0.0.26"
@@ -66,7 +66,7 @@ androidx-core-coreKtx = { module = "androidx.core:core-ktx", version.ref = "andr
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidx-core-splashscreen" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-activityKtx = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
-# TODO activity-compose
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
 androidx-fragmentKtx = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx-fragment" }
 androidx-lifecycle-common-java8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-viewmodelKtx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }

@@ -90,6 +90,7 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activityKtx)
+    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.fragmentKtx)
     implementation(libs.androidx.lifecycle.common.java8)
     implementation(libs.androidx.lifecycle.viewmodelKtx)
