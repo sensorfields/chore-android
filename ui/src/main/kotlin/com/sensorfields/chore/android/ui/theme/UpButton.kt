@@ -1,4 +1,4 @@
-package com.sensorfields.chore.android.ui
+package com.sensorfields.chore.android.ui.theme
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.sensorfields.chore.android.ui.R
 
 @Composable
 public fun UpButton(
@@ -24,6 +25,6 @@ public fun UpButton(
 
 @Preview(showBackground = true)
 @Composable
-private fun Preview() {
+private fun Preview() = AppTheme {
     UpButton(onClick = {})
 }

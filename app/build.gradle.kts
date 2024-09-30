@@ -72,6 +72,7 @@ detekt {
 }
 
 dependencies {
+    implementation(projects.ui)
     implementation(projects.features.home.ui)
     implementation(projects.features.chore.create.ui)
     implementation(projects.features.chore.details.ui)

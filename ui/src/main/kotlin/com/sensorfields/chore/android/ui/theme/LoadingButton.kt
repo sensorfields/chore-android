@@ -1,4 +1,4 @@
-package com.sensorfields.chore.android.ui
+package com.sensorfields.chore.android.ui.theme
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
