@@ -15,7 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import com.sensorfields.chore.android.ui.chore.choreDate
 import com.sensorfields.chore.android.ui.theme.UpButton
+import java.time.Instant
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,7 +49,7 @@ internal fun ChoreDetailsScreen(
             )
             state.date?.let {
                 Text(
-                    state.date,
+                    choreDate(it),
                     modifier = Modifier.fillMaxWidth(),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center,
@@ -64,9 +66,9 @@ private fun PreviewFull() {
     ChoreDetailsScreen(
         state = ChoreDetailsState(
             name = "This is name",
-            date = "2/13/88"
+            date = Instant.parse("1988-02-13T13:30:00Z"),
         ),
-        onUpClick = {}
+        onUpClick = {},
     )
 }
 
@@ -75,8 +77,8 @@ private fun PreviewFull() {
 private fun PreviewMin() {
     ChoreDetailsScreen(
         state = ChoreDetailsState(
-            name = "This is name"
+            name = "This is name",
         ),
-        onUpClick = {}
+        onUpClick = {},
     )
 }

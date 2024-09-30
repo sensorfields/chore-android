@@ -1,8 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.google.ksp)
-    alias(libs.plugins.google.hilt)
+    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.detekt)
 }
 
@@ -14,6 +13,9 @@ android {
     }
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
+    }
+    buildFeatures {
+        compose = true
     }
 }
 
@@ -28,15 +30,10 @@ detekt {
 
 dependencies {
     implementation(projects.utils)
+    implementation(projects.ui)
     api(projects.domain)
 
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
 
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.coroutines.android)
-
-    implementation(libs.google.hilt.android)
-    ksp(libs.google.hilt.compiler)
-
-    implementation(libs.logcat)
+    detektPlugins(libs.detekt.plugin.twitter.compose)
 }

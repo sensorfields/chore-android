@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.sensorfields.chore.android.domain.models.Chore
+import com.sensorfields.chore.android.ui.chore.choreDate
+import java.time.Instant
 
 @Composable
 internal fun DashboardChoreItem(
@@ -17,7 +19,7 @@ internal fun DashboardChoreItem(
     ListItem(
         headlineContent = { Text(state.name) },
         modifier = modifier.clickable(onClick = onClick),
-        supportingContent = state.date?.let { { Text(it) } }
+        supportingContent = state.date?.let { { Text(choreDate(it)) } }
     )
 }
 
@@ -28,7 +30,7 @@ private fun PreviewFull() {
         state = DashboardState.ChoreItem(
             id = Chore.Id("one"),
             name = "Some Chore that needs to be done",
-            date = "2/13/88"
+            date = Instant.parse("1988-02-13T13:30:00Z"),
         ),
         onClick = {}
     )

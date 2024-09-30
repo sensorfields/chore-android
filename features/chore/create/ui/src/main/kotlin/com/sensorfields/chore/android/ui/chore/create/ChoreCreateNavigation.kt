@@ -30,7 +30,6 @@ public fun NavGraphBuilder.choreCreate(navController: NavController) {
             state = state,
             actions = viewModel.action,
             onUpClick = navController::navigateUp,
-            onScreenChange = viewModel::onScreenChange,
             onNameChange = viewModel::onNameChange,
             onDateChange = viewModel::onDateChange,
             onNextClick = viewModel::onNextClick

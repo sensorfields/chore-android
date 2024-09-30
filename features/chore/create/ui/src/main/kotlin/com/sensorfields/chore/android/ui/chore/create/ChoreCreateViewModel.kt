@@ -4,8 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sensorfields.chore.android.domain.usecases.CreateChoreUseCase
 import com.sensorfields.chore.android.ui.ActionChannel
-import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhen
-import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhere
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateNavigationAction.Finish
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,20 +31,15 @@ internal class ChoreCreateViewModel @Inject constructor(
 
     private var screen: Screen = Screen.WHAT
     private var name: String = ""
-    private var date: Long? = null
+    private var date: Instant? = null
     private var isLoading: Boolean = false
-
-    fun onScreenChange(screen: Screen) {
-        this.screen = screen
-        updateState()
-    }
 
     fun onNameChange(name: String) {
         this.name = name
         updateState()
     }
 
-    fun onDateChange(date: Long?) {
+    fun onDateChange(date: Instant?) {
         this.date = date
         updateState()
     }
@@ -55,13 +48,15 @@ internal class ChoreCreateViewModel @Inject constructor(
         when (screen) {
             Screen.WHAT -> {
                 if (name.isNotEmpty()) {
-                    _action.trySend(NavigateToWhen)
+                    screen = Screen.WHEN
+                    updateState()
                 }
             }
 
             Screen.WHEN -> {
                 if (date != null) {
-                    _action.trySend(NavigateToWhere)
+                    screen = Screen.WHERE
+                    updateState()
                 }
             }
 
@@ -69,10 +64,7 @@ internal class ChoreCreateViewModel @Inject constructor(
                 isLoading = true
                 updateState()
 
-                createChoreUseCase(
-                    name = name,
-                    date = date?.let { Instant.ofEpochMilli(it) }
-                ).onSuccess {
+                createChoreUseCase(name = name, date = date).onSuccess {
                     _navigationAction.trySend(Finish(it))
                 }.onFailure {
                     isLoading = false
@@ -92,7 +84,9 @@ internal class ChoreCreateViewModel @Inject constructor(
 
         _state.update {
             it.copy(
+                isWhatExpanded = screen == Screen.WHAT,
                 name = name,
+                isWhenExpanded = screen == Screen.WHEN,
                 date = date,
                 isNextButtonEnabled = isNextButtonEnabled,
                 isLoadingVisible = isLoading
