@@ -6,7 +6,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.sensorfields.chore.android.domain.models.Chore
-import com.sensorfields.chore.android.utils.collectInEffect
+import com.sensorfields.chore.android.ui.collectInEffect
 import kotlinx.coroutines.flow.Flow
 
 public const val DASHBOARD_ROUTE: String = "dashboard"

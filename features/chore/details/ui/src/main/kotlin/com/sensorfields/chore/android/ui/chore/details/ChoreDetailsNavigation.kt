@@ -1,26 +1,19 @@
 package com.sensorfields.chore.android.ui.chore.details
 
-import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
+import androidx.navigation.toRoute
 import com.sensorfields.chore.android.domain.models.Chore
+import kotlinx.serialization.Serializable
 
 public fun NavGraphBuilder.choreDetails(navController: NavController) {
-    composable(
-        route = ROUTE,
-        arguments = listOf(
-            navArgument(CHORE_ID) { type = NavType.StringType }
-        )
-    ) { entry ->
+    composable<ChoreDetailsRoute> { entry ->
         val viewModel = hiltViewModel<ChoreDetailsViewModel, ChoreDetailsViewModel.Factory> {
-            it.create(entry.getChoreId())
+            it.create(entry.toRoute<ChoreDetailsRoute>().choreId)
         }
         val state by viewModel.state.collectAsStateWithLifecycle()
         ChoreDetailsScreen(
@@ -31,19 +24,8 @@ public fun NavGraphBuilder.choreDetails(navController: NavController) {
 }
 
 public fun NavController.navigateToChoreDetails(choreId: Chore.Id) {
-    navigate(
-        Uri.Builder()
-            .path(PREFIX)
-            .appendPath(choreId.value)
-            .build()
-            .toString()
-    )
+    navigate(ChoreDetailsRoute(choreId = choreId.value))
 }
 
-private fun NavBackStackEntry.getChoreId(): String {
-    return arguments?.getString(CHORE_ID) ?: error("$CHORE_ID not provided")
-}
-
-private const val PREFIX = "chore/details"
-private const val CHORE_ID = "choreId"
-private const val ROUTE = "$PREFIX/{$CHORE_ID}"
+@Serializable
+private data class ChoreDetailsRoute(val choreId: String)

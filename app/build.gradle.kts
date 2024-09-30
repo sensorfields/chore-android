@@ -83,7 +83,6 @@ dependencies {
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.playServices)
-    implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.collections.immutable)
 
     implementation(libs.androidx.core.coreKtx)
@@ -91,7 +90,6 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activityKtx)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.fragmentKtx)
     implementation(libs.androidx.lifecycle.common.java8)
     implementation(libs.androidx.lifecycle.viewmodelKtx)
     implementation(libs.androidx.lifecycle.viewmodel.savedstate)

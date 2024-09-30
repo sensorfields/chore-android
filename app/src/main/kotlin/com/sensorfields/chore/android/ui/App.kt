@@ -12,7 +12,7 @@ import com.sensorfields.chore.android.ui.chore.create.choreCreateResults
 import com.sensorfields.chore.android.ui.chore.create.navigateToChoreCreate
 import com.sensorfields.chore.android.ui.chore.details.choreDetails
 import com.sensorfields.chore.android.ui.chore.details.navigateToChoreDetails
-import com.sensorfields.chore.android.ui.home.HOME_ROUTE
+import com.sensorfields.chore.android.ui.home.HomeRoute
 import com.sensorfields.chore.android.ui.home.home
 
 @Composable
@@ -25,7 +25,7 @@ fun App() {
         }
     ) {
         val navController = rememberNavController()
-        NavHost(navController = navController, startDestination = HOME_ROUTE) {
+        NavHost(navController = navController, startDestination = HomeRoute) {
             home(
                 onNavigateToChoreCreate = navController::navigateToChoreCreate,
                 choreCreateResults = { navController.choreCreateResults },

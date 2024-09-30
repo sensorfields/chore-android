@@ -3,11 +3,11 @@ package com.sensorfields.chore.android.ui.chore.create
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sensorfields.chore.android.domain.usecases.CreateChoreUseCase
+import com.sensorfields.chore.android.ui.ActionChannel
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhen
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhere
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateNavigationAction.Finish
-import com.sensorfields.chore.android.utils.ActionChannel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

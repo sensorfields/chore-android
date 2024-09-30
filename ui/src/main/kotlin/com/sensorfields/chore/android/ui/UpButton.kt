@@ -1,4 +1,4 @@
-package com.sensorfields.chore.android.utils
+package com.sensorfields.chore.android.ui
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack

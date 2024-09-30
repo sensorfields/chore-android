@@ -1,27 +1,26 @@
 [versions]
-android-tools-build = "8.6.0"
+android-tools-build = "8.6.1"
 android-tools-desugar = "2.1.2"
-android-tools-lint = "31.6.0"
+android-tools-lint = "31.6.1"
 
-kotlin = "2.0.0"
-kotlinx-coroutines = "1.8.1"
-kotlinx-serialization = "1.7.2"
-kotlinx-collections-immutable = "0.3.7"
+kotlin = "2.0.20"
+kotlinx-coroutines = "1.9.0"
+kotlinx-serialization = "1.7.3"
+kotlinx-collections-immutable = "0.3.8"
 
 androidx-core = "1.13.1"
 androidx-core-splashscreen = "1.0.1"
 androidx-appcompat = "1.7.0"
 androidx-activity = "1.9.2"
-androidx-fragment = "1.8.3"
-androidx-lifecycle = "2.8.5"
-androidx-navigation = "2.8.0"
+androidx-lifecycle = "2.8.6"
+androidx-navigation = "2.8.1"
 androidx-datastore = "1.1.1"
 androidx-work = "2.9.1"
 androidx-hilt = "1.2.0"
-androidx-compose-bom = "2024.09.01"
+androidx-compose-bom = "2024.09.02"
 androidx-test-runner = "1.6.2"
 
-google-ksp = "2.0.0-1.0.23"
+google-ksp = "2.0.20-1.0.25"
 google-hilt = "2.52"
 google-services = "4.4.2"
 google-android-material = "1.12.0"
@@ -30,10 +29,10 @@ google-truth = "1.4.4"
 firebase-crashlytics-plugin = "3.0.2"
 firebase-bom = "33.3.0"
 
-detekt = "1.23.6"
+detekt = "1.23.7"
 detekt-plugin-twitter-compose = "0.0.26"
 logcat = "0.1"
-realm = "2.1.0"
+realm = "2.3.0"
 coil = "2.7.0"
 junit = "4.13.2"
 
@@ -43,7 +42,7 @@ android-library = { id = "com.android.library", version.ref = "android-tools-bui
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 google-ksp = { id = "com.google.devtools.ksp", version.ref = "google-ksp" }
 google-hilt = { id = "com.google.dagger.hilt.android", version.ref = "google-hilt" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
@@ -67,7 +66,6 @@ androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", versi
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-activityKtx = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
-androidx-fragmentKtx = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx-fragment" }
 androidx-lifecycle-common-java8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-viewmodelKtx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-viewmodel-savedstate = { module = "androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "androidx-lifecycle" }

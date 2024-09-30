@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.sensorfields.chore.android.ui.home"
+    namespace = "com.sensorfields.chore.android.ui"
     compileSdk = 34
     defaultConfig {
         minSdk = 29
@@ -30,11 +30,7 @@ detekt {
 
 dependencies {
     implementation(projects.utils)
-    implementation(projects.ui)
-    api(projects.domain)
-    implementation(projects.features.dashboard.ui)
-    implementation(projects.features.stats.ui)
-    implementation(projects.features.settings.ui)
+    implementation(projects.domain)
 
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
 

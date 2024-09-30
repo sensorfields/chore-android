@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.detekt)
 }
 
@@ -10,9 +10,6 @@ android {
     compileSdk = 34
     defaultConfig {
         minSdk = 29
-    }
-    buildFeatures {
-        compose = true
     }
 }
 
@@ -30,13 +27,6 @@ dependencies {
     detektPlugins(libs.detekt.plugin.twitter.compose)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.androidx.hilt.navigation.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.runtime.android)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material.icons.core)
-    implementation(libs.androidx.compose.material.icons.extended)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    debugImplementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.logcat)
 }

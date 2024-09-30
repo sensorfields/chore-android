@@ -7,15 +7,17 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.sensorfields.chore.android.domain.models.Chore
 import kotlinx.coroutines.flow.Flow
+import kotlinx.serialization.Serializable
 
-public const val HOME_ROUTE: String = "home"
+@Serializable
+public object HomeRoute
 
 public fun NavGraphBuilder.home(
     onNavigateToChoreCreate: () -> Unit,
     choreCreateResults: () -> Flow<Chore>,
     onNavigateToChoreDetails: (Chore.Id) -> Unit,
 ) {
-    composable(route = HOME_ROUTE) {
+    composable<HomeRoute> {
         val viewModel = hiltViewModel<HomeViewModel>()
         val state by viewModel.state.collectAsStateWithLifecycle()
         HomeScreen(

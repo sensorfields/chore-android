@@ -9,13 +9,14 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateNavigationAction.Finish
-import com.sensorfields.chore.android.utils.collectInEffect
+import com.sensorfields.chore.android.ui.collectInEffect
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.onEach
+import kotlinx.serialization.Serializable
 
 public fun NavGraphBuilder.choreCreate(navController: NavController) {
-    composable(route = ROUTE) {
+    composable<ChoreCreateRoute> {
         val viewModel = hiltViewModel<ChoreCreateViewModel>()
         viewModel.navigationAction.collectInEffect { action ->
             when (action) {
@@ -42,7 +43,7 @@ public fun NavGraphBuilder.choreCreate(navController: NavController) {
 }
 
 public fun NavController.navigateToChoreCreate() {
-    navigate(ROUTE)
+    navigate(ChoreCreateRoute)
 }
 
 public val NavController.choreCreateResults: Flow<Chore>
@@ -53,5 +54,7 @@ public val NavController.choreCreateResults: Flow<Chore>
             ?: emptyFlow()
     }
 
-private const val ROUTE = "chore/create"
-private const val RESULT = "$ROUTE/result"
+@Serializable
+private object ChoreCreateRoute
+
+private const val RESULT = "choreCreateResult"

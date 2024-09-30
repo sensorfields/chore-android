@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.google.ksp)
     alias(libs.plugins.google.hilt)
     alias(libs.plugins.detekt)
@@ -26,10 +26,12 @@ detekt {
 }
 
 dependencies {
+    implementation(projects.utils)
     implementation(projects.data.realm)
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.google.hilt.android)
     ksp(libs.google.hilt.compiler)
 

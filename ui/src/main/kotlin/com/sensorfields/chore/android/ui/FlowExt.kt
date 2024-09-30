@@ -1,4 +1,4 @@
-package com.sensorfields.chore.android.utils
+package com.sensorfields.chore.android.ui
 
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable

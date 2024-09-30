@@ -24,6 +24,7 @@ include(
     ":data:realm",
     ":data:realm:test",
     ":domain",
+    ":ui",
     ":features:dashboard:ui",
     ":features:stats:ui",
     ":features:settings:ui",
