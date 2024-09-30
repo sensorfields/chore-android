@@ -1,6 +1,7 @@
 package com.sensorfields.chore.android.ui.home
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,15 +23,19 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.sensorfields.chore.android.domain.models.Chore
-import com.sensorfields.chore.android.ui.dashboard.DASHBOARD_ROUTE
+import com.sensorfields.chore.android.ui.dashboard.DashboardRoute
 import com.sensorfields.chore.android.ui.dashboard.dashboard
-import com.sensorfields.chore.android.ui.settings.SETTINGS_ROUTE
+import com.sensorfields.chore.android.ui.dashboard.navigateToDashboard
+import com.sensorfields.chore.android.ui.settings.SettingsRoute
+import com.sensorfields.chore.android.ui.settings.navigateToSettings
 import com.sensorfields.chore.android.ui.settings.settings
-import com.sensorfields.chore.android.ui.stats.STATS_ROUTE
+import com.sensorfields.chore.android.ui.stats.StatsRoute
+import com.sensorfields.chore.android.ui.stats.navigateToStats
 import com.sensorfields.chore.android.ui.stats.stats
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
@@ -50,9 +55,9 @@ internal fun HomeScreen(
     LaunchedEffect(Unit) {
         navController.currentBackStackEntryFlow.collectLatest {
             when {
-                it.isSelected(DASHBOARD_ROUTE) -> onScreenChange(HomeState.Screen.DASHBOARD)
-                it.isSelected(STATS_ROUTE) -> onScreenChange(HomeState.Screen.STATS)
-                it.isSelected(SETTINGS_ROUTE) -> onScreenChange(HomeState.Screen.SETTINGS)
+                it.isSelected<DashboardRoute>() -> onScreenChange(HomeState.Screen.DASHBOARD)
+                it.isSelected<StatsRoute>() -> onScreenChange(HomeState.Screen.STATS)
+                it.isSelected<SettingsRoute>() -> onScreenChange(HomeState.Screen.SETTINGS)
             }
         }
     }
@@ -60,7 +65,7 @@ internal fun HomeScreen(
     Column(modifier = modifier.fillMaxSize()) {
         NavHost(
             navController = navController,
-            startDestination = DASHBOARD_ROUTE,
+            startDestination = DashboardRoute,
             modifier = Modifier
                 .fillMaxWidth()
                 .consumeWindowInsets(NavigationBarDefaults.windowInsets.only(WindowInsetsSides.Bottom))
@@ -75,51 +80,62 @@ internal fun HomeScreen(
             settings()
         }
         NavigationBar(modifier = Modifier.fillMaxWidth()) {
-            HomeState.Screen.entries.forEach { navigationItem ->
-                val route: String
-                val labelText: String
-                val iconVector: ImageVector
-                when (navigationItem) {
-                    HomeState.Screen.DASHBOARD -> {
-                        route = DASHBOARD_ROUTE
-                        labelText = stringResource(R.string.home_navigation_dashboard)
-                        iconVector = Icons.Default.Dashboard
-                    }
-
-                    HomeState.Screen.STATS -> {
-                        route = STATS_ROUTE
-                        labelText = stringResource(R.string.home_navigation_stats)
-                        iconVector = Icons.Default.QueryStats
-                    }
-
-                    HomeState.Screen.SETTINGS -> {
-                        route = SETTINGS_ROUTE
-                        labelText = stringResource(R.string.home_navigation_settings)
-                        iconVector = Icons.Default.Settings
-                    }
-                }
-
-                NavigationBarItem(
-                    selected = state.currentScreen == navigationItem,
+            HomeState.Screen.entries.forEach { screen ->
+                Item(
+                    screen = screen,
+                    selected = state.currentScreen == screen,
                     onClick = {
-                        navController.navigate(route) {
-                            popUpTo(navController.graph.startDestinationId) {
-                                saveState = true
-                            }
-                            launchSingleTop = true
-                            restoreState = true
+                        when (screen) {
+                            HomeState.Screen.DASHBOARD -> navController
+                                .navigateToDashboard(navController.homeNavOptions)
+
+                            HomeState.Screen.STATS -> navController
+                                .navigateToStats(navController.homeNavOptions)
+
+                            HomeState.Screen.SETTINGS -> navController
+                                .navigateToSettings(navController.homeNavOptions)
                         }
                     },
-                    icon = { Icon(iconVector, contentDescription = labelText) },
-                    label = { Text(labelText) }
                 )
             }
         }
     }
 }
 
-private fun NavBackStackEntry?.isSelected(route: String): Boolean {
-    return this?.destination?.hierarchy?.any { it.route == route } == true
+@Composable
+private fun RowScope.Item(
+    screen: HomeState.Screen,
+    selected: Boolean,
+    onClick: () -> Unit,
+) {
+    val labelText: String
+    val iconVector: ImageVector
+    when (screen) {
+        HomeState.Screen.DASHBOARD -> {
+            labelText = stringResource(R.string.home_navigation_dashboard)
+            iconVector = Icons.Default.Dashboard
+        }
+
+        HomeState.Screen.STATS -> {
+            labelText = stringResource(R.string.home_navigation_stats)
+            iconVector = Icons.Default.QueryStats
+        }
+
+        HomeState.Screen.SETTINGS -> {
+            labelText = stringResource(R.string.home_navigation_settings)
+            iconVector = Icons.Default.Settings
+        }
+    }
+    NavigationBarItem(
+        selected = selected,
+        onClick = onClick,
+        icon = { Icon(iconVector, contentDescription = labelText) },
+        label = { Text(labelText) }
+    )
+}
+
+private inline fun <reified T : Any> NavBackStackEntry?.isSelected(): Boolean {
+    return this?.destination?.hierarchy?.any { it.hasRoute<T>() } == true
 }
 
 @Preview

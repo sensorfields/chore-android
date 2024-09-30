@@ -1,12 +1,20 @@
 package com.sensorfields.chore.android.ui.settings
 
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import kotlinx.serialization.Serializable
 
-public const val SETTINGS_ROUTE: String = "settings"
+@Serializable
+public object SettingsRoute
 
 public fun NavGraphBuilder.settings() {
-    composable(route = SETTINGS_ROUTE) {
+    composable<SettingsRoute> {
         SettingsScreen()
     }
+}
+
+public fun NavController.navigateToSettings(navOptions: NavOptions) {
+    navigate(SettingsRoute, navOptions)
 }

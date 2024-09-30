@@ -3,20 +3,24 @@ package com.sensorfields.chore.android.ui.dashboard
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.ui.collectInEffect
 import kotlinx.coroutines.flow.Flow
+import kotlinx.serialization.Serializable
 
-public const val DASHBOARD_ROUTE: String = "dashboard"
+@Serializable
+public object DashboardRoute
 
 public fun NavGraphBuilder.dashboard(
     onNavigateToChoreCreate: () -> Unit,
     choreCreateResults: () -> Flow<Chore>,
     onNavigateToChoreDetails: (Chore.Id) -> Unit,
 ) {
-    composable(route = DASHBOARD_ROUTE) {
+    composable<DashboardRoute> {
         val viewModel = hiltViewModel<DashboardViewModel>()
 
         choreCreateResults().collectInEffect(viewModel::onChoreCreateResult)
@@ -30,4 +34,8 @@ public fun NavGraphBuilder.dashboard(
             onChoreClick = onNavigateToChoreDetails
         )
     }
+}
+
+public fun NavController.navigateToDashboard(navOptions: NavOptions) {
+    navigate(DashboardRoute, navOptions)
 }
