@@ -16,6 +16,9 @@ android {
         testInstrumentationRunner =
             "com.sensorfields.chore.android.ui.chore.create.AndroidTestRunner"
     }
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+    }
     buildFeatures {
         compose = true
     }
@@ -33,43 +36,14 @@ detekt {
 dependencies {
     implementation(projects.utils)
     implementation(projects.ui)
-    implementation(projects.domain)
+    api(projects.domain)
+    implementation(projects.features.chore.ui)
 
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
 
     detektPlugins(libs.detekt.plugin.twitter.compose)
 
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.collections.immutable)
-    implementation(libs.kotlinx.serialization.json)
-
-    implementation(libs.androidx.lifecycle.common.java8)
-    implementation(libs.androidx.lifecycle.viewmodelKtx)
-    implementation(libs.androidx.lifecycle.viewmodel.savedstate)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.navigation.compose)
-    ksp(libs.androidx.hilt.compiler)
-    implementation(libs.androidx.hilt.navigation.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.runtime.android)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material.icons.core)
-    implementation(libs.androidx.compose.material.icons.extended)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-
     implementation(libs.google.hilt.android)
+    ksp(libs.androidx.hilt.compiler)
     ksp(libs.google.hilt.compiler)
-
-    implementation(libs.logcat)
-    implementation(libs.coil.coil)
-    implementation(libs.coil.compose)
-
-    androidTestImplementation(libs.androidx.test.runner)
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
-    androidTestImplementation(libs.google.hilt.testing)
-    kspAndroidTest(libs.google.hilt.compiler)
 }

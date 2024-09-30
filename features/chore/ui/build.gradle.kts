@@ -12,6 +12,9 @@ android {
     defaultConfig {
         minSdk = 29
     }
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+    }
 }
 
 kotlin {
