@@ -46,4 +46,10 @@ dependencies {
     implementation(libs.google.hilt.android)
     ksp(libs.androidx.hilt.compiler)
     ksp(libs.google.hilt.compiler)
+
+    androidTestApi(libs.androidx.test.runner)
+    androidTestApi(libs.androidx.compose.ui.test.junit4)
+    debugApi(libs.androidx.compose.ui.test.manifest)
+    androidTestApi(libs.google.hilt.testing)
+    kspAndroidTest(libs.google.hilt.compiler)
 }
