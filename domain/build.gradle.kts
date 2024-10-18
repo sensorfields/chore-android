@@ -30,7 +30,7 @@ detekt {
 
 dependencies {
     implementation(projects.utils)
-    implementation(projects.data.realm)
+    implementation(projects.data)
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.android)
@@ -38,7 +38,7 @@ dependencies {
     implementation(libs.google.hilt.android)
     ksp(libs.google.hilt.compiler)
 
-    testImplementation(projects.data.realm.test)
+    testImplementation(projects.dataTest)
     testImplementation(libs.junit)
     testImplementation(libs.google.truth)
     testImplementation(libs.kotlinx.coroutines.test)

@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.sensorfields.chore.android.data.realm.test"
+    namespace = "com.sensorfields.chore.android.data.test"
     compileSdk = 34
     defaultConfig {
         minSdk = 29
@@ -22,7 +22,7 @@ detekt {
 }
 
 dependencies {
-    api(projects.data.realm)
+    api(projects.data)
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
     api(libs.junit)
 }

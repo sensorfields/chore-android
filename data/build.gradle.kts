@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.sensorfields.chore.android.data.realm"
+    namespace = "com.sensorfields.chore.android.data"
     compileSdk = 34
     defaultConfig {
         minSdk = 29

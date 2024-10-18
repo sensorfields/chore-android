@@ -21,8 +21,8 @@ rootProject.name = "chore-android"
 include(
     ":lint",
     ":utils",
-    ":data:realm",
-    ":data:realm:test",
+    ":data",
+    ":data-test",
     ":domain",
     ":ui",
     ":features:dashboard:ui",
