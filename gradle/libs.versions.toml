@@ -48,7 +48,6 @@ google-hilt = { id = "com.google.dagger.hilt.android", version.ref = "google-hil
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics-plugin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
-realm = { id = "io.realm.kotlin", version.ref = "realm" }
 
 [libraries]
 android-tools-desugarJdkLibs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-tools-desugar" }

@@ -16,13 +16,9 @@ public class ObserveChoresUseCase @Inject constructor(
         sortBy: Chore.SortProperty,
         isAscending: Boolean = true,
     ): Flow<List<Chore>> {
-        // TODO order
-        return choreDao.find(sortBy.toSortProperty()).map { it.toModels() }
-
-//        return realm.query<ChoreEntity>()
-//            .sort(sortBy.toSortProperty(), isAscending.toSortOrder())
-//            .asFlow()
-//            .map { it.list.toModels() }
+        return choreDao
+            .find(orderBy = sortBy.toSortProperty(), isAscending = isAscending)
+            .map { it.toModels() }
     }
 }
 
@@ -32,4 +28,3 @@ private fun Chore.SortProperty.toSortProperty(): String {
         Chore.SortProperty.DATE -> "date"
     }
 }
-

@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.google.ksp)
     alias(libs.plugins.google.hilt)
     alias(libs.plugins.detekt)
-    alias(libs.plugins.realm)
 }
 
 android {

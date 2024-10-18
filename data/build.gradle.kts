@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.google.ksp)
     alias(libs.plugins.google.hilt)
     alias(libs.plugins.detekt)
-    alias(libs.plugins.realm)
 }
 
 android {
@@ -34,4 +33,5 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.roomKtx)
     ksp(libs.androidx.room.compiler)
+    implementation(libs.logcat)
 }
