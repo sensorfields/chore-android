@@ -1,7 +1,7 @@
 package com.sensorfields.chore.android.domain.usecases
 
 import com.google.common.truth.Truth.assertThat
-import com.sensorfields.chore.android.data.realm.entities.ChoreEntity
+import com.sensorfields.chore.android.data.room.entities.ChoreEntity
 import com.sensorfields.chore.android.data.realm.test.RealmRule
 import com.sensorfields.chore.android.domain.mappers.toObjectId
 import io.realm.kotlin.ext.query

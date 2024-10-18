@@ -15,6 +15,7 @@ androidx-activity = "1.9.3"
 androidx-lifecycle = "2.8.6"
 androidx-navigation = "2.8.3"
 androidx-datastore = "1.1.1"
+androidx-room = "2.6.1"
 androidx-work = "2.9.1"
 androidx-hilt = "1.2.0"
 androidx-compose-bom = "2024.10.00"
@@ -32,7 +33,6 @@ firebase-bom = "33.4.0"
 detekt = "1.23.7"
 detekt-plugin-twitter-compose = "0.0.26"
 logcat = "0.1"
-realm = "2.3.0"
 coil = "2.7.0"
 junit = "4.13.2"
 
@@ -73,6 +73,9 @@ androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "androidx-datastore" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
+androidx-roomKtx = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
 androidx-work-runtimeKtx = { module = "androidx.work:work-runtime-ktx", version.ref = "androidx-work" }
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
 androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "androidx-hilt" }
@@ -100,7 +103,6 @@ firebase-analyticsKtx = { module = "com.google.firebase:firebase-analytics-ktx" 
 firebase-messagingKtx = { module = "com.google.firebase:firebase-messaging-ktx" }
 
 logcat = { module = "com.squareup.logcat:logcat", version.ref = "logcat" }
-realm-library-base = { module = "io.realm.kotlin:library-base", version.ref = "realm" }
 coil-coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 junit = { module = "junit:junit", version.ref = "junit" }

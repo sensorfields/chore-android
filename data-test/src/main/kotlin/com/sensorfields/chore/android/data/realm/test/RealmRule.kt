@@ -1,6 +1,6 @@
 package com.sensorfields.chore.android.data.realm.test
 
-import com.sensorfields.chore.android.data.realm.entities.ChoreEntity
+import com.sensorfields.chore.android.data.room.entities.ChoreEntity
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
 import org.junit.rules.ExternalResource

@@ -31,5 +31,7 @@ dependencies {
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
     implementation(libs.google.hilt.android)
     ksp(libs.google.hilt.compiler)
-    api(libs.realm.library.base)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.roomKtx)
+    ksp(libs.androidx.room.compiler)
 }

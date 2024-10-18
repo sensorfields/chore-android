@@ -1,28 +1,28 @@
 package com.sensorfields.chore.android.domain.usecases
 
-import com.sensorfields.chore.android.data.realm.entities.ChoreEntity
+import com.sensorfields.chore.android.data.room.ChoreDao
 import com.sensorfields.chore.android.domain.mappers.toModels
 import com.sensorfields.chore.android.domain.models.Chore
 import dagger.Reusable
-import io.realm.kotlin.Realm
-import io.realm.kotlin.ext.query
-import io.realm.kotlin.query.Sort
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @Reusable
 public class ObserveChoresUseCase @Inject constructor(
-    private val realm: Realm,
+    private val choreDao: ChoreDao,
 ) {
     public operator fun invoke(
         sortBy: Chore.SortProperty,
         isAscending: Boolean = true,
     ): Flow<List<Chore>> {
-        return realm.query<ChoreEntity>()
-            .sort(sortBy.toSortProperty(), isAscending.toSortOrder())
-            .asFlow()
-            .map { it.list.toModels() }
+        // TODO order
+        return choreDao.find(sortBy.toSortProperty()).map { it.toModels() }
+
+//        return realm.query<ChoreEntity>()
+//            .sort(sortBy.toSortProperty(), isAscending.toSortOrder())
+//            .asFlow()
+//            .map { it.list.toModels() }
     }
 }
 
@@ -33,9 +33,3 @@ private fun Chore.SortProperty.toSortProperty(): String {
     }
 }
 
-private fun Boolean.toSortOrder(): Sort {
-    return when (this) {
-        true -> Sort.ASCENDING
-        false -> Sort.DESCENDING
-    }
-}
