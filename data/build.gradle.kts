@@ -30,7 +30,7 @@ dependencies {
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
     implementation(libs.google.hilt.android)
     ksp(libs.google.hilt.compiler)
-    implementation(libs.androidx.room.runtime)
+    api(libs.androidx.room.runtime) // TODO api only because of test rule
     implementation(libs.androidx.roomKtx)
     ksp(libs.androidx.room.compiler)
     implementation(libs.logcat)

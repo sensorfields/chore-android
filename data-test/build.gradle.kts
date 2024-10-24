@@ -24,5 +24,10 @@ detekt {
 dependencies {
     api(projects.data)
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
+    api(libs.kotlinx.coroutines.test)
+    api(libs.androidx.test.coreKtx)
+    api(libs.androidx.test.ext.junitKtx)
     api(libs.junit)
+    api(libs.robolectric)
+    api(libs.google.truth)
 }
