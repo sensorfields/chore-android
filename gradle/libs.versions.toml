@@ -46,6 +46,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+androidx-room = { id = "androidx.room", version.ref = "androidx-room" }
 google-ksp = { id = "com.google.devtools.ksp", version.ref = "google-ksp" }
 google-hilt = { id = "com.google.dagger.hilt.android", version.ref = "google-hilt" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }

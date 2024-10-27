@@ -6,9 +6,9 @@ plugins {
 
 android {
     namespace = "com.sensorfields.chore.android.data.test"
-    compileSdk = 34
+    compileSdk = property("android.compileSdk") as Int
     defaultConfig {
-        minSdk = 29
+        minSdk = property("android.minSdk") as Int
     }
 }
 

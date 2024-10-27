@@ -11,11 +11,11 @@ plugins {
 
 android {
     namespace = "com.sensorfields.chore.android"
-    compileSdk = 34
+    compileSdk = property("android.compileSdk") as Int
     defaultConfig {
         applicationId = "com.sensorfields.chore"
-        minSdk = 29
-        targetSdk = 34
+        minSdk = property("android.minSdk") as Int
+        targetSdk = property("android.targetSdk") as Int
         versionCode = property("application.versionCode") as Int
         versionName = property("application.versionName") as String
     }

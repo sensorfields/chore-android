@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.androidx.room)
     alias(libs.plugins.google.ksp)
     alias(libs.plugins.google.hilt)
     alias(libs.plugins.detekt)
@@ -8,9 +9,9 @@ plugins {
 
 android {
     namespace = "com.sensorfields.chore.android.data"
-    compileSdk = 34
+    compileSdk = property("android.compileSdk") as Int
     defaultConfig {
-        minSdk = 29
+        minSdk = property("android.minSdk") as Int
     }
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
@@ -20,6 +21,10 @@ android {
 kotlin {
     jvmToolchain(17)
     explicitApi()
+}
+
+room {
+    schemaDirectory(file("schemas").toString())
 }
 
 detekt {

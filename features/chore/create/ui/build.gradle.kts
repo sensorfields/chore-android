@@ -10,9 +10,9 @@ plugins {
 
 android {
     namespace = "com.sensorfields.chore.android.ui.chore.create"
-    compileSdk = 34
+    compileSdk = property("android.compileSdk") as Int
     defaultConfig {
-        minSdk = 29
+        minSdk = property("android.minSdk") as Int
         testInstrumentationRunner =
             "com.sensorfields.chore.android.ui.chore.create.AndroidTestRunner"
     }
