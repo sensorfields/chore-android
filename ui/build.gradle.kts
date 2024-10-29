@@ -32,9 +32,6 @@ detekt {
 }
 
 dependencies {
-    implementation(projects.utils)
-    implementation(projects.domain)
-
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
 
     detektPlugins(libs.detekt.plugin.twitter.compose)

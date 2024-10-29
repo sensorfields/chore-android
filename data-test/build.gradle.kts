@@ -10,6 +10,9 @@ android {
     defaultConfig {
         minSdk = property("android.minSdk") as Int
     }
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+    }
 }
 
 kotlin {
