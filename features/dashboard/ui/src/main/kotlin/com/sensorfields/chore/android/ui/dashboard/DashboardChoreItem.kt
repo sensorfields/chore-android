@@ -1,13 +1,13 @@
 package com.sensorfields.chore.android.ui.dashboard
 
 import androidx.compose.foundation.clickable
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.ui.chore.choreDate
+import com.sensorfields.chore.android.ui.theme.ListItem
+import com.sensorfields.chore.android.ui.theme.Text
 import java.time.Instant
 
 @Composable

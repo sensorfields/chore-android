@@ -17,6 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 
+/**
+ * TODO refactor
+ */
 @Composable
 public fun LoadingButton(
     onClick: () -> Unit,

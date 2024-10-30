@@ -3,25 +3,21 @@ package com.sensorfields.chore.android.ui.dashboard
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDownward
-import androidx.compose.material.icons.filled.ArrowUpward
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sensorfields.chore.android.domain.models.Chore
+import com.sensorfields.chore.android.ui.theme.HorizontalDivider
+import com.sensorfields.chore.android.ui.theme.Icon
+import com.sensorfields.chore.android.ui.theme.Icons
+import com.sensorfields.chore.android.ui.theme.ListItem
+import com.sensorfields.chore.android.ui.theme.ModalBottomSheet
+import com.sensorfields.chore.android.ui.theme.Text
+import com.sensorfields.chore.android.ui.theme.rememberModalBottomSheetState
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun DashboardChoreSortDialog(
     sort: DashboardState.ChoreSort,
@@ -81,7 +77,7 @@ private fun AscendingIcon(
     when {
         sort.sortBy == sortBy && sort.isAscending -> {
             Icon(
-                Icons.Default.ArrowUpward,
+                Icons.ArrowUpward,
                 contentDescription = stringResource(R.string.dashboard_chore_sort_ascending),
                 modifier = modifier
             )
@@ -89,7 +85,7 @@ private fun AscendingIcon(
 
         sort.sortBy == sortBy -> {
             Icon(
-                Icons.Default.ArrowDownward,
+                Icons.ArrowDownward,
                 contentDescription = stringResource(R.string.dashboard_chore_sort_descending),
                 modifier = modifier
             )

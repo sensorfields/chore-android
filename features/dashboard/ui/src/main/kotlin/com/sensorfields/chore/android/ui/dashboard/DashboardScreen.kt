@@ -5,18 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Sort
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,10 +17,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.ui.collectInEffect
 import com.sensorfields.chore.android.ui.dashboard.DashboardAction.ShowChoreCreatedMessage
+import com.sensorfields.chore.android.ui.theme.AppTheme
+import com.sensorfields.chore.android.ui.theme.FloatingActionButton
+import com.sensorfields.chore.android.ui.theme.Icon
+import com.sensorfields.chore.android.ui.theme.IconButton
+import com.sensorfields.chore.android.ui.theme.Icons
+import com.sensorfields.chore.android.ui.theme.Scaffold
+import com.sensorfields.chore.android.ui.theme.SnackbarHost
+import com.sensorfields.chore.android.ui.theme.Text
+import com.sensorfields.chore.android.ui.theme.TopAppBar
+import com.sensorfields.chore.android.ui.theme.rememberSnackbarHostState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun DashboardScreen(
     state: DashboardState,
@@ -43,7 +40,7 @@ internal fun DashboardScreen(
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackbarHostState = rememberSnackbarHostState()
     var isChoreSortDialogVisible by remember { mutableStateOf(false) }
 
     actions.collectInEffect { action ->
@@ -68,12 +65,12 @@ internal fun DashboardScreen(
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            CenterAlignedTopAppBar(
+            TopAppBar(
                 title = { Text(stringResource(R.string.dashboard_title)) },
                 actions = {
                     IconButton(onClick = { isChoreSortDialogVisible = true }) {
                         Icon(
-                            Icons.AutoMirrored.Default.Sort,
+                            Icons.Sort,
                             contentDescription = stringResource(R.string.dashboard_sort_button)
                         )
                     }
@@ -84,7 +81,7 @@ internal fun DashboardScreen(
         floatingActionButton = {
             FloatingActionButton(onClick = onCreateChoreClick) {
                 Icon(
-                    Icons.Default.Add,
+                    Icons.Add,
                     contentDescription = stringResource(R.string.dashboard_chore_create_button)
                 )
             }
@@ -108,7 +105,7 @@ internal fun DashboardScreen(
 
 @Preview
 @Composable
-private fun Preview() {
+private fun Preview() = AppTheme {
     DashboardScreen(
         state = DashboardState(),
         actions = emptyFlow(),

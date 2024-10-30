@@ -51,9 +51,9 @@ dependencies {
     api(libs.androidx.hilt.navigation.compose)
     api(platform(libs.androidx.compose.bom))
     api(libs.androidx.compose.runtime.android)
-    api(libs.androidx.compose.material3)
-    api(libs.androidx.compose.material.icons.core)
-    api(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.androidx.compose.material.icons.extended)
     api(libs.androidx.compose.ui.tooling.preview)
     debugApi(libs.androidx.compose.ui.tooling)
 

@@ -6,20 +6,17 @@ import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.sensorfields.chore.android.ui.chore.choreDate
+import com.sensorfields.chore.android.ui.theme.Scaffold
+import com.sensorfields.chore.android.ui.theme.Text
+import com.sensorfields.chore.android.ui.theme.TopAppBar
 import com.sensorfields.chore.android.ui.theme.UpButton
 import java.time.Instant
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ChoreDetailsScreen(
     state: ChoreDetailsState,
@@ -45,15 +42,15 @@ internal fun ChoreDetailsScreen(
             Text(
                 state.name,
                 modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
             state.date?.let {
                 Text(
                     choreDate(it),
                     modifier = Modifier.fillMaxWidth(),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    // TODO color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.bodyMedium
+                    // TODO style = MaterialTheme.typography.bodyMedium,
                 )
             }
         }
