@@ -7,9 +7,6 @@ import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarDefaults
-import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -34,6 +31,9 @@ import com.sensorfields.chore.android.ui.stats.stats
 import com.sensorfields.chore.android.ui.theme.AppTheme
 import com.sensorfields.chore.android.ui.theme.Icon
 import com.sensorfields.chore.android.ui.theme.Icons
+import com.sensorfields.chore.android.ui.theme.NavigationBar
+import com.sensorfields.chore.android.ui.theme.NavigationBarDefaults
+import com.sensorfields.chore.android.ui.theme.NavigationBarItem
 import com.sensorfields.chore.android.ui.theme.Text
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest

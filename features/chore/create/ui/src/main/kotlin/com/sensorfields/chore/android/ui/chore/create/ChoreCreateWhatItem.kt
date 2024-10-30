@@ -6,9 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.remember
@@ -21,6 +18,8 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sensorfields.chore.android.ui.theme.AppTheme
+import com.sensorfields.chore.android.ui.theme.Text
+import com.sensorfields.chore.android.ui.theme.TextField
 
 @Composable
 internal fun ColumnScope.ChoreCreateWhatItem(
@@ -31,7 +30,7 @@ internal fun ColumnScope.ChoreCreateWhatItem(
 ) {
     if (isExpanded) {
         val focusRequester = remember { FocusRequester() }
-        OutlinedTextField(
+        TextField(
             value = name,
             onValueChange = onNameChange,
             modifier = Modifier
@@ -56,7 +55,7 @@ internal fun ColumnScope.ChoreCreateWhatItem(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp),
-            style = MaterialTheme.typography.titleMedium,
+            // TODO style = MaterialTheme.typography.titleMedium,
         )
     }
 }
