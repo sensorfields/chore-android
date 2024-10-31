@@ -24,7 +24,7 @@ jobs:
           java-version: '17'
       - name: Download FOB CLI
         run: |
-          curl https://api.bitbucket.org/2.0/repositories/fobsolutions/fob-cli/downloads/fob-cli-1.0.1.jar \
+          curl https://api.bitbucket.org/2.0/repositories/fobsolutions/fob-cli/downloads/fob-cli-1.0.2.jar \
           -o fob-cli.jar \
           -H "Authorization: Bearer $FOB_CLI_ACCESS_TOKEN" \
           -L -s
@@ -47,17 +47,13 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b release/${{ steps.version.outputs.name }}
           java -jar fob-cli.jar project update-version ${{ steps.buildnumber.outputs.build_number }} --next-version-name=${{ steps.version.outputs.name }}
-          git add .
-          git restore --staged fob-cli.jar
-          git restore --staged BUILD_NUMBER
+          git add version.properties
           git commit -m "Create release ${{ steps.version.outputs.name }}"
           git push origin release/${{ steps.version.outputs.name }}
       - name: Update current branch
         run: |
           git checkout $GITHUB_REF_NAME
           NEXT_VERSION_NAME=`java -jar fob-cli.jar project update-version ${{ steps.buildnumber.outputs.build_number }} --next-version-name=${{ inputs.nextVersionName }}`
-          git add .
-          git restore --staged fob-cli.jar
-          git restore --staged BUILD_NUMBER
+          git add version.properties
           git commit -m "Create release ${{ steps.version.outputs.name }} and update $GITHUB_REF_NAME to $NEXT_VERSION_NAME [skip ci]"
           git push

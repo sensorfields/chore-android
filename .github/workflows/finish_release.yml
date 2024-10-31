@@ -22,29 +22,32 @@ jobs:
           java-version: '17'
       - name: Download FOB CLI
         run: |
-          curl https://api.bitbucket.org/2.0/repositories/fobsolutions/fob-cli/downloads/fob-cli-1.0.1.jar \
+          curl https://api.bitbucket.org/2.0/repositories/fobsolutions/fob-cli/downloads/fob-cli-1.0.2.jar \
           -o fob-cli.jar \
           -H "Authorization: Bearer $FOB_CLI_ACCESS_TOKEN" \
           -L -s
         env:
           FOB_CLI_ACCESS_TOKEN: ${{ secrets.FOB_CLI_ACCESS_TOKEN }}
+      - uses: onyxmueller/build-tag-number@v1
+        id: buildnumber
+        with:
+          token: ${{ secrets.github_token }}
       - name: Fetch main branch (so diff is possible)
         run: |
           git checkout ${{ inputs.mainBranch }}
           git checkout $GITHUB_REF_NAME
-      - name: Validate that release does not exist yet and is properly merged
+      - name: Validate that release does not exist yet and is properly merged and update version code
         id: version
         run: |
-          VERSION_NAME=`java -jar fob-cli.jar project get-version-name`
+          VERSION_NAME=`java -jar fob-cli.jar project update-version ${{ steps.buildnumber.outputs.build_number }}`
           ! git ls-remote --exit-code --tags origin refs/tags/$VERSION_NAME || (exit 2)
-          git diff --exit-code ${{ inputs.mainBranch }}... -- ":(exclude)version.properties" || (exit 2)
+          git diff --exit-code ${{ inputs.mainBranch }}.. -- ":(exclude)version.properties" || (exit 2)
           echo "name=$VERSION_NAME" >> $GITHUB_OUTPUT
-      - name: Create a tag
+      - name: Commit changes and create a tag
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          COMMIT_MESSAGE=`git log --format=%B -n 1 $GITHUB_SHA`
-          COMMIT_MESSAGE=${COMMIT_MESSAGE//"[skip ci]"/}
-          git commit --amend -m "$COMMIT_MESSAGE"
+          git add version.properties
+          git commit -m "Release version ${{ steps.version.outputs.name }}"
           git tag -a ${{ steps.version.outputs.name }} -m "Release version ${{ steps.version.outputs.name }}"
           git push origin ${{ steps.version.outputs.name }}
