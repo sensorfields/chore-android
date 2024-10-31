@@ -3,6 +3,7 @@ package com.sensorfields.chore.android.ui.chore.create
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -62,6 +63,7 @@ internal fun ChoreCreateScreen(
                 LoadingButton(
                     onClick = onNextClick,
                     loading = state.isLoadingVisible,
+                    modifier = Modifier.fillMaxWidth(),
                     enabled = state.isNextButtonEnabled
                 ) {
                     Text(stringResource(R.string.chore_create_next_button))

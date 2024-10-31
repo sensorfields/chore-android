@@ -16,7 +16,6 @@ import com.sensorfields.chore.android.ui.theme.DatePicker
 import com.sensorfields.chore.android.ui.theme.TitleMediumText
 import com.sensorfields.chore.android.ui.theme.rememberDatePickerState
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.map
 import java.time.Instant
 
 @Composable
@@ -25,12 +24,10 @@ internal fun ColumnScope.ChoreCreateWhenItem(
     date: Instant?,
     onDateChange: (Instant?) -> Unit,
 ) {
-    val datePickerState = rememberDatePickerState(initialSelectedDateMillis = date?.toEpochMilli())
+    val datePickerState = rememberDatePickerState(initialSelectedDate = date)
 
     LaunchedEffect(datePickerState) {
-        snapshotFlow { datePickerState.selectedDateMillis }
-            .map { date -> date?.let { Instant.ofEpochMilli(it) } }
-            .collectLatest(onDateChange)
+        snapshotFlow { datePickerState.selectedDate }.collectLatest(onDateChange)
     }
 
     if (isExpanded) {

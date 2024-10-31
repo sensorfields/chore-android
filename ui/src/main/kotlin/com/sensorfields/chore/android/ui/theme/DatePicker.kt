@@ -4,6 +4,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import java.time.Instant
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -23,23 +24,22 @@ public fun DatePicker(
 public class DatePickerState internal constructor(
     internal val state: androidx.compose.material3.DatePickerState,
 ) {
-    public var selectedDateMillis: Long?
-        get() = state.selectedDateMillis
+    public var selectedDate: Instant?
+        get() = state.selectedDateMillis?.let { Instant.ofEpochMilli(it) }
         set(value) {
-            state.selectedDateMillis = value
+            state.selectedDateMillis = value?.toEpochMilli()
         }
 }
 
-/**
- * TODO refactor to Instant API
- */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 public fun rememberDatePickerState(
-    initialSelectedDateMillis: Long? = null,
+    initialSelectedDate: Instant? = null,
+    initialDisplayedMonth: Instant? = initialSelectedDate,
 ): DatePickerState {
     val state = androidx.compose.material3.rememberDatePickerState(
-        initialSelectedDateMillis = initialSelectedDateMillis,
+        initialSelectedDateMillis = initialSelectedDate?.toEpochMilli(),
+        initialDisplayedMonthMillis = initialDisplayedMonth?.toEpochMilli(),
     )
     return remember { DatePickerState(state = state) }
 }
