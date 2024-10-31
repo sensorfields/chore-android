@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.sensorfields.chore.android.ui.theme.AppTheme
 import com.sensorfields.chore.android.ui.theme.Text
 import com.sensorfields.chore.android.ui.theme.TextField
+import com.sensorfields.chore.android.ui.theme.TitleMediumText
 
 @Composable
 internal fun ColumnScope.ChoreCreateWhatItem(
@@ -50,12 +51,11 @@ internal fun ColumnScope.ChoreCreateWhatItem(
             focusRequester.requestFocus()
         }
     } else {
-        Text(
+        TitleMediumText(
             name,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp),
-            // TODO style = MaterialTheme.typography.titleMedium,
         )
     }
 }

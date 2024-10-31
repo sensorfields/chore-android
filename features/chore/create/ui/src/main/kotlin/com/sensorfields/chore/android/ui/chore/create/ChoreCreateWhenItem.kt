@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.sensorfields.chore.android.ui.chore.choreDate
 import com.sensorfields.chore.android.ui.theme.AppTheme
 import com.sensorfields.chore.android.ui.theme.DatePicker
-import com.sensorfields.chore.android.ui.theme.Text
+import com.sensorfields.chore.android.ui.theme.TitleMediumText
 import com.sensorfields.chore.android.ui.theme.rememberDatePickerState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
@@ -36,12 +36,11 @@ internal fun ColumnScope.ChoreCreateWhenItem(
     if (isExpanded) {
         DatePicker(state = datePickerState)
     } else if (date != null) {
-        Text(
+        TitleMediumText(
             choreDate(date),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp),
-            // TODO style = MaterialTheme.typography.titleMedium,
         )
     }
 }

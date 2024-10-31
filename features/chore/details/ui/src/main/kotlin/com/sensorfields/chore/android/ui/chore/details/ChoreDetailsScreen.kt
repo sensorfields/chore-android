@@ -11,6 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.sensorfields.chore.android.ui.chore.choreDate
+import com.sensorfields.chore.android.ui.theme.AppTheme
+import com.sensorfields.chore.android.ui.theme.BodyMediumText
 import com.sensorfields.chore.android.ui.theme.Scaffold
 import com.sensorfields.chore.android.ui.theme.Text
 import com.sensorfields.chore.android.ui.theme.TopAppBar
@@ -45,12 +47,11 @@ internal fun ChoreDetailsScreen(
                 textAlign = TextAlign.Center,
             )
             state.date?.let {
-                Text(
+                BodyMediumText(
                     choreDate(it),
                     modifier = Modifier.fillMaxWidth(),
-                    // TODO color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    variantColor = true,
                     textAlign = TextAlign.Center,
-                    // TODO style = MaterialTheme.typography.bodyMedium,
                 )
             }
         }
@@ -59,7 +60,7 @@ internal fun ChoreDetailsScreen(
 
 @Preview
 @Composable
-private fun PreviewFull() {
+private fun PreviewFull() = AppTheme {
     ChoreDetailsScreen(
         state = ChoreDetailsState(
             name = "This is name",
@@ -71,7 +72,7 @@ private fun PreviewFull() {
 
 @Preview
 @Composable
-private fun PreviewMin() {
+private fun PreviewMin() = AppTheme {
     ChoreDetailsScreen(
         state = ChoreDetailsState(
             name = "This is name",
