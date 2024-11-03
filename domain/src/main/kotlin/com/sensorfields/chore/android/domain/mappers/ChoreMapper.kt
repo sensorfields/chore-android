@@ -1,18 +1,14 @@
 package com.sensorfields.chore.android.domain.mappers
 
-import com.sensorfields.chore.android.data.realm.entities.ChoreEntity
+import com.sensorfields.chore.android.data.room.entities.ChoreEntity
 import com.sensorfields.chore.android.domain.models.Chore
-import org.mongodb.kbson.ObjectId
-
-internal fun ObjectId.toChoreId(): Chore.Id = Chore.Id(toHexString())
-
-internal fun Chore.Id.toObjectId(): ObjectId = ObjectId(value)
+import java.time.Instant
 
 internal fun ChoreEntity.toModel(): Chore {
     return Chore(
-        id = id.toChoreId(),
+        id = Chore.Id(id),
         name = name,
-        date = date?.toInstant()
+        date = date?.let { Instant.parse(it) },
     )
 }
 

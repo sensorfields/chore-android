@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.domain.usecases.ObserveChoreUseCase
-import com.sensorfields.chore.android.ui.chore.FormatChoreDateUseCase
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -19,7 +18,6 @@ import kotlinx.coroutines.flow.update
 internal class ChoreDetailsViewModel @AssistedInject constructor(
     @Assisted private val choreIdValue: String, // TODO value classes not supported?
     private val observeChoreUseCase: ObserveChoreUseCase,
-    private val formatChoreDateUseCase: FormatChoreDateUseCase,
 ) : ViewModel() {
 
     private val choreId = Chore.Id(choreIdValue)
@@ -46,7 +44,7 @@ internal class ChoreDetailsViewModel @AssistedInject constructor(
         _state.update {
             it.copy(
                 name = chore?.name.orEmpty(),
-                date = formatChoreDateUseCase(chore?.date)
+                date = chore?.date
             )
         }
     }

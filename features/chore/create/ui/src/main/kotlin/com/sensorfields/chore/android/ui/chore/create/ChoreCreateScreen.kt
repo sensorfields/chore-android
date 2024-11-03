@@ -1,64 +1,47 @@
 package com.sensorfields.chore.android.ui.chore.create
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material3.BottomAppBarDefaults
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhen
-import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.NavigateToWhere
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
-import com.sensorfields.chore.android.utils.LoadingButton
-import com.sensorfields.chore.android.utils.UpButton
-import com.sensorfields.chore.android.utils.collectInEffect
-import com.sensorfields.chore.android.utils.collectLatestInEffect
-import com.sensorfields.chore.android.utils.getErrorMessage
+import com.sensorfields.chore.android.ui.collectInEffect
+import com.sensorfields.chore.android.ui.getErrorMessage
+import com.sensorfields.chore.android.ui.theme.AppTheme
+import com.sensorfields.chore.android.ui.theme.BottomBar
+import com.sensorfields.chore.android.ui.theme.CloseButton
+import com.sensorfields.chore.android.ui.theme.LoadingButton
+import com.sensorfields.chore.android.ui.theme.Scaffold
+import com.sensorfields.chore.android.ui.theme.SnackbarHost
+import com.sensorfields.chore.android.ui.theme.Text
+import com.sensorfields.chore.android.ui.theme.TopAppBar
+import com.sensorfields.chore.android.ui.theme.rememberSnackbarHostState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
+import java.time.Instant
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ChoreCreateScreen(
     state: ChoreCreateState,
     actions: Flow<ChoreCreateAction>,
     onUpClick: () -> Unit,
-    onScreenChange: (Screen) -> Unit,
     onNameChange: (String) -> Unit,
-    onDateChange: (Long?) -> Unit,
+    onDateChange: (Instant?) -> Unit,
     onNextClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val navController = rememberNavController()
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackbarHostState = rememberSnackbarHostState()
     val context = LocalContext.current
-
-    navController.currentBackStackEntryFlow.collectLatestInEffect {
-        it.destination.route?.let { route -> onScreenChange(Screen.valueOf(route)) }
-    }
 
     actions.collectInEffect { action ->
         when (action) {
-            NavigateToWhen -> navController.navigate(Screen.WHEN.name)
-            NavigateToWhere -> navController.navigate(Screen.WHERE.name)
             is ShowError -> {
                 snackbarHostState.showSnackbar(
                     message = context.getErrorMessage(action.error)
@@ -70,22 +53,17 @@ internal fun ChoreCreateScreen(
     Scaffold(
         modifier = modifier,
         topBar = {
-            CenterAlignedTopAppBar(
+            TopAppBar(
                 title = { Text(stringResource(R.string.chore_create_title)) },
-                navigationIcon = { UpButton(onClick = onUpClick) }
+                navigationIcon = { CloseButton(onClick = onUpClick) }
             )
         },
         bottomBar = {
-            Surface(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .windowInsetsPadding(BottomAppBarDefaults.windowInsets)
-                    .imePadding()
-                    .padding(16.dp)
-            ) {
+            BottomBar {
                 LoadingButton(
                     onClick = onNextClick,
                     loading = state.isLoadingVisible,
+                    modifier = Modifier.fillMaxWidth(),
                     enabled = state.isNextButtonEnabled
                 ) {
                     Text(stringResource(R.string.chore_create_next_button))
@@ -94,30 +72,24 @@ internal fun ChoreCreateScreen(
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { innerPadding ->
-        NavHost(
-            navController = navController,
-            startDestination = Screen.WHAT.name,
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .consumeWindowInsets(innerPadding)
                 .padding(innerPadding)
+                .imePadding()
         ) {
-            composable(Screen.WHAT.name) {
-                ChoreCreateWhatScreen(
-                    name = state.name,
-                    onNameChange = onNameChange,
-                    onDoneClick = onNextClick
-                )
-            }
-            composable(Screen.WHEN.name) {
-                ChoreCreateWhenScreen(
-                    date = state.date,
-                    onDateChanged = onDateChange
-                )
-            }
-            composable(Screen.WHERE.name) {
-                ChoreCreateWhereScreen()
-            }
+            ChoreCreateWhatItem(
+                isExpanded = state.isWhatExpanded,
+                name = state.name,
+                onNameChange = onNameChange,
+                onDoneClick = onNextClick,
+            )
+            ChoreCreateWhenItem(
+                isExpanded = state.isWhenExpanded,
+                date = state.date,
+                onDateChange = onDateChange,
+            )
         }
     }
 }
@@ -128,12 +100,11 @@ internal enum class Screen {
 
 @Preview
 @Composable
-private fun Preview() {
+private fun Preview() = AppTheme {
     ChoreCreateScreen(
         state = ChoreCreateState(),
         actions = emptyFlow(),
         onUpClick = {},
-        onScreenChange = {},
         onNameChange = {},
         onDateChange = {},
         onNextClick = {}

@@ -1,19 +1,18 @@
 package com.sensorfields.chore.android.domain.models
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-import java.time.Instant
+import com.sensorfields.chore.android.utils.InstantSerializable
+import kotlinx.serialization.Serializable
 
-@Parcelize
+@Serializable
 public data class Chore(
     val id: Id,
     val name: String,
-    val date: Instant?,
-) : Parcelable {
+    val date: InstantSerializable?,
+) {
 
     @JvmInline
-    @Parcelize
-    public value class Id(public val value: String) : Parcelable
+    @Serializable
+    public value class Id(public val value: String)
 
     public enum class SortProperty { NAME, DATE }
 }

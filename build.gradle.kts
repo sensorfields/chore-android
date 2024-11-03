@@ -6,13 +6,13 @@ plugins {
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.compose) apply false
-    alias(libs.plugins.kotlin.parcelize) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.androidx.room) apply false
     alias(libs.plugins.google.ksp) apply false
     alias(libs.plugins.google.hilt) apply false
     alias(libs.plugins.google.services) apply false
     alias(libs.plugins.firebase.crashlytics) apply false
     alias(libs.plugins.detekt) apply false
-    alias(libs.plugins.realm) apply false
 }
 
 val version = Properties().apply { load(file("version.properties").inputStream()) }
@@ -22,3 +22,6 @@ val isSnapshot = hasProperty("snapshot")
 
 extra["application.versionCode"] = versionCode
 extra["application.versionName"] = versionName + (if (isSnapshot) "-SNAPSHOT-$versionCode" else "")
+extra["android.compileSdk"] = 35
+extra["android.minSdk"] = 29
+extra["android.targetSdk"] = 35

@@ -11,11 +11,11 @@ plugins {
 
 android {
     namespace = "com.sensorfields.chore.android"
-    compileSdk = 34
+    compileSdk = property("android.compileSdk") as Int
     defaultConfig {
         applicationId = "com.sensorfields.chore"
-        minSdk = 29
-        targetSdk = 34
+        minSdk = property("android.minSdk") as Int
+        targetSdk = property("android.targetSdk") as Int
         versionCode = property("application.versionCode") as Int
         versionName = property("application.versionName") as String
     }
@@ -72,6 +72,7 @@ detekt {
 }
 
 dependencies {
+    implementation(projects.ui)
     implementation(projects.features.home.ui)
     implementation(projects.features.chore.create.ui)
     implementation(projects.features.chore.details.ui)
@@ -83,14 +84,13 @@ dependencies {
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.playServices)
-    implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.collections.immutable)
 
     implementation(libs.androidx.core.coreKtx)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activityKtx)
-    implementation(libs.androidx.fragmentKtx)
+    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.common.java8)
     implementation(libs.androidx.lifecycle.viewmodelKtx)
     implementation(libs.androidx.lifecycle.viewmodel.savedstate)
