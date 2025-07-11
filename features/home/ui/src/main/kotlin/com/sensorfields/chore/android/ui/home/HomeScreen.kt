@@ -2,32 +2,27 @@ package com.sensorfields.chore.android.ui.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.WindowInsetsSides.Companion.Bottom
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavDestination.Companion.hasRoute
-import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.rememberNavController
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.navigation3.runtime.NavEntry
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
+import androidx.navigation3.ui.NavDisplay
+import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
 import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.ui.dashboard.DashboardRoute
-import com.sensorfields.chore.android.ui.dashboard.dashboard
-import com.sensorfields.chore.android.ui.dashboard.navigateToDashboard
 import com.sensorfields.chore.android.ui.settings.SettingsRoute
-import com.sensorfields.chore.android.ui.settings.navigateToSettings
-import com.sensorfields.chore.android.ui.settings.settings
 import com.sensorfields.chore.android.ui.stats.StatsRoute
-import com.sensorfields.chore.android.ui.stats.navigateToStats
-import com.sensorfields.chore.android.ui.stats.stats
 import com.sensorfields.chore.android.ui.theme.AppTheme
 import com.sensorfields.chore.android.ui.theme.Icon
 import com.sensorfields.chore.android.ui.theme.Icons
@@ -36,62 +31,63 @@ import com.sensorfields.chore.android.ui.theme.NavigationBarDefaults
 import com.sensorfields.chore.android.ui.theme.NavigationBarItem
 import com.sensorfields.chore.android.ui.theme.Text
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.serialization.Serializable
 
 @Composable
 internal fun HomeScreen(
-    state: HomeState,
-    onScreenChange: (HomeState.Screen) -> Unit,
     onNavigateToChoreCreate: () -> Unit,
     choreCreateResults: () -> Flow<Chore>,
     onNavigateToChoreDetails: (Chore.Id) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val navController = rememberNavController()
-
-    LaunchedEffect(Unit) {
-        navController.currentBackStackEntryFlow.collectLatest {
-            when {
-                it.isSelected<DashboardRoute>() -> onScreenChange(HomeState.Screen.DASHBOARD)
-                it.isSelected<StatsRoute>() -> onScreenChange(HomeState.Screen.STATS)
-                it.isSelected<SettingsRoute>() -> onScreenChange(HomeState.Screen.SETTINGS)
-            }
-        }
-    }
+    val backStack = rememberNavBackStack(TabKey.DASHBOARD)
 
     Column(modifier = modifier.fillMaxSize()) {
-        NavHost(
-            navController = navController,
-            startDestination = DashboardRoute,
+        NavDisplay(
+            backStack = backStack,
             modifier = Modifier
                 .fillMaxWidth()
-                .consumeWindowInsets(NavigationBarDefaults.windowInsets.only(WindowInsetsSides.Bottom))
-                .weight(1f)
-        ) {
-            dashboard(
-                onNavigateToChoreCreate = onNavigateToChoreCreate,
-                choreCreateResults = choreCreateResults,
-                onNavigateToChoreDetails = onNavigateToChoreDetails
-            )
-            stats()
-            settings()
+                .consumeWindowInsets(NavigationBarDefaults.windowInsets.only(Bottom))
+                .weight(1f),
+            entryDecorators = listOf(
+                rememberSceneSetupNavEntryDecorator(),
+                rememberSavedStateNavEntryDecorator(),
+                rememberViewModelStoreNavEntryDecorator(),
+            ),
+        ) { key ->
+            if (key !is TabKey) error("Invalid key: $key")
+            when (key) {
+                TabKey.DASHBOARD -> NavEntry(key) {
+                    DashboardRoute(
+                        onNavigateToChoreCreate = onNavigateToChoreCreate,
+                        choreCreateResults = choreCreateResults,
+                        onNavigateToChoreDetails = onNavigateToChoreDetails,
+                    )
+                }
+
+                TabKey.STATS -> NavEntry(key) {
+                    StatsRoute()
+                }
+
+                TabKey.SETTINGS -> NavEntry(key) {
+                    SettingsRoute()
+                }
+            }
         }
         NavigationBar(modifier = Modifier.fillMaxWidth()) {
-            HomeState.Screen.entries.forEach { screen ->
+            TabKey.entries.forEach { tabKey ->
                 Item(
-                    screen = screen,
-                    selected = state.currentScreen == screen,
+                    tabKey = tabKey,
+                    selected = backStack.last() == tabKey,
                     onClick = {
-                        when (screen) {
-                            HomeState.Screen.DASHBOARD -> navController
-                                .navigateToDashboard(navController.homeNavOptions)
+                        when {
+                            tabKey == TabKey.DASHBOARD && backStack.size > 1 -> {
+                                backStack.removeAt(1)
+                            }
 
-                            HomeState.Screen.STATS -> navController
-                                .navigateToStats(navController.homeNavOptions)
-
-                            HomeState.Screen.SETTINGS -> navController
-                                .navigateToSettings(navController.homeNavOptions)
+                            backStack.size > 1 -> backStack[1] = tabKey
+                            else -> backStack.add(tabKey)
                         }
                     },
                 )
@@ -102,24 +98,24 @@ internal fun HomeScreen(
 
 @Composable
 private fun RowScope.Item(
-    screen: HomeState.Screen,
+    tabKey: TabKey,
     selected: Boolean,
     onClick: () -> Unit,
 ) {
     val labelText: String
     val iconVector: ImageVector
-    when (screen) {
-        HomeState.Screen.DASHBOARD -> {
+    when (tabKey) {
+        TabKey.DASHBOARD -> {
             labelText = stringResource(R.string.home_navigation_dashboard)
             iconVector = Icons.Dashboard
         }
 
-        HomeState.Screen.STATS -> {
+        TabKey.STATS -> {
             labelText = stringResource(R.string.home_navigation_stats)
             iconVector = Icons.QueryStats
         }
 
-        HomeState.Screen.SETTINGS -> {
+        TabKey.SETTINGS -> {
             labelText = stringResource(R.string.home_navigation_settings)
             iconVector = Icons.Settings
         }
@@ -128,22 +124,19 @@ private fun RowScope.Item(
         selected = selected,
         onClick = onClick,
         icon = { Icon(iconVector, contentDescription = labelText) },
-        label = { Text(labelText) }
+        label = { Text(labelText) },
     )
 }
 
-private inline fun <reified T : Any> NavBackStackEntry?.isSelected(): Boolean {
-    return this?.destination?.hierarchy?.any { it.hasRoute<T>() } == true
-}
+@Serializable
+private enum class TabKey : NavKey { DASHBOARD, STATS, SETTINGS }
 
 @Preview
 @Composable
 private fun Preview() = AppTheme {
     HomeScreen(
-        state = HomeState(),
-        onScreenChange = {},
         onNavigateToChoreCreate = {},
         choreCreateResults = { emptyFlow() },
-        onNavigateToChoreDetails = {}
+        onNavigateToChoreDetails = {},
     )
 }

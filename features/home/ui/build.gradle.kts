@@ -39,6 +39,8 @@ dependencies {
     implementation(projects.features.stats.ui)
     implementation(projects.features.settings.ui)
 
+    implementation(libs.bundles.navigation)
+
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
 
     detektPlugins(libs.detekt.plugin.twitter.compose)

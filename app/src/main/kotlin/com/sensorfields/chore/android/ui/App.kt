@@ -10,9 +10,9 @@ import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
 import com.sensorfields.chore.android.domain.models.Chore
-import com.sensorfields.chore.android.ui.Route.ChoreCreate
-import com.sensorfields.chore.android.ui.Route.ChoreDetails
-import com.sensorfields.chore.android.ui.Route.Home
+import com.sensorfields.chore.android.ui.RouteKey.ChoreCreate
+import com.sensorfields.chore.android.ui.RouteKey.ChoreDetails
+import com.sensorfields.chore.android.ui.RouteKey.Home
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateRoute
 import com.sensorfields.chore.android.ui.chore.details.ChoreDetailsRoute
 import com.sensorfields.chore.android.ui.home.HomeRoute
@@ -23,7 +23,7 @@ import kotlinx.serialization.Serializable
 @Composable
 fun App() {
     AppTheme {
-        val backStack = rememberNavBackStack<Route>(Home)
+        val backStack = rememberNavBackStack(Home)
 
         val choreCreateResults = remember { ActionChannel<Chore>() }
 
@@ -35,7 +35,7 @@ fun App() {
                 rememberViewModelStoreNavEntryDecorator(),
             ),
             entryProvider = { key ->
-                if (key !is Route) error("Invalid key: $key")
+                if (key !is RouteKey) error("Invalid key: $key")
                 when (key) {
                     Home -> NavEntry(key) {
                         HomeRoute(
@@ -69,13 +69,13 @@ fun App() {
     }
 }
 
-sealed interface Route : NavKey {
+sealed interface RouteKey : NavKey {
     @Serializable
-    data object Home : Route
+    data object Home : RouteKey
 
     @Serializable
-    data object ChoreCreate : Route
+    data object ChoreCreate : RouteKey
 
     @Serializable
-    data class ChoreDetails(val choreId: Chore.Id) : Route
+    data class ChoreDetails(val choreId: Chore.Id) : RouteKey
 }
