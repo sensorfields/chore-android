@@ -2,8 +2,8 @@ package com.sensorfields.chore.android.ui.home
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.navOptions
@@ -16,7 +16,7 @@ public fun HomeRoute(
     choreCreateResults: () -> Flow<Chore>,
     onNavigateToChoreDetails: (Chore.Id) -> Unit,
 ) {
-    val viewModel = viewModel<HomeViewModel>()
+    val viewModel = hiltViewModel<HomeViewModel>()
     val state by viewModel.state.collectAsStateWithLifecycle()
     HomeScreen(
         state = state,
