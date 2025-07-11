@@ -14,6 +14,8 @@ androidx-appcompat = "1.7.1"
 androidx-activity = "1.10.1"
 androidx-lifecycle = "2.9.1"
 androidx-navigation = "2.9.1"
+androidx-navigation3 = "1.0.0-alpha05"
+androidx-lifecycle-viewmodel-navigation3 = "1.0.0-alpha03"
 androidx-datastore = "1.1.7"
 androidx-room = "2.7.2"
 androidx-work = "2.10.2"
@@ -53,6 +55,9 @@ google-services = { id = "com.google.gms.google-services", version.ref = "google
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics-plugin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 
+[bundles]
+navigation = ["androidx-navigation3-runtime", "androidx-navigation3-ui", "androidx-lifecycle-viewmodel-navigation3"]
+
 [libraries]
 android-tools-desugarJdkLibs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-tools-desugar" }
 android-tools-lint-api = { module = "com.android.tools.lint:lint-api", version.ref = "android-tools-lint" }
@@ -75,6 +80,9 @@ androidx-lifecycle-viewmodel-savedstate = { module = "androidx.lifecycle:lifecyc
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
+androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "androidx-navigation3" }
+androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "androidx-navigation3" }
+androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "androidx-lifecycle-viewmodel-navigation3" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "androidx-datastore" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
 androidx-roomKtx = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
