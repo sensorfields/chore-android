@@ -31,6 +31,7 @@ dependencies {
     implementation(projects.utils)
     implementation(projects.data)
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
+    detektPlugins(libs.detekt.plugin.twitter.compose)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.serialization.json)

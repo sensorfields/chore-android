@@ -40,12 +40,12 @@ internal fun ColumnScope.ChoreCreateWhatItem(
             label = { Text(stringResource(R.string.chore_create_name)) },
             keyboardOptions = KeyboardOptions.Default.copy(
                 capitalization = KeyboardCapitalization.Sentences,
-                imeAction = ImeAction.Done
+                imeAction = ImeAction.Done,
             ),
             keyboardActions = KeyboardActions(
-                onDone = { onDoneClick() }
+                onDone = { onDoneClick() },
             ),
-            singleLine = true
+            singleLine = true,
         )
         SideEffect {
             focusRequester.requestFocus()
@@ -68,7 +68,7 @@ private fun PreviewExpanded() = AppTheme {
             isExpanded = true,
             name = "Chore name here",
             onNameChange = {},
-            onDoneClick = {}
+            onDoneClick = {},
         )
     }
 }
@@ -81,7 +81,7 @@ private fun PreviewCollapsed() = AppTheme {
             isExpanded = false,
             name = "Chore name here",
             onNameChange = {},
-            onDoneClick = {}
+            onDoneClick = {},
         )
     }
 }

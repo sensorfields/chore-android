@@ -27,6 +27,7 @@ detekt {
 dependencies {
     api(projects.data)
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
+    detektPlugins(libs.detekt.plugin.twitter.compose)
     api(libs.kotlinx.coroutines.test)
     api(libs.androidx.test.coreKtx)
     api(libs.androidx.test.ext.junitKtx)
