@@ -25,6 +25,11 @@ android {
 kotlin {
     jvmToolchain(17)
     explicitApi()
+    compilerOptions {
+        freeCompilerArgs.addAll(
+            "-XXLanguage:+PropertyParamAnnotationDefaultTargetMode",
+        )
+    }
 }
 
 detekt {
@@ -38,6 +43,8 @@ dependencies {
     implementation(projects.features.dashboard.ui)
     implementation(projects.features.stats.ui)
     implementation(projects.features.settings.ui)
+
+    implementation(libs.bundles.navigation)
 
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
 

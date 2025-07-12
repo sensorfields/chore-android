@@ -33,6 +33,7 @@ detekt {
 
 dependencies {
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
+    detektPlugins(libs.detekt.plugin.twitter.compose)
     implementation(libs.google.hilt.android)
     ksp(libs.google.hilt.compiler)
     api(libs.androidx.room.runtime) // TODO api only because of test rule

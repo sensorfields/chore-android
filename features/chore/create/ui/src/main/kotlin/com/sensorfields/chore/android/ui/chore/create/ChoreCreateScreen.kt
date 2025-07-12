@@ -44,7 +44,7 @@ internal fun ChoreCreateScreen(
         when (action) {
             is ShowError -> {
                 snackbarHostState.showSnackbar(
-                    message = context.getErrorMessage(action.error)
+                    message = context.getErrorMessage(action.error),
                 )
             }
         }
@@ -55,7 +55,7 @@ internal fun ChoreCreateScreen(
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.chore_create_title)) },
-                navigationIcon = { CloseButton(onClick = onUpClick) }
+                navigationIcon = { CloseButton(onClick = onUpClick) },
             )
         },
         bottomBar = {
@@ -64,20 +64,20 @@ internal fun ChoreCreateScreen(
                     onClick = onNextClick,
                     loading = state.isLoadingVisible,
                     modifier = Modifier.fillMaxWidth(),
-                    enabled = state.isNextButtonEnabled
+                    enabled = state.isNextButtonEnabled,
                 ) {
                     Text(stringResource(R.string.chore_create_next_button))
                 }
             }
         },
-        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .consumeWindowInsets(innerPadding)
                 .padding(innerPadding)
-                .imePadding()
+                .imePadding(),
         ) {
             ChoreCreateWhatItem(
                 isExpanded = state.isWhatExpanded,
@@ -107,6 +107,6 @@ private fun Preview() = AppTheme {
         onUpClick = {},
         onNameChange = {},
         onDateChange = {},
-        onNextClick = {}
+        onNextClick = {},
     )
 }

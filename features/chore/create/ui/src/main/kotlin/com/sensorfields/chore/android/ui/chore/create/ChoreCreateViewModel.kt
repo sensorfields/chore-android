@@ -89,7 +89,7 @@ internal class ChoreCreateViewModel @Inject constructor(
                 isWhenExpanded = screen == Screen.WHEN,
                 date = date,
                 isNextButtonEnabled = isNextButtonEnabled,
-                isLoadingVisible = isLoading
+                isLoadingVisible = isLoading,
             )
         }
     }
