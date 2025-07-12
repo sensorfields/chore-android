@@ -25,6 +25,11 @@ android {
 kotlin {
     jvmToolchain(17)
     explicitApi()
+    compilerOptions {
+        freeCompilerArgs.addAll(
+            "-XXLanguage:+PropertyParamAnnotationDefaultTargetMode",
+        )
+    }
 }
 
 detekt {

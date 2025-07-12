@@ -1,5 +1,6 @@
 package com.sensorfields.chore.android.ui.home
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsetsSides.Companion.Bottom
@@ -102,34 +103,33 @@ private fun RowScope.Item(
     selected: Boolean,
     onClick: () -> Unit,
 ) {
-    val labelText: String
-    val iconVector: ImageVector
-    when (tabKey) {
-        TabKey.DASHBOARD -> {
-            labelText = stringResource(R.string.home_navigation_dashboard)
-            iconVector = Icons.Dashboard
-        }
-
-        TabKey.STATS -> {
-            labelText = stringResource(R.string.home_navigation_stats)
-            iconVector = Icons.QueryStats
-        }
-
-        TabKey.SETTINGS -> {
-            labelText = stringResource(R.string.home_navigation_settings)
-            iconVector = Icons.Settings
-        }
-    }
+    val labelText = stringResource(tabKey.labelId)
     NavigationBarItem(
         selected = selected,
         onClick = onClick,
-        icon = { Icon(iconVector, contentDescription = labelText) },
+        icon = { Icon(tabKey.iconVector, contentDescription = labelText) },
         label = { Text(labelText) },
     )
 }
 
 @Serializable
-private enum class TabKey : NavKey { DASHBOARD, STATS, SETTINGS }
+private enum class TabKey(
+    val iconVector: ImageVector,
+    @StringRes val labelId: Int,
+) : NavKey {
+    DASHBOARD(
+        iconVector = Icons.Dashboard,
+        labelId = R.string.home_navigation_dashboard,
+    ),
+    STATS(
+        iconVector = Icons.QueryStats,
+        labelId = R.string.home_navigation_stats,
+    ),
+    SETTINGS(
+        iconVector = Icons.Settings,
+        labelId = R.string.home_navigation_settings,
+    );
+}
 
 @Preview
 @Composable
