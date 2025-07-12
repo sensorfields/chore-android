@@ -1,6 +1,9 @@
 package com.sensorfields.chore.android.ui.home
 
 import androidx.annotation.StringRes
+import androidx.compose.animation.ContentTransform
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsetsSides.Companion.Bottom
@@ -56,6 +59,13 @@ internal fun HomeScreen(
                 rememberSavedStateNavEntryDecorator(),
                 rememberViewModelStoreNavEntryDecorator(),
             ),
+            predictivePopTransitionSpec = {
+                ContentTransform(
+                    targetContentEnter = EnterTransition.None,
+                    initialContentExit = ExitTransition.None,
+                    sizeTransform = null,
+                )
+            },
         ) { key ->
             if (key !is TabKey) error("Invalid key: $key")
             when (key) {
