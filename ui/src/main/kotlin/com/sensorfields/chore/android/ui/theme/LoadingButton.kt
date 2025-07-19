@@ -27,13 +27,13 @@ public fun LoadingButton(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled && !loading,
-        interactionSource = interactionSource
+        interactionSource = interactionSource,
     ) {
         if (loading) {
             CircularProgressIndicator(
                 modifier = Modifier.size(24.dp),
                 color = LocalContentColor.current,
-                strokeWidth = 2.dp
+                strokeWidth = 2.dp,
             )
         } else {
             content()

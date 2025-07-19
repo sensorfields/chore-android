@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.androidx.room)
     alias(libs.plugins.google.ksp)
     alias(libs.plugins.google.hilt)
-    alias(libs.plugins.detekt)
 }
 
 android {
@@ -27,13 +26,8 @@ room {
     schemaDirectory(file("schemas").toString())
 }
 
-detekt {
-    buildUponDefaultConfig = true
-}
-
 dependencies {
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
-    detektPlugins(libs.detekt.plugin.twitter.compose)
     implementation(libs.google.hilt.android)
     ksp(libs.google.hilt.compiler)
     api(libs.androidx.room.runtime) // TODO api only because of test rule

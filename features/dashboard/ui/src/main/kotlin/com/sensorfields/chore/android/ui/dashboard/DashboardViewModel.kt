@@ -51,7 +51,7 @@ internal class DashboardViewModel @Inject constructor(
                     isAscending = when (sortBy) {
                         Chore.SortProperty.NAME -> true
                         Chore.SortProperty.DATE -> false
-                    }
+                    },
                 )
             }
         }

@@ -18,7 +18,7 @@ public fun CloseButton(
     IconButton(onClick = onClick, modifier = modifier) {
         Icon(
             Icons.Default.Close,
-            contentDescription = stringResource(R.string.close_button)
+            contentDescription = stringResource(R.string.close_button),
         )
     }
 }

@@ -39,10 +39,10 @@ internal fun DashboardChoreSortDialog(
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
         modifier = modifier,
-        sheetState = sheetState
+        sheetState = sheetState,
     ) {
         ListItem(
-            headlineContent = { Text(stringResource(R.string.dashboard_chore_sort_title)) }
+            headlineContent = { Text(stringResource(R.string.dashboard_chore_sort_title)) },
         )
         HorizontalDivider()
         ListItem(
@@ -51,9 +51,9 @@ internal fun DashboardChoreSortDialog(
             leadingContent = {
                 AscendingIcon(
                     sort = sort,
-                    sortBy = Chore.SortProperty.NAME
+                    sortBy = Chore.SortProperty.NAME,
                 )
-            }
+            },
         )
         ListItem(
             headlineContent = { Text(stringResource(R.string.dashboard_chore_sort_date)) },
@@ -61,9 +61,9 @@ internal fun DashboardChoreSortDialog(
             leadingContent = {
                 AscendingIcon(
                     sort = sort,
-                    sortBy = Chore.SortProperty.DATE
+                    sortBy = Chore.SortProperty.DATE,
                 )
-            }
+            },
         )
     }
 }
@@ -79,7 +79,7 @@ private fun AscendingIcon(
             Icon(
                 Icons.ArrowUpward,
                 contentDescription = stringResource(R.string.dashboard_chore_sort_ascending),
-                modifier = modifier
+                modifier = modifier,
             )
         }
 
@@ -87,7 +87,7 @@ private fun AscendingIcon(
             Icon(
                 Icons.ArrowDownward,
                 contentDescription = stringResource(R.string.dashboard_chore_sort_descending),
-                modifier = modifier
+                modifier = modifier,
             )
         }
 

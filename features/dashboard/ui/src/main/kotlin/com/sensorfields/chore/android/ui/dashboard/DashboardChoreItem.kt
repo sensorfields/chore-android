@@ -19,7 +19,7 @@ internal fun DashboardChoreItem(
     ListItem(
         headlineContent = { Text(state.name) },
         modifier = modifier.clickable(onClick = onClick),
-        supportingContent = state.date?.let { { Text(choreDate(it)) } }
+        supportingContent = state.date?.let { { Text(choreDate(it)) } },
     )
 }
 
@@ -32,7 +32,7 @@ private fun PreviewFull() {
             name = "Some Chore that needs to be done",
             date = Instant.parse("1988-02-13T13:30:00Z"),
         ),
-        onClick = {}
+        onClick = {},
     )
 }
 
@@ -43,8 +43,8 @@ private fun PreviewMin() {
         state = DashboardState.ChoreItem(
             id = Chore.Id("one"),
             name = "Some Chore that needs to be done",
-            date = null
+            date = null,
         ),
-        onClick = {}
+        onClick = {},
     )
 }

@@ -18,7 +18,7 @@ public fun UpButton(
     IconButton(onClick = onClick, modifier = modifier) {
         Icon(
             Icons.AutoMirrored.Default.ArrowBack,
-            contentDescription = stringResource(R.string.up_button)
+            contentDescription = stringResource(R.string.up_button),
         )
     }
 }

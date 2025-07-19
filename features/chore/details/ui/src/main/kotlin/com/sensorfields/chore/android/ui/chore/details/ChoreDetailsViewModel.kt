@@ -44,7 +44,7 @@ internal class ChoreDetailsViewModel @AssistedInject constructor(
         _state.update {
             it.copy(
                 name = chore?.name.orEmpty(),
-                date = chore?.date
+                date = chore?.date,
             )
         }
     }

@@ -26,7 +26,7 @@ public fun BottomBar(
                 .windowInsetsPadding(BottomAppBarDefaults.windowInsets)
                 .imePadding()
                 .padding(16.dp),
-            content = content
+            content = content,
         )
     }
 }

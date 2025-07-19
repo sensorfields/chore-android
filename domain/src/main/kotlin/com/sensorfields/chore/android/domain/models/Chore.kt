@@ -1,13 +1,14 @@
 package com.sensorfields.chore.android.domain.models
 
-import com.sensorfields.chore.android.utils.InstantSerializable
+import com.sensorfields.chore.android.utils.InstantSerializer
 import kotlinx.serialization.Serializable
+import java.time.Instant
 
 @Serializable
 public data class Chore(
     val id: Id,
     val name: String,
-    val date: InstantSerializable?,
+    @Serializable(with = InstantSerializer::class) val date: Instant?,
     // val repeat: Repeat,
 ) {
     @JvmInline

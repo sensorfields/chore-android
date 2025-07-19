@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.google.ksp)
     alias(libs.plugins.google.hilt)
-    alias(libs.plugins.detekt)
 }
 
 android {
@@ -27,13 +26,9 @@ kotlin {
     explicitApi()
     compilerOptions {
         freeCompilerArgs.addAll(
-            "-XXLanguage:+PropertyParamAnnotationDefaultTargetMode",
+            "-Xannotation-default-target=param-property",
         )
     }
-}
-
-detekt {
-    buildUponDefaultConfig = true
 }
 
 dependencies {
@@ -47,8 +42,6 @@ dependencies {
     implementation(libs.bundles.navigation)
 
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
-
-    detektPlugins(libs.detekt.plugin.twitter.compose)
 
     implementation(libs.google.hilt.android)
     ksp(libs.androidx.hilt.compiler)

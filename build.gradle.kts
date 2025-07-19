@@ -12,7 +12,24 @@ plugins {
     alias(libs.plugins.google.hilt) apply false
     alias(libs.plugins.google.services) apply false
     alias(libs.plugins.firebase.crashlytics) apply false
-    alias(libs.plugins.detekt) apply false
+    alias(libs.plugins.detekt)
+}
+
+val detektGradlePlugin = libs.plugins.detekt.get()
+val detektPluginsBundle = libs.bundles.detekt.plugins
+
+subprojects {
+    apply {
+        plugin(detektGradlePlugin.pluginId)
+    }
+    detekt {
+        config.from(rootProject.file("config/detekt/detekt.yml"))
+        buildUponDefaultConfig = true
+        autoCorrect = true
+    }
+    dependencies {
+        detektPlugins(detektPluginsBundle)
+    }
 }
 
 val version = Properties().apply { load(file("version.properties").inputStream()) }
