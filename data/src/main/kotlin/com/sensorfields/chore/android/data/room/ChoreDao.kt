@@ -16,7 +16,7 @@ public abstract class ChoreDao {
     public fun find(orderBy: String, isAscending: Boolean): Flow<List<ChoreEntity>> {
         val orderDirection = if (isAscending) "ASC" else "DESC"
         return find(
-            SimpleSQLiteQuery("SELECT * FROM ChoreEntity ORDER BY $orderBy $orderDirection")
+            SimpleSQLiteQuery("SELECT * FROM ChoreEntity ORDER BY $orderBy $orderDirection"),
         )
     }
 

@@ -7,7 +7,6 @@ plugins {
     alias(libs.plugins.google.hilt)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
-    alias(libs.plugins.detekt)
 }
 
 android {
@@ -68,10 +67,6 @@ kotlin {
     jvmToolchain(17)
 }
 
-detekt {
-    buildUponDefaultConfig = true
-}
-
 dependencies {
     implementation(projects.ui)
     implementation(projects.features.home.ui)
@@ -79,8 +74,6 @@ dependencies {
     implementation(projects.features.chore.details.ui)
 
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
-
-    detektPlugins(libs.detekt.plugin.twitter.compose)
 
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.android)

@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.google.ksp)
     alias(libs.plugins.google.hilt)
-    alias(libs.plugins.detekt)
 }
 
 android {
@@ -23,15 +22,10 @@ kotlin {
     explicitApi()
 }
 
-detekt {
-    buildUponDefaultConfig = true
-}
-
 dependencies {
     implementation(projects.utils)
     implementation(projects.data)
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
-    detektPlugins(libs.detekt.plugin.twitter.compose)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.serialization.json)

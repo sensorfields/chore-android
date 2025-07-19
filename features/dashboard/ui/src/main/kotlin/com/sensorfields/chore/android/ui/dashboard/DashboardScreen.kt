@@ -48,8 +48,8 @@ internal fun DashboardScreen(
             is ShowChoreCreatedMessage -> snackbarHostState.showSnackbar(
                 message = context.getString(
                     R.string.dashboard_chore_created_message,
-                    action.choreName
-                )
+                    action.choreName,
+                ),
             )
         }
     }
@@ -58,7 +58,7 @@ internal fun DashboardScreen(
         DashboardChoreSortDialog(
             sort = state.choreSort,
             onSortByClick = onChoreSortByClick,
-            onDismissRequest = { isChoreSortDialogVisible = false }
+            onDismissRequest = { isChoreSortDialogVisible = false },
         )
     }
 
@@ -71,10 +71,10 @@ internal fun DashboardScreen(
                     IconButton(onClick = { isChoreSortDialogVisible = true }) {
                         Icon(
                             Icons.Sort,
-                            contentDescription = stringResource(R.string.dashboard_sort_button)
+                            contentDescription = stringResource(R.string.dashboard_sort_button),
                         )
                     }
-                }
+                },
             )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -82,21 +82,21 @@ internal fun DashboardScreen(
             FloatingActionButton(onClick = onCreateChoreClick) {
                 Icon(
                     Icons.Add,
-                    contentDescription = stringResource(R.string.dashboard_chore_create_button)
+                    contentDescription = stringResource(R.string.dashboard_chore_create_button),
                 )
             }
-        }
+        },
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .consumeWindowInsets(innerPadding)
-                .padding(innerPadding)
+                .padding(innerPadding),
         ) {
             items(state.choreItems, key = { it.id.value }) { itemState ->
                 DashboardChoreItem(
                     state = itemState,
-                    onClick = { onChoreClick(itemState.id) }
+                    onClick = { onChoreClick(itemState.id) },
                 )
             }
         }
@@ -111,6 +111,6 @@ private fun Preview() = AppTheme {
         actions = emptyFlow(),
         onChoreSortByClick = {},
         onCreateChoreClick = {},
-        onChoreClick = {}
+        onChoreClick = {},
     )
 }

@@ -138,7 +138,7 @@ private enum class TabKey(
     SETTINGS(
         iconVector = Icons.Settings,
         labelId = R.string.home_navigation_settings,
-    );
+    ),
 }
 
 @Preview

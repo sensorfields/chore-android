@@ -1,3 +1,4 @@
+import io.gitlab.arturbosch.detekt.DetektPlugin
 import java.util.Properties
 
 plugins {
@@ -12,7 +13,23 @@ plugins {
     alias(libs.plugins.google.hilt) apply false
     alias(libs.plugins.google.services) apply false
     alias(libs.plugins.firebase.crashlytics) apply false
-    alias(libs.plugins.detekt) apply false
+    alias(libs.plugins.detekt)
+}
+
+val detektPluginsBundle = libs.bundles.detekt.plugins
+
+subprojects {
+    apply {
+        plugin("io.gitlab.arturbosch.detekt")
+    }
+    detekt {
+        config.from(rootProject.file("config/detekt/detekt.yml"))
+        buildUponDefaultConfig = true
+        autoCorrect = true
+    }
+    dependencies {
+        detektPlugins(detektPluginsBundle)
+    }
 }
 
 val version = Properties().apply { load(file("version.properties").inputStream()) }

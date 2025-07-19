@@ -32,3 +32,16 @@ naming:
 TwitterCompose:
   ViewModelInjection:
     active: false
+
+formatting:
+  active: true
+  android: true
+  autoCorrect: true
+  TrailingCommaOnCallSite:
+    useTrailingCommaOnCallSite: true
+    active: true
+    autoCorrect: true
+  TrailingCommaOnDeclarationSite:
+    active: true
+    useTrailingCommaOnDeclarationSite: true
+    autoCorrect: true

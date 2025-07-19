@@ -22,11 +22,11 @@ public fun StatsScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .consumeWindowInsets(innerPadding)
-                .padding(innerPadding)
+                .padding(innerPadding),
         ) {
             Text(
                 stringResource(R.string.stats_title),
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center),
             )
         }
     }

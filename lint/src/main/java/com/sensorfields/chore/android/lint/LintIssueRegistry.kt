@@ -28,8 +28,8 @@ private val testIssue = Issue.create(
     severity = Severity.WARNING,
     implementation = Implementation(
         TestIssueDetector::class.java,
-        EnumSet.of(Scope.JAVA_FILE)
-    )
+        EnumSet.of(Scope.JAVA_FILE),
+    ),
 )
 
 class TestIssueDetector : Detector(), SourceCodeScanner

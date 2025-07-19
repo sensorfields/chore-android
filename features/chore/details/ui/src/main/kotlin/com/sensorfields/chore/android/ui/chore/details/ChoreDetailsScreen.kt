@@ -30,9 +30,9 @@ internal fun ChoreDetailsScreen(
         topBar = {
             TopAppBar(
                 title = {},
-                navigationIcon = { UpButton(onClick = onUpClick) }
+                navigationIcon = { UpButton(onClick = onUpClick) },
             )
-        }
+        },
     ) { innerPadding ->
         Column(
             modifier = Modifier
