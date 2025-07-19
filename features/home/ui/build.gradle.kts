@@ -26,7 +26,7 @@ kotlin {
     explicitApi()
     compilerOptions {
         freeCompilerArgs.addAll(
-            "-XXLanguage:+PropertyParamAnnotationDefaultTargetMode",
+            "-Xannotation-default-target=param-property",
         )
     }
 }

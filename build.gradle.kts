@@ -1,4 +1,3 @@
-import io.gitlab.arturbosch.detekt.DetektPlugin
 import java.util.Properties
 
 plugins {
@@ -16,11 +15,12 @@ plugins {
     alias(libs.plugins.detekt)
 }
 
+val detektGradlePlugin = libs.plugins.detekt.get()
 val detektPluginsBundle = libs.bundles.detekt.plugins
 
 subprojects {
     apply {
-        plugin("io.gitlab.arturbosch.detekt")
+        plugin(detektGradlePlugin.pluginId)
     }
     detekt {
         config.from(rootProject.file("config/detekt/detekt.yml"))
