@@ -30,8 +30,8 @@ google-services = "4.4.3"
 google-android-material = "1.12.0"
 google-truth = "1.4.4"
 
-firebase-crashlytics-plugin = "3.0.4"
-firebase-bom = "33.16.0"
+firebase-crashlytics-plugin = "3.0.5"
+firebase-bom = "34.0.0"
 
 detekt = "1.23.8"
 detekt-plugin-twitter-compose = "0.0.26"
@@ -110,9 +110,9 @@ google-android-material = { module = "com.google.android.material:material", ver
 google-truth = { module = "com.google.truth:truth", version.ref = "google-truth" }
 
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
-firebase-crashlyticsKtx = { module = "com.google.firebase:firebase-crashlytics-ktx" }
-firebase-analyticsKtx = { module = "com.google.firebase:firebase-analytics-ktx" }
-firebase-messagingKtx = { module = "com.google.firebase:firebase-messaging-ktx" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-messaging = { module = "com.google.firebase:firebase-messaging" }
 
 logcat = { module = "com.squareup.logcat:logcat", version.ref = "logcat" }
 coil-coil = { module = "io.coil-kt:coil", version.ref = "coil" }

@@ -2,11 +2,23 @@ package com.sensorfields.chore.android.ui.chore.create
 
 import java.time.Instant
 
-internal data class ChoreCreateState(
-    val isWhatExpanded: Boolean = true,
-    val name: String = "",
-    val isWhenExpanded: Boolean = false,
-    val date: Instant? = null,
-    val isNextButtonEnabled: Boolean = false,
-    val isLoadingVisible: Boolean = false,
-)
+internal sealed class ChoreCreateState(
+    open val isNextButtonEnabled: Boolean = false,
+    open val isLoadingVisible: Boolean = false,
+) {
+    data class What(
+        override val isNextButtonEnabled: Boolean = false,
+        val name: String = "",
+    ) : ChoreCreateState()
+
+    data object When : ChoreCreateState() {
+        enum class Repeat { ONCE, DAILY, WEEKLY, MONTHLY, YEARLY, }
+    }
+
+    data class WhenDate(
+        override val isNextButtonEnabled: Boolean = false,
+        val date: Instant?,
+    ) : ChoreCreateState()
+
+    data object WhenTime : ChoreCreateState()
+}

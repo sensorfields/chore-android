@@ -108,9 +108,9 @@ dependencies {
     implementation(libs.google.android.material)
 
     implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.crashlyticsKtx)
-    implementation(libs.firebase.analyticsKtx)
-    implementation(libs.firebase.messagingKtx)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.messaging)
 
     implementation(libs.logcat)
     implementation(libs.coil.coil)

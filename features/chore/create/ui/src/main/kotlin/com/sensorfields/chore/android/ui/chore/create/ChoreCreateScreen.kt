@@ -1,6 +1,6 @@
 package com.sensorfields.chore.android.ui.chore.create
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,6 +33,7 @@ internal fun ChoreCreateScreen(
     actions: Flow<ChoreCreateAction>,
     onUpClick: () -> Unit,
     onNameChange: (String) -> Unit,
+    onRepeatClick: (ChoreCreateState.When.Repeat) -> Unit,
     onDateChange: (Instant?) -> Unit,
     onNextClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -72,40 +73,46 @@ internal fun ChoreCreateScreen(
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
     ) { innerPadding ->
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .consumeWindowInsets(innerPadding)
                 .padding(innerPadding)
                 .imePadding(),
         ) {
-            ChoreCreateWhatItem(
-                isExpanded = state.isWhatExpanded,
-                name = state.name,
-                onNameChange = onNameChange,
-                onDoneClick = onNextClick,
-            )
-            ChoreCreateWhenItem(
-                isExpanded = state.isWhenExpanded,
-                date = state.date,
-                onDateChange = onDateChange,
-            )
+            when (state) {
+                is ChoreCreateState.What -> ChoreCreateWhat(
+                    name = state.name,
+                    onNameChange = onNameChange,
+                    onDoneClick = onNextClick,
+                )
+
+                ChoreCreateState.When -> ChoreCreateWhen(
+                    onRepeatClick = onRepeatClick,
+                )
+
+                is ChoreCreateState.WhenDate -> ChoreCreateWhenDate(
+                    date = state.date,
+                    onDateChange = onDateChange,
+                )
+
+                ChoreCreateState.WhenTime -> ChoreCreateWhenTime(
+
+                )
+            }
         }
     }
-}
-
-internal enum class Screen {
-    WHAT, WHEN, WHERE
 }
 
 @Preview
 @Composable
 private fun Preview() = AppTheme {
     ChoreCreateScreen(
-        state = ChoreCreateState(),
+        state = ChoreCreateState.What(),
         actions = emptyFlow(),
         onUpClick = {},
         onNameChange = {},
+        onRepeatClick = {},
         onDateChange = {},
         onNextClick = {},
     )

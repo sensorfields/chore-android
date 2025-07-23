@@ -25,6 +25,7 @@ public fun ChoreCreateRoute(
         actions = viewModel.action,
         onUpClick = onNavigateUp,
         onNameChange = viewModel::onNameChange,
+        onRepeatClick = viewModel::onRepeatClick,
         onDateChange = viewModel::onDateChange,
         onNextClick = viewModel::onNextClick,
     )

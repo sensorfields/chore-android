@@ -1,17 +1,14 @@
 package com.sensorfields.chore.android.ui.chore.create
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.sensorfields.chore.android.domain.usecases.CreateChoreUseCase
 import com.sensorfields.chore.android.ui.ActionChannel
-import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
-import com.sensorfields.chore.android.ui.chore.create.ChoreCreateNavigationAction.Finish
+import com.sensorfields.chore.android.ui.chore.create.ChoreCreateState.When.Repeat
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import java.time.Instant
 import javax.inject.Inject
 
@@ -20,7 +17,7 @@ internal class ChoreCreateViewModel @Inject constructor(
     private val createChoreUseCase: CreateChoreUseCase,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(ChoreCreateState())
+    private val _state = MutableStateFlow<ChoreCreateState>(ChoreCreateState.What())
     val state = _state.asStateFlow()
 
     private val _navigationAction = ActionChannel<ChoreCreateNavigationAction>()
@@ -29,8 +26,8 @@ internal class ChoreCreateViewModel @Inject constructor(
     private val _action = ActionChannel<ChoreCreateAction>()
     val action = _action.receiveAsFlow()
 
-    private var screen: Screen = Screen.WHAT
     private var name: String = ""
+    private var repeat: Repeat = Repeat.ONCE
     private var date: Instant? = null
     private var isLoading: Boolean = false
 
@@ -39,58 +36,84 @@ internal class ChoreCreateViewModel @Inject constructor(
         updateState()
     }
 
+    fun onRepeatClick(repeat: Repeat) {
+        this.repeat = repeat
+        when (repeat) {
+            Repeat.ONCE -> {
+                _state.update { ChoreCreateState.WhenDate(date = date) }
+            }
+
+            Repeat.DAILY -> {
+                _state.update { ChoreCreateState.WhenTime }
+            }
+
+            Repeat.WEEKLY -> TODO()
+            Repeat.MONTHLY -> TODO()
+            Repeat.YEARLY -> TODO()
+        }
+    }
+
     fun onDateChange(date: Instant?) {
         this.date = date
         updateState()
     }
 
     fun onNextClick() {
-        when (screen) {
-            Screen.WHAT -> {
-                if (name.isNotEmpty()) {
-                    screen = Screen.WHEN
-                    updateState()
+        when (_state.value) {
+            is ChoreCreateState.What -> {
+                if (isWhatValid()) {
+                    _state.update { ChoreCreateState.When }
                 }
             }
 
-            Screen.WHEN -> {
-                if (date != null) {
-                    screen = Screen.WHERE
-                    updateState()
+            ChoreCreateState.When -> TODO()
+
+            is ChoreCreateState.WhenDate -> {
+                when (repeat) {
+                    Repeat.ONCE -> {
+                        _state.update { ChoreCreateState.WhenTime }
+                    }
+
+                    Repeat.DAILY -> TODO()
+                    Repeat.WEEKLY -> TODO()
+                    Repeat.MONTHLY -> TODO()
+                    Repeat.YEARLY -> TODO()
                 }
             }
 
-            Screen.WHERE -> viewModelScope.launch {
-                isLoading = true
-                updateState()
-
-                createChoreUseCase(name = name, date = date).onSuccess {
-                    _navigationAction.trySend(Finish(it))
-                }.onFailure {
-                    isLoading = false
-                    updateState()
-                    _action.trySend(ShowError(it))
-                }
-            }
+            ChoreCreateState.WhenTime -> TODO()
         }
     }
 
     private fun updateState() {
-        val isNextButtonEnabled = when (screen) {
-            Screen.WHAT -> name.isNotBlank()
-            Screen.WHEN -> date != null
-            Screen.WHERE -> true
-        }
-
         _state.update {
-            it.copy(
-                isWhatExpanded = screen == Screen.WHAT,
-                name = name,
-                isWhenExpanded = screen == Screen.WHEN,
-                date = date,
-                isNextButtonEnabled = isNextButtonEnabled,
-                isLoadingVisible = isLoading,
-            )
+            when (it) {
+                is ChoreCreateState.What -> {
+                    it.copy(
+                        isNextButtonEnabled = isWhatValid(),
+                        name = name,
+                    )
+                }
+
+                ChoreCreateState.When -> it
+
+                is ChoreCreateState.WhenDate -> {
+                    it.copy(
+                        isNextButtonEnabled = isDateValid(),
+                        date = date,
+                    )
+                }
+
+                ChoreCreateState.WhenTime -> it
+            }
         }
+    }
+
+    private fun isWhatValid(): Boolean {
+        return name.isNotBlank()
+    }
+
+    private fun isDateValid(): Boolean {
+        return date != null
     }
 }
