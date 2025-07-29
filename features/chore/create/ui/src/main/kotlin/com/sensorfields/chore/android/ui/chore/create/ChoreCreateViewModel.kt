@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import java.time.Instant
+import java.time.LocalTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,6 +30,7 @@ internal class ChoreCreateViewModel @Inject constructor(
     private var name: String = ""
     private var repeat: Repeat = Repeat.ONCE
     private var date: Instant? = null
+    private var time: LocalTime? = null
     private var isLoading: Boolean = false
 
     fun onNameChange(name: String) {
@@ -44,7 +46,7 @@ internal class ChoreCreateViewModel @Inject constructor(
             }
 
             Repeat.DAILY -> {
-                _state.update { ChoreCreateState.WhenTime }
+                _state.update { ChoreCreateState.WhenTime(time = time) }
             }
 
             Repeat.WEEKLY -> TODO()
@@ -55,6 +57,11 @@ internal class ChoreCreateViewModel @Inject constructor(
 
     fun onDateChange(date: Instant?) {
         this.date = date
+        updateState()
+    }
+
+    fun onTimeChange(time: LocalTime) {
+        this.time = time
         updateState()
     }
 
@@ -71,7 +78,7 @@ internal class ChoreCreateViewModel @Inject constructor(
             is ChoreCreateState.WhenDate -> {
                 when (repeat) {
                     Repeat.ONCE -> {
-                        _state.update { ChoreCreateState.WhenTime }
+                        _state.update { ChoreCreateState.WhenTime(time = time) }
                     }
 
                     Repeat.DAILY -> TODO()
@@ -81,7 +88,22 @@ internal class ChoreCreateViewModel @Inject constructor(
                 }
             }
 
-            ChoreCreateState.WhenTime -> TODO()
+            is ChoreCreateState.WhenTime -> {
+                when (repeat) {
+                    Repeat.ONCE,
+                    Repeat.DAILY -> _state.update {
+                        ChoreCreateState.Summary(name = name, repeat = repeat, date = date, time = time)
+                    }
+
+                    Repeat.WEEKLY -> TODO()
+                    Repeat.MONTHLY -> TODO()
+                    Repeat.YEARLY -> TODO()
+                }
+            }
+
+            is ChoreCreateState.Summary -> {
+                // TODO save and finish
+            }
         }
     }
 
@@ -104,7 +126,21 @@ internal class ChoreCreateViewModel @Inject constructor(
                     )
                 }
 
-                ChoreCreateState.WhenTime -> it
+                is ChoreCreateState.WhenTime -> {
+                    it.copy(
+                        isNextButtonEnabled = isTimeValid(),
+                        time = time,
+                    )
+                }
+
+                is ChoreCreateState.Summary -> {
+                    it.copy(
+                        name = name,
+                        repeat = repeat,
+                        date = date,
+                        time = time,
+                    )
+                }
             }
         }
     }
@@ -115,5 +151,9 @@ internal class ChoreCreateViewModel @Inject constructor(
 
     private fun isDateValid(): Boolean {
         return date != null
+    }
+
+    private fun isTimeValid(): Boolean {
+        return time != null
     }
 }
