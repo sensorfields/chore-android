@@ -5,14 +5,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.sensorfields.chore.android.ui.theme.Text
 import com.sensorfields.chore.android.ui.theme.TitleMediumText
-import java.time.Instant
+import java.time.LocalDate
 import java.time.LocalTime
 
 @Composable
 internal fun ChoreCreateSummary(
     name: String,
     repeat: ChoreCreateState.When.Repeat,
-    date: Instant?,
+    date: LocalDate?,
     time: LocalTime?,
     modifier: Modifier = Modifier,
 ) {

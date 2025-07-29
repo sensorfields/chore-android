@@ -1,6 +1,6 @@
 package com.sensorfields.chore.android.ui.chore.create
 
-import java.time.Instant
+import java.time.LocalDate
 import java.time.LocalTime
 
 internal sealed class ChoreCreateState(
@@ -18,7 +18,7 @@ internal sealed class ChoreCreateState(
 
     data class WhenDate(
         override val isNextButtonEnabled: Boolean = false,
-        val date: Instant?,
+        val date: LocalDate?,
     ) : ChoreCreateState()
 
     data class WhenTime(
@@ -29,7 +29,7 @@ internal sealed class ChoreCreateState(
     data class Summary(
         val name: String,
         val repeat: When.Repeat,
-        val date: Instant?,
+        val date: LocalDate?,
         val time: LocalTime?,
     ) : ChoreCreateState(isNextButtonEnabled = true)
 }

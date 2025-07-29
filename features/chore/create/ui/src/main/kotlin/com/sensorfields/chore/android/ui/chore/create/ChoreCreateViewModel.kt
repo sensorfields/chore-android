@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
-import java.time.Instant
+import java.time.LocalDate
 import java.time.LocalTime
 import javax.inject.Inject
 
@@ -29,7 +29,7 @@ internal class ChoreCreateViewModel @Inject constructor(
 
     private var name: String = ""
     private var repeat: Repeat = Repeat.ONCE
-    private var date: Instant? = null
+    private var date: LocalDate? = null
     private var time: LocalTime? = null
     private var isLoading: Boolean = false
 
@@ -55,7 +55,7 @@ internal class ChoreCreateViewModel @Inject constructor(
         }
     }
 
-    fun onDateChange(date: Instant?) {
+    fun onDateChange(date: LocalDate?) {
         this.date = date
         updateState()
     }

@@ -25,7 +25,7 @@ import com.sensorfields.chore.android.ui.theme.TopAppBar
 import com.sensorfields.chore.android.ui.theme.rememberSnackbarHostState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
-import java.time.Instant
+import java.time.LocalDate
 import java.time.LocalTime
 
 @Composable
@@ -35,7 +35,7 @@ internal fun ChoreCreateScreen(
     onUpClick: () -> Unit,
     onNameChange: (String) -> Unit,
     onRepeatClick: (ChoreCreateState.When.Repeat) -> Unit,
-    onDateChange: (Instant?) -> Unit,
+    onDateChange: (LocalDate?) -> Unit,
     onTimeChange: (LocalTime) -> Unit,
     onNextClick: () -> Unit,
     modifier: Modifier = Modifier,

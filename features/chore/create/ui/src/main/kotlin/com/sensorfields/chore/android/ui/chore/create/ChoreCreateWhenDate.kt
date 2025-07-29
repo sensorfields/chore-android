@@ -7,12 +7,12 @@ import androidx.compose.ui.Modifier
 import com.sensorfields.chore.android.ui.theme.DatePicker
 import com.sensorfields.chore.android.ui.theme.rememberDatePickerState
 import kotlinx.coroutines.flow.collectLatest
-import java.time.Instant
+import java.time.LocalDate
 
 @Composable
 internal fun ChoreCreateWhenDate(
-    date: Instant?,
-    onDateChange: (Instant?) -> Unit,
+    date: LocalDate?,
+    onDateChange: (LocalDate?) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val datePickerState = rememberDatePickerState(initialSelectedDate = date)
