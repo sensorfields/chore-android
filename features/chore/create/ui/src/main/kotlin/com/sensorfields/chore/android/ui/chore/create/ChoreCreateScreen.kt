@@ -115,6 +115,7 @@ internal fun ChoreCreateScreen(
                     repeat = state.repeat,
                     date = state.date,
                     time = state.time,
+                    days = state.days,
                 )
             }
         }
