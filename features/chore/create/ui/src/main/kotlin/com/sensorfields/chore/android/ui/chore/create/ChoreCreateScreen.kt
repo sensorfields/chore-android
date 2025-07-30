@@ -25,6 +25,7 @@ import com.sensorfields.chore.android.ui.theme.TopAppBar
 import com.sensorfields.chore.android.ui.theme.rememberSnackbarHostState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
+import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -37,6 +38,7 @@ internal fun ChoreCreateScreen(
     onRepeatClick: (ChoreCreateState.When.Repeat) -> Unit,
     onDateChange: (LocalDate?) -> Unit,
     onTimeChange: (LocalTime) -> Unit,
+    onDayCheckedChange: (DayOfWeek, Boolean) -> Unit,
     onNextClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -103,6 +105,11 @@ internal fun ChoreCreateScreen(
                     onTimeChange = onTimeChange,
                 )
 
+                is ChoreCreateState.WhenWeek -> ChoreCreateWhenWeek(
+                    days = state.days,
+                    onDayCheckedChange = onDayCheckedChange,
+                )
+
                 is ChoreCreateState.Summary -> ChoreCreateSummary(
                     name = state.name,
                     repeat = state.repeat,
@@ -125,6 +132,7 @@ private fun Preview() = AppTheme {
         onRepeatClick = {},
         onDateChange = {},
         onTimeChange = {},
+        onDayCheckedChange = { _, _ -> },
         onNextClick = {},
     )
 }

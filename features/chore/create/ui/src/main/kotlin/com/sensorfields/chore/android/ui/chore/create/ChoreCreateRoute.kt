@@ -28,6 +28,7 @@ public fun ChoreCreateRoute(
         onRepeatClick = viewModel::onRepeatClick,
         onDateChange = viewModel::onDateChange,
         onTimeChange = viewModel::onTimeChange,
+        onDayCheckedChange = viewModel::onDayCheckedChange,
         onNextClick = viewModel::onNextClick,
     )
 }

@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
+import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
 import javax.inject.Inject
@@ -31,6 +32,7 @@ internal class ChoreCreateViewModel @Inject constructor(
     private var repeat: Repeat = Repeat.ONCE
     private var date: LocalDate? = null
     private var time: LocalTime? = null
+    private var days = mutableSetOf<DayOfWeek>()
     private var isLoading: Boolean = false
 
     fun onNameChange(name: String) {
@@ -49,7 +51,10 @@ internal class ChoreCreateViewModel @Inject constructor(
                 _state.update { ChoreCreateState.WhenTime(time = time) }
             }
 
-            Repeat.WEEKLY -> TODO()
+            Repeat.WEEKLY -> {
+                _state.update { ChoreCreateState.WhenWeek(days = days) }
+            }
+
             Repeat.MONTHLY -> TODO()
             Repeat.YEARLY -> TODO()
         }
@@ -62,6 +67,15 @@ internal class ChoreCreateViewModel @Inject constructor(
 
     fun onTimeChange(time: LocalTime) {
         this.time = time
+        updateState()
+    }
+
+    fun onDayCheckedChange(day: DayOfWeek, checked: Boolean) {
+        if (checked) {
+            days.add(day)
+        } else {
+            days.remove(day)
+        }
         updateState()
     }
 
@@ -101,6 +115,10 @@ internal class ChoreCreateViewModel @Inject constructor(
                 }
             }
 
+            is ChoreCreateState.WhenWeek -> {
+                // TODO
+            }
+
             is ChoreCreateState.Summary -> {
                 // TODO save and finish
             }
@@ -133,6 +151,13 @@ internal class ChoreCreateViewModel @Inject constructor(
                     )
                 }
 
+                is ChoreCreateState.WhenWeek -> {
+                    it.copy(
+                        isNextButtonEnabled = isDaysValid(),
+                        days = days.toSet(),
+                    )
+                }
+
                 is ChoreCreateState.Summary -> {
                     it.copy(
                         name = name,
@@ -155,5 +180,9 @@ internal class ChoreCreateViewModel @Inject constructor(
 
     private fun isTimeValid(): Boolean {
         return time != null
+    }
+
+    private fun isDaysValid(): Boolean {
+        return days.isNotEmpty()
     }
 }
