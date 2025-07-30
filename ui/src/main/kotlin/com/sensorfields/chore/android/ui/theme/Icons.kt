@@ -1,6 +1,5 @@
 package com.sensorfields.chore.android.ui.theme
 
-import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDownward
@@ -10,14 +9,15 @@ import androidx.compose.material.icons.filled.Dashboard
 import androidx.compose.material.icons.filled.QueryStats
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.material.icons.Icons as MaterialIcons
 
-public object Icons {
-    public val ArrowUpward: ImageVector get() = Icons.Default.ArrowUpward
-    public val ArrowDownward: ImageVector get() = Icons.Default.ArrowDownward
-    public val Sort: ImageVector get() = Icons.AutoMirrored.Default.Sort
-    public val Add: ImageVector get() = Icons.Default.Add
-    public val Dashboard: ImageVector get() = Icons.Default.Dashboard
-    public val QueryStats: ImageVector get() = Icons.Default.QueryStats
-    public val Settings: ImageVector get() = Icons.Default.Settings
-    public val Check: ImageVector get() = Icons.Default.Check
+public sealed class Icons(internal val imageVector: ImageVector) {
+    public data object ArrowUpward : Icons(MaterialIcons.Default.ArrowUpward)
+    public data object ArrowDownward : Icons(MaterialIcons.Default.ArrowDownward)
+    public data object Sort : Icons(MaterialIcons.AutoMirrored.Default.Sort)
+    public data object Add : Icons(MaterialIcons.Default.Add)
+    public data object Dashboard : Icons(MaterialIcons.Default.Dashboard)
+    public data object QueryStats : Icons(MaterialIcons.Default.QueryStats)
+    public data object Settings : Icons(MaterialIcons.Default.Settings)
+    public data object Check : Icons(MaterialIcons.Default.Check)
 }

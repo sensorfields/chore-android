@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
@@ -117,26 +116,26 @@ private fun RowScope.Item(
     NavigationBarItem(
         selected = selected,
         onClick = onClick,
-        icon = { Icon(tabKey.iconVector, contentDescription = labelText) },
+        icon = { Icon(tabKey.icon, contentDescription = labelText) },
         label = { Text(labelText) },
     )
 }
 
 @Serializable
 private enum class TabKey(
-    val iconVector: ImageVector,
+    val icon: Icons,
     @StringRes val labelId: Int,
 ) : NavKey {
     DASHBOARD(
-        iconVector = Icons.Dashboard,
+        icon = Icons.Dashboard,
         labelId = R.string.home_navigation_dashboard,
     ),
     STATS(
-        iconVector = Icons.QueryStats,
+        icon = Icons.QueryStats,
         labelId = R.string.home_navigation_stats,
     ),
     SETTINGS(
-        iconVector = Icons.Settings,
+        icon = Icons.Settings,
         labelId = R.string.home_navigation_settings,
     ),
 }
