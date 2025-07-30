@@ -5,6 +5,7 @@ import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDownward
 import androidx.compose.material.icons.filled.ArrowUpward
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Dashboard
 import androidx.compose.material.icons.filled.QueryStats
 import androidx.compose.material.icons.filled.Settings
@@ -18,4 +19,5 @@ public object Icons {
     public val Dashboard: ImageVector get() = Icons.Default.Dashboard
     public val QueryStats: ImageVector get() = Icons.Default.QueryStats
     public val Settings: ImageVector get() = Icons.Default.Settings
+    public val Check: ImageVector get() = Icons.Default.Check
 }

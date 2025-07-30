@@ -35,7 +35,7 @@ firebase-bom = "34.0.0"
 
 detekt = "1.23.8"
 detekt-plugin-twitter-compose = "0.0.26"
-logcat = "0.2.3"
+logcat = "0.3"
 coil = "2.7.0"
 junit = "4.13.2"
 robolectric = "4.15.1"
@@ -90,7 +90,7 @@ androidx-work-runtimeKtx = { module = "androidx.work:work-runtime-ktx", version.
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
 androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "androidx-hilt" }
 androidx-hilt-viewmodel-compose = { module = "androidx.hilt:hilt-lifecycle-viewmodel-compose", version.ref = "androidx-hilt" }
-androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "androidx-compose-bom" }
+androidx-compose-bom = { module = "androidx.compose:compose-bom-alpha", version.ref = "androidx-compose-bom" }
 androidx-compose-runtime-android = { module = "androidx.compose.runtime:runtime-android" }
 androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
 androidx-compose-material-icons-core = { module = "androidx.compose.material:material-icons-core" }
