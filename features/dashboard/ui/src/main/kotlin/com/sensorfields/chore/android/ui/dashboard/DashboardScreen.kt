@@ -68,12 +68,11 @@ internal fun DashboardScreen(
             TopAppBar(
                 title = { Text(stringResource(R.string.dashboard_title)) },
                 actions = {
-                    IconButton(onClick = { isChoreSortDialogVisible = true }) {
-                        Icon(
-                            Icons.Sort,
-                            contentDescription = stringResource(R.string.dashboard_sort_button),
-                        )
-                    }
+                    IconButton(
+                        Icons.Sort,
+                        contentDescription = stringResource(R.string.dashboard_sort_button),
+                        onClick = { isChoreSortDialogVisible = true },
+                    )
                 },
             )
         },

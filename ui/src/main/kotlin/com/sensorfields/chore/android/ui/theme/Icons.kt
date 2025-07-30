@@ -1,10 +1,12 @@
 package com.sensorfields.chore.android.ui.theme
 
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDownward
 import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Dashboard
 import androidx.compose.material.icons.filled.QueryStats
 import androidx.compose.material.icons.filled.Settings
@@ -20,4 +22,6 @@ public sealed class Icons(internal val imageVector: ImageVector) {
     public data object QueryStats : Icons(MaterialIcons.Default.QueryStats)
     public data object Settings : Icons(MaterialIcons.Default.Settings)
     public data object Check : Icons(MaterialIcons.Default.Check)
+    public data object Close : Icons(MaterialIcons.Default.Close)
+    public data object ArrowBack : Icons(MaterialIcons.AutoMirrored.Default.ArrowBack)
 }
