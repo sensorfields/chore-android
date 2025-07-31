@@ -16,6 +16,7 @@ internal fun ChoreCreateSummary(
     date: LocalDate?,
     time: LocalTime?,
     daysOfWeek: Set<DayOfWeek>,
+    daysOfMonth: Set<Int>,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
@@ -24,5 +25,6 @@ internal fun ChoreCreateSummary(
         Text("Date: $date")
         Text("Time: $time")
         Text("Days of week: $daysOfWeek")
+        Text("Days of month: $daysOfMonth")
     }
 }

@@ -33,6 +33,7 @@ internal class ChoreCreateViewModel @Inject constructor(
     private var date: LocalDate? = null
     private var time: LocalTime? = null
     private var daysOfWeek = mutableSetOf<DayOfWeek>()
+    private var daysOfMonth = mutableSetOf<Int>()
     private var isLoading: Boolean = false
 
     fun onNameChange(name: String) {
@@ -55,7 +56,10 @@ internal class ChoreCreateViewModel @Inject constructor(
                 _state.update { ChoreCreateState.WhenWeek(days = daysOfWeek) }
             }
 
-            Repeat.MONTHLY -> TODO()
+            Repeat.MONTHLY -> {
+                _state.update { ChoreCreateState.WhenMonth(days = daysOfMonth) }
+            }
+
             Repeat.YEARLY -> TODO()
         }
     }
@@ -75,6 +79,15 @@ internal class ChoreCreateViewModel @Inject constructor(
             daysOfWeek.add(day)
         } else {
             daysOfWeek.remove(day)
+        }
+        updateState()
+    }
+
+    fun onDayOfMonthCheckedChange(day: Int, checked: Boolean) {
+        if (checked) {
+            daysOfMonth.add(day)
+        } else {
+            daysOfMonth.remove(day)
         }
         updateState()
     }
@@ -106,23 +119,30 @@ internal class ChoreCreateViewModel @Inject constructor(
                 when (repeat) {
                     Repeat.ONCE,
                     Repeat.DAILY,
-                    Repeat.WEEKLY -> _state.update {
+                    Repeat.WEEKLY,
+                    Repeat.MONTHLY -> _state.update {
                         ChoreCreateState.Summary(
                             name = name,
                             repeat = repeat,
                             date = date,
                             time = time,
                             daysOfWeek = daysOfWeek,
+                            daysOfMonth = daysOfMonth,
                         )
                     }
 
-                    Repeat.MONTHLY -> TODO()
                     Repeat.YEARLY -> TODO()
                 }
             }
 
             is ChoreCreateState.WhenWeek -> {
                 if (isWeekValid()) {
+                    _state.update { ChoreCreateState.WhenTime(time = time) }
+                }
+            }
+
+            is ChoreCreateState.WhenMonth -> {
+                if (isMonthValid()) {
                     _state.update { ChoreCreateState.WhenTime(time = time) }
                 }
             }
@@ -166,6 +186,13 @@ internal class ChoreCreateViewModel @Inject constructor(
                     )
                 }
 
+                is ChoreCreateState.WhenMonth -> {
+                    it.copy(
+                        isNextButtonEnabled = isMonthValid(),
+                        days = daysOfMonth.toSet(),
+                    )
+                }
+
                 is ChoreCreateState.Summary -> {
                     it.copy(
                         name = name,
@@ -193,5 +220,9 @@ internal class ChoreCreateViewModel @Inject constructor(
 
     private fun isWeekValid(): Boolean {
         return daysOfWeek.isNotEmpty()
+    }
+
+    private fun isMonthValid(): Boolean {
+        return daysOfMonth.isNotEmpty()
     }
 }

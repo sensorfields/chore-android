@@ -32,11 +32,17 @@ internal sealed class ChoreCreateState(
         val days: Set<DayOfWeek>,
     ) : ChoreCreateState()
 
+    data class WhenMonth(
+        override val isNextButtonEnabled: Boolean = false,
+        val days: Set<Int>,
+    ) : ChoreCreateState()
+
     data class Summary(
         val name: String,
         val repeat: When.Repeat,
         val date: LocalDate?,
         val time: LocalTime?,
         val daysOfWeek: Set<DayOfWeek>,
+        val daysOfMonth: Set<Int>,
     ) : ChoreCreateState(isNextButtonEnabled = true)
 }
