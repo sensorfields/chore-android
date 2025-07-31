@@ -15,7 +15,7 @@ internal fun ChoreCreateSummary(
     repeat: ChoreCreateState.When.Repeat,
     date: LocalDate?,
     time: LocalTime?,
-    days: Set<DayOfWeek>,
+    daysOfWeek: Set<DayOfWeek>,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
@@ -23,6 +23,6 @@ internal fun ChoreCreateSummary(
         Text("Repeat: $repeat")
         Text("Date: $date")
         Text("Time: $time")
-        Text("Days of week: $days")
+        Text("Days of week: $daysOfWeek")
     }
 }

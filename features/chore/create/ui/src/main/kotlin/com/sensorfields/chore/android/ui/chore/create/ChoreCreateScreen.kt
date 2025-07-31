@@ -38,7 +38,7 @@ internal fun ChoreCreateScreen(
     onRepeatClick: (ChoreCreateState.When.Repeat) -> Unit,
     onDateChange: (LocalDate?) -> Unit,
     onTimeChange: (LocalTime) -> Unit,
-    onDayCheckedChange: (DayOfWeek, Boolean) -> Unit,
+    onDayOfWeekCheckedChange: (DayOfWeek, Boolean) -> Unit,
     onNextClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -107,7 +107,7 @@ internal fun ChoreCreateScreen(
 
                 is ChoreCreateState.WhenWeek -> ChoreCreateWhenWeek(
                     days = state.days,
-                    onDayCheckedChange = onDayCheckedChange,
+                    onDayCheckedChange = onDayOfWeekCheckedChange,
                 )
 
                 is ChoreCreateState.Summary -> ChoreCreateSummary(
@@ -115,7 +115,7 @@ internal fun ChoreCreateScreen(
                     repeat = state.repeat,
                     date = state.date,
                     time = state.time,
-                    days = state.days,
+                    daysOfWeek = state.daysOfWeek,
                 )
             }
         }
@@ -133,7 +133,7 @@ private fun Preview() = AppTheme {
         onRepeatClick = {},
         onDateChange = {},
         onTimeChange = {},
-        onDayCheckedChange = { _, _ -> },
+        onDayOfWeekCheckedChange = { _, _ -> },
         onNextClick = {},
     )
 }

@@ -32,7 +32,7 @@ internal class ChoreCreateViewModel @Inject constructor(
     private var repeat: Repeat = Repeat.ONCE
     private var date: LocalDate? = null
     private var time: LocalTime? = null
-    private var days = mutableSetOf<DayOfWeek>()
+    private var daysOfWeek = mutableSetOf<DayOfWeek>()
     private var isLoading: Boolean = false
 
     fun onNameChange(name: String) {
@@ -52,7 +52,7 @@ internal class ChoreCreateViewModel @Inject constructor(
             }
 
             Repeat.WEEKLY -> {
-                _state.update { ChoreCreateState.WhenWeek(days = days) }
+                _state.update { ChoreCreateState.WhenWeek(days = daysOfWeek) }
             }
 
             Repeat.MONTHLY -> TODO()
@@ -70,11 +70,11 @@ internal class ChoreCreateViewModel @Inject constructor(
         updateState()
     }
 
-    fun onDayCheckedChange(day: DayOfWeek, checked: Boolean) {
+    fun onDayOfWeekCheckedChange(day: DayOfWeek, checked: Boolean) {
         if (checked) {
-            days.add(day)
+            daysOfWeek.add(day)
         } else {
-            days.remove(day)
+            daysOfWeek.remove(day)
         }
         updateState()
     }
@@ -112,7 +112,7 @@ internal class ChoreCreateViewModel @Inject constructor(
                             repeat = repeat,
                             date = date,
                             time = time,
-                            days = days,
+                            daysOfWeek = daysOfWeek,
                         )
                     }
 
@@ -162,7 +162,7 @@ internal class ChoreCreateViewModel @Inject constructor(
                 is ChoreCreateState.WhenWeek -> {
                     it.copy(
                         isNextButtonEnabled = isWeekValid(),
-                        days = days.toSet(),
+                        days = daysOfWeek.toSet(),
                     )
                 }
 
@@ -172,7 +172,7 @@ internal class ChoreCreateViewModel @Inject constructor(
                         repeat = repeat,
                         date = date,
                         time = time,
-                        days = days,
+                        daysOfWeek = daysOfWeek,
                     )
                 }
             }
@@ -192,6 +192,6 @@ internal class ChoreCreateViewModel @Inject constructor(
     }
 
     private fun isWeekValid(): Boolean {
-        return days.isNotEmpty()
+        return daysOfWeek.isNotEmpty()
     }
 }

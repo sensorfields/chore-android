@@ -37,6 +37,6 @@ internal sealed class ChoreCreateState(
         val repeat: When.Repeat,
         val date: LocalDate?,
         val time: LocalTime?,
-        val days: Set<DayOfWeek>,
+        val daysOfWeek: Set<DayOfWeek>,
     ) : ChoreCreateState(isNextButtonEnabled = true)
 }
