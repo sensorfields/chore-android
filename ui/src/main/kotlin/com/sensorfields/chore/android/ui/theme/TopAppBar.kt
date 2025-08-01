@@ -34,7 +34,7 @@ private fun PreviewFull() = AppTheme {
         title = { Text("This is title") },
         subtitle = { Text("Some subtitle") },
         navigationIcon = { CloseButton(onClick = {}) },
-        actions = { IconButton(Icons.Add, contentDescription = "Add", onClick = {}) }
+        actions = { IconButton(Icons.Add, contentDescription = "Add", onClick = {}) },
     )
 }
 

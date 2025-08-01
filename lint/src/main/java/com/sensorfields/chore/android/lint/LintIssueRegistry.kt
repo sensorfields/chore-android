@@ -11,7 +11,7 @@ import com.android.tools.lint.detector.api.Severity
 import com.android.tools.lint.detector.api.SourceCodeScanner
 import java.util.EnumSet
 
-class LintIssueRegistry : IssueRegistry() {
+public class LintIssueRegistry : IssueRegistry() {
 
     override val api: Int = CURRENT_API
 
@@ -32,4 +32,4 @@ private val testIssue = Issue.create(
     ),
 )
 
-class TestIssueDetector : Detector(), SourceCodeScanner
+internal class TestIssueDetector : Detector(), SourceCodeScanner

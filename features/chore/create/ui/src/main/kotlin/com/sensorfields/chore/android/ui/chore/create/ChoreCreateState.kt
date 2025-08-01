@@ -1,5 +1,6 @@
 package com.sensorfields.chore.android.ui.chore.create
 
+import kotlinx.collections.immutable.ImmutableSet
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
@@ -29,12 +30,12 @@ internal sealed class ChoreCreateState(
 
     data class WhenWeek(
         override val isNextButtonEnabled: Boolean = false,
-        val days: Set<DayOfWeek>,
+        val days: ImmutableSet<DayOfWeek>,
     ) : ChoreCreateState()
 
     data class WhenMonth(
         override val isNextButtonEnabled: Boolean = false,
-        val days: Set<Int>,
+        val days: ImmutableSet<Int>,
     ) : ChoreCreateState()
 
     data class Summary(
@@ -42,7 +43,7 @@ internal sealed class ChoreCreateState(
         val repeat: When.Repeat,
         val date: LocalDate?,
         val time: LocalTime?,
-        val daysOfWeek: Set<DayOfWeek>,
-        val daysOfMonth: Set<Int>,
+        val daysOfWeek: ImmutableSet<DayOfWeek>,
+        val daysOfMonth: ImmutableSet<Int>,
     ) : ChoreCreateState(isNextButtonEnabled = true)
 }

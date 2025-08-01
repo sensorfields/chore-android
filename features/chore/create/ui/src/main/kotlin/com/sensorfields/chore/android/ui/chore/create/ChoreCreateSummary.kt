@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.sensorfields.chore.android.ui.theme.Text
 import com.sensorfields.chore.android.ui.theme.TitleMediumText
+import kotlinx.collections.immutable.ImmutableSet
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
@@ -15,8 +16,8 @@ internal fun ChoreCreateSummary(
     repeat: ChoreCreateState.When.Repeat,
     date: LocalDate?,
     time: LocalTime?,
-    daysOfWeek: Set<DayOfWeek>,
-    daysOfMonth: Set<Int>,
+    daysOfWeek: ImmutableSet<DayOfWeek>,
+    daysOfMonth: ImmutableSet<Int>,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {

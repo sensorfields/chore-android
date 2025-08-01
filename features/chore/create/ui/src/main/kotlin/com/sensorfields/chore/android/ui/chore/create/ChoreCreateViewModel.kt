@@ -5,6 +5,7 @@ import com.sensorfields.chore.android.domain.usecases.CreateChoreUseCase
 import com.sensorfields.chore.android.ui.ActionChannel
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateState.When.Repeat
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.toImmutableSet
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -53,11 +54,11 @@ internal class ChoreCreateViewModel @Inject constructor(
             }
 
             Repeat.WEEKLY -> {
-                _state.update { ChoreCreateState.WhenWeek(days = daysOfWeek) }
+                _state.update { ChoreCreateState.WhenWeek(days = daysOfWeek.toImmutableSet()) }
             }
 
             Repeat.MONTHLY -> {
-                _state.update { ChoreCreateState.WhenMonth(days = daysOfMonth) }
+                _state.update { ChoreCreateState.WhenMonth(days = daysOfMonth.toImmutableSet()) }
             }
 
             Repeat.YEARLY -> TODO()
@@ -120,14 +121,15 @@ internal class ChoreCreateViewModel @Inject constructor(
                     Repeat.ONCE,
                     Repeat.DAILY,
                     Repeat.WEEKLY,
-                    Repeat.MONTHLY -> _state.update {
+                    Repeat.MONTHLY,
+                        -> _state.update {
                         ChoreCreateState.Summary(
                             name = name,
                             repeat = repeat,
                             date = date,
                             time = time,
-                            daysOfWeek = daysOfWeek,
-                            daysOfMonth = daysOfMonth,
+                            daysOfWeek = daysOfWeek.toImmutableSet(),
+                            daysOfMonth = daysOfMonth.toImmutableSet(),
                         )
                     }
 
@@ -182,14 +184,14 @@ internal class ChoreCreateViewModel @Inject constructor(
                 is ChoreCreateState.WhenWeek -> {
                     it.copy(
                         isNextButtonEnabled = isWeekValid(),
-                        days = daysOfWeek.toSet(),
+                        days = daysOfWeek.toImmutableSet(),
                     )
                 }
 
                 is ChoreCreateState.WhenMonth -> {
                     it.copy(
                         isNextButtonEnabled = isMonthValid(),
-                        days = daysOfMonth.toSet(),
+                        days = daysOfMonth.toImmutableSet(),
                     )
                 }
 
@@ -199,7 +201,7 @@ internal class ChoreCreateViewModel @Inject constructor(
                         repeat = repeat,
                         date = date,
                         time = time,
-                        daysOfWeek = daysOfWeek,
+                        daysOfWeek = daysOfWeek.toImmutableSet(),
                     )
                 }
             }

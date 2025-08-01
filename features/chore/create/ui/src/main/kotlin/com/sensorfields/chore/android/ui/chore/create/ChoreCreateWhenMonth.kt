@@ -13,10 +13,12 @@ import androidx.compose.ui.unit.dp
 import com.sensorfields.chore.android.ui.theme.AppTheme
 import com.sensorfields.chore.android.ui.theme.Text
 import com.sensorfields.chore.android.ui.theme.ToggleButton
+import kotlinx.collections.immutable.ImmutableSet
+import kotlinx.collections.immutable.persistentSetOf
 
 @Composable
 internal fun ChoreCreateWhenMonth(
-    days: Set<Int>,
+    days: ImmutableSet<Int>,
     onDayCheckedChange: (Int, Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -53,7 +55,7 @@ private const val MAX_DAYS = 31
 @Composable
 private fun PreviewEmpty() = AppTheme {
     ChoreCreateWhenMonth(
-        days = emptySet(),
+        days = persistentSetOf(),
         onDayCheckedChange = { _, _ -> },
     )
 }

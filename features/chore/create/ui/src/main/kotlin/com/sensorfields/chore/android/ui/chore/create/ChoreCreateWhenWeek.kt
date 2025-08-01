@@ -11,12 +11,15 @@ import com.sensorfields.chore.android.ui.theme.Icon
 import com.sensorfields.chore.android.ui.theme.Icons
 import com.sensorfields.chore.android.ui.theme.Text
 import com.sensorfields.chore.android.ui.theme.ToggleButton
+import kotlinx.collections.immutable.ImmutableSet
+import kotlinx.collections.immutable.persistentSetOf
+import kotlinx.collections.immutable.toImmutableSet
 import java.time.DayOfWeek
 import java.time.format.TextStyle
 
 @Composable
 internal fun ChoreCreateWhenWeek(
-    days: Set<DayOfWeek>,
+    days: ImmutableSet<DayOfWeek>,
     onDayCheckedChange: (DayOfWeek, Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -43,7 +46,7 @@ internal fun ChoreCreateWhenWeek(
 @Composable
 private fun PreviewEmpty() = AppTheme {
     ChoreCreateWhenWeek(
-        days = emptySet(),
+        days = persistentSetOf(),
         onDayCheckedChange = { _, _ -> },
     )
 }
@@ -52,7 +55,7 @@ private fun PreviewEmpty() = AppTheme {
 @Composable
 private fun PreviewSome() = AppTheme {
     ChoreCreateWhenWeek(
-        days = setOf(
+        days = persistentSetOf(
             DayOfWeek.WEDNESDAY,
             DayOfWeek.SATURDAY,
             DayOfWeek.SUNDAY,
@@ -65,7 +68,7 @@ private fun PreviewSome() = AppTheme {
 @Composable
 private fun PreviewAll() = AppTheme {
     ChoreCreateWhenWeek(
-        days = DayOfWeek.entries.toSet(),
+        days = DayOfWeek.entries.toImmutableSet(),
         onDayCheckedChange = { _, _ -> },
     )
 }
