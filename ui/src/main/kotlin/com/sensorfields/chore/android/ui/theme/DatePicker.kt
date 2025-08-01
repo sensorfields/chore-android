@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import java.time.LocalDate
+import java.time.YearMonth
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,11 +36,11 @@ public class DatePickerState internal constructor(
 @Composable
 public fun rememberDatePickerState(
     initialSelectedDate: LocalDate? = null,
-    initialDisplayedMonth: LocalDate? = initialSelectedDate,
+    initialDisplayedMonth: YearMonth? = initialSelectedDate?.let { YearMonth.from(it) },
 ): DatePickerState {
     val state = androidx.compose.material3.rememberDatePickerState(
-        initialSelectedDateMillis = initialSelectedDate?.toEpochMilli(),
-        initialDisplayedMonthMillis = initialDisplayedMonth?.toEpochMilli(),
+        initialSelectedDate = initialSelectedDate,
+        initialDisplayedMonth = initialDisplayedMonth,
     )
     return remember { DatePickerState(state = state) }
 }
