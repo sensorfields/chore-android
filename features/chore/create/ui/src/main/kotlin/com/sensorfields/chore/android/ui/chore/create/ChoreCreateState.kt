@@ -4,6 +4,7 @@ import kotlinx.collections.immutable.ImmutableSet
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.Month
 
 internal sealed class ChoreCreateState(
     open val isNextButtonEnabled: Boolean = false,
@@ -38,6 +39,11 @@ internal sealed class ChoreCreateState(
         val days: ImmutableSet<Int>,
     ) : ChoreCreateState()
 
+    data class WhenYear(
+        override val isNextButtonEnabled: Boolean = false,
+        val months: ImmutableSet<Month>,
+    ) : ChoreCreateState()
+
     data class Summary(
         val name: String,
         val repeat: When.Repeat,
@@ -45,5 +51,6 @@ internal sealed class ChoreCreateState(
         val time: LocalTime?,
         val daysOfWeek: ImmutableSet<DayOfWeek>,
         val daysOfMonth: ImmutableSet<Int>,
+        val months: ImmutableSet<Month>,
     ) : ChoreCreateState(isNextButtonEnabled = true)
 }

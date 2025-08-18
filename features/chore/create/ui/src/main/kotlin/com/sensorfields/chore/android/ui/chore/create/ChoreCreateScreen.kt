@@ -28,6 +28,7 @@ import kotlinx.coroutines.flow.emptyFlow
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.Month
 
 @Composable
 internal fun ChoreCreateScreen(
@@ -40,6 +41,7 @@ internal fun ChoreCreateScreen(
     onTimeChange: (LocalTime) -> Unit,
     onDayOfWeekCheckedChange: (DayOfWeek, Boolean) -> Unit,
     onDayOfMonthCheckedChange: (Int, Boolean) -> Unit,
+    onMonthCheckedChange: (Month, Boolean) -> Unit,
     onNextClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -116,6 +118,11 @@ internal fun ChoreCreateScreen(
                     onDayCheckedChange = onDayOfMonthCheckedChange,
                 )
 
+                is ChoreCreateState.WhenYear -> ChoreCreateWhenYear(
+                    months = state.months,
+                    onMonthCheckedChange = onMonthCheckedChange,
+                )
+
                 is ChoreCreateState.Summary -> ChoreCreateSummary(
                     name = state.name,
                     repeat = state.repeat,
@@ -123,6 +130,7 @@ internal fun ChoreCreateScreen(
                     time = state.time,
                     daysOfWeek = state.daysOfWeek,
                     daysOfMonth = state.daysOfMonth,
+                    months = state.months,
                 )
             }
         }
@@ -142,6 +150,7 @@ private fun Preview() = AppTheme {
         onTimeChange = {},
         onDayOfWeekCheckedChange = { _, _ -> },
         onDayOfMonthCheckedChange = { _, _ -> },
+        onMonthCheckedChange = { _, _ -> },
         onNextClick = {},
     )
 }

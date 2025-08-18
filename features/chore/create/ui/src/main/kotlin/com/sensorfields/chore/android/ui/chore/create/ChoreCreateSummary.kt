@@ -9,6 +9,7 @@ import kotlinx.collections.immutable.ImmutableSet
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.Month
 
 @Composable
 internal fun ChoreCreateSummary(
@@ -18,6 +19,7 @@ internal fun ChoreCreateSummary(
     time: LocalTime?,
     daysOfWeek: ImmutableSet<DayOfWeek>,
     daysOfMonth: ImmutableSet<Int>,
+    months: ImmutableSet<Month>,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
@@ -27,5 +29,6 @@ internal fun ChoreCreateSummary(
         Text("Time: $time")
         Text("Days of week: $daysOfWeek")
         Text("Days of month: $daysOfMonth")
+        Text("Months: $months")
     }
 }

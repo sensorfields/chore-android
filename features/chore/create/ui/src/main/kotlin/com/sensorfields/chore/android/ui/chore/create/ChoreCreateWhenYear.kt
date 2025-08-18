@@ -12,25 +12,25 @@ import com.sensorfields.chore.android.ui.theme.ToggleButton
 import kotlinx.collections.immutable.ImmutableSet
 import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.collections.immutable.toImmutableSet
-import java.time.DayOfWeek
+import java.time.Month
 import java.time.format.TextStyle
 
 @Composable
-internal fun ChoreCreateWhenWeek(
-    days: ImmutableSet<DayOfWeek>,
-    onDayCheckedChange: (DayOfWeek, Boolean) -> Unit,
+internal fun ChoreCreateWhenYear(
+    months: ImmutableSet<Month>,
+    onMonthCheckedChange: (Month, Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val locale = LocalConfiguration.current.locales[0]
 
     Column(modifier = modifier) {
-        DayOfWeek.entries.forEach { day ->
+        Month.entries.forEach { month ->
             ToggleButton(
-                checked = days.contains(day),
-                onCheckedChange = { onDayCheckedChange(day, it) },
+                checked = months.contains(month),
+                onCheckedChange = { onMonthCheckedChange(month, it) },
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text(day.getDisplayName(TextStyle.FULL, locale))
+                Text(month.getDisplayName(TextStyle.FULL, locale))
             }
         }
     }
@@ -39,30 +39,26 @@ internal fun ChoreCreateWhenWeek(
 @Preview
 @Composable
 private fun PreviewEmpty() = AppTheme {
-    ChoreCreateWhenWeek(
-        days = persistentSetOf(),
-        onDayCheckedChange = { _, _ -> },
+    ChoreCreateWhenYear(
+        months = persistentSetOf(),
+        onMonthCheckedChange = { _, _ -> },
     )
 }
 
 @Preview
 @Composable
 private fun PreviewSome() = AppTheme {
-    ChoreCreateWhenWeek(
-        days = persistentSetOf(
-            DayOfWeek.WEDNESDAY,
-            DayOfWeek.SATURDAY,
-            DayOfWeek.SUNDAY,
-        ),
-        onDayCheckedChange = { _, _ -> },
+    ChoreCreateWhenYear(
+        months = persistentSetOf(Month.JANUARY, Month.FEBRUARY, Month.NOVEMBER),
+        onMonthCheckedChange = { _, _ -> },
     )
 }
 
 @Preview
 @Composable
 private fun PreviewAll() = AppTheme {
-    ChoreCreateWhenWeek(
-        days = DayOfWeek.entries.toImmutableSet(),
-        onDayCheckedChange = { _, _ -> },
+    ChoreCreateWhenYear(
+        months = Month.entries.toImmutableSet(),
+        onMonthCheckedChange = { _, _ -> },
     )
 }
