@@ -1,53 +1,48 @@
 package com.sensorfields.chore.android.domain.models
 
-import com.sensorfields.chore.android.utils.InstantSerializer
 import kotlinx.serialization.Serializable
-import java.time.Instant
+import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.Month
 
-@Serializable
 public data class Chore(
     val id: Id,
     val name: String,
-    @Serializable(with = InstantSerializer::class) val date: Instant?,
-    // val repeat: Repeat,
+    val at: When,
 ) {
     @JvmInline
     @Serializable
     public value class Id(public val value: String)
 
-//    @Serializable
-//    public sealed interface Repeat {
-//
-//        public val interval: Int
-//        public val time: LocalTime
-//
-//        @Serializable
-//        public data class Daily(
-//            public override val interval: Int,
-//            public override val time: LocalTime,
-//        ) : Repeat
-//
-//        @Serializable
-//        public data class Weekly(
-//            public override val interval: Int,
-//            public override val time: LocalTime,
-//            public val days: Set<DayOfWeek>,
-//        ) : Repeat
-//
-//        @Serializable
-//        public data class Monthly(
-//            public override val interval: Int,
-//            public override val time: LocalTime,
-//            public val days: Set<Int>,
-//        ) : Repeat
-//
-//        @Serializable
-//        public data class Yearly(
-//            public override val interval: Int,
-//            public override val time: LocalTime,
-//            public val days: Set<Pair<Month, Int>>,
-//        ) : Repeat
-//    }
+    public sealed interface When {
+
+        public val time: LocalTime
+
+        public data class Once(
+            public override val time: LocalTime,
+            public val date: LocalDate,
+        ) : When
+
+        public data class Daily(
+            public override val time: LocalTime,
+        ) : When
+
+        public data class Weekly(
+            public override val time: LocalTime,
+            public val days: Set<DayOfWeek>,
+        ) : When
+
+        public data class Monthly(
+            public override val time: LocalTime,
+            public val days: Set<Int>,
+        ) : When
+
+        public data class Yearly(
+            public override val time: LocalTime,
+            public val days: Set<Pair<Month, Int>>,
+        ) : When
+    }
 
     public enum class SortProperty { NAME, DATE }
 }

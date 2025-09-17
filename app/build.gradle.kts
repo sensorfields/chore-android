@@ -21,7 +21,7 @@ android {
     }
     signingConfigs {
         named("debug") {
-            storeFile = File(projectDir, "debug.keystore")
+            storeFile = file("debug.keystore")
         }
         register("devRelease") {
             storeFile = file("dev-release.jks")
