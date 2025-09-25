@@ -15,7 +15,7 @@ plugins {
     alias(libs.plugins.detekt)
 }
 
-val detektGradlePlugin = libs.plugins.detekt.get()
+val detektGradlePlugin: PluginDependency = libs.plugins.detekt.get()
 val detektPluginsBundle = libs.bundles.detekt.plugins
 
 subprojects {
