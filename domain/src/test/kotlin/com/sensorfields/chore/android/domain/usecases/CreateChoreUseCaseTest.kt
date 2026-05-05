@@ -5,13 +5,17 @@ import com.google.common.truth.Truth.assertThat
 import com.sensorfields.chore.android.data.room.ChoreDao
 import com.sensorfields.chore.android.data.room.entities.ChoreEntity
 import com.sensorfields.chore.android.data.room.test.ApplicationDatabaseRule
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(AndroidJUnit4::class)
 class CreateChoreUseCaseTest {
 
@@ -29,14 +33,17 @@ class CreateChoreUseCaseTest {
 
     @Test
     fun `add one chore`() = runTest {
-        val chores = choreDao.find("name", isAscending = true)
+        val chores = mutableListOf<List<ChoreEntity>>()
+        backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
+            choreDao.find("name", isAscending = true).toList(chores)
+        }
 
         assertThat(chores.first())
             .isEmpty()
 
         val chore = createChoreUseCase(name = "something", date = null)
 
-        assertThat(chores.first())
+        assertThat(chores.last())
             .containsExactly(
                 ChoreEntity(
                     id = chore.getOrThrow().id.value,

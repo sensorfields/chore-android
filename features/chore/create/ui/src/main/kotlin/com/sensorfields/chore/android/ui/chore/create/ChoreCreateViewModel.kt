@@ -110,6 +110,7 @@ internal class ChoreCreateViewModel @Inject constructor(
         updateState()
     }
 
+    @Suppress("CyclomaticComplexMethod")
     fun onNextClick() {
         when (val state = _state.value) {
             is ChoreCreateState.What -> {
