@@ -19,7 +19,7 @@ internal fun List<Chore>.toState(): ImmutableList<DashboardState.ChoreItem> {
         DashboardState.ChoreItem(
             id = it.id,
             name = it.name,
-            date = it.date,
+            date = null, // TODO AT
         )
     }.toImmutableList()
 }

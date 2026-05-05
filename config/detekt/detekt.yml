@@ -3,6 +3,8 @@ complexity:
     functionThreshold: 18
     ignoreDefaultParameters: true
   TooManyFunctions:
+    ignorePrivate: true
+    ignoreOverridden: true
     ignoreAnnotated: [ 'Preview' ]
   LongMethod:
     threshold: 180

@@ -13,16 +13,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
-import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
-import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
 import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.ui.dashboard.DashboardRoute
 import com.sensorfields.chore.android.ui.settings.SettingsRoute
@@ -55,8 +53,7 @@ internal fun HomeScreen(
                 .consumeWindowInsets(NavigationBarDefaults.windowInsets.only(Bottom))
                 .weight(1f),
             entryDecorators = listOf(
-                rememberSceneSetupNavEntryDecorator(),
-                rememberSavedStateNavEntryDecorator(),
+                rememberSaveableStateHolderNavEntryDecorator(),
                 rememberViewModelStoreNavEntryDecorator(),
             ),
             predictivePopTransitionSpec = {
@@ -117,26 +114,26 @@ private fun RowScope.Item(
     NavigationBarItem(
         selected = selected,
         onClick = onClick,
-        icon = { Icon(tabKey.iconVector, contentDescription = labelText) },
+        icon = { Icon(tabKey.icon, contentDescription = labelText) },
         label = { Text(labelText) },
     )
 }
 
 @Serializable
 private enum class TabKey(
-    val iconVector: ImageVector,
+    val icon: Icons,
     @StringRes val labelId: Int,
 ) : NavKey {
     DASHBOARD(
-        iconVector = Icons.Dashboard,
+        icon = Icons.Dashboard,
         labelId = R.string.home_navigation_dashboard,
     ),
     STATS(
-        iconVector = Icons.QueryStats,
+        icon = Icons.QueryStats,
         labelId = R.string.home_navigation_stats,
     ),
     SETTINGS(
-        iconVector = Icons.Settings,
+        icon = Icons.Settings,
         labelId = R.string.home_navigation_settings,
     ),
 }

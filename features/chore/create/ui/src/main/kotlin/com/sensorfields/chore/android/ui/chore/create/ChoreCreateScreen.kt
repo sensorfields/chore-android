@@ -1,6 +1,6 @@
 package com.sensorfields.chore.android.ui.chore.create
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
@@ -25,7 +25,10 @@ import com.sensorfields.chore.android.ui.theme.TopAppBar
 import com.sensorfields.chore.android.ui.theme.rememberSnackbarHostState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
-import java.time.Instant
+import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.Month
 
 @Composable
 internal fun ChoreCreateScreen(
@@ -33,18 +36,23 @@ internal fun ChoreCreateScreen(
     actions: Flow<ChoreCreateAction>,
     onUpClick: () -> Unit,
     onNameChange: (String) -> Unit,
-    onDateChange: (Instant?) -> Unit,
+    onRepeatClick: (ChoreCreateState.When.Repeat) -> Unit,
+    onDateChange: (LocalDate?) -> Unit,
+    onTimeChange: (LocalTime) -> Unit,
+    onDayOfWeekCheckedChange: (DayOfWeek, Boolean) -> Unit,
+    onDayOfMonthCheckedChange: (Int, Boolean) -> Unit,
+    onMonthCheckedChange: (Month, Boolean) -> Unit,
     onNextClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val snackbarHostState = rememberSnackbarHostState()
-    val context = LocalContext.current
+    val resources = LocalResources.current
 
     actions.collectInEffect { action ->
         when (action) {
             is ShowError -> {
                 snackbarHostState.showSnackbar(
-                    message = context.getErrorMessage(action.error),
+                    message = resources.getErrorMessage(action.error),
                 )
             }
         }
@@ -72,41 +80,77 @@ internal fun ChoreCreateScreen(
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
     ) { innerPadding ->
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .consumeWindowInsets(innerPadding)
                 .padding(innerPadding)
                 .imePadding(),
         ) {
-            ChoreCreateWhatItem(
-                isExpanded = state.isWhatExpanded,
-                name = state.name,
-                onNameChange = onNameChange,
-                onDoneClick = onNextClick,
-            )
-            ChoreCreateWhenItem(
-                isExpanded = state.isWhenExpanded,
-                date = state.date,
-                onDateChange = onDateChange,
-            )
+            when (state) {
+                is ChoreCreateState.What -> ChoreCreateWhat(
+                    name = state.name,
+                    onNameChange = onNameChange,
+                    onDoneClick = onNextClick,
+                )
+
+                ChoreCreateState.When -> ChoreCreateWhen(
+                    onRepeatClick = onRepeatClick,
+                )
+
+                is ChoreCreateState.WhenDate -> ChoreCreateWhenDate(
+                    date = state.date,
+                    onDateChange = onDateChange,
+                )
+
+                is ChoreCreateState.WhenTime -> ChoreCreateWhenTime(
+                    time = state.time,
+                    onTimeChange = onTimeChange,
+                )
+
+                is ChoreCreateState.WhenWeek -> ChoreCreateWhenWeek(
+                    days = state.days,
+                    onDayCheckedChange = onDayOfWeekCheckedChange,
+                )
+
+                is ChoreCreateState.WhenMonth -> ChoreCreateWhenMonth(
+                    days = state.days,
+                    onDayCheckedChange = onDayOfMonthCheckedChange,
+                )
+
+                is ChoreCreateState.WhenYear -> ChoreCreateWhenYear(
+                    months = state.months,
+                    onMonthCheckedChange = onMonthCheckedChange,
+                )
+
+                is ChoreCreateState.Summary -> ChoreCreateSummary(
+                    name = state.name,
+                    repeat = state.repeat,
+                    date = state.date,
+                    time = state.time,
+                    daysOfWeek = state.daysOfWeek,
+                    daysOfMonth = state.daysOfMonth,
+                    months = state.months,
+                )
+            }
         }
     }
-}
-
-internal enum class Screen {
-    WHAT, WHEN, WHERE
 }
 
 @Preview
 @Composable
 private fun Preview() = AppTheme {
     ChoreCreateScreen(
-        state = ChoreCreateState(),
+        state = ChoreCreateState.What(),
         actions = emptyFlow(),
         onUpClick = {},
         onNameChange = {},
+        onRepeatClick = {},
         onDateChange = {},
+        onTimeChange = {},
+        onDayOfWeekCheckedChange = { _, _ -> },
+        onDayOfMonthCheckedChange = { _, _ -> },
+        onMonthCheckedChange = { _, _ -> },
         onNextClick = {},
     )
 }

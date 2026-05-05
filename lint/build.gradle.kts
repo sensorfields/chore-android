@@ -8,6 +8,11 @@ tasks.jar {
     }
 }
 
+kotlin {
+    jvmToolchain(17)
+    explicitApi()
+}
+
 dependencies {
     compileOnly(libs.android.tools.lint.api)
     compileOnly(libs.kotlin.stdlib)

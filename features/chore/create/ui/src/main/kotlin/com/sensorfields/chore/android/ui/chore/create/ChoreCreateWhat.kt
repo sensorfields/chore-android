@@ -1,9 +1,7 @@
 package com.sensorfields.chore.android.ui.chore.create
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
@@ -16,21 +14,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.sensorfields.chore.android.ui.theme.AppTheme
 import com.sensorfields.chore.android.ui.theme.Text
 import com.sensorfields.chore.android.ui.theme.TextField
-import com.sensorfields.chore.android.ui.theme.TitleMediumText
 
 @Composable
-internal fun ColumnScope.ChoreCreateWhatItem(
-    isExpanded: Boolean,
+internal fun ChoreCreateWhat(
     name: String,
     onNameChange: (String) -> Unit,
     onDoneClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    if (isExpanded) {
-        val focusRequester = remember { FocusRequester() }
+    val focusRequester = remember { FocusRequester() }
+    Column(
+        modifier = modifier,
+    ) {
         TextField(
             value = name,
             onValueChange = onNameChange,
@@ -47,38 +45,17 @@ internal fun ColumnScope.ChoreCreateWhatItem(
             ),
             singleLine = true,
         )
-        SideEffect {
-            focusRequester.requestFocus()
-        }
-    } else {
-        TitleMediumText(
-            name,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
-        )
+    }
+    SideEffect {
+        focusRequester.requestFocus()
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewExpanded() = AppTheme {
+private fun Preview() = AppTheme {
     Column {
-        ChoreCreateWhatItem(
-            isExpanded = true,
-            name = "Chore name here",
-            onNameChange = {},
-            onDoneClick = {},
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun PreviewCollapsed() = AppTheme {
-    Column {
-        ChoreCreateWhatItem(
-            isExpanded = false,
+        ChoreCreateWhat(
             name = "Chore name here",
             onNameChange = {},
             onDoneClick = {},

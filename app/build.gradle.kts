@@ -21,7 +21,7 @@ android {
     }
     signingConfigs {
         named("debug") {
-            storeFile = File(projectDir, "debug.keystore")
+            storeFile = file("debug.keystore")
         }
         register("devRelease") {
             storeFile = file("dev-release.jks")
@@ -108,9 +108,9 @@ dependencies {
     implementation(libs.google.android.material)
 
     implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.crashlyticsKtx)
-    implementation(libs.firebase.analyticsKtx)
-    implementation(libs.firebase.messagingKtx)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.messaging)
 
     implementation(libs.logcat)
     implementation(libs.coil.coil)
