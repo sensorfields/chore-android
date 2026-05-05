@@ -1,8 +1,11 @@
 package com.sensorfields.chore.android.ui.chore.create
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.sensorfields.chore.android.domain.usecases.CreateChoreUseCase
 import com.sensorfields.chore.android.ui.ActionChannel
+import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
+import com.sensorfields.chore.android.ui.chore.create.ChoreCreateNavigationAction.Finish
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateState.When.Repeat
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableSet
@@ -10,10 +13,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.Month
+import java.time.ZoneOffset
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,7 +42,6 @@ internal class ChoreCreateViewModel @Inject constructor(
     private var daysOfWeek = mutableSetOf<DayOfWeek>()
     private var daysOfMonth = mutableSetOf<Int>()
     private var months = mutableSetOf<Month>()
-    private var isLoading: Boolean = false
 
     fun onNameChange(name: String) {
         this.name = name
@@ -107,7 +111,7 @@ internal class ChoreCreateViewModel @Inject constructor(
     }
 
     fun onNextClick() {
-        when (_state.value) {
+        when (val state = _state.value) {
             is ChoreCreateState.What -> {
                 if (isWhatValid()) {
                     _state.update { ChoreCreateState.When }
@@ -154,8 +158,20 @@ internal class ChoreCreateViewModel @Inject constructor(
                 }
             }
 
-            is ChoreCreateState.Summary -> {
-                // TODO save and finish
+            is ChoreCreateState.Summary -> viewModelScope.launch {
+                val date = date
+                val time = time
+                if (date != null && time != null) {
+                    _state.update { state.copy(isLoadingVisible = true) }
+                    createChoreUseCase(
+                        name = name,
+                        date = date.atTime(time).toInstant(ZoneOffset.UTC),
+                    ).onSuccess { chore ->
+                        _navigationAction.trySend(Finish(chore = chore))
+                    }.onFailure { error ->
+                        _action.trySend(ShowError(error = error))
+                    }
+                }
             }
         }
     }

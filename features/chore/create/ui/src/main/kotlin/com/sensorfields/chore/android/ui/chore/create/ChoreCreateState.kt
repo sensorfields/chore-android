@@ -52,5 +52,6 @@ internal sealed class ChoreCreateState(
         val daysOfWeek: ImmutableSet<DayOfWeek>,
         val daysOfMonth: ImmutableSet<Int>,
         val months: ImmutableSet<Month>,
+        override val isLoadingVisible: Boolean = false,
     ) : ChoreCreateState(isNextButtonEnabled = true)
 }
