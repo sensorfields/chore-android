@@ -11,7 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.sensorfields.chore.android.domain.models.Chore
@@ -39,14 +39,14 @@ internal fun DashboardScreen(
     onChoreClick: (Chore.Id) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val context = LocalContext.current
+    val resources = LocalResources.current
     val snackbarHostState = rememberSnackbarHostState()
     var isChoreSortDialogVisible by remember { mutableStateOf(false) }
 
     actions.collectInEffect { action ->
         when (action) {
             is ShowChoreCreatedMessage -> snackbarHostState.showSnackbar(
-                message = context.getString(
+                message = resources.getString(
                     R.string.dashboard_chore_created_message,
                     action.choreName,
                 ),

@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
@@ -46,13 +46,13 @@ internal fun ChoreCreateScreen(
     modifier: Modifier = Modifier,
 ) {
     val snackbarHostState = rememberSnackbarHostState()
-    val context = LocalContext.current
+    val resources = LocalResources.current
 
     actions.collectInEffect { action ->
         when (action) {
             is ShowError -> {
                 snackbarHostState.showSnackbar(
-                    message = context.getErrorMessage(action.error),
+                    message = resources.getErrorMessage(action.error),
                 )
             }
         }
