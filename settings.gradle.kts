@@ -24,6 +24,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "chore-android"
 include(
     ":core",
+    ":resources",
     ":data",
     ":domain",
     ":ui",

@@ -1,8 +1,6 @@
 plugins {
     alias(libs.plugins.android.multiplatform.library)
-    alias(libs.plugins.compose)
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.metro)
     alias(libs.plugins.androidx.room)
@@ -11,10 +9,6 @@ plugins {
 
 room {
     schemaDirectory("$projectDir/schemas")
-}
-
-compose.resources {
-    packageOfResClass = "com.sensorfields.chore.data.resources"
 }
 
 kotlin {
@@ -34,15 +28,11 @@ kotlin {
         namespace = "com.sensorfields.chore.data"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
-
-        androidResources {
-            enable = true
-        }
     }
 
     sourceSets {
         commonMain.dependencies {
-            // implementation(projects.utils)
+            implementation(projects.core)
 
             implementation(libs.kotlinx.coroutines)
             implementation(libs.kotlinx.serialization.json)
@@ -60,9 +50,6 @@ kotlin {
             api(libs.supabase.auth)
             api(libs.supabase.realtime)
             api(libs.supabase.functions)
-
-            implementation(libs.compose.runtime)
-            implementation(libs.compose.components.resources)
         }
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
