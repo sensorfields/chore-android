@@ -61,6 +61,7 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+        resValues = true
     }
 }
 
@@ -70,10 +71,8 @@ kotlin {
 
 dependencies {
     implementation(projects.data)
+    implementation(projects.domain)
     implementation(projects.ui)
-    implementation(projects.features.home.ui)
-    implementation(projects.features.chore.create.ui)
-    implementation(projects.features.chore.details.ui)
 
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
 

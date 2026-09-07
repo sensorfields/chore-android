@@ -67,7 +67,7 @@ fun App() {
     }
 }
 
-sealed interface RouteKey : NavKey {
+private sealed interface RouteKey : NavKey {
     @Serializable
     data object Home : RouteKey
 
