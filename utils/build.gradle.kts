@@ -21,8 +21,7 @@ kotlin {
 
 dependencies {
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.logcat)
 }

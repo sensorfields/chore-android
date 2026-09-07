@@ -4,15 +4,12 @@ import com.sensorfields.chore.android.data.room.ChoreDao
 import com.sensorfields.chore.android.data.room.entities.ChoreEntity
 import com.sensorfields.chore.android.domain.mappers.toModel
 import com.sensorfields.chore.android.domain.models.Chore
-import dagger.Reusable
+import dev.zacsweers.metro.Inject
 import java.time.Instant
-import javax.inject.Inject
-import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
-@OptIn(ExperimentalUuidApi::class)
-@Reusable
-public class CreateChoreUseCase @Inject constructor(
+@Inject
+public class CreateChoreUseCase(
     private val choreDao: ChoreDao,
 ) {
     public suspend operator fun invoke(name: String, date: Instant?): Result<Chore> {

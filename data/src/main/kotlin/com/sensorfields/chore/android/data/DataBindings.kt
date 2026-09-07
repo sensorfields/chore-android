@@ -4,28 +4,25 @@ import android.content.Context
 import androidx.room.Room
 import com.sensorfields.chore.android.data.room.ApplicationDatabase
 import com.sensorfields.chore.android.data.room.ChoreDao
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.BindingContainer
+import dev.zacsweers.metro.Provides
+import dev.zacsweers.metro.SingleIn
 
-@Module
-@InstallIn(SingletonComponent::class)
-internal object DataModule {
+@BindingContainer
+public object DataBindings {
 
-    @Singleton
     @Provides
-    fun applicationDatabase(@ApplicationContext context: Context): ApplicationDatabase {
+    @SingleIn(AppScope::class)
+    public fun applicationDatabase(context: Context): ApplicationDatabase {
         return Room.databaseBuilder(context, ApplicationDatabase::class.java, "app.db")
             // TODO setup logging in debug mode
             .build()
     }
 
-    @Singleton
     @Provides
-    fun choreDao(applicationDatabase: ApplicationDatabase): ChoreDao {
+    @SingleIn(AppScope::class)
+    public fun choreDao(applicationDatabase: ApplicationDatabase): ChoreDao {
         return applicationDatabase.choreDao()
     }
 }

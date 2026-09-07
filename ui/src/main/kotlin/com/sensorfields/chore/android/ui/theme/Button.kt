@@ -2,13 +2,10 @@ package com.sensorfields.chore.android.ui.theme
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 public fun Button(
     onClick: () -> Unit,
@@ -19,7 +16,6 @@ public fun Button(
 ) {
     androidx.compose.material3.Button(
         onClick = onClick,
-        shapes = ButtonDefaults.shapes(),
         modifier = modifier,
         enabled = enabled,
         interactionSource = interactionSource,

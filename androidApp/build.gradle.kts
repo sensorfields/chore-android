@@ -1,11 +1,13 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.compose)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.metro)
     alias(libs.plugins.google.ksp)
-    alias(libs.plugins.google.hilt)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.detekt)
 }
 
 android {
@@ -67,6 +69,7 @@ kotlin {
 }
 
 dependencies {
+    implementation(projects.data)
     implementation(projects.ui)
     implementation(projects.features.home.ui)
     implementation(projects.features.chore.create.ui)
@@ -74,36 +77,27 @@ dependencies {
 
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
 
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines)
     implementation(libs.kotlinx.coroutines.playServices)
     implementation(libs.kotlinx.collections.immutable)
 
-    implementation(libs.androidx.core.coreKtx)
+    implementation(libs.androidx.core)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.activityKtx)
+    implementation(libs.androidx.activity)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.lifecycle.common.java8)
-    implementation(libs.androidx.lifecycle.viewmodelKtx)
-    implementation(libs.androidx.lifecycle.viewmodel.savedstate)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.bundles.navigation)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation)
+    implementation(libs.androidx.navigation.runtime)
+    implementation(libs.androidx.navigation.ui)
     implementation(libs.androidx.datastore.preferences)
-    implementation(libs.androidx.work.runtimeKtx)
-    ksp(libs.androidx.hilt.compiler)
-    implementation(libs.androidx.hilt.work)
     implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.runtime.android)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material.icons.core)
     implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.androidx.compose.ui.tooling.preview)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
-    implementation(libs.google.hilt.android)
-    ksp(libs.google.hilt.compiler)
     implementation(libs.google.android.material)
 
     implementation(platform(libs.firebase.bom))

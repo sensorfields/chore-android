@@ -7,7 +7,10 @@ import com.sensorfields.chore.android.ui.ActionChannel
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateNavigationAction.Finish
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateState.When.Repeat
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metrox.viewmodel.ViewModelKey
 import kotlinx.collections.immutable.toImmutableSet
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,10 +22,11 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.time.Month
 import java.time.ZoneOffset
-import javax.inject.Inject
 
-@HiltViewModel
-internal class ChoreCreateViewModel @Inject constructor(
+@Inject
+@ViewModelKey
+@ContributesIntoMap(AppScope::class)
+internal class ChoreCreateViewModel(
     private val createChoreUseCase: CreateChoreUseCase,
 ) : ViewModel() {
 

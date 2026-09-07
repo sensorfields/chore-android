@@ -1,10 +1,13 @@
 package com.sensorfields.chore.android
 
-import dagger.hilt.android.HiltAndroidApp
+import dev.zacsweers.metro.createGraphFactory
 import logcat.AndroidLogcatLogger
 
-@HiltAndroidApp
 class Application : android.app.Application() {
+
+    val appGraph by lazy {
+        createGraphFactory<AndroidAppGraph.Factory>().create(context = this)
+    }
 
     override fun onCreate() {
         super.onCreate()

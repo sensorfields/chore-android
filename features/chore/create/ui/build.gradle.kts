@@ -2,8 +2,8 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.metro)
     alias(libs.plugins.google.ksp)
-    alias(libs.plugins.google.hilt)
 }
 
 android {
@@ -34,14 +34,4 @@ dependencies {
     implementation(projects.features.chore.ui)
 
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
-
-    implementation(libs.google.hilt.android)
-    ksp(libs.androidx.hilt.compiler)
-    ksp(libs.google.hilt.compiler)
-
-    androidTestImplementation(libs.androidx.test.runner)
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    debugApi(libs.androidx.compose.ui.test.manifest)
-    androidTestImplementation(libs.google.hilt.testing)
-    kspAndroidTest(libs.google.hilt.compiler)
 }

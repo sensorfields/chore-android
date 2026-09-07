@@ -2,10 +2,10 @@ package com.sensorfields.chore.android.ui.dashboard
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.ui.collectInEffect
+import dev.zacsweers.metrox.viewmodel.metroViewModel
 import kotlinx.coroutines.flow.Flow
 
 @Composable
@@ -14,7 +14,7 @@ public fun DashboardRoute(
     choreCreateResults: () -> Flow<Chore>,
     onNavigateToChoreDetails: (Chore.Id) -> Unit,
 ) {
-    val viewModel = hiltViewModel<DashboardViewModel>()
+    val viewModel = metroViewModel<DashboardViewModel>()
     choreCreateResults().collectInEffect(viewModel::onChoreCreateResult)
     val state by viewModel.state.collectAsStateWithLifecycle()
     DashboardScreen(

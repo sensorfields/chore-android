@@ -1,14 +1,13 @@
 package com.sensorfields.chore.android.ui.theme
 
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 public fun TopAppBar(
     title: @Composable () -> Unit,
@@ -17,13 +16,11 @@ public fun TopAppBar(
     navigationIcon: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
 ) {
-    androidx.compose.material3.TopAppBar(
+    CenterAlignedTopAppBar(
         title = title,
-        subtitle = subtitle,
         modifier = modifier,
         navigationIcon = navigationIcon,
         actions = actions,
-        titleHorizontalAlignment = Alignment.CenterHorizontally,
     )
 }
 

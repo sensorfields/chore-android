@@ -4,18 +4,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.domain.usecases.ObserveChoreUseCase
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Assisted
+import dev.zacsweers.metro.AssistedFactory
+import dev.zacsweers.metro.AssistedInject
+import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactory
+import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactoryKey
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 
-@HiltViewModel(assistedFactory = ChoreDetailsViewModel.Factory::class)
-internal class ChoreDetailsViewModel @AssistedInject constructor(
+@AssistedInject
+internal class ChoreDetailsViewModel(
     @Assisted private val choreIdValue: String, // TODO value classes not supported?
     private val observeChoreUseCase: ObserveChoreUseCase,
 ) : ViewModel() {
@@ -50,7 +53,9 @@ internal class ChoreDetailsViewModel @AssistedInject constructor(
     }
 
     @AssistedFactory
-    interface Factory {
+    @ManualViewModelAssistedFactoryKey
+    @ContributesIntoMap(AppScope::class)
+    fun interface Factory : ManualViewModelAssistedFactory {
         fun create(choreIdValue: String): ChoreDetailsViewModel
     }
 }

@@ -25,7 +25,6 @@ rootProject.name = "chore-android"
 include(
     ":utils",
     ":data",
-    ":data-test",
     ":domain",
     ":ui",
     ":features:dashboard:ui",

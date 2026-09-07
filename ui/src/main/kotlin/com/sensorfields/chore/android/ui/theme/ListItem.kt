@@ -13,11 +13,11 @@ public fun ListItem(
     content: @Composable () -> Unit,
 ) {
     androidx.compose.material3.ListItem(
+        headlineContent = content,
         modifier = modifier,
         overlineContent = overlineContent,
         supportingContent = supportingContent,
         leadingContent = leadingContent,
         trailingContent = trailingContent,
-        content = content,
     )
 }
