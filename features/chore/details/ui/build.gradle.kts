@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.google.ksp)
@@ -27,8 +26,6 @@ kotlin {
 }
 
 dependencies {
-    lintChecks(projects.lint) // TODO lint
-
     implementation(projects.utils)
     implementation(projects.ui)
     api(projects.domain)

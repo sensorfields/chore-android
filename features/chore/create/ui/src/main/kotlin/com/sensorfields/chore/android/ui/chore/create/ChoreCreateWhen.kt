@@ -20,25 +20,20 @@ internal fun ChoreCreateWhen(
     ) {
         TitleMediumText("Repeat")
         ListItem(
-            headlineContent = { Text("Once") },
             modifier = Modifier.clickable { onRepeatClick(ChoreCreateState.When.Repeat.ONCE) },
-        )
+        ) { Text("Once") }
         ListItem(
-            headlineContent = { Text("Daily") },
             modifier = Modifier.clickable { onRepeatClick(ChoreCreateState.When.Repeat.DAILY) },
-        )
+        ) { Text("Daily") }
         ListItem(
-            headlineContent = { Text("Weekly") },
             modifier = Modifier.clickable { onRepeatClick(ChoreCreateState.When.Repeat.WEEKLY) },
-        )
+        ) { Text("Weekly") }
         ListItem(
-            headlineContent = { Text("Monthly") },
             modifier = Modifier.clickable { onRepeatClick(ChoreCreateState.When.Repeat.MONTHLY) },
-        )
+        ) { Text("Monthly") }
         ListItem(
-            headlineContent = { Text("Yearly") },
             modifier = Modifier.clickable { onRepeatClick(ChoreCreateState.When.Repeat.YEARLY) },
-        )
+        ) { Text("Yearly") }
     }
 }
 

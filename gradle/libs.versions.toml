@@ -1,49 +1,47 @@
 [versions]
-android-tools-build = "8.13.2"
+android-tools-build = "9.4.0"
 android-tools-desugar = "2.1.5"
-android-tools-lint = "31.13.2"
+android-tools-lint = "32.4.0"
 
-kotlin = "2.2.21"
-kotlinx-coroutines = "1.10.2"
-kotlinx-serialization = "1.9.0"
-kotlinx-collections-immutable = "0.4.0"
+kotlin = "2.4.20"
+kotlinx-coroutines = "1.11.0"
+kotlinx-serialization = "1.11.0"
+kotlinx-collections-immutable = "0.5.2"
 
-androidx-core = "1.17.0"
+androidx-core = "1.19.0"
 androidx-core-splashscreen = "1.2.0"
-androidx-appcompat = "1.7.1"
-androidx-activity = "1.12.2"
-androidx-lifecycle = "2.10.0"
-androidx-navigation = "1.0.0"
-androidx-datastore = "1.2.0"
+androidx-appcompat = "1.8.0"
+androidx-activity = "1.13.0"
+androidx-lifecycle = "2.11.0"
+androidx-navigation = "1.1.7"
+androidx-datastore = "1.2.1"
 androidx-room = "2.8.4"
-androidx-work = "2.11.0"
-androidx-hilt = "1.3.0"
-androidx-compose-bom = "2025.12.01"
+androidx-work = "2.11.2"
+androidx-hilt = "1.4.0"
+androidx-compose-bom = "2026.08.01"
 androidx-test-core = "1.7.0"
 androidx-test-runner = "1.7.0"
 androidx-test-ext-junit = "1.3.0"
 
-google-ksp = "2.3.2"
-google-hilt = "2.57.2"
-google-services = "4.4.4"
-google-android-material = "1.13.0"
+google-ksp = "2.3.6"
+google-hilt = "2.60.1"
+google-services = "4.5.0"
+google-android-material = "1.14.0"
 google-truth = "1.4.5"
 
-firebase-crashlytics-plugin = "3.0.6"
-firebase-bom = "34.7.0"
+firebase-crashlytics-plugin = "3.0.8"
+firebase-bom = "34.18.0"
 
 detekt = "1.23.8"
 detekt-plugin-twitter-compose = "0.0.26"
 logcat = "0.4"
 coil = "2.7.0"
 junit = "4.13.2"
-robolectric = "4.16"
+robolectric = "4.16.1"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-tools-build" }
 android-library = { id = "com.android.library", version.ref = "android-tools-build" }
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 androidx-room = { id = "androidx.room", version.ref = "androidx-room" }

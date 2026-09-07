@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.google.ksp)
@@ -40,9 +39,9 @@ dependencies {
     ksp(libs.androidx.hilt.compiler)
     ksp(libs.google.hilt.compiler)
 
-    androidTestApi(libs.androidx.test.runner)
-    androidTestApi(libs.androidx.compose.ui.test.junit4)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugApi(libs.androidx.compose.ui.test.manifest)
-    androidTestApi(libs.google.hilt.testing)
+    androidTestImplementation(libs.google.hilt.testing)
     kspAndroidTest(libs.google.hilt.compiler)
 }

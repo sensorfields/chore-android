@@ -41,12 +41,9 @@ internal fun DashboardChoreSortDialog(
         modifier = modifier,
         sheetState = sheetState,
     ) {
-        ListItem(
-            headlineContent = { Text(stringResource(R.string.dashboard_chore_sort_title)) },
-        )
+        ListItem { Text(stringResource(R.string.dashboard_chore_sort_title)) }
         HorizontalDivider()
         ListItem(
-            headlineContent = { Text(stringResource(R.string.dashboard_chore_sort_name)) },
             modifier = Modifier.clickable { onClick(Chore.SortProperty.NAME) },
             leadingContent = {
                 AscendingIcon(
@@ -54,9 +51,8 @@ internal fun DashboardChoreSortDialog(
                     sortBy = Chore.SortProperty.NAME,
                 )
             },
-        )
+        ) { Text(stringResource(R.string.dashboard_chore_sort_name)) }
         ListItem(
-            headlineContent = { Text(stringResource(R.string.dashboard_chore_sort_date)) },
             modifier = Modifier.clickable { onClick(Chore.SortProperty.DATE) },
             leadingContent = {
                 AscendingIcon(
@@ -64,7 +60,7 @@ internal fun DashboardChoreSortDialog(
                     sortBy = Chore.SortProperty.DATE,
                 )
             },
-        )
+        ) { Text(stringResource(R.string.dashboard_chore_sort_date)) }
     }
 }
 

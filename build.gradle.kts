@@ -3,8 +3,6 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.library) apply false
-    alias(libs.plugins.kotlin.jvm) apply false
-    alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.androidx.room) apply false
@@ -39,6 +37,6 @@ val isSnapshot = hasProperty("snapshot")
 
 extra["application.versionCode"] = versionCode
 extra["application.versionName"] = versionName + (if (isSnapshot) "-SNAPSHOT-$versionCode" else "")
-extra["android.compileSdk"] = 36
+extra["android.compileSdk"] = 37
 extra["android.minSdk"] = 29
-extra["android.targetSdk"] = 36
+extra["android.targetSdk"] = 37

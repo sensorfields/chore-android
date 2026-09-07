@@ -17,10 +17,11 @@ internal fun DashboardChoreItem(
     modifier: Modifier = Modifier,
 ) {
     ListItem(
-        headlineContent = { Text(state.name) },
         modifier = modifier.clickable(onClick = onClick),
         supportingContent = state.date?.let { { Text(choreDate(it)) } },
-    )
+    ) {
+        Text(state.name)
+    }
 }
 
 @Preview
