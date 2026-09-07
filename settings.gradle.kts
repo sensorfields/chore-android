@@ -35,5 +35,5 @@ include(
     ":features:chore:ui",
     ":features:chore:create:ui",
     ":features:chore:details:ui",
-    ":app"
+    ":androidApp"
 )
