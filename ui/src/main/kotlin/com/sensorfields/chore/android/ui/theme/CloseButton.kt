@@ -2,9 +2,10 @@ package com.sensorfields.chore.android.ui.theme
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.sensorfields.chore.android.ui.R
+import com.sensorfields.chore.resources.Res
+import com.sensorfields.chore.resources.close_button
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 public fun CloseButton(
@@ -13,7 +14,7 @@ public fun CloseButton(
 ) {
     IconButton(
         Icons.Close,
-        contentDescription = stringResource(R.string.close_button),
+        contentDescription = stringResource(Res.string.close_button),
         onClick = onClick,
         modifier = modifier,
     )

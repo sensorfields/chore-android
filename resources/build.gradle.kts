@@ -45,7 +45,7 @@ kotlin {
             implementation(libs.kotlinx.datetime)
 
             implementation(libs.compose.runtime)
-            implementation(libs.compose.components.resources)
+            api(libs.compose.components.resources)
         }
     }
 

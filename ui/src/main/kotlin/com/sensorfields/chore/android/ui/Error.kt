@@ -1,10 +1,12 @@
 package com.sensorfields.chore.android.ui
 
-import android.content.res.Resources
+import com.sensorfields.chore.resources.Res
+import com.sensorfields.chore.resources.error_general
 import logcat.asLog
 import logcat.logcat
+import org.jetbrains.compose.resources.getString
 
-public fun Resources.getErrorMessage(error: Throwable): String {
-    logcat { error.asLog() }
-    return getString(R.string.error_general)
+public suspend fun Throwable.toErrorMessage(): String {
+    logcat(tag = "Error") { asLog() }
+    return getString(Res.string.error_general)
 }

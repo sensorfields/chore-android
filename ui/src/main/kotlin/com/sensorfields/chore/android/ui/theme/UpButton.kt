@@ -2,9 +2,10 @@ package com.sensorfields.chore.android.ui.theme
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.sensorfields.chore.android.ui.R
+import com.sensorfields.chore.resources.Res
+import com.sensorfields.chore.resources.up_button
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 public fun UpButton(
@@ -13,7 +14,7 @@ public fun UpButton(
 ) {
     IconButton(
         Icons.ArrowBack,
-        contentDescription = stringResource(R.string.up_button),
+        contentDescription = stringResource(Res.string.up_button),
         onClick = onClick,
         modifier = modifier,
     )

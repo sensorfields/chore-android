@@ -8,13 +8,11 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.sensorfields.chore.android.R
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
 import com.sensorfields.chore.android.ui.collectInEffect
-import com.sensorfields.chore.android.ui.getErrorMessage
 import com.sensorfields.chore.android.ui.theme.AppTheme
 import com.sensorfields.chore.android.ui.theme.BottomBar
 import com.sensorfields.chore.android.ui.theme.CloseButton
@@ -24,6 +22,7 @@ import com.sensorfields.chore.android.ui.theme.SnackbarHost
 import com.sensorfields.chore.android.ui.theme.Text
 import com.sensorfields.chore.android.ui.theme.TopAppBar
 import com.sensorfields.chore.android.ui.theme.rememberSnackbarHostState
+import com.sensorfields.chore.android.ui.toErrorMessage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.datetime.DayOfWeek
@@ -47,14 +46,11 @@ fun ChoreCreateScreen(
     modifier: Modifier = Modifier,
 ) {
     val snackbarHostState = rememberSnackbarHostState()
-    val resources = LocalResources.current
 
     actions.collectInEffect { action ->
         when (action) {
             is ShowError -> {
-                snackbarHostState.showSnackbar(
-                    message = resources.getErrorMessage(action.error),
-                )
+                snackbarHostState.showSnackbar(message = action.error.toErrorMessage())
             }
         }
     }

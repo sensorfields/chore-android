@@ -26,6 +26,9 @@ kotlin {
 }
 
 dependencies {
+    implementation(projects.core)
+    implementation(projects.resources)
+
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
 
     api(libs.kotlinx.coroutines)
