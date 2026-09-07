@@ -26,7 +26,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            // implementation(projects.utils)
+            implementation(projects.core)
             implementation(projects.data)
 
             implementation(libs.kotlinx.coroutines)
@@ -34,13 +34,9 @@ kotlin {
             implementation(libs.kotlinx.collections.immutable)
             api(libs.kotlinx.datetime)
         }
-        androidMain.dependencies {
-            implementation(libs.kotlinx.coroutines.playServices)
-            implementation(libs.google.android.playservices.location)
-        }
     }
 
-    jvmToolchain(17)
+    jvmToolchain(libs.versions.jdk.get().toInt())
 
     compilerOptions {
         freeCompilerArgs.addAll(
