@@ -27,5 +27,6 @@ include(
     ":data",
     ":domain",
     ":ui",
+    ":app",
     ":androidApp"
 )

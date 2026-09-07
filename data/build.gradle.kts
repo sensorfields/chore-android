@@ -7,9 +7,9 @@ plugins {
 
 android {
     namespace = "com.sensorfields.chore.android.data"
-    compileSdk = property("android.compileSdk") as Int
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = property("android.minSdk") as Int
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
     compileOptions {
         isCoreLibraryDesugaringEnabled = true

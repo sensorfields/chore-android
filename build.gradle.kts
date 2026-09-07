@@ -25,6 +25,3 @@ val isSnapshot = hasProperty("snapshot")
 
 extra["application.versionCode"] = versionCode
 extra["application.versionName"] = versionName + (if (isSnapshot) "-SNAPSHOT-$versionCode" else "")
-extra["android.compileSdk"] = 37
-extra["android.minSdk"] = 29
-extra["android.targetSdk"] = 37
