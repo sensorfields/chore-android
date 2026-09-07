@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.sensorfields.chore.android.R
 import com.sensorfields.chore.android.ui.theme.HorizontalDivider
 import com.sensorfields.chore.android.ui.theme.Icon
 import com.sensorfields.chore.android.ui.theme.Icons
@@ -17,7 +15,14 @@ import com.sensorfields.chore.android.ui.theme.ModalBottomSheet
 import com.sensorfields.chore.android.ui.theme.Text
 import com.sensorfields.chore.android.ui.theme.rememberModalBottomSheetState
 import com.sensorfields.chore.domain.models.Chore
+import com.sensorfields.chore.resources.Res
+import com.sensorfields.chore.resources.dashboard_chore_sort_ascending
+import com.sensorfields.chore.resources.dashboard_chore_sort_date
+import com.sensorfields.chore.resources.dashboard_chore_sort_descending
+import com.sensorfields.chore.resources.dashboard_chore_sort_name
+import com.sensorfields.chore.resources.dashboard_chore_sort_title
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun DashboardChoreSortDialog(
@@ -42,7 +47,7 @@ fun DashboardChoreSortDialog(
         modifier = modifier,
         sheetState = sheetState,
     ) {
-        ListItem { Text(stringResource(R.string.dashboard_chore_sort_title)) }
+        ListItem { Text(stringResource(Res.string.dashboard_chore_sort_title)) }
         HorizontalDivider()
         ListItem(
             modifier = Modifier.clickable { onClick(Chore.SortProperty.NAME) },
@@ -52,7 +57,7 @@ fun DashboardChoreSortDialog(
                     sortBy = Chore.SortProperty.NAME,
                 )
             },
-        ) { Text(stringResource(R.string.dashboard_chore_sort_name)) }
+        ) { Text(stringResource(Res.string.dashboard_chore_sort_name)) }
         ListItem(
             modifier = Modifier.clickable { onClick(Chore.SortProperty.DATE) },
             leadingContent = {
@@ -61,7 +66,7 @@ fun DashboardChoreSortDialog(
                     sortBy = Chore.SortProperty.DATE,
                 )
             },
-        ) { Text(stringResource(R.string.dashboard_chore_sort_date)) }
+        ) { Text(stringResource(Res.string.dashboard_chore_sort_date)) }
     }
 }
 
@@ -75,7 +80,7 @@ private fun AscendingIcon(
         sort.sortBy == sortBy && sort.isAscending -> {
             Icon(
                 Icons.ArrowUpward,
-                contentDescription = stringResource(R.string.dashboard_chore_sort_ascending),
+                contentDescription = stringResource(Res.string.dashboard_chore_sort_ascending),
                 modifier = modifier,
             )
         }
@@ -83,7 +88,7 @@ private fun AscendingIcon(
         sort.sortBy == sortBy -> {
             Icon(
                 Icons.ArrowDownward,
-                contentDescription = stringResource(R.string.dashboard_chore_sort_descending),
+                contentDescription = stringResource(Res.string.dashboard_chore_sort_descending),
                 modifier = modifier,
             )
         }

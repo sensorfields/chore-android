@@ -8,9 +8,7 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.sensorfields.chore.android.R
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
 import com.sensorfields.chore.android.ui.collectInEffect
 import com.sensorfields.chore.android.ui.theme.AppTheme
@@ -23,12 +21,16 @@ import com.sensorfields.chore.android.ui.theme.Text
 import com.sensorfields.chore.android.ui.theme.TopAppBar
 import com.sensorfields.chore.android.ui.theme.rememberSnackbarHostState
 import com.sensorfields.chore.android.ui.toErrorMessage
+import com.sensorfields.chore.resources.Res
+import com.sensorfields.chore.resources.chore_create_next_button
+import com.sensorfields.chore.resources.chore_create_title
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.Month
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ChoreCreateScreen(
@@ -59,7 +61,7 @@ fun ChoreCreateScreen(
         modifier = modifier,
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.chore_create_title)) },
+                title = { Text(stringResource(Res.string.chore_create_title)) },
                 navigationIcon = { CloseButton(onClick = onUpClick) },
             )
         },
@@ -71,7 +73,7 @@ fun ChoreCreateScreen(
                     modifier = Modifier.fillMaxWidth(),
                     enabled = state.isNextButtonEnabled,
                 ) {
-                    Text(stringResource(R.string.chore_create_next_button))
+                    Text(stringResource(Res.string.chore_create_next_button))
                 }
             }
         },

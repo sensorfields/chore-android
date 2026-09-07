@@ -1,6 +1,5 @@
 package com.sensorfields.chore.android.ui.home
 
-import androidx.annotation.StringRes
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -13,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavEntry
@@ -21,7 +19,6 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
-import com.sensorfields.chore.android.R
 import com.sensorfields.chore.android.ui.dashboard.DashboardRoute
 import com.sensorfields.chore.android.ui.settings.SettingsRoute
 import com.sensorfields.chore.android.ui.stats.StatsRoute
@@ -33,9 +30,15 @@ import com.sensorfields.chore.android.ui.theme.NavigationBarDefaults
 import com.sensorfields.chore.android.ui.theme.NavigationBarItem
 import com.sensorfields.chore.android.ui.theme.Text
 import com.sensorfields.chore.domain.models.Chore
+import com.sensorfields.chore.resources.Res
+import com.sensorfields.chore.resources.home_navigation_dashboard
+import com.sensorfields.chore.resources.home_navigation_settings
+import com.sensorfields.chore.resources.home_navigation_stats
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.serialization.Serializable
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun HomeScreen(
@@ -123,19 +126,19 @@ private fun RowScope.Item(
 @Serializable
 private enum class TabKey(
     val icon: Icons,
-    @StringRes val labelId: Int,
+    val labelId: StringResource,
 ) : NavKey {
     DASHBOARD(
         icon = Icons.Dashboard,
-        labelId = R.string.home_navigation_dashboard,
+        labelId = Res.string.home_navigation_dashboard,
     ),
     STATS(
         icon = Icons.QueryStats,
-        labelId = R.string.home_navigation_stats,
+        labelId = Res.string.home_navigation_stats,
     ),
     SETTINGS(
         icon = Icons.Settings,
-        labelId = R.string.home_navigation_settings,
+        labelId = Res.string.home_navigation_settings,
     ),
 }
 

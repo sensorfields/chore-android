@@ -10,14 +10,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
-import com.sensorfields.chore.android.R
 import com.sensorfields.chore.android.ui.theme.AppTheme
 import com.sensorfields.chore.android.ui.theme.Text
 import com.sensorfields.chore.android.ui.theme.TextField
+import com.sensorfields.chore.resources.Res
+import com.sensorfields.chore.resources.chore_create_name
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ChoreCreateWhat(
@@ -36,7 +37,7 @@ fun ChoreCreateWhat(
             modifier = Modifier
                 .focusRequester(focusRequester)
                 .fillMaxWidth(),
-            label = { Text(stringResource(R.string.chore_create_name)) },
+            label = { Text(stringResource(Res.string.chore_create_name)) },
             keyboardOptions = KeyboardOptions.Default.copy(
                 capitalization = KeyboardCapitalization.Sentences,
                 imeAction = ImeAction.Done,

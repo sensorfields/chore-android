@@ -7,12 +7,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.sensorfields.chore.android.R
 import com.sensorfields.chore.android.ui.theme.AppTheme
 import com.sensorfields.chore.android.ui.theme.Scaffold
 import com.sensorfields.chore.android.ui.theme.Text
+import com.sensorfields.chore.resources.Res
+import com.sensorfields.chore.resources.settings_title
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SettingsScreen(
@@ -26,7 +27,7 @@ fun SettingsScreen(
                 .padding(innerPadding),
         ) {
             Text(
-                stringResource(R.string.settings_title),
+                stringResource(Res.string.settings_title),
                 modifier = Modifier.align(Alignment.Center),
             )
         }

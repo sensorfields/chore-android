@@ -11,10 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalResources
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.sensorfields.chore.android.R
 import com.sensorfields.chore.android.ui.collectInEffect
 import com.sensorfields.chore.android.ui.dashboard.DashboardAction.ShowChoreCreatedMessage
 import com.sensorfields.chore.android.ui.theme.AppTheme
@@ -28,8 +25,15 @@ import com.sensorfields.chore.android.ui.theme.Text
 import com.sensorfields.chore.android.ui.theme.TopAppBar
 import com.sensorfields.chore.android.ui.theme.rememberSnackbarHostState
 import com.sensorfields.chore.domain.models.Chore
+import com.sensorfields.chore.resources.Res
+import com.sensorfields.chore.resources.dashboard_chore_create_button
+import com.sensorfields.chore.resources.dashboard_chore_created_message
+import com.sensorfields.chore.resources.dashboard_sort_button
+import com.sensorfields.chore.resources.dashboard_title
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
+import org.jetbrains.compose.resources.getString
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun DashboardScreen(
@@ -40,15 +44,14 @@ fun DashboardScreen(
     onChoreClick: (Chore.Id) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val resources = LocalResources.current
     val snackbarHostState = rememberSnackbarHostState()
     var isChoreSortDialogVisible by remember { mutableStateOf(false) }
 
     actions.collectInEffect { action ->
         when (action) {
             is ShowChoreCreatedMessage -> snackbarHostState.showSnackbar(
-                message = resources.getString(
-                    R.string.dashboard_chore_created_message,
+                message = getString(
+                    Res.string.dashboard_chore_created_message,
                     action.choreName,
                 ),
             )
@@ -67,11 +70,11 @@ fun DashboardScreen(
         modifier = modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.dashboard_title)) },
+                title = { Text(stringResource(Res.string.dashboard_title)) },
                 actions = {
                     IconButton(
                         Icons.Sort,
-                        contentDescription = stringResource(R.string.dashboard_sort_button),
+                        contentDescription = stringResource(Res.string.dashboard_sort_button),
                         onClick = { isChoreSortDialogVisible = true },
                     )
                 },
@@ -82,7 +85,7 @@ fun DashboardScreen(
             FloatingActionButton(onClick = onCreateChoreClick) {
                 Icon(
                     Icons.Add,
-                    contentDescription = stringResource(R.string.dashboard_chore_create_button),
+                    contentDescription = stringResource(Res.string.dashboard_chore_create_button),
                 )
             }
         },
