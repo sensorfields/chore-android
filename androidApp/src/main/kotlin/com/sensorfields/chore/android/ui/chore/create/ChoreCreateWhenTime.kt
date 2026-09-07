@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import com.sensorfields.chore.android.ui.theme.TimePicker
 import com.sensorfields.chore.android.ui.theme.rememberTimePickerState
 import kotlinx.coroutines.flow.collectLatest
-import java.time.LocalTime
+import kotlinx.datetime.LocalTime
 
 @Composable
 fun ChoreCreateWhenTime(

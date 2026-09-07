@@ -48,10 +48,14 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.collections.immutable)
             implementation(libs.kotlinx.datetime)
-            api(libs.androidx.datastore.preferences)
+
+            implementation(libs.androidx.datastore.preferences)
+
             api(libs.androidx.room.runtime)
             implementation(libs.androidx.sqlite.bundled)
-            api(libs.ktor.client.core)
+
+            implementation(libs.ktor.client.core)
+
             api(libs.supabase.postgrest)
             api(libs.supabase.auth)
             api(libs.supabase.realtime)
@@ -61,14 +65,14 @@ kotlin {
             implementation(libs.compose.components.resources)
         }
         androidMain.dependencies {
-            api(libs.ktor.client.okhttp)
+            implementation(libs.ktor.client.okhttp)
         }
         iosMain.dependencies {
-            api(libs.ktor.client.darwin)
+            implementation(libs.ktor.client.darwin)
         }
     }
 
-    jvmToolchain(11)
+    jvmToolchain(17)
 
     compilerOptions {
         freeCompilerArgs.addAll(

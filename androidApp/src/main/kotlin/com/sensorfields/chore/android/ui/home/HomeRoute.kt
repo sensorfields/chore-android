@@ -1,7 +1,7 @@
 package com.sensorfields.chore.android.ui.home
 
 import androidx.compose.runtime.Composable
-import com.sensorfields.chore.android.domain.models.Chore
+import com.sensorfields.chore.domain.models.Chore
 import kotlinx.coroutines.flow.Flow
 
 @Composable

@@ -2,11 +2,11 @@ package com.sensorfields.chore.android.ui.chore.create
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sensorfields.chore.android.domain.usecases.CreateChoreUseCase
 import com.sensorfields.chore.android.ui.ActionChannel
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateNavigationAction.Finish
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateState.When.Repeat
+import com.sensorfields.chore.domain.usecases.CreateChoreUseCase
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.Inject
@@ -17,11 +17,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.time.DayOfWeek
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.Month
-import java.time.ZoneOffset
+import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalTime
+import kotlinx.datetime.Month
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.atTime
+import kotlinx.datetime.toInstant
 
 @Inject
 @ViewModelKey
@@ -170,7 +172,7 @@ class ChoreCreateViewModel(
                     _state.update { state.copy(isLoadingVisible = true) }
                     createChoreUseCase(
                         name = name,
-                        date = date.atTime(time).toInstant(ZoneOffset.UTC),
+                        date = date.atTime(time).toInstant(TimeZone.currentSystemDefault()), // TODO TimeZone
                     ).onSuccess { chore ->
                         _navigationAction.trySend(Finish(chore = chore))
                     }.onFailure { error ->

@@ -15,7 +15,6 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.sensorfields.chore.android.R
-import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.ui.collectInEffect
 import com.sensorfields.chore.android.ui.dashboard.DashboardAction.ShowChoreCreatedMessage
 import com.sensorfields.chore.android.ui.theme.AppTheme
@@ -28,6 +27,7 @@ import com.sensorfields.chore.android.ui.theme.SnackbarHost
 import com.sensorfields.chore.android.ui.theme.Text
 import com.sensorfields.chore.android.ui.theme.TopAppBar
 import com.sensorfields.chore.android.ui.theme.rememberSnackbarHostState
+import com.sensorfields.chore.domain.models.Chore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 

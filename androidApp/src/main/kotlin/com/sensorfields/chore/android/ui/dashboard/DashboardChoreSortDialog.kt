@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sensorfields.chore.android.R
-import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.ui.theme.HorizontalDivider
 import com.sensorfields.chore.android.ui.theme.Icon
 import com.sensorfields.chore.android.ui.theme.Icons
@@ -17,6 +16,7 @@ import com.sensorfields.chore.android.ui.theme.ListItem
 import com.sensorfields.chore.android.ui.theme.ModalBottomSheet
 import com.sensorfields.chore.android.ui.theme.Text
 import com.sensorfields.chore.android.ui.theme.rememberModalBottomSheetState
+import com.sensorfields.chore.domain.models.Chore
 import kotlinx.coroutines.launch
 
 @Composable

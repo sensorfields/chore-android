@@ -2,8 +2,8 @@ package com.sensorfields.chore.android.ui.chore.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sensorfields.chore.android.domain.models.Chore
-import com.sensorfields.chore.android.domain.usecases.ObserveChoreUseCase
+import com.sensorfields.chore.domain.models.Chore
+import com.sensorfields.chore.domain.usecases.ObserveChoreUseCase
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory

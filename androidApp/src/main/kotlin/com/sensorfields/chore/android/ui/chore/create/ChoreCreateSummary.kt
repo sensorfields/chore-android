@@ -6,10 +6,10 @@ import androidx.compose.ui.Modifier
 import com.sensorfields.chore.android.ui.theme.Text
 import com.sensorfields.chore.android.ui.theme.TitleMediumText
 import kotlinx.collections.immutable.ImmutableSet
-import java.time.DayOfWeek
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.Month
+import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalTime
+import kotlinx.datetime.Month
 
 @Composable
 fun ChoreCreateSummary(

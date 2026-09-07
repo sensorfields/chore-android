@@ -22,7 +22,6 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.sensorfields.chore.android.R
-import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.ui.dashboard.DashboardRoute
 import com.sensorfields.chore.android.ui.settings.SettingsRoute
 import com.sensorfields.chore.android.ui.stats.StatsRoute
@@ -33,6 +32,7 @@ import com.sensorfields.chore.android.ui.theme.NavigationBar
 import com.sensorfields.chore.android.ui.theme.NavigationBarDefaults
 import com.sensorfields.chore.android.ui.theme.NavigationBarItem
 import com.sensorfields.chore.android.ui.theme.Text
+import com.sensorfields.chore.domain.models.Chore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.serialization.Serializable

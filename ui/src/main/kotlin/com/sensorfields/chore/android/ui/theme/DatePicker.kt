@@ -4,8 +4,11 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import java.time.LocalDate
-import java.time.YearMonth
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.YearMonth
+import kotlinx.datetime.toJavaLocalDate
+import kotlinx.datetime.toJavaYearMonth
+import kotlinx.datetime.yearMonth
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,21 +39,21 @@ public class DatePickerState internal constructor(
 @Composable
 public fun rememberDatePickerState(
     initialSelectedDate: LocalDate? = null,
-    initialDisplayedMonth: YearMonth? = initialSelectedDate?.let { YearMonth.from(it) },
+    initialDisplayedMonth: YearMonth? = initialSelectedDate?.yearMonth,
 ): DatePickerState {
     val state = androidx.compose.material3.rememberDatePickerState(
-        initialSelectedDate = initialSelectedDate,
-        initialDisplayedMonth = initialDisplayedMonth,
+        initialSelectedDate = initialSelectedDate?.toJavaLocalDate(),
+        initialDisplayedMonth = initialDisplayedMonth?.toJavaYearMonth(),
     )
     return remember { DatePickerState(state = state) }
 }
 
 private fun LocalDate.toEpochMilli(): Long {
-    return toEpochDay() * DAYS_TO_MILLIS
+    return toEpochDays() * DAYS_TO_MILLIS
 }
 
 private fun Long.toLocalDateFromMilli(): LocalDate {
-    return LocalDate.ofEpochDay(this / DAYS_TO_MILLIS)
+    return LocalDate.fromEpochDays(this / DAYS_TO_MILLIS)
 }
 
 private const val DAYS_TO_MILLIS = 24L * 60L * 60L * 1000L

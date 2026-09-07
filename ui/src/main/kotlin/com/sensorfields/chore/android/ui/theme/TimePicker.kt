@@ -4,7 +4,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import java.time.LocalTime
+import kotlinx.datetime.LocalTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -23,7 +23,7 @@ public class TimePickerState internal constructor(
     internal val state: androidx.compose.material3.TimePickerState,
 ) {
     public var selectedTime: LocalTime
-        get() = LocalTime.of(state.hour, state.minute)
+        get() = LocalTime(hour = state.hour, minute = state.minute)
         set(value) {
             state.hour = value.hour
             state.minute = value.minute

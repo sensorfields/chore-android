@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import com.sensorfields.chore.android.ui.theme.AppTheme
 import com.sensorfields.chore.android.ui.theme.Text
@@ -12,8 +11,7 @@ import com.sensorfields.chore.android.ui.theme.ToggleButton
 import kotlinx.collections.immutable.ImmutableSet
 import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.collections.immutable.toImmutableSet
-import java.time.Month
-import java.time.format.TextStyle
+import kotlinx.datetime.Month
 
 @Composable
 fun ChoreCreateWhenYear(
@@ -21,8 +19,6 @@ fun ChoreCreateWhenYear(
     onMonthCheckedChange: (Month, Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val locale = LocalConfiguration.current.locales[0]
-
     Column(modifier = modifier) {
         Month.entries.forEach { month ->
             ToggleButton(
@@ -30,7 +26,7 @@ fun ChoreCreateWhenYear(
                 onCheckedChange = { onMonthCheckedChange(month, it) },
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text(month.getDisplayName(TextStyle.FULL, locale))
+                Text(month.name) // TODO format month
             }
         }
     }

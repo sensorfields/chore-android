@@ -1,11 +1,11 @@
-package com.sensorfields.chore.android.domain.usecases
+package com.sensorfields.chore.domain.usecases
 
-import com.sensorfields.chore.android.domain.mappers.toModel
-import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.data.room.ChoreDao
 import com.sensorfields.chore.data.room.entities.ChoreEntity
+import com.sensorfields.chore.domain.mappers.toModel
+import com.sensorfields.chore.domain.models.Chore
 import dev.zacsweers.metro.Inject
-import java.time.Instant
+import kotlin.time.Instant
 import kotlin.uuid.Uuid
 
 @Inject

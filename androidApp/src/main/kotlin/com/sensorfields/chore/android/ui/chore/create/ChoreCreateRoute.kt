@@ -3,9 +3,9 @@ package com.sensorfields.chore.android.ui.chore.create
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateNavigationAction.Finish
 import com.sensorfields.chore.android.ui.collectInEffect
+import com.sensorfields.chore.domain.models.Chore
 import dev.zacsweers.metrox.viewmodel.metroViewModel
 
 @Composable

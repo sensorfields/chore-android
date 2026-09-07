@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import com.sensorfields.chore.android.ui.theme.DatePicker
 import com.sensorfields.chore.android.ui.theme.rememberDatePickerState
 import kotlinx.coroutines.flow.collectLatest
-import java.time.LocalDate
+import kotlinx.datetime.LocalDate
 
 @Composable
 fun ChoreCreateWhenDate(

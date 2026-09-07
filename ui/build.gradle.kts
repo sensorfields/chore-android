@@ -45,6 +45,8 @@ dependencies {
 
     api(libs.metro.viewmodel.compose)
 
+    implementation(libs.kotlinx.datetime)
+
     api(libs.logcat)
     api(libs.coil.coil)
     api(libs.coil.compose)

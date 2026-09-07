@@ -8,7 +8,6 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
-import com.sensorfields.chore.android.domain.models.Chore
 import com.sensorfields.chore.android.ui.RouteKey.ChoreCreate
 import com.sensorfields.chore.android.ui.RouteKey.ChoreDetails
 import com.sensorfields.chore.android.ui.RouteKey.Home
@@ -16,6 +15,7 @@ import com.sensorfields.chore.android.ui.chore.create.ChoreCreateRoute
 import com.sensorfields.chore.android.ui.chore.details.ChoreDetailsRoute
 import com.sensorfields.chore.android.ui.home.HomeRoute
 import com.sensorfields.chore.android.ui.theme.AppTheme
+import com.sensorfields.chore.domain.models.Chore
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.serialization.Serializable
 

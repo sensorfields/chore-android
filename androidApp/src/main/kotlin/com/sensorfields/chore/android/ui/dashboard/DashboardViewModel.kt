@@ -2,9 +2,9 @@ package com.sensorfields.chore.android.ui.dashboard
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sensorfields.chore.android.domain.models.Chore
-import com.sensorfields.chore.android.domain.usecases.ObserveChoresUseCase
 import com.sensorfields.chore.android.ui.dashboard.DashboardAction.ShowChoreCreatedMessage
+import com.sensorfields.chore.domain.models.Chore
+import com.sensorfields.chore.domain.usecases.ObserveChoresUseCase
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.Inject

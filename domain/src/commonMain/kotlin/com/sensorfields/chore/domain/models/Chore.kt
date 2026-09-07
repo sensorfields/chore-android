@@ -1,10 +1,11 @@
-package com.sensorfields.chore.android.domain.models
+package com.sensorfields.chore.domain.models
 
+import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalTime
+import kotlinx.datetime.Month
 import kotlinx.serialization.Serializable
-import java.time.DayOfWeek
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.Month
+import kotlin.jvm.JvmInline
 
 public data class Chore(
     val id: Id,
