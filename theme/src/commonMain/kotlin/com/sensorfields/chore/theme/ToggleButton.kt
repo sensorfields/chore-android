@@ -1,4 +1,4 @@
-package com.sensorfields.chore.android.ui.theme
+package com.sensorfields.chore.theme
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.runtime.Composable
@@ -12,12 +12,11 @@ public fun ToggleButton(
     enabled: Boolean = true,
     content: @Composable RowScope.() -> Unit,
 ) {
-    // TODO ToggleButton
-//    androidx.compose.material3.ToggleButton(
-//        checked = checked,
-//        onCheckedChange = onCheckedChange,
-//        modifier = modifier,
-//        enabled = enabled,
-//        content = content,
-//    )
+    androidx.compose.material3.ToggleButton(
+        checked = checked,
+        onCheckedChange = onCheckedChange,
+        modifier = modifier,
+        enabled = enabled,
+        content = content,
+    )
 }

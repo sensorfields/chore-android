@@ -1,9 +1,8 @@
-package com.sensorfields.chore.android.ui.theme
+package com.sensorfields.chore.theme
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable

@@ -10,9 +10,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.sensorfields.chore.android.ui.theme.AppTheme
-import com.sensorfields.chore.android.ui.theme.Text
-import com.sensorfields.chore.android.ui.theme.ToggleButton
+import com.sensorfields.chore.theme.AppTheme
+import com.sensorfields.chore.theme.Text
+import com.sensorfields.chore.theme.ToggleButton
 import kotlinx.collections.immutable.ImmutableSet
 import kotlinx.collections.immutable.persistentSetOf
 

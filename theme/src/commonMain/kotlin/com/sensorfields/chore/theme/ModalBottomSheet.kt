@@ -1,4 +1,4 @@
-package com.sensorfields.chore.android.ui.theme
+package com.sensorfields.chore.theme
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material3.ExperimentalMaterial3Api

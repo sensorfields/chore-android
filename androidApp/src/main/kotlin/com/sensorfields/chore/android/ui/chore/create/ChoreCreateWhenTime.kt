@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
-import com.sensorfields.chore.android.ui.theme.TimePicker
-import com.sensorfields.chore.android.ui.theme.rememberTimePickerState
+import com.sensorfields.chore.theme.TimePicker
+import com.sensorfields.chore.theme.rememberTimePickerState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.datetime.LocalTime
 

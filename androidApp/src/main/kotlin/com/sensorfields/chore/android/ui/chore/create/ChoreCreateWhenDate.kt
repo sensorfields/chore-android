@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
-import com.sensorfields.chore.android.ui.theme.DatePicker
-import com.sensorfields.chore.android.ui.theme.rememberDatePickerState
+import com.sensorfields.chore.theme.DatePicker
+import com.sensorfields.chore.theme.rememberDatePickerState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.datetime.LocalDate
 

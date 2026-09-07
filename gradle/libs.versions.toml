@@ -7,8 +7,6 @@ android-targetSdk = "37"
 
 android-tools-build = "9.4.0"
 android-tools-desugar = "2.1.5"
-android-screenshot = "0.0.1-alpha16"
-android-installreferrer = "2.2"
 
 kotlin = "2.4.10"
 kotlinx-coroutines = "1.11.0"
@@ -16,7 +14,8 @@ kotlinx-serialization = "1.11.0"
 kotlinx-collections-immutable = "0.5.2"
 kotlinx-datetime = "0.8.0"
 
-jetbrains-compose = "1.12.0"
+compose = "1.12.0"
+compose-material3 = "1.12.0-alpha03"
 
 androidx-core = "1.19.0"
 androidx-core-splashscreen = "1.2.0"
@@ -24,7 +23,6 @@ androidx-appcompat = "1.8.0"
 androidx-activity = "1.13.0"
 androidx-lifecycle = "2.11.0"
 androidx-navigation = "1.1.7"
-androidx-palette = "1.0.0"
 androidx-datastore = "1.2.1"
 androidx-room = "2.8.4"
 androidx-sqlite = "2.7.0"
@@ -56,14 +54,11 @@ lottie = "6.7.1"
 crisp = "2.0.24"
 boofcv = "1.5.0"
 
-fobsolutions-android = "2.0.1"
-
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-tools-build" }
 android-library = { id = "com.android.library", version.ref = "android-tools-build" }
 android-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "android-tools-build" }
-android-screenshot = { id = "com.android.compose.screenshot", version.ref = "android-screenshot" }
-compose = { id = "org.jetbrains.compose", version.ref = "jetbrains-compose" }
+compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
@@ -105,15 +100,18 @@ supabase-functions = { module = "io.github.jan-tennert.supabase:functions-kt", v
 
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 
-compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "jetbrains-compose" }
-compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "jetbrains-compose" }
+compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
+compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "compose" }
+compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "compose" }
+compose-ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.ref = "compose" }
+compose-ui-tooling-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "compose" }
+compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "compose" }
+compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "compose-material3" }
 
 # Android
 kotlinx-coroutines-playServices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinx-coroutines" }
 
 android-tools-desugarJdkLibs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-tools-desugar" }
-android-screenshot-validation-api = { group = "com.android.tools.screenshot", name = "screenshot-validation-api", version.ref = "android-screenshot" }
-android-installreferrer = { module = "com.android.installreferrer:installreferrer", version.ref = "android-installreferrer" }
 
 androidx-core = { module = "androidx.core:core", version.ref = "androidx-core" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidx-core-splashscreen" }
@@ -124,7 +122,6 @@ androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-ru
 androidx-lifecycle-viewmodel-navigation = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "androidx-lifecycle" }
 androidx-navigation-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "androidx-navigation" }
 androidx-navigation-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "androidx-navigation" }
-androidx-palette = { module = "androidx.palette:palette", version.ref = "androidx-palette" }
 androidx-browser = { module = "androidx.browser:browser", version.ref = "androidx-browser" }
 androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "androidx-compose-bom" }
 androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
@@ -157,8 +154,6 @@ lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "
 crisp = { module = "im.crisp:crisp-sdk", version.ref = "crisp" }
 boofcv-core = { module = "org.boofcv:boofcv-core", version.ref = "boofcv" }
 boofcv-android = { module = "org.boofcv:boofcv-android", version.ref = "boofcv" }
-
-fobsolutions-android-webview = { module = "com.fobsolutions.android:fob-webview-android", version.ref = "fobsolutions-android" }
 
 detekt-plugin-twitter-compose = { module = "com.twitter.compose.rules:detekt", version.ref = "detekt-plugin-twitter-compose" }
 detekt-plugin-ktlint = { module = "dev.detekt:detekt-rules-ktlint-wrapper", version.ref = "detekt" }

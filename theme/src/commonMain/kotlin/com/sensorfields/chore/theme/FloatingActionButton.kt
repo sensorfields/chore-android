@@ -1,4 +1,4 @@
-package com.sensorfields.chore.android.ui.theme
+package com.sensorfields.chore.theme
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable

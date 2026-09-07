@@ -27,6 +27,7 @@ include(
     ":resources",
     ":data",
     ":domain",
+    ":theme",
     ":ui",
     ":app",
     ":androidApp"

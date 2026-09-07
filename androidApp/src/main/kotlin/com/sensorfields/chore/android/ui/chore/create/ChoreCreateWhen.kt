@@ -5,10 +5,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.sensorfields.chore.android.ui.theme.AppTheme
-import com.sensorfields.chore.android.ui.theme.ListItem
-import com.sensorfields.chore.android.ui.theme.Text
-import com.sensorfields.chore.android.ui.theme.TitleMediumText
+import com.sensorfields.chore.theme.AppTheme
+import com.sensorfields.chore.theme.ListItem
+import com.sensorfields.chore.theme.Text
+import com.sensorfields.chore.theme.TitleMediumText
 
 @Composable
 fun ChoreCreateWhen(

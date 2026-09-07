@@ -8,11 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.sensorfields.chore.android.ui.theme.AppTheme
-import com.sensorfields.chore.android.ui.theme.Scaffold
-import com.sensorfields.chore.android.ui.theme.Text
 import com.sensorfields.chore.resources.Res
 import com.sensorfields.chore.resources.stats_title
+import com.sensorfields.chore.theme.AppTheme
+import com.sensorfields.chore.theme.Scaffold
+import com.sensorfields.chore.theme.Text
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

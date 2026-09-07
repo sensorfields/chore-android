@@ -1,4 +1,4 @@
-package com.sensorfields.chore.android.ui.theme
+package com.sensorfields.chore.theme
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.RowScope
@@ -26,7 +26,6 @@ public fun RowScope.NavigationBarItem(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     label: @Composable (() -> Unit)? = null,
-    alwaysShowLabel: Boolean = true,
     interactionSource: MutableInteractionSource? = null,
 ) {
     NavigationBarItem(
@@ -36,7 +35,7 @@ public fun RowScope.NavigationBarItem(
         modifier = modifier,
         enabled = enabled,
         label = label,
-        alwaysShowLabel = alwaysShowLabel,
+        alwaysShowLabel = true,
         interactionSource = interactionSource,
     )
 }

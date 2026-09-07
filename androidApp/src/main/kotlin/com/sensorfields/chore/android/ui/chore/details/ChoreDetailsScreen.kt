@@ -11,12 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.sensorfields.chore.android.ui.chore.choreDate
-import com.sensorfields.chore.android.ui.theme.AppTheme
-import com.sensorfields.chore.android.ui.theme.BodyMediumText
-import com.sensorfields.chore.android.ui.theme.Scaffold
-import com.sensorfields.chore.android.ui.theme.Text
-import com.sensorfields.chore.android.ui.theme.TopAppBar
-import com.sensorfields.chore.android.ui.theme.UpButton
+import com.sensorfields.chore.theme.AppTheme
+import com.sensorfields.chore.theme.BodyMediumText
+import com.sensorfields.chore.theme.Scaffold
+import com.sensorfields.chore.theme.Text
+import com.sensorfields.chore.theme.TopAppBar
+import com.sensorfields.chore.theme.UpButton
 import java.time.Instant
 
 @Composable

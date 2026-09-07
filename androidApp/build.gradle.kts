@@ -73,6 +73,7 @@ dependencies {
     implementation(projects.resources)
     implementation(projects.data)
     implementation(projects.domain)
+    implementation(projects.theme)
     implementation(projects.ui)
 
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
@@ -91,10 +92,6 @@ dependencies {
     implementation(libs.androidx.navigation.runtime)
     implementation(libs.androidx.navigation.ui)
     implementation(libs.androidx.datastore.preferences)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material.icons.core)
-    implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.androidx.compose.ui.tooling.preview)
     debugImplementation(libs.androidx.compose.ui.tooling)
 

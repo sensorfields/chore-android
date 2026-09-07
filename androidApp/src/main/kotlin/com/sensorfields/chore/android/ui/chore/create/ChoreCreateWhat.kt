@@ -13,11 +13,11 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
-import com.sensorfields.chore.android.ui.theme.AppTheme
-import com.sensorfields.chore.android.ui.theme.Text
-import com.sensorfields.chore.android.ui.theme.TextField
 import com.sensorfields.chore.resources.Res
 import com.sensorfields.chore.resources.chore_create_name
+import com.sensorfields.chore.theme.AppTheme
+import com.sensorfields.chore.theme.Text
+import com.sensorfields.chore.theme.TextField
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

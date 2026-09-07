@@ -3,8 +3,8 @@ package com.sensorfields.chore.android.ui.chore.create
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.sensorfields.chore.android.ui.theme.Text
-import com.sensorfields.chore.android.ui.theme.TitleMediumText
+import com.sensorfields.chore.theme.Text
+import com.sensorfields.chore.theme.TitleMediumText
 import kotlinx.collections.immutable.ImmutableSet
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate

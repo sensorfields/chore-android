@@ -9,9 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.sensorfields.chore.android.ui.theme.AppTheme
-import com.sensorfields.chore.android.ui.theme.Button
-import com.sensorfields.chore.android.ui.theme.Text
+import com.sensorfields.chore.theme.AppTheme
+import com.sensorfields.chore.theme.Button
+import com.sensorfields.chore.theme.Text
 
 @Composable
 fun ChoreCreateWhereScreen(
