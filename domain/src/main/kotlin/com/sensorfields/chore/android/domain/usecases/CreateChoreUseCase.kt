@@ -1,9 +1,9 @@
 package com.sensorfields.chore.android.domain.usecases
 
-import com.sensorfields.chore.android.data.room.ChoreDao
-import com.sensorfields.chore.android.data.room.entities.ChoreEntity
 import com.sensorfields.chore.android.domain.mappers.toModel
 import com.sensorfields.chore.android.domain.models.Chore
+import com.sensorfields.chore.data.room.ChoreDao
+import com.sensorfields.chore.data.room.entities.ChoreEntity
 import dev.zacsweers.metro.Inject
 import java.time.Instant
 import kotlin.uuid.Uuid

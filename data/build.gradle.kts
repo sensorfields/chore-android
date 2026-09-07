@@ -1,33 +1,84 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.androidx.room)
+    alias(libs.plugins.android.multiplatform.library)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.metro)
+    alias(libs.plugins.androidx.room)
     alias(libs.plugins.google.ksp)
 }
 
-android {
-    namespace = "com.sensorfields.chore.android.data"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-    }
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-    }
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+
+compose.resources {
+    packageOfResClass = "com.sensorfields.chore.data.resources"
 }
 
 kotlin {
-    jvmToolchain(17)
-    explicitApi()
-}
+    listOf(
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "Data"
+            isStatic = true
+        }
+    }
 
-room {
-    schemaDirectory(file("schemas").toString())
+    explicitApi()
+
+    android {
+        namespace = "com.sensorfields.chore.data"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+
+        androidResources {
+            enable = true
+        }
+    }
+
+    sourceSets {
+        commonMain.dependencies {
+            // implementation(projects.utils)
+
+            implementation(libs.kotlinx.coroutines)
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.collections.immutable)
+            implementation(libs.kotlinx.datetime)
+            api(libs.androidx.datastore.preferences)
+            api(libs.androidx.room.runtime)
+            implementation(libs.androidx.sqlite.bundled)
+            api(libs.ktor.client.core)
+            api(libs.supabase.postgrest)
+            api(libs.supabase.auth)
+            api(libs.supabase.realtime)
+            api(libs.supabase.functions)
+
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.components.resources)
+        }
+        androidMain.dependencies {
+            api(libs.ktor.client.okhttp)
+        }
+        iosMain.dependencies {
+            api(libs.ktor.client.darwin)
+        }
+    }
+
+    jvmToolchain(11)
+
+    compilerOptions {
+        freeCompilerArgs.addAll(
+            "-Xexpect-actual-classes",
+        )
+    }
 }
 
 dependencies {
-    coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
-    api(libs.androidx.room.runtime) // TODO api only because of test rule
-    ksp(libs.androidx.room.compiler)
-    implementation(libs.logcat)
+    add("kspAndroid", libs.androidx.room.compiler)
+    add("kspIosArm64", libs.androidx.room.compiler)
+    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
 }

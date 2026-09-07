@@ -1,7 +1,7 @@
 package com.sensorfields.chore.android.domain.mappers
 
-import com.sensorfields.chore.android.data.room.entities.ChoreEntity
 import com.sensorfields.chore.android.domain.models.Chore
+import com.sensorfields.chore.data.room.entities.ChoreEntity
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalTime

@@ -23,8 +23,7 @@
           {
             "fieldPath": "date",
             "columnName": "date",
-            "affinity": "TEXT",
-            "notNull": false
+            "affinity": "TEXT"
           }
         ],
         "primaryKey": {
@@ -32,12 +31,9 @@
           "columnNames": [
             "id"
           ]
-        },
-        "indices": [],
-        "foreignKeys": []
+        }
       }
     ],
-    "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
       "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '18f2ffc0bb99a2c8366e2f303018c4af')"

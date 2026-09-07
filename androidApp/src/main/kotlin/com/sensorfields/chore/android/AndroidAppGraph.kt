@@ -2,7 +2,6 @@ package com.sensorfields.chore.android
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import com.sensorfields.chore.android.data.DataBindings
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.DependencyGraph
@@ -15,10 +14,7 @@ import dev.zacsweers.metrox.viewmodel.ViewModelAssistedFactory
 import dev.zacsweers.metrox.viewmodel.ViewModelGraph
 import kotlin.reflect.KClass
 
-@DependencyGraph(
-    scope = AppScope::class,
-    bindingContainers = [DataBindings::class],
-)
+@DependencyGraph(AppScope::class)
 interface AndroidAppGraph : ViewModelGraph {
 
     @DependencyGraph.Factory

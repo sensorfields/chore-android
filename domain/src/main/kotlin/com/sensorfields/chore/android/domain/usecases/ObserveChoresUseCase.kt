@@ -1,8 +1,8 @@
 package com.sensorfields.chore.android.domain.usecases
 
-import com.sensorfields.chore.android.data.room.ChoreDao
 import com.sensorfields.chore.android.domain.mappers.toModels
 import com.sensorfields.chore.android.domain.models.Chore
+import com.sensorfields.chore.data.room.ChoreDao
 import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
