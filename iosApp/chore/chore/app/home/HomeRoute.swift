@@ -18,6 +18,9 @@ struct HomeRoute: View {
                 SettingsRoute()
             }
         }
+        .toolbar {
+            Button("Create Chore", systemImage: "plus", action: onNavigateToChoreCreate)
+        }
     }
 }
 
