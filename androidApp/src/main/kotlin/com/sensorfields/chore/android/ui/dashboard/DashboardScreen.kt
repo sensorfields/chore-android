@@ -13,7 +13,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
-import com.sensorfields.chore.android.ui.dashboard.DashboardAction.ShowChoreCreatedMessage
+import com.sensorfields.chore.app.dashboard.DashboardAction
+import com.sensorfields.chore.app.dashboard.DashboardAction.ShowChoreCreatedMessage
+import com.sensorfields.chore.app.dashboard.DashboardState
 import com.sensorfields.chore.core.collectInEffect
 import com.sensorfields.chore.domain.models.Chore
 import com.sensorfields.chore.resources.Res

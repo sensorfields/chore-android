@@ -1,20 +1,20 @@
-package com.sensorfields.chore.android.ui.dashboard
+package com.sensorfields.chore.app.dashboard
 
 import com.sensorfields.chore.domain.models.Chore
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
-import java.time.Instant
+import kotlin.time.Instant
 
-data class DashboardState(
+public data class DashboardState(
     val choreSort: ChoreSort = ChoreSort(sortBy = Chore.SortProperty.NAME, isAscending = true),
     val choreItems: ImmutableList<ChoreItem> = persistentListOf(),
 ) {
-    data class ChoreSort(val sortBy: Chore.SortProperty, val isAscending: Boolean)
-    data class ChoreItem(val id: Chore.Id, val name: String, val date: Instant?)
+    public data class ChoreSort(val sortBy: Chore.SortProperty, val isAscending: Boolean)
+    public data class ChoreItem(val id: Chore.Id, val name: String, val date: Instant?)
 }
 
-fun List<Chore>.toState(): ImmutableList<DashboardState.ChoreItem> {
+public fun List<Chore>.toState(): ImmutableList<DashboardState.ChoreItem> {
     return map {
         DashboardState.ChoreItem(
             id = it.id,

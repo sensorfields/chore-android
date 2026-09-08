@@ -1,8 +1,8 @@
-package com.sensorfields.chore.android.ui.dashboard
+package com.sensorfields.chore.app.dashboard
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sensorfields.chore.android.ui.dashboard.DashboardAction.ShowChoreCreatedMessage
+import com.sensorfields.chore.app.dashboard.DashboardAction.ShowChoreCreatedMessage
 import com.sensorfields.chore.domain.models.Chore
 import com.sensorfields.chore.domain.usecases.ObserveChoresUseCase
 import dev.zacsweers.metro.AppScope
@@ -11,7 +11,9 @@ import dev.zacsweers.metro.Inject
 import dev.zacsweers.metrox.viewmodel.ViewModelKey
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.getAndUpdate
@@ -23,15 +25,15 @@ import kotlinx.coroutines.flow.update
 @Inject
 @ViewModelKey
 @ContributesIntoMap(AppScope::class)
-class DashboardViewModel(
+public class DashboardViewModel(
     private val observeChoresUseCase: ObserveChoresUseCase,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(DashboardState())
-    internal val state = _state.asStateFlow()
+    public val state: StateFlow<DashboardState> = _state.asStateFlow()
 
     private val _actions = Channel<DashboardAction>(capacity = Channel.UNLIMITED)
-    internal val actions = _actions.receiveAsFlow()
+    public val actions: Flow<DashboardAction> = _actions.receiveAsFlow()
 
     private var choreSort: MutableStateFlow<DashboardState.ChoreSort> =
         MutableStateFlow(state.value.choreSort)
@@ -41,11 +43,11 @@ class DashboardViewModel(
         observeChores()
     }
 
-    internal fun onChoreCreateResult(chore: Chore) {
+    public fun onChoreCreateResult(chore: Chore) {
         _actions.trySend(ShowChoreCreatedMessage(choreName = chore.name))
     }
 
-    internal fun onChoreSortByClick(sortBy: Chore.SortProperty) {
+    public fun onChoreSortByClick(sortBy: Chore.SortProperty) {
         choreSort.getAndUpdate { current ->
             if (current.sortBy == sortBy) {
                 current.copy(isAscending = !current.isAscending)

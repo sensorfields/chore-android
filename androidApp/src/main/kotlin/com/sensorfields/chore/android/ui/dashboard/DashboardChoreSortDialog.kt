@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.sensorfields.chore.app.dashboard.DashboardState
 import com.sensorfields.chore.domain.models.Chore
 import com.sensorfields.chore.resources.Res
 import com.sensorfields.chore.resources.dashboard_chore_sort_ascending

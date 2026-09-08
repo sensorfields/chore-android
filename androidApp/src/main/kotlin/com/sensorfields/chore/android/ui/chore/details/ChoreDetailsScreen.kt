@@ -18,7 +18,7 @@ import com.sensorfields.chore.theme.Scaffold
 import com.sensorfields.chore.theme.Text
 import com.sensorfields.chore.theme.TopAppBar
 import com.sensorfields.chore.theme.UpButton
-import java.time.Instant
+import kotlin.time.Instant
 
 @Composable
 fun ChoreDetailsScreen(
