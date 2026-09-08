@@ -1,4 +1,4 @@
-package com.sensorfields.chore.android.ui.chore.create
+package com.sensorfields.chore.app.chore.create
 
 import kotlinx.collections.immutable.ImmutableSet
 import kotlinx.datetime.DayOfWeek
@@ -6,45 +6,45 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.Month
 
-sealed class ChoreCreateState(
-    open val isNextButtonEnabled: Boolean = false,
-    open val isLoadingVisible: Boolean = false,
+public sealed class ChoreCreateState(
+    public open val isNextButtonEnabled: Boolean = false,
+    public open val isLoadingVisible: Boolean = false,
 ) {
-    data class What(
+    public data class What(
         override val isNextButtonEnabled: Boolean = false,
         val name: String = "",
     ) : ChoreCreateState()
 
-    data object When : ChoreCreateState() {
-        enum class Repeat { ONCE, DAILY, WEEKLY, MONTHLY, YEARLY, }
+    public data object When : ChoreCreateState() {
+        public enum class Repeat { ONCE, DAILY, WEEKLY, MONTHLY, YEARLY, }
     }
 
-    data class WhenDate(
+    public data class WhenDate(
         override val isNextButtonEnabled: Boolean = false,
         val date: LocalDate?,
     ) : ChoreCreateState()
 
-    data class WhenTime(
+    public data class WhenTime(
         override val isNextButtonEnabled: Boolean = false,
         val time: LocalTime?,
     ) : ChoreCreateState()
 
-    data class WhenWeek(
+    public data class WhenWeek(
         override val isNextButtonEnabled: Boolean = false,
         val days: ImmutableSet<DayOfWeek>,
     ) : ChoreCreateState()
 
-    data class WhenMonth(
+    public data class WhenMonth(
         override val isNextButtonEnabled: Boolean = false,
         val days: ImmutableSet<Int>,
     ) : ChoreCreateState()
 
-    data class WhenYear(
+    public data class WhenYear(
         override val isNextButtonEnabled: Boolean = false,
         val months: ImmutableSet<Month>,
     ) : ChoreCreateState()
 
-    data class Summary(
+    public data class Summary(
         val name: String,
         val repeat: When.Repeat,
         val date: LocalDate?,

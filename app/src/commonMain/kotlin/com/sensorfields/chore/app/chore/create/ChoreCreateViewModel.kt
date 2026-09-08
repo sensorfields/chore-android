@@ -1,10 +1,10 @@
-package com.sensorfields.chore.android.ui.chore.create
+package com.sensorfields.chore.app.chore.create
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
-import com.sensorfields.chore.android.ui.chore.create.ChoreCreateNavigationAction.Finish
-import com.sensorfields.chore.android.ui.chore.create.ChoreCreateState.When.Repeat
+import com.sensorfields.chore.app.chore.create.ChoreCreateAction.ShowError
+import com.sensorfields.chore.app.chore.create.ChoreCreateNavigationAction.Finish
+import com.sensorfields.chore.app.chore.create.ChoreCreateState.When.Repeat
 import com.sensorfields.chore.core.ActionChannel
 import com.sensorfields.chore.domain.usecases.CreateChoreUseCase
 import dev.zacsweers.metro.AppScope
@@ -12,7 +12,9 @@ import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metrox.viewmodel.ViewModelKey
 import kotlinx.collections.immutable.toImmutableSet
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
@@ -28,18 +30,18 @@ import kotlinx.datetime.toInstant
 @Inject
 @ViewModelKey
 @ContributesIntoMap(AppScope::class)
-class ChoreCreateViewModel(
+public class ChoreCreateViewModel(
     private val createChoreUseCase: CreateChoreUseCase,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<ChoreCreateState>(ChoreCreateState.What())
-    val state = _state.asStateFlow()
+    public val state: StateFlow<ChoreCreateState> = _state.asStateFlow()
 
     private val _navigationAction = ActionChannel<ChoreCreateNavigationAction>()
-    val navigationAction = _navigationAction.receiveAsFlow()
+    public val navigationAction: Flow<ChoreCreateNavigationAction> = _navigationAction.receiveAsFlow()
 
     private val _action = ActionChannel<ChoreCreateAction>()
-    val action = _action.receiveAsFlow()
+    public val action: Flow<ChoreCreateAction> = _action.receiveAsFlow()
 
     private var name: String = ""
     private var repeat: Repeat = Repeat.ONCE
@@ -49,12 +51,12 @@ class ChoreCreateViewModel(
     private var daysOfMonth = mutableSetOf<Int>()
     private var months = mutableSetOf<Month>()
 
-    fun onNameChange(name: String) {
+    public fun onNameChange(name: String) {
         this.name = name
         updateState()
     }
 
-    fun onRepeatClick(repeat: Repeat) {
+    public fun onRepeatClick(repeat: Repeat) {
         this.repeat = repeat
         when (repeat) {
             Repeat.ONCE -> {
@@ -79,17 +81,17 @@ class ChoreCreateViewModel(
         }
     }
 
-    fun onDateChange(date: LocalDate?) {
+    public fun onDateChange(date: LocalDate?) {
         this.date = date
         updateState()
     }
 
-    fun onTimeChange(time: LocalTime) {
+    public fun onTimeChange(time: LocalTime) {
         this.time = time
         updateState()
     }
 
-    fun onDayOfWeekCheckedChange(day: DayOfWeek, checked: Boolean) {
+    public fun onDayOfWeekCheckedChange(day: DayOfWeek, checked: Boolean) {
         if (checked) {
             daysOfWeek.add(day)
         } else {
@@ -98,7 +100,7 @@ class ChoreCreateViewModel(
         updateState()
     }
 
-    fun onDayOfMonthCheckedChange(day: Int, checked: Boolean) {
+    public fun onDayOfMonthCheckedChange(day: Int, checked: Boolean) {
         if (checked) {
             daysOfMonth.add(day)
         } else {
@@ -107,7 +109,7 @@ class ChoreCreateViewModel(
         updateState()
     }
 
-    fun onMonthCheckedChange(month: Month, checked: Boolean) {
+    public fun onMonthCheckedChange(month: Month, checked: Boolean) {
         if (checked) {
             months.add(month)
         } else {
@@ -117,7 +119,7 @@ class ChoreCreateViewModel(
     }
 
     @Suppress("CyclomaticComplexMethod")
-    fun onNextClick() {
+    public fun onNextClick() {
         when (val state = _state.value) {
             is ChoreCreateState.What -> {
                 if (isWhatValid()) {

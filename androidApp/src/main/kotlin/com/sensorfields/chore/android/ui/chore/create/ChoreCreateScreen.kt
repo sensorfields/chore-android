@@ -10,7 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
-import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
+import com.sensorfields.chore.app.chore.create.ChoreCreateAction
+import com.sensorfields.chore.app.chore.create.ChoreCreateAction.ShowError
+import com.sensorfields.chore.app.chore.create.ChoreCreateState
 import com.sensorfields.chore.app.getMessage
 import com.sensorfields.chore.core.collectInEffect
 import com.sensorfields.chore.resources.Res

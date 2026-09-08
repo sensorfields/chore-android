@@ -12,6 +12,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.sensorfields.chore.android.ui.chore.choreDate
+import com.sensorfields.chore.app.chore.details.ChoreDetailsState
 import com.sensorfields.chore.theme.AppPreviewWrapper
 import com.sensorfields.chore.theme.BodyMediumText
 import com.sensorfields.chore.theme.Scaffold

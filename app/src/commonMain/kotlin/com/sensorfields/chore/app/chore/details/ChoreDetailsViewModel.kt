@@ -1,4 +1,4 @@
-package com.sensorfields.chore.android.ui.chore.details
+package com.sensorfields.chore.app.chore.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,13 +12,14 @@ import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactory
 import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactoryKey
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 
 @AssistedInject
-class ChoreDetailsViewModel(
+public class ChoreDetailsViewModel(
     @Assisted private val choreIdValue: String, // TODO value classes not supported?
     private val observeChoreUseCase: ObserveChoreUseCase,
 ) : ViewModel() {
@@ -26,7 +27,7 @@ class ChoreDetailsViewModel(
     private val choreId = Chore.Id(choreIdValue)
 
     private val _state = MutableStateFlow(ChoreDetailsState())
-    val state = _state.asStateFlow()
+    public val state: StateFlow<ChoreDetailsState> = _state.asStateFlow()
 
     private var chore: Chore? = null
 
@@ -55,7 +56,7 @@ class ChoreDetailsViewModel(
     @AssistedFactory
     @ManualViewModelAssistedFactoryKey
     @ContributesIntoMap(AppScope::class)
-    fun interface Factory : ManualViewModelAssistedFactory {
-        fun create(choreIdValue: String): ChoreDetailsViewModel
+    public fun interface Factory : ManualViewModelAssistedFactory {
+        public fun create(choreIdValue: String): ChoreDetailsViewModel
     }
 }
