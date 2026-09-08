@@ -13,14 +13,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
-import com.sensorfields.chore.app.dashboard.DashboardAction
-import com.sensorfields.chore.app.dashboard.DashboardAction.ShowChoreCreatedMessage
 import com.sensorfields.chore.app.dashboard.DashboardState
-import com.sensorfields.chore.core.collectInEffect
 import com.sensorfields.chore.domain.models.Chore
 import com.sensorfields.chore.resources.Res
 import com.sensorfields.chore.resources.dashboard_chore_create_button
-import com.sensorfields.chore.resources.dashboard_chore_created_message
 import com.sensorfields.chore.resources.dashboard_sort_button
 import com.sensorfields.chore.resources.dashboard_title
 import com.sensorfields.chore.theme.AppPreviewWrapper
@@ -29,37 +25,22 @@ import com.sensorfields.chore.theme.Icon
 import com.sensorfields.chore.theme.IconButton
 import com.sensorfields.chore.theme.Icons
 import com.sensorfields.chore.theme.Scaffold
-import com.sensorfields.chore.theme.SnackbarHost
+import com.sensorfields.chore.theme.SnackBarState
 import com.sensorfields.chore.theme.Text
 import com.sensorfields.chore.theme.TopAppBar
-import com.sensorfields.chore.theme.rememberSnackbarHostState
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
-import org.jetbrains.compose.resources.getString
+import com.sensorfields.chore.theme.rememberSnackBarState
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun DashboardScreen(
     state: DashboardState,
-    actions: Flow<DashboardAction>,
     onChoreSortByClick: (Chore.SortProperty) -> Unit,
     onCreateChoreClick: () -> Unit,
     onChoreClick: (Chore.Id) -> Unit,
     modifier: Modifier = Modifier,
+    snackBarState: SnackBarState = rememberSnackBarState(),
 ) {
-    val snackbarHostState = rememberSnackbarHostState()
     var isChoreSortDialogVisible by remember { mutableStateOf(false) }
-
-    actions.collectInEffect { action ->
-        when (action) {
-            is ShowChoreCreatedMessage -> snackbarHostState.showSnackbar(
-                message = getString(
-                    Res.string.dashboard_chore_created_message,
-                    action.choreName,
-                ),
-            )
-        }
-    }
 
     if (isChoreSortDialogVisible) {
         DashboardChoreSortDialog(
@@ -83,7 +64,6 @@ fun DashboardScreen(
                 },
             )
         },
-        snackbarHost = { SnackbarHost(snackbarHostState) },
         floatingActionButton = {
             FloatingActionButton(onClick = onCreateChoreClick) {
                 Icon(
@@ -92,6 +72,7 @@ fun DashboardScreen(
                 )
             }
         },
+        snackBarState = snackBarState,
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
@@ -115,7 +96,6 @@ fun DashboardScreen(
 private fun Preview() {
     DashboardScreen(
         state = DashboardState(),
-        actions = emptyFlow(),
         onChoreSortByClick = {},
         onCreateChoreClick = {},
         onChoreClick = {},

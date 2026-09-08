@@ -9,15 +9,17 @@ public fun Scaffold(
     modifier: Modifier = Modifier,
     topBar: @Composable () -> Unit = {},
     bottomBar: @Composable () -> Unit = {},
-    snackbarHost: @Composable () -> Unit = {},
     floatingActionButton: @Composable () -> Unit = {},
+    snackBarState: SnackBarState? = null,
     content: @Composable (PaddingValues) -> Unit,
 ) {
     androidx.compose.material3.Scaffold(
         modifier = modifier,
         topBar = topBar,
         bottomBar = bottomBar,
-        snackbarHost = snackbarHost,
+        snackbarHost = snackBarState?.let {
+            { SnackBarHost(state = it) }
+        } ?: {},
         floatingActionButton = floatingActionButton,
         content = content,
     )

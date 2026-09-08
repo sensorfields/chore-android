@@ -19,11 +19,10 @@ import com.sensorfields.chore.theme.BottomBar
 import com.sensorfields.chore.theme.CloseButton
 import com.sensorfields.chore.theme.LoadingButton
 import com.sensorfields.chore.theme.Scaffold
-import com.sensorfields.chore.theme.SnackbarHost
-import com.sensorfields.chore.theme.SnackbarHostState
+import com.sensorfields.chore.theme.SnackBarState
 import com.sensorfields.chore.theme.Text
 import com.sensorfields.chore.theme.TopAppBar
-import com.sensorfields.chore.theme.rememberSnackbarHostState
+import com.sensorfields.chore.theme.rememberSnackBarState
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
@@ -43,7 +42,7 @@ fun ChoreCreateScreen(
     onMonthCheckedChange: (Month, Boolean) -> Unit,
     onNextClick: () -> Unit,
     modifier: Modifier = Modifier,
-    snackbarHostState: SnackbarHostState = rememberSnackbarHostState(),
+    snackBarState: SnackBarState = rememberSnackBarState(),
 ) {
     Scaffold(
         modifier = modifier,
@@ -65,7 +64,7 @@ fun ChoreCreateScreen(
                 }
             }
         },
-        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+        snackBarState = snackBarState,
     ) { innerPadding ->
         Box(
             modifier = Modifier
