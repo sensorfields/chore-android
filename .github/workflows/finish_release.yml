@@ -19,7 +19,7 @@ jobs:
       - uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
       - name: Download FOB CLI
         run: |
           curl https://api.bitbucket.org/2.0/repositories/fobsolutions/fob-cli/downloads/fob-cli-1.0.2.jar \
