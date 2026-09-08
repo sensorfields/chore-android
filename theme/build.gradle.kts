@@ -31,19 +31,16 @@ kotlin {
             implementation(projects.core)
             implementation(projects.resources)
 
-            implementation(libs.kotlinx.coroutines)
-            implementation(libs.kotlinx.serialization.json)
-            implementation(libs.kotlinx.collections.immutable)
-            implementation(libs.kotlinx.datetime)
-
-            api(libs.compose.runtime)
             api(libs.compose.foundation)
             api(libs.compose.ui)
-            implementation(libs.compose.ui.tooling)
-            implementation(libs.compose.ui.tooling.preview)
+            api(libs.compose.ui.tooling.preview)
             implementation(libs.compose.material3)
         }
     }
 
     jvmToolchain(libs.versions.jdk.get().toInt())
+}
+
+dependencies {
+    androidRuntimeClasspath(libs.compose.ui.tooling)
 }

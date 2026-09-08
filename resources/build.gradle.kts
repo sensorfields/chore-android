@@ -39,12 +39,6 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.core)
 
-            implementation(libs.kotlinx.coroutines)
-            implementation(libs.kotlinx.serialization.json)
-            implementation(libs.kotlinx.collections.immutable)
-            implementation(libs.kotlinx.datetime)
-
-            implementation(libs.compose.runtime)
             api(libs.compose.components.resources)
         }
     }

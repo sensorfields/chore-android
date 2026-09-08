@@ -2,12 +2,10 @@ import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application) apply false
-    alias(libs.plugins.android.library) apply false
     alias(libs.plugins.android.multiplatform.library) apply false
     alias(libs.plugins.compose) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.kotlin.compose) apply false
-    alias(libs.plugins.kotlin.parcelize) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.metro) apply false
     alias(libs.plugins.skie) apply false
@@ -15,7 +13,6 @@ plugins {
     alias(libs.plugins.google.ksp) apply false
     alias(libs.plugins.google.services) apply false
     alias(libs.plugins.firebase.crashlytics) apply false
-    alias(libs.plugins.detekt) apply false
 }
 
 val version = Properties().apply { load(file("version.properties").inputStream()) }

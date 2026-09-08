@@ -2,10 +2,10 @@ package com.sensorfields.chore.android.ui.chore.create
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sensorfields.chore.android.ui.ActionChannel
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateNavigationAction.Finish
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateState.When.Repeat
+import com.sensorfields.chore.core.ActionChannel
 import com.sensorfields.chore.domain.usecases.CreateChoreUseCase
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoMap
@@ -170,13 +170,17 @@ class ChoreCreateViewModel(
                 val time = time
                 if (date != null && time != null) {
                     _state.update { state.copy(isLoadingVisible = true) }
-                    createChoreUseCase(
+                    when (val result = createChoreUseCase(
                         name = name,
                         date = date.atTime(time).toInstant(TimeZone.currentSystemDefault()), // TODO TimeZone
-                    ).onSuccess { chore ->
-                        _navigationAction.trySend(Finish(chore = chore))
-                    }.onFailure { error ->
-                        _action.trySend(ShowError(error = error))
+                    )) {
+                        is CreateChoreUseCase.Result.Success -> {
+                            _navigationAction.trySend(Finish(chore = result.chore))
+                        }
+
+                        is CreateChoreUseCase.Result.Failure -> {
+                            _action.trySend(ShowError(error = result.error))
+                        }
                     }
                 }
             }

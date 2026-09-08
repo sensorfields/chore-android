@@ -10,8 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
-import com.sensorfields.chore.android.ui.collectInEffect
-import com.sensorfields.chore.android.ui.toErrorMessage
+import com.sensorfields.chore.app.getMessage
+import com.sensorfields.chore.core.collectInEffect
 import com.sensorfields.chore.resources.Res
 import com.sensorfields.chore.resources.chore_create_next_button
 import com.sensorfields.chore.resources.chore_create_title
@@ -52,7 +52,7 @@ fun ChoreCreateScreen(
     actions.collectInEffect { action ->
         when (action) {
             is ShowError -> {
-                snackbarHostState.showSnackbar(message = action.error.toErrorMessage())
+                snackbarHostState.showSnackbar(message = action.error.getMessage())
             }
         }
     }

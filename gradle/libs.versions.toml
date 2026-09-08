@@ -16,63 +16,43 @@ kotlinx-datetime = "0.8.0"
 
 compose = "1.12.0"
 compose-material3 = "1.12.0-alpha03"
+androidx-navigation3 = "1.1.7"
+jetbrains-navigation3 = "1.1.1"
 
 androidx-core = "1.19.0"
 androidx-core-splashscreen = "1.2.0"
 androidx-appcompat = "1.8.0"
 androidx-activity = "1.13.0"
 androidx-lifecycle = "2.11.0"
-androidx-navigation = "1.1.7"
 androidx-datastore = "1.2.1"
 androidx-room = "2.8.4"
 androidx-sqlite = "2.7.0"
-androidx-browser = "1.10.0"
-androidx-compose-bom = "2026.08.00"
-androidx-test-espresso = "3.7.0"
 
 google-ksp = "2.3.6"
 google-services = "4.5.0"
 google-android-material = "1.14.0"
-google-maps-android-compose = "8.5.0"
-google-android-play-app-update = "2.1.0"
-google-android-playservices-maps = "20.0.0"
-google-android-playservices-location = "21.4.0"
-google-accompanist = "0.37.3"
 
 firebase-crashlytics-plugin = "3.0.8"
 firebase-bom = "34.18.0"
 
-detekt = "2.0.0-alpha.6"
-detekt-plugin-twitter-compose = "0.0.26"
 metro = "1.4.2"
 skie = "0.10.14"
-logcat = "0.4"
 ktor = "3.5.2"
 supabase = "3.8.0"
-coil = "2.7.0"
-lottie = "6.7.1"
-crisp = "2.0.24"
-boofcv = "1.5.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-tools-build" }
-android-library = { id = "com.android.library", version.ref = "android-tools-build" }
 android-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "android-tools-build" }
 compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 androidx-room = { id = "androidx.room", version.ref = "androidx-room" }
 google-ksp = { id = "com.google.devtools.ksp", version.ref = "google-ksp" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics-plugin" }
-detekt = { id = "dev.detekt", version.ref = "detekt" }
 metro = { id = "dev.zacsweers.metro", version.ref = "metro" }
 skie = { id = "co.touchlab.skie", version.ref = "skie" }
-
-[bundles]
-detekt-plugins = ["detekt-plugin-twitter-compose", "detekt-plugin-ktlint"]
 
 [libraries]
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
@@ -91,7 +71,6 @@ metro-viewmodel-compose = { module = "dev.zacsweers.metro:metrox-viewmodel-compo
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
-ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
 
 supabase-postgrest = { module = "io.github.jan-tennert.supabase:postgrest-kt", version.ref = "supabase" }
 supabase-auth = { module = "io.github.jan-tennert.supabase:auth-kt", version.ref = "supabase" }
@@ -99,6 +78,7 @@ supabase-realtime = { module = "io.github.jan-tennert.supabase:realtime-kt", ver
 supabase-functions = { module = "io.github.jan-tennert.supabase:functions-kt", version.ref = "supabase" }
 
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "androidx-lifecycle" }
 
 compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
 compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "compose" }
@@ -107,10 +87,10 @@ compose-ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.r
 compose-ui-tooling-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "compose" }
 compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "compose" }
 compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "compose-material3" }
+compose-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "androidx-navigation3" }
+compose-navigation3-ui = { module = "org.jetbrains.androidx.navigation3:navigation3-ui", version.ref = "jetbrains-navigation3" }
 
 # Android
-kotlinx-coroutines-playServices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinx-coroutines" }
-
 android-tools-desugarJdkLibs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-tools-desugar" }
 
 androidx-core = { module = "androidx.core:core", version.ref = "androidx-core" }
@@ -118,42 +98,10 @@ androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", versi
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-activity = { module = "androidx.activity:activity", version.ref = "androidx-activity" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
-androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
-androidx-lifecycle-viewmodel-navigation = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "androidx-lifecycle" }
-androidx-navigation-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "androidx-navigation" }
-androidx-navigation-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "androidx-navigation" }
-androidx-browser = { module = "androidx.browser:browser", version.ref = "androidx-browser" }
-androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "androidx-compose-bom" }
-androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
-androidx-compose-material-icons-core = { module = "androidx.compose.material:material-icons-core" }
-androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
-androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
-androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
-androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
-androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
-androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-test-espresso" }
 
 google-android-material = { module = "com.google.android.material:material", version.ref = "google-android-material" }
-google-maps-android-compose = { module = "com.google.maps.android:maps-compose", version.ref = "google-maps-android-compose" }
-google-maps-android-compose-utils = { module = "com.google.maps.android:maps-compose-utils", version.ref = "google-maps-android-compose" }
-google-android-play-appUpdate = { module = "com.google.android.play:app-update", version.ref = "google-android-play-app-update" }
-google-android-playservices-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "google-android-playservices-maps" }
-google-android-playservices-location = { module = "com.google.android.gms:play-services-location", version.ref = "google-android-playservices-location" }
-google-accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "google-accompanist" }
 
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-messaging = { module = "com.google.firebase:firebase-messaging" }
-
-logcat = { module = "com.squareup.logcat:logcat", version.ref = "logcat" }
-coil-coil = { module = "io.coil-kt:coil", version.ref = "coil" }
-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
-lottie-lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
-lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
-crisp = { module = "im.crisp:crisp-sdk", version.ref = "crisp" }
-boofcv-core = { module = "org.boofcv:boofcv-core", version.ref = "boofcv" }
-boofcv-android = { module = "org.boofcv:boofcv-android", version.ref = "boofcv" }
-
-detekt-plugin-twitter-compose = { module = "com.twitter.compose.rules:detekt", version.ref = "detekt-plugin-twitter-compose" }
-detekt-plugin-ktlint = { module = "dev.detekt:detekt-rules-ktlint-wrapper", version.ref = "detekt" }

@@ -7,7 +7,6 @@ plugins {
     alias(libs.plugins.google.ksp)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
-    alias(libs.plugins.detekt)
 }
 
 android {
@@ -74,35 +73,27 @@ dependencies {
     implementation(projects.data)
     implementation(projects.domain)
     implementation(projects.theme)
-    implementation(projects.ui)
+    implementation(projects.app)
 
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
-
-    implementation(libs.kotlinx.coroutines)
-    implementation(libs.kotlinx.coroutines.playServices)
-    implementation(libs.kotlinx.collections.immutable)
 
     implementation(libs.androidx.core)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.lifecycle.viewmodel.navigation)
-    implementation(libs.androidx.navigation.runtime)
-    implementation(libs.androidx.navigation.ui)
-    implementation(libs.androidx.datastore.preferences)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    debugImplementation(libs.androidx.compose.ui.tooling)
+
+    debugImplementation(libs.compose.ui.tooling)
+    implementation(libs.compose.navigation3.runtime)
+    implementation(libs.compose.navigation3.ui)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
 
     implementation(libs.google.android.material)
+
+    implementation(libs.metro.viewmodel.compose)
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.messaging)
-
-    implementation(libs.logcat)
-    implementation(libs.coil.coil)
-    implementation(libs.coil.compose)
 }

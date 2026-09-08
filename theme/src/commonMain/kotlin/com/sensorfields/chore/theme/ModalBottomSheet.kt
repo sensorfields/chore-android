@@ -2,6 +2,7 @@ package com.sensorfields.chore.theme
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SheetValue
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -34,6 +35,9 @@ public class SheetState internal constructor(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 public fun rememberModalBottomSheetState(): SheetState {
-    val sheetState = androidx.compose.material3.rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val sheetState = androidx.compose.material3.rememberBottomSheetState(
+        initialValue = SheetValue.Hidden,
+        enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded),
+    )
     return remember { SheetState(sheetState = sheetState) }
 }

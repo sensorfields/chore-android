@@ -27,12 +27,12 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.kotlinx.coroutines)
-            implementation(libs.kotlinx.serialization.json)
-            implementation(libs.kotlinx.collections.immutable)
-            implementation(libs.kotlinx.datetime)
+            api(libs.kotlinx.coroutines)
+            api(libs.kotlinx.serialization.json)
+            api(libs.kotlinx.collections.immutable)
+            api(libs.kotlinx.datetime)
 
-            implementation(libs.compose.runtime)
+            api(libs.compose.runtime)
         }
     }
 

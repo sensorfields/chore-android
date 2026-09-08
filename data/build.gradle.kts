@@ -34,19 +34,14 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.core)
 
-            implementation(libs.kotlinx.coroutines)
-            implementation(libs.kotlinx.serialization.json)
-            implementation(libs.kotlinx.collections.immutable)
-            implementation(libs.kotlinx.datetime)
-
             implementation(libs.androidx.datastore.preferences)
 
-            api(libs.androidx.room.runtime)
+            api(libs.androidx.room.runtime) // TODO implementation
             implementation(libs.androidx.sqlite.bundled)
 
             implementation(libs.ktor.client.core)
 
-            api(libs.supabase.postgrest)
+            api(libs.supabase.postgrest) // TODO implementationo
             api(libs.supabase.auth)
             api(libs.supabase.realtime)
             api(libs.supabase.functions)

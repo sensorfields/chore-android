@@ -3,7 +3,7 @@ package com.sensorfields.chore.android.ui.dashboard
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sensorfields.chore.android.ui.collectInEffect
+import com.sensorfields.chore.core.collectInEffect
 import com.sensorfields.chore.domain.models.Chore
 import dev.zacsweers.metrox.viewmodel.metroViewModel
 import kotlinx.coroutines.flow.Flow

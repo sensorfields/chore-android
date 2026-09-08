@@ -28,16 +28,13 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.core)
+            implementation(projects.resources)
             implementation(projects.data)
             implementation(projects.domain)
 
-            implementation(libs.kotlinx.coroutines)
-            implementation(libs.kotlinx.serialization.json)
-            implementation(libs.kotlinx.collections.immutable)
-            implementation(libs.kotlinx.datetime)
+            api(libs.androidx.lifecycle.viewmodel)
 
             implementation(libs.metro.viewmodel)
-            implementation(libs.androidx.lifecycle.viewmodel)
         }
     }
 
