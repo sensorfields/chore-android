@@ -12,8 +12,8 @@ import dev.zacsweers.metrox.viewmodel.metroViewModel
 fun ChoreCreateRoute(
     onNavigateUp: () -> Unit,
     onFinish: (Chore) -> Unit,
+    viewModel: ChoreCreateViewModel = metroViewModel(),
 ) {
-    val viewModel = metroViewModel<ChoreCreateViewModel>()
     viewModel.navigationAction.collectInEffect { action ->
         when (action) {
             is Finish -> onFinish(action.chore)

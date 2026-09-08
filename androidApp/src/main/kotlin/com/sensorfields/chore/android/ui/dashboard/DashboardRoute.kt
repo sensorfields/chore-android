@@ -13,8 +13,8 @@ fun DashboardRoute(
     onNavigateToChoreCreate: () -> Unit,
     choreCreateResults: () -> Flow<Chore>,
     onNavigateToChoreDetails: (Chore.Id) -> Unit,
+    viewModel: DashboardViewModel = metroViewModel(),
 ) {
-    val viewModel = metroViewModel<DashboardViewModel>()
     choreCreateResults().collectInEffect(viewModel::onChoreCreateResult)
     val state by viewModel.state.collectAsStateWithLifecycle()
     DashboardScreen(

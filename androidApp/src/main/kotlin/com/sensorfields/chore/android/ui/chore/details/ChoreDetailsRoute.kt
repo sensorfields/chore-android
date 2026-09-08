@@ -10,10 +10,10 @@ import dev.zacsweers.metrox.viewmodel.assistedMetroViewModel
 fun ChoreDetailsRoute(
     choreId: Chore.Id,
     onNavigateUp: () -> Unit,
-) {
-    val viewModel = assistedMetroViewModel<ChoreDetailsViewModel, ChoreDetailsViewModel.Factory> {
+    viewModel: ChoreDetailsViewModel = assistedMetroViewModel<ChoreDetailsViewModel, ChoreDetailsViewModel.Factory> {
         create(choreId.value)
-    }
+    },
+) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     ChoreDetailsScreen(
         state = state,
