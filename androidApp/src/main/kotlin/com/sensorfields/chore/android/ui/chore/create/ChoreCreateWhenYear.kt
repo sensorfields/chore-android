@@ -5,7 +5,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.sensorfields.chore.theme.AppTheme
+import androidx.compose.ui.tooling.preview.PreviewWrapper
+import com.sensorfields.chore.theme.AppPreviewWrapper
 import com.sensorfields.chore.theme.Text
 import com.sensorfields.chore.theme.ToggleButton
 import kotlinx.collections.immutable.ImmutableSet
@@ -33,8 +34,9 @@ fun ChoreCreateWhenYear(
 }
 
 @Preview
+@PreviewWrapper(AppPreviewWrapper::class)
 @Composable
-private fun PreviewEmpty() = AppTheme {
+private fun PreviewEmpty() {
     ChoreCreateWhenYear(
         months = persistentSetOf(),
         onMonthCheckedChange = { _, _ -> },
@@ -42,8 +44,9 @@ private fun PreviewEmpty() = AppTheme {
 }
 
 @Preview
+@PreviewWrapper(AppPreviewWrapper::class)
 @Composable
-private fun PreviewSome() = AppTheme {
+private fun PreviewSome() {
     ChoreCreateWhenYear(
         months = persistentSetOf(Month.JANUARY, Month.FEBRUARY, Month.NOVEMBER),
         onMonthCheckedChange = { _, _ -> },
@@ -51,8 +54,9 @@ private fun PreviewSome() = AppTheme {
 }
 
 @Preview
+@PreviewWrapper(AppPreviewWrapper::class)
 @Composable
-private fun PreviewAll() = AppTheme {
+private fun PreviewAll() {
     ChoreCreateWhenYear(
         months = Month.entries.toImmutableSet(),
         onMonthCheckedChange = { _, _ -> },

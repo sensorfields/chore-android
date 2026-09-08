@@ -9,13 +9,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.sensorfields.chore.android.ui.chore.create.ChoreCreateAction.ShowError
 import com.sensorfields.chore.app.getMessage
 import com.sensorfields.chore.core.collectInEffect
 import com.sensorfields.chore.resources.Res
 import com.sensorfields.chore.resources.chore_create_next_button
 import com.sensorfields.chore.resources.chore_create_title
-import com.sensorfields.chore.theme.AppTheme
+import com.sensorfields.chore.theme.AppPreviewWrapper
 import com.sensorfields.chore.theme.BottomBar
 import com.sensorfields.chore.theme.CloseButton
 import com.sensorfields.chore.theme.LoadingButton
@@ -137,8 +138,9 @@ fun ChoreCreateScreen(
 }
 
 @Preview
+@PreviewWrapper(AppPreviewWrapper::class)
 @Composable
-private fun Preview() = AppTheme {
+private fun Preview() {
     ChoreCreateScreen(
         state = ChoreCreateState.What(),
         actions = emptyFlow(),

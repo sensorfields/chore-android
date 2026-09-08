@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.sensorfields.chore.android.ui.dashboard.DashboardAction.ShowChoreCreatedMessage
 import com.sensorfields.chore.core.collectInEffect
 import com.sensorfields.chore.domain.models.Chore
@@ -20,7 +21,7 @@ import com.sensorfields.chore.resources.dashboard_chore_create_button
 import com.sensorfields.chore.resources.dashboard_chore_created_message
 import com.sensorfields.chore.resources.dashboard_sort_button
 import com.sensorfields.chore.resources.dashboard_title
-import com.sensorfields.chore.theme.AppTheme
+import com.sensorfields.chore.theme.AppPreviewWrapper
 import com.sensorfields.chore.theme.FloatingActionButton
 import com.sensorfields.chore.theme.Icon
 import com.sensorfields.chore.theme.IconButton
@@ -107,8 +108,9 @@ fun DashboardScreen(
 }
 
 @Preview
+@PreviewWrapper(AppPreviewWrapper::class)
 @Composable
-private fun Preview() = AppTheme {
+private fun Preview() {
     DashboardScreen(
         state = DashboardState(),
         actions = emptyFlow(),

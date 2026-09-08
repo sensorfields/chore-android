@@ -5,7 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.sensorfields.chore.theme.AppTheme
+import androidx.compose.ui.tooling.preview.PreviewWrapper
+import com.sensorfields.chore.theme.AppPreviewWrapper
 import com.sensorfields.chore.theme.ListItem
 import com.sensorfields.chore.theme.Text
 import com.sensorfields.chore.theme.TitleMediumText
@@ -38,8 +39,9 @@ fun ChoreCreateWhen(
 }
 
 @Preview(showBackground = true)
+@PreviewWrapper(AppPreviewWrapper::class)
 @Composable
-private fun Preview() = AppTheme {
+private fun Preview() {
     ChoreCreateWhen(
         onRepeatClick = {},
     )

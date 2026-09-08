@@ -13,9 +13,10 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.sensorfields.chore.resources.Res
 import com.sensorfields.chore.resources.chore_create_name
-import com.sensorfields.chore.theme.AppTheme
+import com.sensorfields.chore.theme.AppPreviewWrapper
 import com.sensorfields.chore.theme.Text
 import com.sensorfields.chore.theme.TextField
 import org.jetbrains.compose.resources.stringResource
@@ -54,8 +55,9 @@ fun ChoreCreateWhat(
 }
 
 @Preview(showBackground = true)
+@PreviewWrapper(AppPreviewWrapper::class)
 @Composable
-private fun Preview() = AppTheme {
+private fun Preview() {
     Column {
         ChoreCreateWhat(
             name = "Chore name here",

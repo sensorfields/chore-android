@@ -9,8 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
-import com.sensorfields.chore.theme.AppTheme
+import com.sensorfields.chore.theme.AppPreviewWrapper
 import com.sensorfields.chore.theme.Text
 import com.sensorfields.chore.theme.ToggleButton
 import kotlinx.collections.immutable.ImmutableSet
@@ -52,8 +53,9 @@ private const val COLUMNS = 7
 private const val MAX_DAYS = 31
 
 @Preview
+@PreviewWrapper(AppPreviewWrapper::class)
 @Composable
-private fun PreviewEmpty() = AppTheme {
+private fun PreviewEmpty() {
     ChoreCreateWhenMonth(
         days = persistentSetOf(),
         onDayCheckedChange = { _, _ -> },

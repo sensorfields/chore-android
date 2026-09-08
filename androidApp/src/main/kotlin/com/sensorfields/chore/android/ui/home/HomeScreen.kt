@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavKey
@@ -27,7 +28,7 @@ import com.sensorfields.chore.resources.Res
 import com.sensorfields.chore.resources.home_navigation_dashboard
 import com.sensorfields.chore.resources.home_navigation_settings
 import com.sensorfields.chore.resources.home_navigation_stats
-import com.sensorfields.chore.theme.AppTheme
+import com.sensorfields.chore.theme.AppPreviewWrapper
 import com.sensorfields.chore.theme.Icon
 import com.sensorfields.chore.theme.Icons
 import com.sensorfields.chore.theme.NavigationBar
@@ -143,8 +144,9 @@ private enum class TabKey(
 }
 
 @Preview
+@PreviewWrapper(AppPreviewWrapper::class)
 @Composable
-private fun Preview() = AppTheme {
+private fun Preview() {
     HomeScreen(
         onNavigateToChoreCreate = {},
         choreCreateResults = { emptyFlow() },

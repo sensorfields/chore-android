@@ -10,8 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.sensorfields.chore.android.ui.chore.choreDate
-import com.sensorfields.chore.theme.AppTheme
+import com.sensorfields.chore.theme.AppPreviewWrapper
 import com.sensorfields.chore.theme.BodyMediumText
 import com.sensorfields.chore.theme.Scaffold
 import com.sensorfields.chore.theme.Text
@@ -59,8 +60,9 @@ fun ChoreDetailsScreen(
 }
 
 @Preview
+@PreviewWrapper(AppPreviewWrapper::class)
 @Composable
-private fun PreviewFull() = AppTheme {
+private fun PreviewFull() {
     ChoreDetailsScreen(
         state = ChoreDetailsState(
             name = "This is name",
@@ -71,8 +73,9 @@ private fun PreviewFull() = AppTheme {
 }
 
 @Preview
+@PreviewWrapper(AppPreviewWrapper::class)
 @Composable
-private fun PreviewMin() = AppTheme {
+private fun PreviewMin() {
     ChoreDetailsScreen(
         state = ChoreDetailsState(
             name = "This is name",
