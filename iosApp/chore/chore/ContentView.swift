@@ -1,14 +1,25 @@
 import SwiftUI
 
 struct ContentView: View {
+
+    @State private var appNavigation = AppNavigation()
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack(path: $appNavigation.path) {
+            HomeRoute(
+                onNavigateToChoreCreate: appNavigation.navigateToChoreCreate,
+            )
+            .navigationDestination(for: RouteKey.self) { key in
+                switch key {
+                case .home:
+                    HomeRoute(
+                        onNavigateToChoreCreate: appNavigation.navigateToChoreCreate,
+                    )
+                case .choreCreate:
+                    ChoreCreateRoute()
+                }
+            }
         }
-        .padding()
     }
 }
 
