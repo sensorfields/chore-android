@@ -1,0 +1,21 @@
+package com.sensorfields.chore.domain.usecases
+
+import com.sensorfields.chore.data.room.ChoreDao
+import com.sensorfields.chore.domain.mappers.toEntity
+import com.sensorfields.chore.domain.mappers.toModels
+import com.sensorfields.chore.domain.models.Chore
+import dev.zacsweers.metro.Inject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+
+@Inject
+public class ObserveChoresUseCase(
+    private val choreDao: ChoreDao,
+) {
+    public operator fun invoke(
+        sortBy: Chore.SortProperty,
+        isAscending: Boolean = true,
+    ): Flow<List<Chore>> = choreDao
+        .find(orderBy = sortBy.toEntity(), isAscending = isAscending)
+        .map { it.toModels() }
+}

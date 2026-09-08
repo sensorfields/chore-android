@@ -1,0 +1,142 @@
+package com.sensorfields.chore.android.ui.chore.create
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
+import com.sensorfields.chore.app.chore.create.ChoreCreateState
+import com.sensorfields.chore.resources.Res
+import com.sensorfields.chore.resources.chore_create_next_button
+import com.sensorfields.chore.resources.chore_create_title
+import com.sensorfields.chore.theme.AppPreviewWrapper
+import com.sensorfields.chore.theme.BottomBar
+import com.sensorfields.chore.theme.CloseButton
+import com.sensorfields.chore.theme.LoadingButton
+import com.sensorfields.chore.theme.Scaffold
+import com.sensorfields.chore.theme.SnackBarState
+import com.sensorfields.chore.theme.Text
+import com.sensorfields.chore.theme.TopAppBar
+import com.sensorfields.chore.theme.rememberSnackBarState
+import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalTime
+import kotlinx.datetime.Month
+import org.jetbrains.compose.resources.stringResource
+
+@Composable
+fun ChoreCreateScreen(
+    state: ChoreCreateState,
+    onUpClick: () -> Unit,
+    onNameChange: (String) -> Unit,
+    onRepeatClick: (ChoreCreateState.When.Repeat) -> Unit,
+    onDateChange: (LocalDate?) -> Unit,
+    onTimeChange: (LocalTime) -> Unit,
+    onDayOfWeekCheckedChange: (DayOfWeek, Boolean) -> Unit,
+    onDayOfMonthCheckedChange: (Int, Boolean) -> Unit,
+    onMonthCheckedChange: (Month, Boolean) -> Unit,
+    onNextClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    snackBarState: SnackBarState = rememberSnackBarState(),
+) {
+    Scaffold(
+        modifier = modifier,
+        topBar = {
+            TopAppBar(
+                title = { Text(stringResource(Res.string.chore_create_title)) },
+                navigationIcon = { CloseButton(onClick = onUpClick) },
+            )
+        },
+        bottomBar = {
+            BottomBar {
+                LoadingButton(
+                    onClick = onNextClick,
+                    loading = state.isLoadingVisible,
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = state.isNextButtonEnabled,
+                ) {
+                    Text(stringResource(Res.string.chore_create_next_button))
+                }
+            }
+        },
+        snackBarState = snackBarState,
+    ) { innerPadding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .consumeWindowInsets(innerPadding)
+                .padding(innerPadding)
+                .imePadding(),
+        ) {
+            when (state) {
+                is ChoreCreateState.What -> ChoreCreateWhat(
+                    name = state.name,
+                    onNameChange = onNameChange,
+                    onDoneClick = onNextClick,
+                )
+
+                ChoreCreateState.When -> ChoreCreateWhen(
+                    onRepeatClick = onRepeatClick,
+                )
+
+                is ChoreCreateState.WhenDate -> ChoreCreateWhenDate(
+                    date = state.date,
+                    onDateChange = onDateChange,
+                )
+
+                is ChoreCreateState.WhenTime -> ChoreCreateWhenTime(
+                    time = state.time,
+                    onTimeChange = onTimeChange,
+                )
+
+                is ChoreCreateState.WhenWeek -> ChoreCreateWhenWeek(
+                    days = state.days,
+                    onDayCheckedChange = onDayOfWeekCheckedChange,
+                )
+
+                is ChoreCreateState.WhenMonth -> ChoreCreateWhenMonth(
+                    days = state.days,
+                    onDayCheckedChange = onDayOfMonthCheckedChange,
+                )
+
+                is ChoreCreateState.WhenYear -> ChoreCreateWhenYear(
+                    months = state.months,
+                    onMonthCheckedChange = onMonthCheckedChange,
+                )
+
+                is ChoreCreateState.Summary -> ChoreCreateSummary(
+                    name = state.name,
+                    repeat = state.repeat,
+                    date = state.date,
+                    time = state.time,
+                    daysOfWeek = state.daysOfWeek,
+                    daysOfMonth = state.daysOfMonth,
+                    months = state.months,
+                )
+            }
+        }
+    }
+}
+
+@Preview
+@PreviewWrapper(AppPreviewWrapper::class)
+@Composable
+private fun Preview() {
+    ChoreCreateScreen(
+        state = ChoreCreateState.What(),
+        onUpClick = {},
+        onNameChange = {},
+        onRepeatClick = {},
+        onDateChange = {},
+        onTimeChange = {},
+        onDayOfWeekCheckedChange = { _, _ -> },
+        onDayOfMonthCheckedChange = { _, _ -> },
+        onMonthCheckedChange = { _, _ -> },
+        onNextClick = {},
+    )
+}

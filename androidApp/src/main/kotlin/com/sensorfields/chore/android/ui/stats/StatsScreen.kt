@@ -1,0 +1,43 @@
+package com.sensorfields.chore.android.ui.stats
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewWrapper
+import com.sensorfields.chore.resources.Res
+import com.sensorfields.chore.resources.stats_title
+import com.sensorfields.chore.theme.AppPreviewWrapper
+import com.sensorfields.chore.theme.Scaffold
+import com.sensorfields.chore.theme.Text
+import org.jetbrains.compose.resources.stringResource
+
+@Composable
+fun StatsScreen(
+    modifier: Modifier = Modifier,
+) {
+    Scaffold(modifier = modifier) { innerPadding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .consumeWindowInsets(innerPadding)
+                .padding(innerPadding),
+        ) {
+            Text(
+                stringResource(Res.string.stats_title),
+                modifier = Modifier.align(Alignment.Center),
+            )
+        }
+    }
+}
+
+@Preview
+@PreviewWrapper(AppPreviewWrapper::class)
+@Composable
+private fun Preview() {
+    StatsScreen()
+}

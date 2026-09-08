@@ -12,23 +12,23 @@ jobs:
     name: Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ssh-key: ${{ secrets.DEPLOY_PRIVATE_KEY }}
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
       - name: Assemble dev app
-        run: ./gradlew --no-daemon app:bundleDevRelease
+        run: ./gradlew --no-daemon androidApp:bundleDevRelease
         env:
           DEV_RELEASE_PASSWORD: ${{ secrets.DEV_RELEASE_PASSWORD }}
       - name: Publish dev app to Google Play
         run: |
           echo $PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA > $GOOGLE_APPLICATION_CREDENTIALS
           java -jar fob-cli.jar play-store deploy \
-          app/build/outputs/bundle/devRelease/app-dev-release.aab \
-          --package-name com.sensorfields.chore.dev \
+          androidApp/build/outputs/bundle/devRelease/androidApp-dev-release.aab \
+          --package-name com.sensorfields.chore.dev
         env:
           PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA: ${{ secrets.PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA }}
       - name: Delete release branch

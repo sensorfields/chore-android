@@ -1,118 +1,42 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.android.multiplatform.library)
+    alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.google.ksp)
-    alias(libs.plugins.google.hilt)
-    alias(libs.plugins.google.services)
-    alias(libs.plugins.firebase.crashlytics)
-}
-
-android {
-    namespace = "com.sensorfields.chore.android"
-    compileSdk = property("android.compileSdk") as Int
-    defaultConfig {
-        applicationId = "com.sensorfields.chore"
-        minSdk = property("android.minSdk") as Int
-        targetSdk = property("android.targetSdk") as Int
-        versionCode = property("application.versionCode") as Int
-        versionName = property("application.versionName") as String
-    }
-    signingConfigs {
-        named("debug") {
-            storeFile = file("debug.keystore")
-        }
-        register("devRelease") {
-            storeFile = file("dev-release.jks")
-            keyAlias = "upload"
-            keyPassword = System.getenv("DEV_RELEASE_PASSWORD")
-            storePassword = System.getenv("DEV_RELEASE_PASSWORD")
-        }
-    }
-    flavorDimensions += "environment"
-    productFlavors {
-        create("dev") {
-            isDefault = true
-            dimension = "environment"
-            applicationIdSuffix = ".dev"
-        }
-    }
-    buildTypes {
-        debug {
-            applicationIdSuffix = ".debug"
-            signingConfig = signingConfigs["debug"]
-        }
-        release {
-            isDebuggable = false
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-            productFlavors["dev"].signingConfig = signingConfigs["devRelease"]
-        }
-    }
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-    }
-    buildFeatures {
-        compose = true
-        buildConfig = true
-    }
+    alias(libs.plugins.metro)
+    alias(libs.plugins.skie)
 }
 
 kotlin {
-    jvmToolchain(17)
-}
+    listOf(
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "App"
+            isStatic = true
+        }
+    }
 
-dependencies {
-    implementation(projects.ui)
-    implementation(projects.features.home.ui)
-    implementation(projects.features.chore.create.ui)
-    implementation(projects.features.chore.details.ui)
+    explicitApi()
 
-    coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
+    android {
+        namespace = "com.sensorfields.chore.app"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+    }
 
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.coroutines.playServices)
-    implementation(libs.kotlinx.collections.immutable)
+    sourceSets {
+        commonMain.dependencies {
+            implementation(projects.core)
+            implementation(projects.resources)
+            implementation(projects.data)
+            implementation(projects.domain)
 
-    implementation(libs.androidx.core.coreKtx)
-    implementation(libs.androidx.core.splashscreen)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.activityKtx)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.lifecycle.common.java8)
-    implementation(libs.androidx.lifecycle.viewmodelKtx)
-    implementation(libs.androidx.lifecycle.viewmodel.savedstate)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.bundles.navigation)
-    implementation(libs.androidx.datastore.preferences)
-    implementation(libs.androidx.work.runtimeKtx)
-    ksp(libs.androidx.hilt.compiler)
-    implementation(libs.androidx.hilt.work)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.runtime.android)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material.icons.core)
-    implementation(libs.androidx.compose.material.icons.extended)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    debugImplementation(libs.androidx.compose.ui.tooling)
+            api(libs.androidx.lifecycle.viewmodel)
 
-    implementation(libs.google.hilt.android)
-    ksp(libs.google.hilt.compiler)
-    implementation(libs.google.android.material)
+            implementation(libs.metro.viewmodel)
+        }
+    }
 
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.crashlytics)
-    implementation(libs.firebase.analytics)
-    implementation(libs.firebase.messaging)
-
-    implementation(libs.logcat)
-    implementation(libs.coil.coil)
-    implementation(libs.coil.compose)
+    jvmToolchain(libs.versions.jdk.get().toInt())
 }

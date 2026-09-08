@@ -1,36 +1,35 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.android.multiplatform.library)
+    alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.google.ksp)
-    alias(libs.plugins.google.hilt)
-}
-
-android {
-    namespace = "com.sensorfields.chore.android.domain"
-    compileSdk = property("android.compileSdk") as Int
-    defaultConfig {
-        minSdk = property("android.minSdk") as Int
-    }
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-    }
+    alias(libs.plugins.metro)
 }
 
 kotlin {
-    jvmToolchain(17)
+    listOf(
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "Domain"
+            isStatic = true
+        }
+    }
+
     explicitApi()
-}
 
-dependencies {
-    implementation(projects.utils)
-    implementation(projects.data)
-    coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.google.hilt.android)
-    ksp(libs.google.hilt.compiler)
+    android {
+        namespace = "com.sensorfields.chore.domain"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+    }
 
-    testImplementation(projects.dataTest)
+    sourceSets {
+        commonMain.dependencies {
+            implementation(projects.core)
+            implementation(projects.data)
+        }
+    }
+
+    jvmToolchain(libs.versions.jdk.get().toInt())
 }
