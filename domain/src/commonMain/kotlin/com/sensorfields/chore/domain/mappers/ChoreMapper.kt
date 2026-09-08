@@ -20,3 +20,10 @@ internal fun ChoreEntity.toModel(): Chore {
 }
 
 internal fun List<ChoreEntity>.toModels(): List<Chore> = map { it.toModel() }
+
+internal fun Chore.SortProperty.toEntity(): String {
+    return when (this) {
+        Chore.SortProperty.NAME -> "name"
+        Chore.SortProperty.DATE -> "date"
+    }
+}

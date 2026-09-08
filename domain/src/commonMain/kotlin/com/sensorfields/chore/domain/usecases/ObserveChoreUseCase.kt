@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.map
 public class ObserveChoreUseCase(
     private val choreDao: ChoreDao,
 ) {
-    public operator fun invoke(choreId: Chore.Id): Flow<Chore?> {
-        return choreDao.observe(id = choreId.value).map { it?.toModel() }
-    }
+    public operator fun invoke(choreId: Chore.Id): Flow<Chore?> =
+        choreDao.observe(id = choreId.value).map { it?.toModel() }
 }
