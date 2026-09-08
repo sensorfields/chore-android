@@ -35,7 +35,7 @@ jobs:
       - name: Update version code
         run: java -jar fob-cli.jar project update-version ${{ steps.buildnumber.outputs.build_number }}
       - name: Assemble dev snapshot app
-        run: ./gradlew --no-daemon app:bundleDevRelease -Psnapshot
+        run: ./gradlew --no-daemon androidApp:bundleDevRelease -Psnapshot
         env:
           DEV_RELEASE_PASSWORD: ${{ secrets.DEV_RELEASE_PASSWORD }}
       - name: Publish dev snapshot app to Google Play
@@ -43,7 +43,7 @@ jobs:
           echo $PLAY_GOOGLE_APPLICATION_CREDENTIALS_DATA > $GOOGLE_APPLICATION_CREDENTIALS
           COMMIT_MESSAGE=`git log --format=%B -n 1 $GITHUB_SHA`
           java -jar fob-cli.jar play-store deploy \
-          app/build/outputs/bundle/devRelease/app-dev-release.aab \
+          androidApp/build/outputs/bundle/devRelease/androidApp-dev-release.aab \
           --package-name com.sensorfields.chore.dev \
           --release-notes "$COMMIT_MESSAGE"
         env:
