@@ -3,10 +3,13 @@ package com.sensorfields.chore.android.ui.chore.create
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sensorfields.chore.app.chore.create.ChoreCreateNavigationAction.Finish
+import com.sensorfields.chore.app.chore.create.ChoreCreateAction.Finish
+import com.sensorfields.chore.app.chore.create.ChoreCreateAction.ShowError
 import com.sensorfields.chore.app.chore.create.ChoreCreateViewModel
+import com.sensorfields.chore.app.getMessage
 import com.sensorfields.chore.core.collectInEffect
 import com.sensorfields.chore.domain.models.Chore
+import com.sensorfields.chore.theme.rememberSnackbarHostState
 import dev.zacsweers.metrox.viewmodel.metroViewModel
 
 @Composable
@@ -15,15 +18,16 @@ fun ChoreCreateRoute(
     onFinish: (Chore) -> Unit,
     viewModel: ChoreCreateViewModel = metroViewModel(),
 ) {
-    viewModel.navigationAction.collectInEffect { action ->
+    val snackbarHostState = rememberSnackbarHostState()
+    viewModel.action.collectInEffect { action ->
         when (action) {
+            is ShowError -> snackbarHostState.showSnackbar(message = action.error.getMessage())
             is Finish -> onFinish(action.chore)
         }
     }
     val state by viewModel.state.collectAsStateWithLifecycle()
     ChoreCreateScreen(
         state = state,
-        actions = viewModel.action,
         onUpClick = onNavigateUp,
         onNameChange = viewModel::onNameChange,
         onRepeatClick = viewModel::onRepeatClick,
@@ -33,5 +37,6 @@ fun ChoreCreateRoute(
         onDayOfMonthCheckedChange = viewModel::onDayOfMonthCheckedChange,
         onMonthCheckedChange = viewModel::onMonthCheckedChange,
         onNextClick = viewModel::onNextClick,
+        snackbarHostState = snackbarHostState,
     )
 }

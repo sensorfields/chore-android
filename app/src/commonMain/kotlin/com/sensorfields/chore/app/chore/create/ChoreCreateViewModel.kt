@@ -2,8 +2,8 @@ package com.sensorfields.chore.app.chore.create
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sensorfields.chore.app.chore.create.ChoreCreateAction.Finish
 import com.sensorfields.chore.app.chore.create.ChoreCreateAction.ShowError
-import com.sensorfields.chore.app.chore.create.ChoreCreateNavigationAction.Finish
 import com.sensorfields.chore.app.chore.create.ChoreCreateState.When.Repeat
 import com.sensorfields.chore.core.ActionChannel
 import com.sensorfields.chore.domain.usecases.CreateChoreUseCase
@@ -36,9 +36,6 @@ public class ChoreCreateViewModel(
 
     private val _state = MutableStateFlow<ChoreCreateState>(ChoreCreateState.What())
     public val state: StateFlow<ChoreCreateState> = _state.asStateFlow()
-
-    private val _navigationAction = ActionChannel<ChoreCreateNavigationAction>()
-    public val navigationAction: Flow<ChoreCreateNavigationAction> = _navigationAction.receiveAsFlow()
 
     private val _action = ActionChannel<ChoreCreateAction>()
     public val action: Flow<ChoreCreateAction> = _action.receiveAsFlow()
@@ -177,7 +174,7 @@ public class ChoreCreateViewModel(
                         date = date.atTime(time).toInstant(TimeZone.currentSystemDefault()), // TODO TimeZone
                     )) {
                         is CreateChoreUseCase.Result.Success -> {
-                            _navigationAction.trySend(Finish(chore = result.chore))
+                            _action.trySend(Finish(chore = result.chore))
                         }
 
                         is CreateChoreUseCase.Result.Failure -> {

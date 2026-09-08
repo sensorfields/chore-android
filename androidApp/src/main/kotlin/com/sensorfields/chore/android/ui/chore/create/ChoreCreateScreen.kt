@@ -10,11 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
-import com.sensorfields.chore.app.chore.create.ChoreCreateAction
-import com.sensorfields.chore.app.chore.create.ChoreCreateAction.ShowError
 import com.sensorfields.chore.app.chore.create.ChoreCreateState
-import com.sensorfields.chore.app.getMessage
-import com.sensorfields.chore.core.collectInEffect
 import com.sensorfields.chore.resources.Res
 import com.sensorfields.chore.resources.chore_create_next_button
 import com.sensorfields.chore.resources.chore_create_title
@@ -24,11 +20,10 @@ import com.sensorfields.chore.theme.CloseButton
 import com.sensorfields.chore.theme.LoadingButton
 import com.sensorfields.chore.theme.Scaffold
 import com.sensorfields.chore.theme.SnackbarHost
+import com.sensorfields.chore.theme.SnackbarHostState
 import com.sensorfields.chore.theme.Text
 import com.sensorfields.chore.theme.TopAppBar
 import com.sensorfields.chore.theme.rememberSnackbarHostState
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
@@ -38,7 +33,6 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun ChoreCreateScreen(
     state: ChoreCreateState,
-    actions: Flow<ChoreCreateAction>,
     onUpClick: () -> Unit,
     onNameChange: (String) -> Unit,
     onRepeatClick: (ChoreCreateState.When.Repeat) -> Unit,
@@ -49,17 +43,8 @@ fun ChoreCreateScreen(
     onMonthCheckedChange: (Month, Boolean) -> Unit,
     onNextClick: () -> Unit,
     modifier: Modifier = Modifier,
+    snackbarHostState: SnackbarHostState = rememberSnackbarHostState(),
 ) {
-    val snackbarHostState = rememberSnackbarHostState()
-
-    actions.collectInEffect { action ->
-        when (action) {
-            is ShowError -> {
-                snackbarHostState.showSnackbar(message = action.error.getMessage())
-            }
-        }
-    }
-
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -145,7 +130,6 @@ fun ChoreCreateScreen(
 private fun Preview() {
     ChoreCreateScreen(
         state = ChoreCreateState.What(),
-        actions = emptyFlow(),
         onUpClick = {},
         onNameChange = {},
         onRepeatClick = {},
