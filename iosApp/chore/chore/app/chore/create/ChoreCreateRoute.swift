@@ -1,19 +1,45 @@
+import App
 import SwiftUI
 
 struct ChoreCreateRoute: View {
 
-    @State private var text: String = ""
+    private let viewModel: ChoreCreateViewModel = appGraph.choreCreateViewModel
+
+    @State private var state: ChoreCreateState = ChoreCreateState.companion.initial()
 
     var body: some View {
         VStack {
             ScrollView(.vertical) {
-                TextField(text: $text) {
-                    Text("Name")
+                switch onEnum(of: state) {
+                case .what(let what):
+                    ChoreCreateWhat(
+                        name: what.name,
+                        onNameChange: viewModel.onNameChange,
+                    )
+                case .when:
+                    Text("WHEN")
+                case .whenDate:
+                    Text("WHEN DATE")
+                case .whenTime:
+                    Text("WHEN TIME")
+                case .whenWeek:
+                    Text("WHEN WEEK")
+                case .whenMonth:
+                    Text("WHEN MONTH")
+                case .whenYear:
+                    Text("WHEN YEAR")
+                case .summary:
+                    Text("SUMMARY")
                 }
             }
             Group {
-                Button("Continue") {
-                }.buttonStyle(BorderedProminentButtonStyle())
+                Button("Continue", action: viewModel.onNextClick)
+                    .disabled(!state.isNextButtonEnabled)
+                    .buttonStyle(BorderedProminentButtonStyle())
+            }
+        }.task {
+            for await state in viewModel.state {
+                self.state = state
             }
         }
     }

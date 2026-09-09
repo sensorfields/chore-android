@@ -54,4 +54,8 @@ public sealed class ChoreCreateState(
         val months: ImmutableSet<Month>,
         override val isLoadingVisible: Boolean = false,
     ) : ChoreCreateState(isNextButtonEnabled = true)
+
+    public companion object {
+        public fun initial(): ChoreCreateState = What()
+    }
 }

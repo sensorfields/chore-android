@@ -34,7 +34,7 @@ public class ChoreCreateViewModel(
     private val createChoreUseCase: CreateChoreUseCase,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<ChoreCreateState>(ChoreCreateState.What())
+    private val _state = MutableStateFlow(ChoreCreateState.initial())
     public val state: StateFlow<ChoreCreateState> = _state.asStateFlow()
 
     private val _action = ActionChannel<ChoreCreateAction>()
