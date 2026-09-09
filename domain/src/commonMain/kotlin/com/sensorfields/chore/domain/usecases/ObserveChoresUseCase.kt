@@ -7,15 +7,17 @@ import com.sensorfields.chore.domain.models.Chore
 import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.datetime.TimeZone
 
 @Inject
 public class ObserveChoresUseCase(
     private val choreDao: ChoreDao,
+    private val timeZone: TimeZone,
 ) {
     public operator fun invoke(
         sortBy: Chore.SortProperty,
         isAscending: Boolean = true,
     ): Flow<List<Chore>> = choreDao
         .find(orderBy = sortBy.toEntity(), isAscending = isAscending)
-        .map { it.toModels() }
+        .map { it.toModels(timeZone = timeZone) }
 }

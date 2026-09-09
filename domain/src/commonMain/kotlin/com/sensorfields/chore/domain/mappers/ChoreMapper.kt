@@ -5,9 +5,9 @@ import com.sensorfields.chore.domain.models.Chore
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
-internal fun ChoreEntity.toModel(): Chore {
+internal fun ChoreEntity.toModel(timeZone: TimeZone): Chore {
     val at = date?.toInstant() ?: error("No date for Chore")
-    val dateTime = at.toLocalDateTime(TimeZone.currentSystemDefault()) // TODO TimeZone
+    val dateTime = at.toLocalDateTime(timeZone)
 
     return Chore(
         id = Chore.Id(id),
@@ -19,7 +19,7 @@ internal fun ChoreEntity.toModel(): Chore {
     )
 }
 
-internal fun List<ChoreEntity>.toModels(): List<Chore> = map { it.toModel() }
+internal fun List<ChoreEntity>.toModels(timeZone: TimeZone): List<Chore> = map { it.toModel(timeZone = timeZone) }
 
 internal fun Chore.SortProperty.toEntity(): String {
     return when (this) {

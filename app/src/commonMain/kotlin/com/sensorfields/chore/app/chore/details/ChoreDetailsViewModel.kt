@@ -26,7 +26,7 @@ public class ChoreDetailsViewModel(
 
     private val choreId = Chore.Id(choreIdValue)
 
-    private val _state = MutableStateFlow(ChoreDetailsState())
+    private val _state = MutableStateFlow(ChoreDetailsState.initial())
     public val state: StateFlow<ChoreDetailsState> = _state.asStateFlow()
 
     private var chore: Chore? = null
@@ -46,10 +46,12 @@ public class ChoreDetailsViewModel(
 
     private fun updateState() {
         _state.update {
-            it.copy(
-                name = chore?.name.orEmpty(),
-                date = null, // TODO AT
-            )
+            chore?.let { chore ->
+                ChoreDetailsState.Chore(
+                    name = chore.name,
+                    date = chore.at.dateTime,
+                )
+            } ?: ChoreDetailsState.Empty
         }
     }
 

@@ -23,9 +23,6 @@ import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.Month
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.atTime
-import kotlinx.datetime.toInstant
 
 @Inject
 @ViewModelKey
@@ -169,10 +166,7 @@ public class ChoreCreateViewModel(
                 val time = time
                 if (date != null && time != null) {
                     _state.update { state.copy(isLoadingVisible = true) }
-                    when (val result = createChoreUseCase(
-                        name = name,
-                        date = date.atTime(time).toInstant(TimeZone.currentSystemDefault()), // TODO TimeZone
-                    )) {
+                    when (val result = createChoreUseCase(name = name, date = date, time = time)) {
                         is CreateChoreUseCase.Result.Success -> {
                             _action.trySend(Finish(chore = result.chore))
                         }

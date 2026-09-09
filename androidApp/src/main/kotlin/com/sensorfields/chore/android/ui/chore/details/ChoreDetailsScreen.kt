@@ -19,7 +19,7 @@ import com.sensorfields.chore.theme.Scaffold
 import com.sensorfields.chore.theme.Text
 import com.sensorfields.chore.theme.TopAppBar
 import com.sensorfields.chore.theme.UpButton
-import kotlin.time.Instant
+import kotlinx.datetime.LocalDateTime
 
 @Composable
 fun ChoreDetailsScreen(
@@ -27,6 +27,8 @@ fun ChoreDetailsScreen(
     onUpClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    if (state !is ChoreDetailsState.Chore) return
+
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -48,14 +50,12 @@ fun ChoreDetailsScreen(
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
             )
-            state.date?.let {
-                BodyMediumText(
-                    choreDate(it),
-                    modifier = Modifier.fillMaxWidth(),
-                    variantColor = true,
-                    textAlign = TextAlign.Center,
-                )
-            }
+            BodyMediumText(
+                choreDate(state.date),
+                modifier = Modifier.fillMaxWidth(),
+                variantColor = true,
+                textAlign = TextAlign.Center,
+            )
         }
     }
 }
@@ -63,23 +63,11 @@ fun ChoreDetailsScreen(
 @Preview
 @PreviewWrapper(AppPreviewWrapper::class)
 @Composable
-private fun PreviewFull() {
+private fun Preview() {
     ChoreDetailsScreen(
-        state = ChoreDetailsState(
+        state = ChoreDetailsState.Chore(
             name = "This is name",
-            date = Instant.parse("1988-02-13T13:30:00Z"),
-        ),
-        onUpClick = {},
-    )
-}
-
-@Preview
-@PreviewWrapper(AppPreviewWrapper::class)
-@Composable
-private fun PreviewMin() {
-    ChoreDetailsScreen(
-        state = ChoreDetailsState(
-            name = "This is name",
+            date = LocalDateTime.parse("1988-02-13T13:30:00"),
         ),
         onUpClick = {},
     )

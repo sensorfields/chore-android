@@ -2,8 +2,10 @@ package com.sensorfields.chore.domain.models
 
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.Month
+import kotlinx.datetime.atDate
 import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmInline
 
@@ -19,6 +21,16 @@ public data class Chore(
     public sealed interface When {
 
         public val time: LocalTime
+
+        public val dateTime: LocalDateTime
+            get() = when (this) {
+                is Once -> time.atDate(date)
+                is Daily,
+                is Weekly,
+                is Monthly,
+                is Yearly,
+                    -> time.atDate(1, 1, 1)
+            }
 
         public data class Once(
             public override val time: LocalTime,

@@ -6,11 +6,13 @@ import com.sensorfields.chore.domain.models.Chore
 import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.datetime.TimeZone
 
 @Inject
 public class ObserveChoreUseCase(
     private val choreDao: ChoreDao,
+    private val timeZone: TimeZone,
 ) {
     public operator fun invoke(choreId: Chore.Id): Flow<Chore?> =
-        choreDao.observe(id = choreId.value).map { it?.toModel() }
+        choreDao.observe(id = choreId.value).map { it?.toModel(timeZone = timeZone) }
 }
