@@ -12,7 +12,7 @@ fun ChoreDetailsRoute(
     choreId: Chore.Id,
     onNavigateUp: () -> Unit,
     viewModel: ChoreDetailsViewModel = assistedMetroViewModel<ChoreDetailsViewModel, ChoreDetailsViewModel.Factory> {
-        create(choreId.value)
+        create(choreId = choreId)
     },
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()

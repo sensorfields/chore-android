@@ -20,11 +20,9 @@ import kotlinx.coroutines.flow.update
 
 @AssistedInject
 public class ChoreDetailsViewModel(
-    @Assisted private val choreIdValue: String, // TODO value classes not supported?
+    @Assisted private val choreId: Chore.Id,
     private val observeChoreUseCase: ObserveChoreUseCase,
 ) : ViewModel() {
-
-    private val choreId = Chore.Id(choreIdValue)
 
     private val _state = MutableStateFlow(ChoreDetailsState.initial())
     public val state: StateFlow<ChoreDetailsState> = _state.asStateFlow()
@@ -59,6 +57,6 @@ public class ChoreDetailsViewModel(
     @ManualViewModelAssistedFactoryKey
     @ContributesIntoMap(AppScope::class)
     public fun interface Factory : ManualViewModelAssistedFactory {
-        public fun create(choreIdValue: String): ChoreDetailsViewModel
+        public fun create(choreId: Chore.Id): ChoreDetailsViewModel
     }
 }
