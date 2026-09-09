@@ -17,7 +17,7 @@ struct ChoreCreateRoute: View {
                         onNameChange: viewModel.onNameChange,
                     )
                 case .when:
-                    Text("WHEN")
+                    ChoreCreateWhen(onRepeatClick: viewModel.onRepeatClick)
                 case .whenDate:
                     Text("WHEN DATE")
                 case .whenTime:
