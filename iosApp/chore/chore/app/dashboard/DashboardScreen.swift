@@ -5,9 +5,14 @@ struct DashboardScreen: View {
 
     let state: DashboardState
 
+    @State private var selectedChore: String?
+
     var body: some View {
         List(state.choreItems, id: \.id) { item in
-            DashboardChoreItem(state: item)
+            DashboardChoreItem(
+                state: item,
+                onClick: { NSLog("AAAAAA CLICK YOO \(item.name)") },
+            )
         }
     }
 }

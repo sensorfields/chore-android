@@ -4,12 +4,17 @@ import SwiftUI
 struct DashboardChoreItem: View {
 
     let state: DashboardState.ChoreItem
+    let onClick: () -> Void
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(state.name)
-            Text(state.date.format())
+        Button(action: onClick) {
+            VStack(alignment: .leading) {
+                Text(state.name)
+                Text(state.date.format())
+            }
+            Spacer()
         }
+        .foregroundStyle(.primary)
     }
 }
 
@@ -20,5 +25,6 @@ struct DashboardChoreItem: View {
             name: "Some name",
             date: Date.distantPast.toLocalDateTime(),
         ),
+        onClick: {},
     )
 }
