@@ -13,6 +13,6 @@ public class ObserveChoreUseCase(
     private val choreDao: ChoreDao,
     private val timeZone: TimeZone,
 ) {
-    public operator fun invoke(choreId: Chore.Id): Flow<Chore?> =
-        choreDao.observe(id = choreId.value).map { it?.toModel(timeZone = timeZone) }
+    public operator fun invoke(choreId: String): Flow<Chore?> =
+        choreDao.observe(id = choreId).map { it?.toModel(timeZone = timeZone) }
 }

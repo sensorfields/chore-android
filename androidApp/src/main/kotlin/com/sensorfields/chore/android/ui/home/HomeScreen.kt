@@ -45,7 +45,7 @@ import org.jetbrains.compose.resources.stringResource
 fun HomeScreen(
     onNavigateToChoreCreate: () -> Unit,
     choreCreateResults: () -> Flow<Chore>,
-    onNavigateToChoreDetails: (Chore.Id) -> Unit,
+    onNavigateToChoreDetails: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val backStack = rememberNavBackStack(TabKey.DASHBOARD)

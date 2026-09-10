@@ -15,9 +15,7 @@ struct ChoreCreateScreen: View {
             ScrollView(.vertical) {
                 switch onEnum(of: state) {
                 case .what:
-                    ChoreCreateWhat(
-                        name: $name,
-                    )
+                    ChoreCreateWhat(name: $name)
                 case .when:
                     ChoreCreateWhen(onRepeatClick: onRepeatClick)
                 case .whenDate:

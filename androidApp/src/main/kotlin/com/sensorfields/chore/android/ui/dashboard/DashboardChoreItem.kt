@@ -7,7 +7,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.sensorfields.chore.app.dashboard.DashboardState
 import com.sensorfields.chore.app.format
-import com.sensorfields.chore.domain.models.Chore
 import com.sensorfields.chore.theme.AppPreviewWrapper
 import com.sensorfields.chore.theme.ListItem
 import com.sensorfields.chore.theme.Text
@@ -33,7 +32,7 @@ fun DashboardChoreItem(
 private fun Preview() {
     DashboardChoreItem(
         state = DashboardState.ChoreItem(
-            id = Chore.Id("one"),
+            id = "one",
             name = "Some Chore that needs to be done",
             date = LocalDateTime.parse("1988-02-13T13:30:00"),
         ),

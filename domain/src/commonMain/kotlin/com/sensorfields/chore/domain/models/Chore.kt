@@ -6,18 +6,12 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.Month
 import kotlinx.datetime.atDate
-import kotlinx.serialization.Serializable
-import kotlin.jvm.JvmInline
 
 public data class Chore(
-    val id: Id,
+    val id: String,
     val name: String,
     val at: When,
 ) {
-    @JvmInline
-    @Serializable
-    public value class Id(public val value: String)
-
     public sealed interface When {
 
         public val time: LocalTime

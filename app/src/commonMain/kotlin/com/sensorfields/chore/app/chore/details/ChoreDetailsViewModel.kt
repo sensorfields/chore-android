@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.update
 
 @AssistedInject
 public class ChoreDetailsViewModel(
-    @Assisted private val choreId: Chore.Id,
+    @Assisted private val choreId: String,
     private val observeChoreUseCase: ObserveChoreUseCase,
 ) : ViewModel() {
 
@@ -57,6 +57,6 @@ public class ChoreDetailsViewModel(
     @ManualViewModelAssistedFactoryKey
     @ContributesIntoMap(AppScope::class)
     public fun interface Factory : ManualViewModelAssistedFactory {
-        public fun create(choreId: Chore.Id): ChoreDetailsViewModel
+        public fun create(choreId: String): ChoreDetailsViewModel
     }
 }

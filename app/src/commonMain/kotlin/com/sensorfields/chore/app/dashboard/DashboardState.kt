@@ -11,7 +11,7 @@ public data class DashboardState(
     val choreItems: ImmutableList<ChoreItem> = persistentListOf(),
 ) {
     public data class ChoreSort(val sortBy: Chore.SortProperty, val isAscending: Boolean)
-    public data class ChoreItem(val id: Chore.Id, val name: String, val date: LocalDateTime)
+    public data class ChoreItem(val id: String, val name: String, val date: LocalDateTime)
 }
 
 public fun List<Chore>.toState(): ImmutableList<DashboardState.ChoreItem> {

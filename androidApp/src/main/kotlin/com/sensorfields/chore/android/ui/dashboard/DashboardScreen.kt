@@ -36,7 +36,7 @@ fun DashboardScreen(
     state: DashboardState,
     onChoreSortByClick: (Chore.SortProperty) -> Unit,
     onCreateChoreClick: () -> Unit,
-    onChoreClick: (Chore.Id) -> Unit,
+    onChoreClick: (String) -> Unit,
     modifier: Modifier = Modifier,
     snackBarState: SnackBarState = rememberSnackBarState(),
 ) {
@@ -80,7 +80,7 @@ fun DashboardScreen(
                 .consumeWindowInsets(innerPadding)
                 .padding(innerPadding),
         ) {
-            items(state.choreItems, key = { it.id.value }) { itemState ->
+            items(state.choreItems, key = { it.id }) { itemState ->
                 DashboardChoreItem(
                     state = itemState,
                     onClick = { onChoreClick(itemState.id) },

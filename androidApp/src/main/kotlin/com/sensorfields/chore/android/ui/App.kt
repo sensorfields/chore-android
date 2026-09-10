@@ -76,5 +76,5 @@ private sealed interface RouteKey : NavKey {
     data object ChoreCreate : RouteKey
 
     @Serializable
-    data class ChoreDetails(val choreId: Chore.Id) : RouteKey
+    data class ChoreDetails(val choreId: String) : RouteKey
 }

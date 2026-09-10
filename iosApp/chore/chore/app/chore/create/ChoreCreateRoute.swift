@@ -6,7 +6,7 @@ struct ChoreCreateRoute: View {
 
     let onFinish: (DomainChore) -> Void
 
-    @ObservedObject var viewModel: ViewModel = ViewModel()
+    @ObservedObject private var viewModel: ViewModel = ViewModel()
 
     var body: some View {
         ChoreCreateScreen(
@@ -103,10 +103,4 @@ extension ChoreCreateState {
             return Date.distantPast
         }
     }
-}
-
-#Preview {
-    ChoreCreateRoute(
-        onFinish: { _ in },
-    )
 }

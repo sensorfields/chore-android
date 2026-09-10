@@ -10,7 +10,7 @@ internal fun ChoreEntity.toModel(timeZone: TimeZone): Chore {
     val dateTime = at.toLocalDateTime(timeZone)
 
     return Chore(
-        id = Chore.Id(id),
+        id = id,
         name = name,
         at = Chore.When.Once(
             time = dateTime.time,
