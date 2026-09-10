@@ -4,7 +4,7 @@ import SwiftUI
 
 struct ChoreCreateRoute: View {
 
-    let onFinish: (DomainChore) -> Void
+    let onFinish: (Chore) -> Void
 
     @ObservedObject private var viewModel: ViewModel = ViewModel()
 

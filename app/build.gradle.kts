@@ -14,6 +14,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "App"
             isStatic = true
+            export(projects.domain)
         }
     }
 
@@ -30,7 +31,7 @@ kotlin {
             implementation(projects.core)
             implementation(projects.resources)
             implementation(projects.data)
-            implementation(projects.domain)
+            api(projects.domain)
 
             api(libs.androidx.lifecycle.viewmodel)
 

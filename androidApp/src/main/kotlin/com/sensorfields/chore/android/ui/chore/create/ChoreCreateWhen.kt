@@ -10,7 +10,6 @@ import com.sensorfields.chore.app.chore.create.ChoreCreateState
 import com.sensorfields.chore.theme.AppPreviewWrapper
 import com.sensorfields.chore.theme.ListItem
 import com.sensorfields.chore.theme.Text
-import com.sensorfields.chore.theme.TitleMediumText
 
 @Composable
 fun ChoreCreateWhen(
@@ -20,22 +19,11 @@ fun ChoreCreateWhen(
     Column(
         modifier = modifier,
     ) {
-        TitleMediumText("Repeat")
-        ListItem(
-            modifier = Modifier.clickable { onRepeatClick(ChoreCreateState.When.Repeat.ONCE) },
-        ) { Text("Once") }
-        ListItem(
-            modifier = Modifier.clickable { onRepeatClick(ChoreCreateState.When.Repeat.DAILY) },
-        ) { Text("Daily") }
-        ListItem(
-            modifier = Modifier.clickable { onRepeatClick(ChoreCreateState.When.Repeat.WEEKLY) },
-        ) { Text("Weekly") }
-        ListItem(
-            modifier = Modifier.clickable { onRepeatClick(ChoreCreateState.When.Repeat.MONTHLY) },
-        ) { Text("Monthly") }
-        ListItem(
-            modifier = Modifier.clickable { onRepeatClick(ChoreCreateState.When.Repeat.YEARLY) },
-        ) { Text("Yearly") }
+        ChoreCreateState.When.Repeat.entries.forEach { repeat ->
+            ListItem(
+                modifier = Modifier.clickable { onRepeatClick(repeat) },
+            ) { Text(repeat.name) }
+        }
     }
 }
 
