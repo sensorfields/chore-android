@@ -16,6 +16,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "App"
             isStatic = true
+            export(libs.kotlinx.datetime)
             export(projects.resources)
             export(projects.domain)
         }
@@ -31,7 +32,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.core)
+            api(projects.core)
             api(projects.resources)
             implementation(projects.data)
             api(projects.domain)

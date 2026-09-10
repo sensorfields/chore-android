@@ -23,7 +23,7 @@ struct ChoreCreateScreen: View {
                 case .whenTime:
                     ChoreCreateWhenTime(time: $time)
                 case .whenWeek:
-                    Text("WHEN WEEK")
+                    ChoreCreateWhenWeek()
                 case .whenMonth:
                     Text("WHEN MONTH")
                 case .whenYear:
