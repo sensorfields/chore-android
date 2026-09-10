@@ -4,11 +4,14 @@ import SwiftUI
 
 struct DashboardRoute: View {
 
+    let onNavigateToChoreDetails: (String) -> Void
+
     @ObservedObject private var viewModel: ViewModel = ViewModel()
 
     var body: some View {
         DashboardScreen(
             state: viewModel.state,
+            onChoreClick: onNavigateToChoreDetails,
         )
         .task {
             await viewModel.state()

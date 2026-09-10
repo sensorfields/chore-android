@@ -2,7 +2,12 @@ import SwiftUI
 
 @Observable
 class AppNavigation {
+
     var path: [RouteKey] = []
+
+    func navigateBack() {
+        path.removeLast()
+    }
 
     func navigateToHome() {
         path.removeAll()
@@ -13,14 +18,15 @@ class AppNavigation {
         path.append(.choreCreate)
     }
 
-    func navigateBack() {
-        path.removeLast()
+    func navigateToChoreDetails(id: String) {
+        path.append(.choreDetails(id: id))
     }
 }
 
 enum RouteKey: Identifiable, Hashable, Codable {
     case home
     case choreCreate
+    case choreDetails(id: String)
 
     var id: Self { self }
 }

@@ -4,6 +4,7 @@ import SwiftUI
 struct DashboardScreen: View {
 
     let state: DashboardState
+    let onChoreClick: (String) -> Void
 
     @State private var selectedChore: String?
 
@@ -11,7 +12,7 @@ struct DashboardScreen: View {
         List(state.choreItems, id: \.id) { item in
             DashboardChoreItem(
                 state: item,
-                onClick: { NSLog("AAAAAA CLICK YOO \(item.name)") },
+                onClick: { onChoreClick(item.id) },
             )
         }
     }
@@ -36,6 +37,7 @@ struct DashboardScreen: View {
                     date: Date.distantFuture.toLocalDateTime(),
                 ),
             ],
-        )
+        ),
+        onChoreClick: { _ in },
     )
 }
