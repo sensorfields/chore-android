@@ -2,14 +2,16 @@ import SwiftUI
 
 struct ChoreCreateWhenTime: View {
 
-    @State private var date: Date = Date()
+    @Binding var time: Date
 
     var body: some View {
-        DatePicker(selection: $date, displayedComponents: [.hourAndMinute], label: {})
+        DatePicker(selection: $time, displayedComponents: [.hourAndMinute], label: {})
             .datePickerStyle(.wheel)
     }
 }
 
 #Preview {
-    ChoreCreateWhenTime()
+    ChoreCreateWhenTime(
+        time: Binding.constant(Date()),
+    )
 }

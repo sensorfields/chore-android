@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ChoreCreateWhenDate: View {
 
-    @State private var date: Date = Date()
+    @Binding var date: Date
 
     var body: some View {
         DatePicker(selection: $date, displayedComponents: [.date], label: {})
@@ -11,5 +11,7 @@ struct ChoreCreateWhenDate: View {
 }
 
 #Preview {
-    ChoreCreateWhenDate()
+    ChoreCreateWhenDate(
+        date: Binding.constant(Date()),
+    )
 }

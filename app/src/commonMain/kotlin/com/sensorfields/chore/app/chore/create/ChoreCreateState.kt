@@ -20,13 +20,13 @@ public sealed class ChoreCreateState(
     }
 
     public data class WhenDate(
-        override val isNextButtonEnabled: Boolean = false,
-        val date: LocalDate?,
+        override val isNextButtonEnabled: Boolean = true,
+        val date: LocalDate,
     ) : ChoreCreateState()
 
     public data class WhenTime(
-        override val isNextButtonEnabled: Boolean = false,
-        val time: LocalTime?,
+        override val isNextButtonEnabled: Boolean = true,
+        val time: LocalTime,
     ) : ChoreCreateState()
 
     public data class WhenWeek(

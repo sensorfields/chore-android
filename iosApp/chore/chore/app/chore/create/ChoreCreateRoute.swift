@@ -1,46 +1,73 @@
 import App
+import Combine
 import SwiftUI
 
 struct ChoreCreateRoute: View {
 
-    private let viewModel: ChoreCreateViewModel = appGraph.choreCreateViewModel
-
-    @State private var state: ChoreCreateState = ChoreCreateState.companion.initial()
+    @ObservedObject var viewModel: ViewModel = ViewModel()
 
     var body: some View {
-        VStack {
-            ScrollView(.vertical) {
-                switch onEnum(of: state) {
-                case .what(let what):
-                    ChoreCreateWhat(
-                        name: what.name,
-                        onNameChange: viewModel.onNameChange,
-                    )
-                case .when:
-                    ChoreCreateWhen(onRepeatClick: viewModel.onRepeatClick)
-                case .whenDate:
-                    ChoreCreateWhenDate()
-                case .whenTime:
-                    ChoreCreateWhenTime()
-                case .whenWeek:
-                    Text("WHEN WEEK")
-                case .whenMonth:
-                    Text("WHEN MONTH")
-                case .whenYear:
-                    Text("WHEN YEAR")
-                case .summary:
-                    Text("SUMMARY")
-                }
-            }
-            Group {
-                Button("Continue", action: viewModel.onNextClick)
-                    .disabled(!state.isNextButtonEnabled)
-                    .buttonStyle(BorderedProminentButtonStyle())
-            }
-        }.task {
-            for await state in viewModel.state {
+        ChoreCreateScreen(
+            state: viewModel.state,
+            name: $viewModel.name,
+            date: $viewModel.date,
+            time: $viewModel.time,
+            onRepeatClick: viewModel.onRepeatClick,
+            onNextClick: viewModel.onNextClick,
+        ).task {
+            await viewModel.observe()
+        }
+    }
+}
+
+extension ChoreCreateRoute {
+    class ViewModel: ObservableObject {
+
+        private let vm: ChoreCreateViewModel
+
+        @Published var state: ChoreCreateState
+
+        var name: String {
+            get { return state.whatName }
+            set { vm.onNameChange(name: newValue) }
+        }
+        var date: Date {
+            get { Date.now }
+            set {}
+        }
+        var time: Date {
+            get { Date.now }
+            set {}
+        }
+
+        init() {
+            vm = appGraph.choreCreateViewModel
+            state = vm.state.value
+        }
+
+        func observe() async {
+            for await state in vm.state {
                 self.state = state
             }
+        }
+
+        func onRepeatClick(repeatValue: ChoreCreateState.When.WhenRepeat) {
+            vm.onRepeatClick(repeat: repeatValue)
+        }
+
+        func onNextClick() {
+            vm.onNextClick()
+        }
+    }
+}
+
+extension ChoreCreateState {
+    var whatName: String {
+        switch onEnum(of: self) {
+        case .what(let what):
+            return what.name
+        default:
+            return ""
         }
     }
 }

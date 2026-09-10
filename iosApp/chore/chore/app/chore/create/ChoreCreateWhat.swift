@@ -3,31 +3,25 @@ import SwiftUI
 
 struct ChoreCreateWhat: View {
 
-    let name: String
-    let onNameChange: (String) -> Void
+    @Binding var name: String
 
     var body: some View {
         TextField(
-            text: Binding(
-                get: { name },
-                set: onNameChange,
-            )
+            text: $name,
         ) {
             Text("Name")
-        }
+        }.textFieldStyle(.roundedBorder)
     }
 }
 
 #Preview {
     ChoreCreateWhat(
-        name: "",
-        onNameChange: { _ in },
+        name: Binding.constant(""),
     )
 }
 
 #Preview {
     ChoreCreateWhat(
-        name: "Some name",
-        onNameChange: { _ in },
+        name: Binding.constant("Some name"),
     )
 }

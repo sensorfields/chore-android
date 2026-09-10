@@ -7,6 +7,7 @@ import com.sensorfields.chore.app.chore.create.ChoreCreateAction.ShowError
 import com.sensorfields.chore.app.chore.create.ChoreCreateState.When.Repeat
 import com.sensorfields.chore.core.ActionChannel
 import com.sensorfields.chore.domain.usecases.CreateChoreUseCase
+import com.sensorfields.chore.domain.usecases.GetLocalDateTimeUseCase
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.Inject
@@ -28,6 +29,7 @@ import kotlinx.datetime.Month
 @ViewModelKey
 @ContributesIntoMap(AppScope::class)
 public class ChoreCreateViewModel(
+    getLocalDateTimeUseCase: GetLocalDateTimeUseCase,
     private val createChoreUseCase: CreateChoreUseCase,
 ) : ViewModel() {
 
@@ -39,8 +41,8 @@ public class ChoreCreateViewModel(
 
     private var name: String = ""
     private var repeat: Repeat = Repeat.ONCE
-    private var date: LocalDate? = null
-    private var time: LocalTime? = null
+    private var date: LocalDate = getLocalDateTimeUseCase().date
+    private var time: LocalTime = getLocalDateTimeUseCase().time
     private var daysOfWeek = mutableSetOf<DayOfWeek>()
     private var daysOfMonth = mutableSetOf<Int>()
     private var months = mutableSetOf<Month>()
@@ -76,6 +78,7 @@ public class ChoreCreateViewModel(
     }
 
     public fun onDateChange(date: LocalDate?) {
+        val date = date ?: return
         this.date = date
         updateState()
     }
@@ -124,9 +127,7 @@ public class ChoreCreateViewModel(
             ChoreCreateState.When -> Unit
 
             is ChoreCreateState.WhenDate -> {
-                if (isDateValid()) {
-                    _state.update { ChoreCreateState.WhenTime(time = time) }
-                }
+                _state.update { ChoreCreateState.WhenTime(time = time) }
             }
 
             is ChoreCreateState.WhenTime -> {
@@ -162,18 +163,14 @@ public class ChoreCreateViewModel(
             }
 
             is ChoreCreateState.Summary -> viewModelScope.launch {
-                val date = date
-                val time = time
-                if (date != null && time != null) {
-                    _state.update { state.copy(isLoadingVisible = true) }
-                    when (val result = createChoreUseCase(name = name, date = date, time = time)) {
-                        is CreateChoreUseCase.Result.Success -> {
-                            _action.trySend(Finish(chore = result.chore))
-                        }
+                _state.update { state.copy(isLoadingVisible = true) }
+                when (val result = createChoreUseCase(name = name, date = date, time = time)) {
+                    is CreateChoreUseCase.Result.Success -> {
+                        _action.trySend(Finish(chore = result.chore))
+                    }
 
-                        is CreateChoreUseCase.Result.Failure -> {
-                            _action.trySend(ShowError(error = result.error))
-                        }
+                    is CreateChoreUseCase.Result.Failure -> {
+                        _action.trySend(ShowError(error = result.error))
                     }
                 }
             }
@@ -193,17 +190,11 @@ public class ChoreCreateViewModel(
                 ChoreCreateState.When -> it
 
                 is ChoreCreateState.WhenDate -> {
-                    it.copy(
-                        isNextButtonEnabled = isDateValid(),
-                        date = date,
-                    )
+                    it.copy(date = date)
                 }
 
                 is ChoreCreateState.WhenTime -> {
-                    it.copy(
-                        isNextButtonEnabled = isTimeValid(),
-                        time = time,
-                    )
+                    it.copy(time = time)
                 }
 
                 is ChoreCreateState.WhenWeek -> {
@@ -242,14 +233,6 @@ public class ChoreCreateViewModel(
 
     private fun isWhatValid(): Boolean {
         return name.isNotBlank()
-    }
-
-    private fun isDateValid(): Boolean {
-        return date != null
-    }
-
-    private fun isTimeValid(): Boolean {
-        return time != null
     }
 
     private fun isWeekValid(): Boolean {
