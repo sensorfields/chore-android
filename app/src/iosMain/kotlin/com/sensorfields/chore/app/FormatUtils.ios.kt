@@ -1,5 +1,6 @@
 package com.sensorfields.chore.app
 
+import com.sensorfields.chore.app.chore.create.ChoreCreateState
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
@@ -27,3 +28,5 @@ public fun NSDate.toLocalDate(): LocalDate = toLocalDateTime().date
 public fun NSDate.toLocalTime(): LocalTime = toLocalDateTime().time
 
 public fun StringResource.format(): String = runBlocking { getString(this@format) }
+
+public fun ChoreCreateState.When.Repeat.format(): String = this.resource.format()

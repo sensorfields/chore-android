@@ -8,7 +8,7 @@ import androidx.compose.ui.tooling.preview.Preview
 @Composable
 public fun IconButton(
     icon: Icons,
-    contentDescription: String?,
+    contentDescription: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,

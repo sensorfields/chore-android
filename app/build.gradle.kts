@@ -35,6 +35,7 @@ kotlin {
             api(projects.resources)
             implementation(projects.data)
             api(projects.domain)
+            implementation(projects.theme)
 
             api(libs.androidx.lifecycle.viewmodel)
 

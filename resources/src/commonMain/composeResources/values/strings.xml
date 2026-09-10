@@ -21,6 +21,12 @@
 
     <string name="settings_title">Settings</string>
 
+    <string name="chore_repeat_once">Once</string>
+    <string name="chore_repeat_daily">Daily</string>
+    <string name="chore_repeat_weekly">Weekly</string>
+    <string name="chore_repeat_monthly">Monthly</string>
+    <string name="chore_repeat_yearly">Yearly</string>
+
     <string name="chore_create_title">Add a chore</string>
     <string name="chore_create_name">Chore name</string>
     <string name="chore_create_next_button">Continue</string>

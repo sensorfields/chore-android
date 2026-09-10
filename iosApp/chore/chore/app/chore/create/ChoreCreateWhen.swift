@@ -8,7 +8,7 @@ struct ChoreCreateWhen: View {
     var body: some View {
         VStack {
             ForEach(ChoreCreateState.When.WhenRepeat.allCases, id: \.ordinal) { item in
-                Button(item.name, action: { onRepeatClick(item) })
+                Button(item.format(), action: { onRepeatClick(item) })
             }
             .buttonStyle(BorderedProminentButtonStyle())
         }
