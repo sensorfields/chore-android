@@ -36,8 +36,8 @@ public class ChoreCreateViewModel(
     private val _state = MutableStateFlow(ChoreCreateState.initial())
     public val state: StateFlow<ChoreCreateState> = _state.asStateFlow()
 
-    private val _action = ActionChannel<ChoreCreateAction>()
-    public val action: Flow<ChoreCreateAction> = _action.receiveAsFlow()
+    private val _actions = ActionChannel<ChoreCreateAction>()
+    public val actions: Flow<ChoreCreateAction> = _actions.receiveAsFlow()
 
     private var name: String = ""
     private var repeat: Repeat = Repeat.ONCE
@@ -166,11 +166,11 @@ public class ChoreCreateViewModel(
                 _state.update { state.copy(isLoadingVisible = true) }
                 when (val result = createChoreUseCase(name = name, date = date, time = time)) {
                     is CreateChoreUseCase.Result.Success -> {
-                        _action.trySend(Finish(chore = result.chore))
+                        _actions.trySend(Finish(chore = result.chore))
                     }
 
                     is CreateChoreUseCase.Result.Failure -> {
-                        _action.trySend(ShowError(error = result.error))
+                        _actions.trySend(ShowError(error = result.error))
                     }
                 }
             }

@@ -12,6 +12,10 @@ class AppNavigation {
     func navigateToChoreCreate() {
         path.append(.choreCreate)
     }
+
+    func navigateBack() {
+        path.removeLast()
+    }
 }
 
 enum RouteKey: Identifiable, Hashable, Codable {

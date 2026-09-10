@@ -4,6 +4,8 @@ import SwiftUI
 
 struct ChoreCreateRoute: View {
 
+    let onFinish: (DomainChore) -> Void
+
     @ObservedObject var viewModel: ViewModel = ViewModel()
 
     var body: some View {
@@ -15,7 +17,16 @@ struct ChoreCreateRoute: View {
             onRepeatClick: viewModel.onRepeatClick,
             onNextClick: viewModel.onNextClick,
         ).task {
-            await viewModel.observe()
+            await viewModel.state()
+        }.task {
+            await viewModel.actions { action in
+                switch onEnum(of: action) {
+                case .showError(let error):
+                    NSLog("SHOW ERROR YOO: \(error)")
+                case .finish(let finish):
+                    onFinish(finish.chore)
+                }
+            }
         }
     }
 }
@@ -45,9 +56,15 @@ extension ChoreCreateRoute {
             state = vm.state.value
         }
 
-        func observe() async {
+        func state() async {
             for await state in vm.state {
                 self.state = state
+            }
+        }
+
+        func actions(verbatim onAction: (ChoreCreateAction) -> Void) async {
+            for await action in vm.actions {
+                onAction(action)
             }
         }
 
@@ -89,5 +106,7 @@ extension ChoreCreateState {
 }
 
 #Preview {
-    ChoreCreateRoute()
+    ChoreCreateRoute(
+        onFinish: { _ in },
+    )
 }

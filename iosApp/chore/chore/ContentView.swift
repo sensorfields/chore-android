@@ -16,7 +16,12 @@ struct ContentView: View {
                         onNavigateToChoreCreate: appNavigation.navigateToChoreCreate,
                     )
                 case .choreCreate:
-                    ChoreCreateRoute()
+                    ChoreCreateRoute(
+                        onFinish: { chore in
+                            // TODO show snackbar
+                            appNavigation.navigateBack()
+                        },
+                    )
                 }
             }
         }
