@@ -28,16 +28,16 @@ extension ChoreCreateRoute {
         @Published var state: ChoreCreateState
 
         var name: String {
-            get { return state.whatName }
+            get { state.whatName }
             set { vm.onNameChange(name: newValue) }
         }
         var date: Date {
-            get { Date.now }
-            set {}
+            get { state.whenDate }
+            set { vm.onDateChange(date: newValue.toLocalDate()) }
         }
         var time: Date {
-            get { Date.now }
-            set {}
+            get { state.whenTime }
+            set { vm.onTimeChange(time: newValue.toLocalTime()) }
         }
 
         init() {
@@ -68,6 +68,22 @@ extension ChoreCreateState {
             return what.name
         default:
             return ""
+        }
+    }
+    var whenDate: Date {
+        switch onEnum(of: self) {
+        case .whenDate(let whenDate):
+            return whenDate.date.toDate()
+        default:
+            return Date.distantPast
+        }
+    }
+    var whenTime: Date {
+        switch onEnum(of: self) {
+        case .whenTime(let whenTime):
+            return whenTime.time.toDate()
+        default:
+            return Date.distantPast
         }
     }
 }
