@@ -1,5 +1,6 @@
 package com.sensorfields.chore.app
 
+import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
@@ -8,6 +9,8 @@ import kotlinx.datetime.atDate
 import kotlinx.datetime.atTime
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.getString
 import platform.Foundation.NSDate
 import platform.Foundation.dateWithTimeIntervalSince1970
 import platform.Foundation.timeIntervalSince1970
@@ -22,3 +25,5 @@ public fun NSDate.toInstant(): Instant = Instant.fromEpochSeconds(this.timeInter
 public fun NSDate.toLocalDateTime(): LocalDateTime = toInstant().toLocalDateTime(TimeZone.UTC)
 public fun NSDate.toLocalDate(): LocalDate = toLocalDateTime().date
 public fun NSDate.toLocalTime(): LocalTime = toLocalDateTime().time
+
+public fun StringResource.format(): String = runBlocking { getString(this@format) }

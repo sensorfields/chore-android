@@ -33,7 +33,7 @@ struct ChoreCreateScreen: View {
                 }
             }
             Group {
-                Button("Continue", action: onNextClick)
+                Button(Res.string.shared.chore_create_next_button.format(), action: onNextClick)
                     .disabled(!state.isNextButtonEnabled)
                     .buttonStyle(BorderedProminentButtonStyle())
             }

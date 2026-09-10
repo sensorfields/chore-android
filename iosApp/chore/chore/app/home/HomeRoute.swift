@@ -1,3 +1,4 @@
+import App
 import SwiftUI
 
 struct HomeRoute: View {
@@ -9,20 +10,24 @@ struct HomeRoute: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            Tab("Dashboard", systemImage: "house", value: .dashboard) {
+            Tab(Res.string.shared.home_navigation_dashboard.format(), systemImage: "house", value: .dashboard) {
                 DashboardRoute(
                     onNavigateToChoreDetails: onNavigateToChoreDetails,
                 )
             }
-            Tab("Stats", systemImage: "chart.bar", value: .stats) {
+            Tab(Res.string.shared.home_navigation_stats.format(), systemImage: "chart.bar", value: .stats) {
                 StatsRoute()
             }
-            Tab("Settings", systemImage: "gearshape", value: .settings) {
+            Tab(Res.string.shared.home_navigation_settings.format(), systemImage: "gearshape", value: .settings) {
                 SettingsRoute()
             }
         }
         .toolbar {
-            Button("Create Chore", systemImage: "plus", action: onNavigateToChoreCreate)
+            Button(
+                Res.string.shared.dashboard_chore_create_button.format(),
+                systemImage: "plus",
+                action: onNavigateToChoreCreate,
+            )
         }
     }
 }

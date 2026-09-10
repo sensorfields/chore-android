@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.multiplatform.library)
+    alias(libs.plugins.compose)
     alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.metro)
     alias(libs.plugins.skie)
@@ -14,6 +16,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "App"
             isStatic = true
+            export(projects.resources)
             export(projects.domain)
         }
     }
@@ -29,7 +32,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.core)
-            implementation(projects.resources)
+            api(projects.resources)
             implementation(projects.data)
             api(projects.domain)
 

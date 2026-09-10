@@ -9,7 +9,7 @@ struct ChoreCreateWhat: View {
         TextField(
             text: $name,
         ) {
-            Text("Name")
+            Text(Res.string.shared.chore_create_name.format())
         }.textFieldStyle(.roundedBorder)
     }
 }

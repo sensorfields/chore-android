@@ -1,8 +1,9 @@
+import App
 import SwiftUI
 
 struct StatsRoute: View {
     var body: some View {
-        Text("Stats")
+        Text(Res.string.shared.stats_title.format())
     }
 }
 
