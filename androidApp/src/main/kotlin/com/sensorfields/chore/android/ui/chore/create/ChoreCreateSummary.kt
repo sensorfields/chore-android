@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.sensorfields.chore.app.chore.create.ChoreCreateState
+import com.sensorfields.chore.app.format
 import com.sensorfields.chore.theme.Text
 import com.sensorfields.chore.theme.TitleMediumText
 import kotlinx.collections.immutable.ImmutableSet
@@ -16,8 +17,8 @@ import kotlinx.datetime.Month
 fun ChoreCreateSummary(
     name: String,
     repeat: ChoreCreateState.When.Repeat,
-    date: LocalDate?,
-    time: LocalTime?,
+    date: LocalDate,
+    time: LocalTime,
     daysOfWeek: ImmutableSet<DayOfWeek>,
     daysOfMonth: ImmutableSet<Int>,
     months: ImmutableSet<Month>,
@@ -26,8 +27,8 @@ fun ChoreCreateSummary(
     Column(modifier = modifier) {
         TitleMediumText(name)
         Text("Repeat: $repeat")
-        Text("Date: $date")
-        Text("Time: $time")
+        Text("Date: ${date.format()}")
+        Text("Time: ${time.format()}")
         Text("Days of week: $daysOfWeek")
         Text("Days of month: $daysOfMonth")
         Text("Months: $months")

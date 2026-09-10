@@ -47,8 +47,8 @@ public sealed class ChoreCreateState(
     public data class Summary(
         val name: String,
         val repeat: When.Repeat,
-        val date: LocalDate?,
-        val time: LocalTime?,
+        val date: LocalDate,
+        val time: LocalTime,
         val daysOfWeek: ImmutableSet<DayOfWeek>,
         val daysOfMonth: ImmutableSet<Int>,
         val months: ImmutableSet<Month>,

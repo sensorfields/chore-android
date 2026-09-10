@@ -30,8 +30,8 @@ struct ChoreCreateScreen: View {
                     Text("WHEN MONTH")
                 case .whenYear:
                     Text("WHEN YEAR")
-                case .summary:
-                    Text("SUMMARY")
+                case .summary(let summary):
+                    ChoreCreateSummary(state: summary)
                 }
             }
             Group {
