@@ -4,15 +4,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sensorfields.chore.app.chore.create.ChoreCreateAction.Finish
 import com.sensorfields.chore.app.chore.create.ChoreCreateAction.ShowError
-import com.sensorfields.chore.app.chore.create.ChoreCreateState.When.Repeat
+import com.sensorfields.chore.app.chore.create.ChoreCreateState.Repeat
+import com.sensorfields.chore.app.chore.create.ChoreCreateState.Step
+import com.sensorfields.chore.app.generateSelectableItemState
 import com.sensorfields.chore.core.ActionChannel
+import com.sensorfields.chore.core.AppConfig
 import com.sensorfields.chore.domain.usecases.CreateChoreUseCase
 import com.sensorfields.chore.domain.usecases.GetLocalDateTimeUseCase
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metrox.viewmodel.ViewModelKey
-import kotlinx.collections.immutable.toImmutableSet
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -39,6 +41,7 @@ public class ChoreCreateViewModel(
     private val _actions = ActionChannel<ChoreCreateAction>()
     public val actions: Flow<ChoreCreateAction> = _actions.receiveAsFlow()
 
+    private var step: Step = Step.WHAT
     private var name: String = ""
     private var repeat: Repeat = Repeat.ONCE
     private var date: LocalDate = getLocalDateTimeUseCase().date
@@ -46,6 +49,7 @@ public class ChoreCreateViewModel(
     private var daysOfWeek = mutableSetOf<DayOfWeek>()
     private var daysOfMonth = mutableSetOf<Int>()
     private var months = mutableSetOf<Month>()
+    private var createInProgress: Boolean = false
 
     public fun onNameChange(name: String) {
         this.name = name
@@ -54,27 +58,14 @@ public class ChoreCreateViewModel(
 
     public fun onRepeatClick(repeat: Repeat) {
         this.repeat = repeat
-        when (repeat) {
-            Repeat.ONCE -> {
-                _state.update { ChoreCreateState.WhenDate(date = date) }
-            }
-
-            Repeat.DAILY -> {
-                _state.update { ChoreCreateState.WhenTime(time = time) }
-            }
-
-            Repeat.WEEKLY -> {
-                _state.update { ChoreCreateState.WhenWeek(days = daysOfWeek.toImmutableSet()) }
-            }
-
-            Repeat.MONTHLY -> {
-                _state.update { ChoreCreateState.WhenMonth(days = daysOfMonth.toImmutableSet()) }
-            }
-
-            Repeat.YEARLY -> {
-                _state.update { ChoreCreateState.WhenYear(months = months.toImmutableSet()) }
-            }
+        step = when (repeat) {
+            Repeat.ONCE -> Step.WHEN_DATE
+            Repeat.DAILY -> Step.WHEN_TIME
+            Repeat.WEEKLY -> Step.WHEN_WEEK
+            Repeat.MONTHLY -> Step.WHEN_MONTH
+            Repeat.YEARLY -> Step.WHEN_YEAR
         }
+        updateState()
     }
 
     public fun onDateChange(date: LocalDate?) {
@@ -117,53 +108,50 @@ public class ChoreCreateViewModel(
 
     @Suppress("CyclomaticComplexMethod")
     public fun onNextClick() {
-        when (val state = _state.value) {
-            is ChoreCreateState.What -> {
+        when (step) {
+            Step.WHAT -> {
                 if (isWhatValid()) {
-                    _state.update { ChoreCreateState.When }
+                    step = Step.WHEN
+                    updateState()
                 }
             }
 
-            ChoreCreateState.When -> Unit
+            Step.WHEN -> Unit
 
-            is ChoreCreateState.WhenDate -> {
-                _state.update { ChoreCreateState.WhenTime(time = time) }
+            Step.WHEN_DATE -> {
+                step = Step.WHEN_TIME
+                updateState()
             }
 
-            is ChoreCreateState.WhenTime -> {
-                _state.update {
-                    ChoreCreateState.Summary(
-                        name = name,
-                        repeat = repeat,
-                        date = date,
-                        time = time,
-                        daysOfWeek = daysOfWeek.toImmutableSet(),
-                        daysOfMonth = daysOfMonth.toImmutableSet(),
-                        months = months.toImmutableSet(),
-                    )
-                }
+            Step.WHEN_TIME -> {
+                step = Step.SUMMARY
+                updateState()
             }
 
-            is ChoreCreateState.WhenWeek -> {
+            Step.WHEN_WEEK -> {
                 if (isWeekValid()) {
-                    _state.update { ChoreCreateState.WhenTime(time = time) }
+                    step = Step.WHEN_TIME
+                    updateState()
                 }
             }
 
-            is ChoreCreateState.WhenMonth -> {
+            Step.WHEN_MONTH -> {
                 if (isMonthValid()) {
-                    _state.update { ChoreCreateState.WhenTime(time = time) }
+                    step = Step.WHEN_TIME
+                    updateState()
                 }
             }
 
-            is ChoreCreateState.WhenYear -> {
+            Step.WHEN_YEAR -> {
                 if (isYearValid()) {
-                    _state.update { ChoreCreateState.WhenMonth(days = daysOfMonth.toImmutableSet()) }
+                    step = Step.WHEN_MONTH
+                    updateState()
                 }
             }
 
-            is ChoreCreateState.Summary -> viewModelScope.launch {
-                _state.update { state.copy(isLoadingVisible = true) }
+            Step.SUMMARY -> viewModelScope.launch {
+                createInProgress = true
+                updateState()
                 when (val result = createChoreUseCase(name = name, date = date, time = time)) {
                     is CreateChoreUseCase.Result.Success -> {
                         _actions.trySend(Finish(chore = result.chore))
@@ -179,55 +167,31 @@ public class ChoreCreateViewModel(
 
     private fun updateState() {
         _state.update {
-            when (it) {
-                is ChoreCreateState.What -> {
-                    it.copy(
-                        isNextButtonEnabled = isWhatValid(),
-                        name = name,
-                    )
-                }
+            ChoreCreateState(
+                step = step,
+                name = name,
+                repeat = repeat,
+                date = date,
+                time = time,
+                daysOfWeek = generateSelectableItemState(daysOfWeek),
+                daysOfMonth = generateSelectableItemState(range = AppConfig.DAY_OF_MONTH_RANGE, selected = daysOfMonth),
+                months = generateSelectableItemState(months),
+                isNextButtonEnabled = isNextButtonEnabled(),
+                isLoadingVisible = createInProgress,
+            )
+        }
+    }
 
-                ChoreCreateState.When -> it
-
-                is ChoreCreateState.WhenDate -> {
-                    it.copy(date = date)
-                }
-
-                is ChoreCreateState.WhenTime -> {
-                    it.copy(time = time)
-                }
-
-                is ChoreCreateState.WhenWeek -> {
-                    it.copy(
-                        isNextButtonEnabled = isWeekValid(),
-                        days = daysOfWeek.toImmutableSet(),
-                    )
-                }
-
-                is ChoreCreateState.WhenMonth -> {
-                    it.copy(
-                        isNextButtonEnabled = isMonthValid(),
-                        days = daysOfMonth.toImmutableSet(),
-                    )
-                }
-
-                is ChoreCreateState.WhenYear -> {
-                    it.copy(
-                        isNextButtonEnabled = isYearValid(),
-                        months = months.toImmutableSet(),
-                    )
-                }
-
-                is ChoreCreateState.Summary -> {
-                    it.copy(
-                        name = name,
-                        repeat = repeat,
-                        date = date,
-                        time = time,
-                        daysOfWeek = daysOfWeek.toImmutableSet(),
-                    )
-                }
-            }
+    private fun isNextButtonEnabled(): Boolean {
+        return when (step) {
+            Step.WHAT -> isWhatValid()
+            Step.WHEN -> false
+            Step.WHEN_DATE -> true
+            Step.WHEN_TIME -> true
+            Step.WHEN_WEEK -> isWeekValid()
+            Step.WHEN_MONTH -> isMonthValid()
+            Step.WHEN_YEAR -> isYearValid()
+            Step.SUMMARY -> true
         }
     }
 
@@ -244,7 +208,6 @@ public class ChoreCreateViewModel(
     }
 
     private fun isYearValid(): Boolean {
-        // TODO check screen
         return months.isNotEmpty()
     }
 }

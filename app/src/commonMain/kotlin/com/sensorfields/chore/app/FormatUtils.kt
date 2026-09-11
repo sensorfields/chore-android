@@ -23,11 +23,11 @@ public fun LocalDateTime.format(): String = LocalDateTime.Formats.ISO.format(thi
 public fun LocalDate.format(): String = LocalDate.Formats.ISO.format(this)
 public fun LocalTime.format(): String = LocalTime.Formats.ISO.format(this)
 
-public val ChoreCreateState.When.Repeat.resource: StringResource
+public val ChoreCreateState.Repeat.resource: StringResource
     get() = when (this) {
-        ChoreCreateState.When.Repeat.ONCE -> Res.string.chore_repeat_once
-        ChoreCreateState.When.Repeat.DAILY -> Res.string.chore_repeat_daily
-        ChoreCreateState.When.Repeat.WEEKLY -> Res.string.chore_repeat_weekly
-        ChoreCreateState.When.Repeat.MONTHLY -> Res.string.chore_repeat_monthly
-        ChoreCreateState.When.Repeat.YEARLY -> Res.string.chore_repeat_yearly
+        ChoreCreateState.Repeat.ONCE -> Res.string.chore_repeat_once
+        ChoreCreateState.Repeat.DAILY -> Res.string.chore_repeat_daily
+        ChoreCreateState.Repeat.WEEKLY -> Res.string.chore_repeat_weekly
+        ChoreCreateState.Repeat.MONTHLY -> Res.string.chore_repeat_monthly
+        ChoreCreateState.Repeat.YEARLY -> Res.string.chore_repeat_yearly
     }

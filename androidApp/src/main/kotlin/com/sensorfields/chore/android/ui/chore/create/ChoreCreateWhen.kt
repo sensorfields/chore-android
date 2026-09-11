@@ -14,13 +14,13 @@ import com.sensorfields.chore.theme.Text
 
 @Composable
 fun ChoreCreateWhen(
-    onRepeatClick: (ChoreCreateState.When.Repeat) -> Unit,
+    onRepeatClick: (ChoreCreateState.Repeat) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier,
     ) {
-        ChoreCreateState.When.Repeat.entries.forEach { repeat ->
+        ChoreCreateState.Repeat.entries.forEach { repeat ->
             ListItem(
                 modifier = Modifier.clickable { onRepeatClick(repeat) },
             ) { Text(repeat.format()) }

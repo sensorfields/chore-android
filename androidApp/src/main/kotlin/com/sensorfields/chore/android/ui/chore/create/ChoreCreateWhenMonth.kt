@@ -11,15 +11,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
+import com.sensorfields.chore.app.SelectableItemState
+import com.sensorfields.chore.app.generateSelectableItemState
+import com.sensorfields.chore.core.AppConfig
 import com.sensorfields.chore.theme.AppPreviewWrapper
 import com.sensorfields.chore.theme.Text
 import com.sensorfields.chore.theme.ToggleButton
-import kotlinx.collections.immutable.ImmutableSet
-import kotlinx.collections.immutable.persistentSetOf
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun ChoreCreateWhenMonth(
-    days: ImmutableSet<Int>,
+    items: ImmutableList<SelectableItemState<Int>>,
     onDayCheckedChange: (Int, Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -30,18 +32,15 @@ fun ChoreCreateWhenMonth(
                 horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start),
             ) {
                 repeat(COLUMNS) { column ->
-                    val day = row * COLUMNS + column + 1
-                    if (day <= MAX_DAYS) {
+                    items.getOrNull(row * COLUMNS + column)?.let { item ->
                         ToggleButton(
-                            checked = days.contains(day),
-                            onCheckedChange = { onDayCheckedChange(day, it) },
+                            checked = item.selected,
+                            onCheckedChange = { onDayCheckedChange(item.value, it) },
                             modifier = Modifier.weight(1f),
                         ) {
-                            Text("$day")
+                            Text("${item.value}")
                         }
-                    } else {
-                        Spacer(Modifier.weight(1f))
-                    }
+                    } ?: Spacer(Modifier.weight(1f))
                 }
             }
         }
@@ -50,14 +49,13 @@ fun ChoreCreateWhenMonth(
 
 private const val ROWS = 5
 private const val COLUMNS = 7
-private const val MAX_DAYS = 31
 
 @Preview
 @PreviewWrapper(AppPreviewWrapper::class)
 @Composable
 private fun PreviewEmpty() {
     ChoreCreateWhenMonth(
-        days = persistentSetOf(),
+        items = generateSelectableItemState(range = AppConfig.DAY_OF_MONTH_RANGE),
         onDayCheckedChange = { _, _ -> },
     )
 }
