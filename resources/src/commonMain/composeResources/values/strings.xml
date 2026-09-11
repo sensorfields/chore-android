@@ -3,6 +3,27 @@
     <string name="close_button">Close</string>
     <string name="error_general">Something went wrong</string>
 
+    <string name="day_of_month_monday">Monday</string>
+    <string name="day_of_month_tuesday">Tuesday</string>
+    <string name="day_of_month_wednesday">Wednesday</string>
+    <string name="day_of_month_thursday">Thursday</string>
+    <string name="day_of_month_friday">Friday</string>
+    <string name="day_of_month_saturday">Saturday</string>
+    <string name="day_of_month_sunday">Sunday</string>
+
+    <string name="month_january">January</string>
+    <string name="month_february">February</string>
+    <string name="month_march">March</string>
+    <string name="month_april">April</string>
+    <string name="month_may">May</string>
+    <string name="month_june">June</string>
+    <string name="month_july">July</string>
+    <string name="month_august">August</string>
+    <string name="month_september">September</string>
+    <string name="month_october">October</string>
+    <string name="month_november">November</string>
+    <string name="month_december">December</string>
+
     <string name="home_navigation_dashboard">Dashboard</string>
     <string name="home_navigation_stats">Stats</string>
     <string name="home_navigation_settings">Settings</string>

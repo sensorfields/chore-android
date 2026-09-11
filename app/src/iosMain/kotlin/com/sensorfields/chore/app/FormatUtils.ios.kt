@@ -2,12 +2,16 @@ package com.sensorfields.chore.app
 
 import com.sensorfields.chore.app.chore.create.ChoreCreateState
 import kotlinx.coroutines.runBlocking
+import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
+import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atDate
 import kotlinx.datetime.atTime
+import kotlinx.datetime.format.DayOfWeekNames
+import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.StringResource
@@ -30,3 +34,13 @@ public fun NSDate.toLocalTime(): LocalTime = toLocalDateTime().time
 public fun StringResource.format(): String = runBlocking { getString(this@format) }
 
 public fun ChoreCreateState.Repeat.format(): String = this.resource.format()
+
+public fun DayOfWeek.format(): String = dayOfWeekNames().names[ordinal]
+
+public fun Month.format(): String = monthNames().names[ordinal]
+
+private fun dayOfWeekNames(): DayOfWeekNames = runBlocking {
+    DayOfWeekNames(DayOfWeek.entries.map { getString(it.resource) })
+}
+
+private fun monthNames(): MonthNames = runBlocking { MonthNames(Month.entries.map { getString(it.resource) }) }

@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.compose.ui.unit.dp
 import com.sensorfields.chore.app.SelectableItemState
+import com.sensorfields.chore.app.formatDayOfMonth
 import com.sensorfields.chore.app.generateSelectableItemState
 import com.sensorfields.chore.core.AppConfig
 import com.sensorfields.chore.theme.AppPreviewWrapper
@@ -26,19 +27,19 @@ fun ChoreCreateWhenMonth(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
-        repeat(ROWS) { row ->
+        repeat(AppConfig.MONTH_ROWS) { row ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start),
             ) {
-                repeat(COLUMNS) { column ->
-                    items.getOrNull(row * COLUMNS + column)?.let { item ->
+                repeat(AppConfig.MONTH_COLUMNS) { column ->
+                    items.getOrNull(row * AppConfig.MONTH_COLUMNS + column)?.let { item ->
                         ToggleButton(
                             checked = item.selected,
                             onCheckedChange = { onDayCheckedChange(item.value, it) },
                             modifier = Modifier.weight(1f),
                         ) {
-                            Text("${item.value}")
+                            Text(item.value.formatDayOfMonth())
                         }
                     } ?: Spacer(Modifier.weight(1f))
                 }
@@ -46,9 +47,6 @@ fun ChoreCreateWhenMonth(
         }
     }
 }
-
-private const val ROWS = 5
-private const val COLUMNS = 7
 
 @Preview
 @PreviewWrapper(AppPreviewWrapper::class)
