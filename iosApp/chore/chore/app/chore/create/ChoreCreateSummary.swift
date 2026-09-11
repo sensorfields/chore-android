@@ -6,14 +6,16 @@ struct ChoreCreateSummary: View {
     let state: ChoreCreateState.Summary
 
     var body: some View {
-        VStack {
-            Text(state.name)
-            Text(state.repeat.name)
-            Text(state.date.format())
-            Text(state.time.format())
-            Text(state.daysOfWeek.map({ $0.name }).joined(separator: ","))
-            Text(state.daysOfMonth.map({ $0.stringValue }).joined(separator: ","))
-            Text(state.months.map({ $0.name }).joined(separator: ","))
+        ScrollView(.vertical) {
+            VStack {
+                Text(state.name)
+                Text(state.repeat.name)
+                Text(state.date.format())
+                Text(state.time.format())
+                Text(state.daysOfWeek.map({ $0.name }).joined(separator: ","))
+                Text(state.daysOfMonth.map({ $0.stringValue }).joined(separator: ","))
+                Text(state.months.map({ $0.name }).joined(separator: ","))
+            }
         }
     }
 }

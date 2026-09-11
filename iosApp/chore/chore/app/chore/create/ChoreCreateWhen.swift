@@ -6,11 +6,13 @@ struct ChoreCreateWhen: View {
     let onRepeatClick: (ChoreCreateState.When.WhenRepeat) -> Void
 
     var body: some View {
-        VStack {
-            ForEach(ChoreCreateState.When.WhenRepeat.allCases, id: \.ordinal) { item in
-                Button(item.format(), action: { onRepeatClick(item) })
+        ScrollView(.vertical) {
+            VStack {
+                ForEach(ChoreCreateState.When.WhenRepeat.allCases, id: \.ordinal) { item in
+                    Button(item.format(), action: { onRepeatClick(item) })
+                }
+                .buttonStyle(BorderedProminentButtonStyle())
             }
-            .buttonStyle(BorderedProminentButtonStyle())
         }
     }
 }

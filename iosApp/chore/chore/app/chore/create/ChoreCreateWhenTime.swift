@@ -5,8 +5,10 @@ struct ChoreCreateWhenTime: View {
     @Binding var time: Date
 
     var body: some View {
-        DatePicker(selection: $time, displayedComponents: [.hourAndMinute], label: {})
-            .datePickerStyle(.wheel)
+        ScrollView(.vertical) {
+            DatePicker(selection: $time, displayedComponents: [.hourAndMinute], label: {})
+                .datePickerStyle(.wheel)
+        }
     }
 }
 

@@ -6,11 +6,13 @@ struct ChoreCreateWhat: View {
     @Binding var name: String
 
     var body: some View {
-        TextField(
-            text: $name,
-        ) {
-            Text(Res.string.shared.chore_create_name.format())
-        }.textFieldStyle(.roundedBorder)
+        ScrollView(.vertical) {
+            TextField(
+                text: $name,
+            ) {
+                Text(Res.string.shared.chore_create_name.format())
+            }.textFieldStyle(.roundedBorder)
+        }
     }
 }
 
