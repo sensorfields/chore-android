@@ -4,14 +4,16 @@ import SwiftUI
 struct ChoreCreateWhat: View {
 
     @Binding var name: String
+    @FocusState var focused: Bool
 
     var body: some View {
         ScrollView(.vertical) {
-            TextField(
-                text: $name,
-            ) {
-                Text(Res.string.shared.chore_create_name.format())
-            }.textFieldStyle(.roundedBorder)
+            TextField(Res.string.shared.chore_create_name.format(), text: $name)
+                .textFieldStyle(.roundedBorder)
+                .focused($focused)
+        }
+        .onAppear {
+            focused = true
         }
     }
 }
