@@ -3,18 +3,18 @@ import SwiftUI
 
 struct ChoreCreateSummary: View {
 
-    let state: ChoreCreateState.Summary
+    let state: ChoreCreateState
 
     var body: some View {
         ScrollView(.vertical) {
             VStack {
                 Text(state.name)
-                Text(state.repeat.name)
+                Text(state.name)
                 Text(state.date.format())
                 Text(state.time.format())
-                Text(state.daysOfWeek.map({ $0.name }).joined(separator: ","))
-                Text(state.daysOfMonth.map({ $0.stringValue }).joined(separator: ","))
-                Text(state.months.map({ $0.name }).joined(separator: ","))
+//                Text(state.daysOfWeek.map({ $0.name }).joined(separator: ","))
+//                Text(state.daysOfMonth.map({ $0.stringValue }).joined(separator: ","))
+//                Text(state.months.map({ $0.name }).joined(separator: ","))
             }
         }
     }
@@ -22,14 +22,16 @@ struct ChoreCreateSummary: View {
 
 #Preview {
     ChoreCreateSummary(
-        state: ChoreCreateState.Summary(
+        state: ChoreCreateState(
+            step: .summary,
             name: "Some name",
             repeat: .once,
             date: Date.distantFuture.toLocalDate(),
             time: Date.distantFuture.toLocalTime(),
-            daysOfWeek: [.wednesday, .friday],
-            daysOfMonth: [15, 25],
-            months: [.february, .november],
+            daysOfWeek: [],
+            daysOfMonth: [],
+            months: [],
+            isNextButtonEnabled: true,
             isLoadingVisible: false,
         ),
     )

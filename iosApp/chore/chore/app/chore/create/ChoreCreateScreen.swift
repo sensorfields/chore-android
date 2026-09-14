@@ -7,12 +7,12 @@ struct ChoreCreateScreen: View {
     @Binding var name: String
     @Binding var date: Date
     @Binding var time: Date
-    let onRepeatClick: (ChoreCreateState.When.WhenRepeat) -> Void
+    let onRepeatClick: (ChoreCreateState.Repeat) -> Void
     let onNextClick: () -> Void
 
     var body: some View {
         Group {
-            switch onEnum(of: state) {
+            switch state.step {
             case .what:
                 ChoreCreateWhat(name: $name)
             case .when:
@@ -27,8 +27,8 @@ struct ChoreCreateScreen: View {
                 Text("WHEN MONTH")
             case .whenYear:
                 Text("WHEN YEAR")
-            case .summary(let summary):
-                ChoreCreateSummary(state: summary)
+            case .summary:
+                ChoreCreateSummary(state: state)
             }
         }
         .safeAreaInset(edge: .bottom) {

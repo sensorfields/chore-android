@@ -39,15 +39,15 @@ extension ChoreCreateRoute {
         @Published var state: ChoreCreateState
 
         var name: String {
-            get { state.whatName }
+            get { state.name }
             set { vm.onNameChange(name: newValue) }
         }
         var date: Date {
-            get { state.whenDate }
+            get { state.date.toDate() }
             set { vm.onDateChange(date: newValue.toLocalDate()) }
         }
         var time: Date {
-            get { state.whenTime }
+            get { state.time.toDate() }
             set { vm.onTimeChange(time: newValue.toLocalTime()) }
         }
 
@@ -68,39 +68,12 @@ extension ChoreCreateRoute {
             }
         }
 
-        func onRepeatClick(repeatValue: ChoreCreateState.When.WhenRepeat) {
+        func onRepeatClick(repeatValue: ChoreCreateState.Repeat) {
             vm.onRepeatClick(repeat: repeatValue)
         }
 
         func onNextClick() {
             vm.onNextClick()
-        }
-    }
-}
-
-extension ChoreCreateState {
-    var whatName: String {
-        switch onEnum(of: self) {
-        case .what(let what):
-            return what.name
-        default:
-            return ""
-        }
-    }
-    var whenDate: Date {
-        switch onEnum(of: self) {
-        case .whenDate(let whenDate):
-            return whenDate.date.toDate()
-        default:
-            return Date.distantPast
-        }
-    }
-    var whenTime: Date {
-        switch onEnum(of: self) {
-        case .whenTime(let whenTime):
-            return whenTime.time.toDate()
-        default:
-            return Date.distantPast
         }
     }
 }

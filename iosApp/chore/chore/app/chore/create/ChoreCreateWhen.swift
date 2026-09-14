@@ -3,12 +3,12 @@ import SwiftUI
 
 struct ChoreCreateWhen: View {
 
-    let onRepeatClick: (ChoreCreateState.When.WhenRepeat) -> Void
+    let onRepeatClick: (ChoreCreateState.Repeat) -> Void
 
     var body: some View {
         ScrollView(.vertical) {
             VStack {
-                ForEach(ChoreCreateState.When.WhenRepeat.allCases, id: \.ordinal) { item in
+                ForEach(ChoreCreateState.Repeat.allCases, id: \.ordinal) { item in
                     Button(item.format(), action: { onRepeatClick(item) })
                 }
                 .buttonStyle(BorderedProminentButtonStyle())
