@@ -14,6 +14,6 @@ struct ChoreCreateWhenWeek: View {
 
 #Preview {
     ChoreCreateWhenWeek(
-        items: Binding.constant([]),
+        items: Binding.constant(generateSelectableItems(selected: [.wednesday])),
     )
 }
