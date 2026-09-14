@@ -3,13 +3,17 @@ import SwiftUI
 
 struct ChoreCreateWhenWeek: View {
 
+    @Binding var items: [SelectableItem<DayOfWeek>]
+
     var body: some View {
-        List(DayOfWeek.allCases, id: \.ordinal) { day in
-            Toggle(day.name, isOn: Binding.constant(false))
+        List(items.enumerated(), id: \.offset) { index, item in
+            Toggle(item.value.format(), isOn: $items[index].isOn)
         }
     }
 }
 
 #Preview {
-    ChoreCreateWhenWeek()
+    ChoreCreateWhenWeek(
+        items: Binding.constant([]),
+    )
 }
