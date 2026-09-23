@@ -5,7 +5,7 @@ android-compileSdk = "37"
 android-minSdk = "29"
 android-targetSdk = "37"
 
-android-tools-build = "9.4.0"
+android-tools-build = "9.4.1"
 android-tools-desugar = "2.1.5"
 
 kotlin = "2.4.10"
@@ -14,7 +14,7 @@ kotlinx-serialization = "1.11.0"
 kotlinx-collections-immutable = "0.5.2"
 kotlinx-datetime = "0.8.0"
 
-compose = "1.12.0"
+compose = "1.12.1"
 compose-material3 = "1.12.0-alpha03"
 androidx-navigation3 = "1.1.7"
 jetbrains-navigation3 = "1.1.1"
@@ -25,19 +25,19 @@ androidx-appcompat = "1.8.0"
 androidx-activity = "1.13.0"
 androidx-lifecycle = "2.11.0"
 androidx-datastore = "1.2.1"
-androidx-room = "2.8.4"
-androidx-sqlite = "2.7.0"
+androidx-room = "2.8.5"
+androidx-sqlite = "2.7.1"
 
 google-ksp = "2.3.6"
 google-services = "4.5.0"
 google-android-material = "1.14.0"
 
 firebase-crashlytics-plugin = "3.0.8"
-firebase-bom = "34.18.0"
+firebase-bom = "34.19.0"
 
-metro = "1.4.2"
+metro = "1.4.4"
 skie = "0.10.14"
-ktor = "3.5.2"
+ktor = "3.6.0"
 supabase = "3.8.0"
 
 [plugins]
