@@ -1,3 +1,4 @@
+import App
 import SwiftUI
 
 struct ContentView: View {
@@ -20,8 +21,7 @@ struct ContentView: View {
                 case .choreCreate:
                     ChoreCreateRoute(
                         onFinish: { chore in
-                            // TODO show snackbar
-                            appNavigation.navigateBack()
+                            appNavigation.path[appNavigation.path.endIndex - 1] = .choreDetails(id: chore.id)
                         },
                     )
                 case .choreDetails(let id):
