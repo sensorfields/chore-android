@@ -16,6 +16,7 @@ struct ChoreCreateRoute: View {
             time: $viewModel.time,
             daysOfWeek: $viewModel.daysOfWeek,
             daysOfMonth: $viewModel.daysOfMonth,
+            months: $viewModel.months,
             onRepeatClick: viewModel.onRepeatClick,
             onNextClick: viewModel.onNextClick,
         ).task {
@@ -73,6 +74,18 @@ extension ChoreCreateRoute {
             set {
                 newValue.forEach { item in
                     vm.onDayOfMonthCheckedChange(day: item.value.int32, checked: item.isOn)
+                }
+            }
+        }
+        var months: [SelectableItem<Month>] {
+            get {
+                state.months.map { item in
+                    SelectableItem(value: item.value! as Month, isOn: item.selected)
+                }
+            }
+            set {
+                newValue.forEach { item in
+                    vm.onMonthCheckedChange(month: item.value, checked: item.isOn)
                 }
             }
         }
