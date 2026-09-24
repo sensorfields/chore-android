@@ -34,6 +34,7 @@ struct ChoreCreateScreen: View {
                 ChoreCreateSummary(state: state)
             }
         }
+        .navigationTitle(Res.string.shared.chore_create_title.format())
         .safeAreaInset(edge: .bottom) {
             Button(Res.string.shared.chore_create_next_button.format(), action: onNextClick)
                 .disabled(!state.isNextButtonEnabled)
