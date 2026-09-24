@@ -8,6 +8,7 @@ struct ChoreCreateScreen: View {
     @Binding var date: Date
     @Binding var time: Date
     @Binding var daysOfWeek: [SelectableItem<DayOfWeek>]
+    @Binding var daysOfMonth: [SelectableItem<Int>]
     let onRepeatClick: (ChoreCreateState.Repeat) -> Void
     let onNextClick: () -> Void
 
@@ -25,7 +26,7 @@ struct ChoreCreateScreen: View {
             case .whenWeek:
                 ChoreCreateWhenWeek(items: $daysOfWeek)
             case .whenMonth:
-                Text("WHEN MONTH")
+                ChoreCreateWhenMonth(items: $daysOfMonth)
             case .whenYear:
                 Text("WHEN YEAR")
             case .summary:
@@ -47,6 +48,7 @@ struct ChoreCreateScreen: View {
         date: Binding.constant(Date()),
         time: Binding.constant(Date()),
         daysOfWeek: Binding.constant([]),
+        daysOfMonth: Binding.constant([]),
         onRepeatClick: { _ in },
         onNextClick: {},
     )
