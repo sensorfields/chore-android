@@ -17,6 +17,7 @@ kotlin {
             baseName = "App"
             isStatic = true
             export(libs.kotlinx.datetime)
+            export(projects.core)
             export(projects.resources)
             export(projects.domain)
         }

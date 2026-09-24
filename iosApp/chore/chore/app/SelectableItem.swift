@@ -13,3 +13,12 @@ func generateSelectableItems<Element: CaseIterable>(
         SelectableItem(value: value, isOn: selected.contains(value))
     }
 }
+
+func generateSelectableItems<Int>(
+    range: CountableRange<Int>,
+    selected: Set<Int>,
+) -> [SelectableItem<Int>] {
+    return range.map { value in
+        SelectableItem(value: value, isOn: selected.contains(value))
+    }
+}

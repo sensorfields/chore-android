@@ -9,6 +9,7 @@ struct ChoreCreateWhenWeek: View {
         List(items.enumerated(), id: \.offset) { index, item in
             Toggle(item.value.format(), isOn: $items[index].isOn)
         }
+        .toggleStyle(.button)
     }
 }
 
