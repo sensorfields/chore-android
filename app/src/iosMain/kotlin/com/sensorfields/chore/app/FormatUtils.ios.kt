@@ -1,6 +1,7 @@
 package com.sensorfields.chore.app
 
 import com.sensorfields.chore.app.chore.create.ChoreCreateState
+import com.sensorfields.chore.domain.models.Chore
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
@@ -34,6 +35,8 @@ public fun NSDate.toLocalTime(): LocalTime = toLocalDateTime().time
 public fun StringResource.format(): String = runBlocking { getString(this@format) }
 
 public fun ChoreCreateState.Repeat.format(): String = this.resource.format()
+
+public fun Chore.SortProperty.format(): String = this.resource.format()
 
 public fun DayOfWeek.format(): String = dayOfWeekNames().names[ordinal]
 

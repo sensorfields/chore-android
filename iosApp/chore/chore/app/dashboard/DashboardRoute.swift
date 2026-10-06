@@ -12,6 +12,7 @@ struct DashboardRoute: View {
     var body: some View {
         DashboardScreen(
             state: viewModel.state,
+            onChoreSortClick: viewModel.onChoreSortClick,
             onCreateChoreClick: onNavigateToChoreCreate,
             onChoreClick: onNavigateToChoreDetails,
         ).task {
@@ -46,6 +47,10 @@ extension DashboardRoute {
             for await action in vm.actions {
                 onAction(action)
             }
+        }
+
+        func onChoreSortClick(sortProperty: Chore.SortProperty) {
+            vm.onChoreSortByClick(sortBy: sortProperty)
         }
     }
 }

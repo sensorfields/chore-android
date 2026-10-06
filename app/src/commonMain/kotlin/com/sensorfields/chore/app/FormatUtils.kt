@@ -1,6 +1,8 @@
 package com.sensorfields.chore.app
 
 import com.sensorfields.chore.app.chore.create.ChoreCreateState
+import com.sensorfields.chore.app.dashboard.DashboardState
+import com.sensorfields.chore.domain.models.Chore
 import com.sensorfields.chore.domain.models.Error
 import com.sensorfields.chore.resources.Res
 import com.sensorfields.chore.resources.chore_repeat_daily
@@ -8,6 +10,8 @@ import com.sensorfields.chore.resources.chore_repeat_monthly
 import com.sensorfields.chore.resources.chore_repeat_once
 import com.sensorfields.chore.resources.chore_repeat_weekly
 import com.sensorfields.chore.resources.chore_repeat_yearly
+import com.sensorfields.chore.resources.dashboard_chore_sort_date
+import com.sensorfields.chore.resources.dashboard_chore_sort_name
 import com.sensorfields.chore.resources.day_of_month_friday
 import com.sensorfields.chore.resources.day_of_month_monday
 import com.sensorfields.chore.resources.day_of_month_saturday
@@ -83,4 +87,10 @@ internal val ChoreCreateState.Repeat.resource: StringResource
         ChoreCreateState.Repeat.WEEKLY -> Res.string.chore_repeat_weekly
         ChoreCreateState.Repeat.MONTHLY -> Res.string.chore_repeat_monthly
         ChoreCreateState.Repeat.YEARLY -> Res.string.chore_repeat_yearly
+    }
+
+internal val Chore.SortProperty.resource: StringResource
+    get() = when (this) {
+        Chore.SortProperty.NAME -> Res.string.dashboard_chore_sort_name
+        Chore.SortProperty.DATE -> Res.string.dashboard_chore_sort_date
     }

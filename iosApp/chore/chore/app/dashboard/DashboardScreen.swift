@@ -4,6 +4,7 @@ import SwiftUI
 struct DashboardScreen: View {
 
     let state: DashboardState
+    let onChoreSortClick: (Chore.SortProperty) -> Void
     let onCreateChoreClick: () -> Void
     let onChoreClick: (String) -> Void
 
@@ -24,6 +25,25 @@ struct DashboardScreen: View {
                     systemImage: "plus",
                     action: onCreateChoreClick,
                 )
+            }
+            ToolbarItem {
+                Menu {
+                    DashboardChoreSortItem(
+                        sort: state.choreSort,
+                        sortProperty: .name,
+                        onClick: onChoreSortClick,
+                    )
+                    DashboardChoreSortItem(
+                        sort: state.choreSort,
+                        sortProperty: .date,
+                        onClick: onChoreSortClick,
+                    )
+                } label: {
+                    Label(
+                        Res.string.shared.dashboard_sort_button.format(),
+                        systemImage: "ellipsis",
+                    )
+                }
             }
         }
     }
@@ -49,6 +69,7 @@ struct DashboardScreen: View {
                 ),
             ],
         ),
+        onChoreSortClick: { _ in },
         onCreateChoreClick: {},
         onChoreClick: { _ in },
     )
