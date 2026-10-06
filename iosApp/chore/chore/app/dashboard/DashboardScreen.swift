@@ -26,6 +26,7 @@ struct DashboardScreen: View {
                     action: onCreateChoreClick,
                 )
             }
+            ToolbarSpacer()
             ToolbarItem {
                 Menu {
                     DashboardChoreSortItem(
@@ -50,27 +51,29 @@ struct DashboardScreen: View {
 }
 
 #Preview {
-    DashboardScreen(
-        state: DashboardState(
-            choreSort: DashboardState.ChoreSort(
-                sortBy: .name,
-                isAscending: true,
+    NavigationStack {
+        DashboardScreen(
+            state: DashboardState(
+                choreSort: DashboardState.ChoreSort(
+                    sortBy: .name,
+                    isAscending: true,
+                ),
+                choreItems: [
+                    DashboardState.ChoreItem(
+                        id: "one",
+                        name: "Some name",
+                        date: Date.distantPast.toLocalDateTime(),
+                    ),
+                    DashboardState.ChoreItem(
+                        id: "two",
+                        name: "Some other name",
+                        date: Date.distantFuture.toLocalDateTime(),
+                    ),
+                ],
             ),
-            choreItems: [
-                DashboardState.ChoreItem(
-                    id: "one",
-                    name: "Some name",
-                    date: Date.distantPast.toLocalDateTime(),
-                ),
-                DashboardState.ChoreItem(
-                    id: "two",
-                    name: "Some other name",
-                    date: Date.distantFuture.toLocalDateTime(),
-                ),
-            ],
-        ),
-        onChoreSortClick: { _ in },
-        onCreateChoreClick: {},
-        onChoreClick: { _ in },
-    )
+            onChoreSortClick: { _ in },
+            onCreateChoreClick: {},
+            onChoreClick: { _ in },
+        )
+    }
 }

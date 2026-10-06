@@ -5,7 +5,7 @@ struct DashboardChoreSortItem: View {
 
     let sort: DashboardState.ChoreSort
     let sortProperty: Chore.SortProperty
-    let onClick: @MainActor (Chore.SortProperty) -> Void
+    let onClick: (Chore.SortProperty) -> Void
 
     var body: some View {
         Button {

@@ -36,24 +36,31 @@ struct ChoreCreateScreen: View {
         }
         .navigationTitle(Res.string.shared.chore_create_title.format())
         .toolbarVisibility(Visibility.hidden, for: .tabBar)
-        .safeAreaInset(edge: .bottom) {
-            Button(Res.string.shared.chore_create_next_button.format(), action: onNextClick)
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button(
+                    Res.string.shared.chore_create_next_button.format(),
+                    action: onNextClick,
+                )
                 .disabled(!state.isNextButtonEnabled)
-                .buttonStyle(BorderedProminentButtonStyle())
+                .buttonStyle(.borderedProminent)
+            }
         }
     }
 }
 
 #Preview {
-    ChoreCreateScreen(
-        state: ChoreCreateState.companion.initial(),
-        name: Binding.constant(""),
-        date: Binding.constant(Date()),
-        time: Binding.constant(Date()),
-        daysOfWeek: Binding.constant([]),
-        daysOfMonth: Binding.constant([]),
-        months: Binding.constant([]),
-        onRepeatClick: { _ in },
-        onNextClick: {},
-    )
+    NavigationStack {
+        ChoreCreateScreen(
+            state: ChoreCreateState.companion.initial(),
+            name: Binding.constant(""),
+            date: Binding.constant(Date()),
+            time: Binding.constant(Date()),
+            daysOfWeek: Binding.constant([]),
+            daysOfMonth: Binding.constant([]),
+            months: Binding.constant([]),
+            onRepeatClick: { _ in },
+            onNextClick: {},
+        )
+    }
 }
