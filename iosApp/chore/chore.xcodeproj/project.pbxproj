@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		2289EA473050C090000B1882 /* Exceptions for "chore" folder in "chore" target */ = {
+		2289EA473050C090000B1882 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -24,7 +24,11 @@
 		2289EA1D30507EFB000B1882 /* chore */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				2289EA473050C090000B1882 /* Exceptions for "chore" folder in "chore" target */,
+				2289EA473050C090000B1882 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
 			);
 			path = chore;
 			sourceTree = "<group>";

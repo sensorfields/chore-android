@@ -91,7 +91,6 @@ extension ChoreCreateRoute {
         }
 
         init() {
-            NSLog("AAAAA LOL LEL SWIFT INIT CREATE")
             vm = appGraph.choreCreateViewModel
             state = vm.state.value
         }

@@ -1,7 +1,6 @@
 import SwiftUI
 
-@Observable
-class AppNavigation {
+@Observable class AppNavigation {
 
     var path: [RouteKey] = []
 
@@ -11,7 +10,6 @@ class AppNavigation {
 
     func navigateToHome() {
         path.removeAll()
-        path.append(.home)
     }
 
     func navigateToChoreCreate() {
@@ -24,7 +22,6 @@ class AppNavigation {
 }
 
 enum RouteKey: Identifiable, Hashable, Codable {
-    case home
     case choreCreate
     case choreDetails(id: String)
 

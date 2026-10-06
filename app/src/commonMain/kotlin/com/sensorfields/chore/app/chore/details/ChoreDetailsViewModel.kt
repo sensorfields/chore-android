@@ -2,7 +2,6 @@ package com.sensorfields.chore.app.chore.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sensorfields.chore.core.logDebug
 import com.sensorfields.chore.domain.models.Chore
 import com.sensorfields.chore.domain.usecases.ObserveChoreUseCase
 import dev.zacsweers.metro.AppScope
@@ -31,7 +30,6 @@ public class ChoreDetailsViewModel(
     private var chore: Chore? = null
 
     init {
-        logDebug { "AAAAAAAA LOL INIT DETAILS VM" }
         observeChore()
     }
 

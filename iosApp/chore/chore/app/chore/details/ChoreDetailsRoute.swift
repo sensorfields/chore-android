@@ -9,16 +9,14 @@ struct ChoreDetailsRoute: View {
     @State var viewModel: ViewModel
 
     init(choreId: String) {
-        NSLog("AAAAAA LEL DETAILS VM INIT")
         self.choreId = choreId
         self.viewModel = ViewModel(choreId: choreId)
     }
 
     var body: some View {
-        ChoreDetailsScreen(state: viewModel.state)
-            .task {
-                await viewModel.state()
-            }
+        ChoreDetailsScreen(state: viewModel.state).task {
+            await viewModel.state()
+        }
     }
 }
 

@@ -4,6 +4,7 @@ import SwiftUI
 
 struct DashboardRoute: View {
 
+    let onNavigateToChoreCreate: () -> Void
     let onNavigateToChoreDetails: (String) -> Void
 
     @State private var viewModel: ViewModel = ViewModel()
@@ -11,12 +12,11 @@ struct DashboardRoute: View {
     var body: some View {
         DashboardScreen(
             state: viewModel.state,
+            onCreateChoreClick: onNavigateToChoreCreate,
             onChoreClick: onNavigateToChoreDetails,
-        )
-        .task {
+        ).task {
             await viewModel.state()
-        }
-        .task {
+        }.task {
             await viewModel.actions { action in
                 NSLog("AAAAAAAAA ACTION: \(action)")
             }
@@ -32,7 +32,6 @@ extension DashboardRoute {
         var state: DashboardState
 
         init() {
-            NSLog("AAAAAA INIT TEH VM")
             self.vm = appGraph.dashboardViewModel
             self.state = vm.state.value
         }

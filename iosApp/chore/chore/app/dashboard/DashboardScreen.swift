@@ -4,6 +4,7 @@ import SwiftUI
 struct DashboardScreen: View {
 
     let state: DashboardState
+    let onCreateChoreClick: () -> Void
     let onChoreClick: (String) -> Void
 
     @State private var selectedChore: String?
@@ -14,6 +15,16 @@ struct DashboardScreen: View {
                 state: item,
                 onClick: { onChoreClick(item.id) },
             )
+        }
+        .navigationTitle(Res.string.shared.dashboard_title.format())
+        .toolbar {
+            ToolbarItem {
+                Button(
+                    Res.string.shared.dashboard_chore_create_button.format(),
+                    systemImage: "plus",
+                    action: onCreateChoreClick,
+                )
+            }
         }
     }
 }
@@ -38,6 +49,7 @@ struct DashboardScreen: View {
                 ),
             ],
         ),
+        onCreateChoreClick: {},
         onChoreClick: { _ in },
     )
 }

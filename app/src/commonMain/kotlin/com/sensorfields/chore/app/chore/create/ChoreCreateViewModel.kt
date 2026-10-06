@@ -9,7 +9,6 @@ import com.sensorfields.chore.app.chore.create.ChoreCreateState.Step
 import com.sensorfields.chore.app.generateSelectableItemState
 import com.sensorfields.chore.core.ActionChannel
 import com.sensorfields.chore.core.AppConfig
-import com.sensorfields.chore.core.logDebug
 import com.sensorfields.chore.domain.usecases.CreateChoreUseCase
 import com.sensorfields.chore.domain.usecases.GetLocalDateTimeUseCase
 import dev.zacsweers.metro.AppScope
@@ -51,10 +50,6 @@ public class ChoreCreateViewModel(
     private var daysOfMonth = mutableSetOf<Int>()
     private var months = mutableSetOf<Month>()
     private var createInProgress: Boolean = false
-
-    init {
-        logDebug { "AAAAAAAA LOL INIT CREATE VM" }
-    }
 
     public fun onNameChange(name: String) {
         this.name = name

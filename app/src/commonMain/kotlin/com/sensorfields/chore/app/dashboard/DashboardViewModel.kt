@@ -3,7 +3,6 @@ package com.sensorfields.chore.app.dashboard
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sensorfields.chore.app.dashboard.DashboardAction.ShowChoreCreatedMessage
-import com.sensorfields.chore.core.logDebug
 import com.sensorfields.chore.domain.models.Chore
 import com.sensorfields.chore.domain.usecases.ObserveChoresUseCase
 import dev.zacsweers.metro.AppScope
@@ -41,7 +40,6 @@ public class DashboardViewModel(
     private var chores: List<Chore> = emptyList()
 
     init {
-        logDebug { "AAAAAAAA LOL INIT DASHBOARD VM" }
         observeChores()
     }
 
