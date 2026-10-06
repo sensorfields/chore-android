@@ -6,7 +6,7 @@ struct ChoreCreateRoute: View {
 
     let onFinish: (Chore) -> Void
 
-    @ObservedObject private var viewModel: ViewModel = ViewModel()
+    @State private var viewModel: ViewModel = ViewModel()
 
     var body: some View {
         ChoreCreateScreen(
@@ -35,11 +35,11 @@ struct ChoreCreateRoute: View {
 }
 
 extension ChoreCreateRoute {
-    class ViewModel: ObservableObject {
+    @Observable class ViewModel {
 
         private let vm: ChoreCreateViewModel
 
-        @Published var state: ChoreCreateState
+        var state: ChoreCreateState
 
         var name: String {
             get { state.name }
@@ -91,6 +91,7 @@ extension ChoreCreateRoute {
         }
 
         init() {
+            NSLog("AAAAA LOL LEL SWIFT INIT CREATE")
             vm = appGraph.choreCreateViewModel
             state = vm.state.value
         }

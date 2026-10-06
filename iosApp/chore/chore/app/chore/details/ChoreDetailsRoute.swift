@@ -6,9 +6,10 @@ struct ChoreDetailsRoute: View {
 
     let choreId: String
 
-    @ObservedObject var viewModel: ViewModel
+    @State var viewModel: ViewModel
 
     init(choreId: String) {
+        NSLog("AAAAAA LEL DETAILS VM INIT")
         self.choreId = choreId
         self.viewModel = ViewModel(choreId: choreId)
     }
@@ -22,11 +23,11 @@ struct ChoreDetailsRoute: View {
 }
 
 extension ChoreDetailsRoute {
-    class ViewModel: ObservableObject {
+    @Observable class ViewModel {
 
         private let vm: ChoreDetailsViewModel
 
-        @Published var state: ChoreDetailsState
+        var state: ChoreDetailsState
 
         init(choreId: String) {
             vm = appGraph.choreDetailsViewModelFactory.create(choreId: choreId)

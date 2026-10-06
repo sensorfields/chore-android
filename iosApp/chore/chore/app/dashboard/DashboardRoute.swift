@@ -6,7 +6,7 @@ struct DashboardRoute: View {
 
     let onNavigateToChoreDetails: (String) -> Void
 
-    @ObservedObject private var viewModel: ViewModel = ViewModel()
+    @State private var viewModel: ViewModel = ViewModel()
 
     var body: some View {
         DashboardScreen(
@@ -25,13 +25,14 @@ struct DashboardRoute: View {
 }
 
 extension DashboardRoute {
-    class ViewModel: ObservableObject {
+    @Observable class ViewModel {
 
         private let vm: DashboardViewModel
 
-        @Published var state: DashboardState
+        var state: DashboardState
 
         init() {
+            NSLog("AAAAAA INIT TEH VM")
             self.vm = appGraph.dashboardViewModel
             self.state = vm.state.value
         }
