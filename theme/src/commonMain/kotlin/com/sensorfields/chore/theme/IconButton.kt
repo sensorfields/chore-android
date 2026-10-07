@@ -4,11 +4,12 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.sensorfields.chore.resources.Icons
 
 @Composable
 public fun IconButton(
     icon: Icons,
-    contentDescription: String?,
+    contentDescription: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,

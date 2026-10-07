@@ -34,7 +34,7 @@ fun ChoreCreateScreen(
     state: ChoreCreateState,
     onUpClick: () -> Unit,
     onNameChange: (String) -> Unit,
-    onRepeatClick: (ChoreCreateState.When.Repeat) -> Unit,
+    onRepeatClick: (ChoreCreateState.Repeat) -> Unit,
     onDateChange: (LocalDate?) -> Unit,
     onTimeChange: (LocalTime) -> Unit,
     onDayOfWeekCheckedChange: (DayOfWeek, Boolean) -> Unit,
@@ -73,43 +73,43 @@ fun ChoreCreateScreen(
                 .padding(innerPadding)
                 .imePadding(),
         ) {
-            when (state) {
-                is ChoreCreateState.What -> ChoreCreateWhat(
+            when (state.step) {
+                ChoreCreateState.Step.WHAT -> ChoreCreateWhat(
                     name = state.name,
                     onNameChange = onNameChange,
                     onDoneClick = onNextClick,
                 )
 
-                ChoreCreateState.When -> ChoreCreateWhen(
+                ChoreCreateState.Step.WHEN -> ChoreCreateWhen(
                     onRepeatClick = onRepeatClick,
                 )
 
-                is ChoreCreateState.WhenDate -> ChoreCreateWhenDate(
+                ChoreCreateState.Step.WHEN_DATE -> ChoreCreateWhenDate(
                     date = state.date,
                     onDateChange = onDateChange,
                 )
 
-                is ChoreCreateState.WhenTime -> ChoreCreateWhenTime(
+                ChoreCreateState.Step.WHEN_TIME -> ChoreCreateWhenTime(
                     time = state.time,
                     onTimeChange = onTimeChange,
                 )
 
-                is ChoreCreateState.WhenWeek -> ChoreCreateWhenWeek(
-                    days = state.days,
+                ChoreCreateState.Step.WHEN_WEEK -> ChoreCreateWhenWeek(
+                    items = state.daysOfWeek,
                     onDayCheckedChange = onDayOfWeekCheckedChange,
                 )
 
-                is ChoreCreateState.WhenMonth -> ChoreCreateWhenMonth(
-                    days = state.days,
+                ChoreCreateState.Step.WHEN_MONTH -> ChoreCreateWhenMonth(
+                    items = state.daysOfMonth,
                     onDayCheckedChange = onDayOfMonthCheckedChange,
                 )
 
-                is ChoreCreateState.WhenYear -> ChoreCreateWhenYear(
-                    months = state.months,
+                ChoreCreateState.Step.WHEN_YEAR -> ChoreCreateWhenYear(
+                    items = state.months,
                     onMonthCheckedChange = onMonthCheckedChange,
                 )
 
-                is ChoreCreateState.Summary -> ChoreCreateSummary(
+                ChoreCreateState.Step.SUMMARY -> ChoreCreateSummary(
                     name = state.name,
                     repeat = state.repeat,
                     date = state.date,
@@ -128,7 +128,7 @@ fun ChoreCreateScreen(
 @Composable
 private fun Preview() {
     ChoreCreateScreen(
-        state = ChoreCreateState.What(),
+        state = ChoreCreateState.initial(),
         onUpClick = {},
         onNameChange = {},
         onRepeatClick = {},

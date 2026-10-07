@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 fun HomeRoute(
     onNavigateToChoreCreate: () -> Unit,
     choreCreateResults: () -> Flow<Chore>,
-    onNavigateToChoreDetails: (Chore.Id) -> Unit,
+    onNavigateToChoreDetails: (String) -> Unit,
 ) {
     HomeScreen(
         onNavigateToChoreCreate = onNavigateToChoreCreate,

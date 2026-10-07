@@ -5,13 +5,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
-import com.sensorfields.chore.android.ui.chore.choreDate
 import com.sensorfields.chore.app.dashboard.DashboardState
-import com.sensorfields.chore.domain.models.Chore
+import com.sensorfields.chore.app.format
 import com.sensorfields.chore.theme.AppPreviewWrapper
 import com.sensorfields.chore.theme.ListItem
 import com.sensorfields.chore.theme.Text
-import kotlin.time.Instant
+import kotlinx.datetime.LocalDateTime
 
 @Composable
 fun DashboardChoreItem(
@@ -21,7 +20,7 @@ fun DashboardChoreItem(
 ) {
     ListItem(
         modifier = modifier.clickable(onClick = onClick),
-        supportingContent = state.date?.let { { Text(choreDate(it)) } },
+        supportingContent = { Text(state.date.format()) },
     ) {
         Text(state.name)
     }
@@ -30,26 +29,12 @@ fun DashboardChoreItem(
 @Preview
 @PreviewWrapper(AppPreviewWrapper::class)
 @Composable
-private fun PreviewFull() {
+private fun Preview() {
     DashboardChoreItem(
         state = DashboardState.ChoreItem(
-            id = Chore.Id("one"),
+            id = "one",
             name = "Some Chore that needs to be done",
-            date = Instant.parse("1988-02-13T13:30:00Z"),
-        ),
-        onClick = {},
-    )
-}
-
-@Preview
-@PreviewWrapper(AppPreviewWrapper::class)
-@Composable
-private fun PreviewMin() {
-    DashboardChoreItem(
-        state = DashboardState.ChoreItem(
-            id = Chore.Id("one"),
-            name = "Some Chore that needs to be done",
-            date = null,
+            date = LocalDateTime.parse("1988-02-13T13:30:00"),
         ),
         onClick = {},
     )

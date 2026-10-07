@@ -7,35 +7,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.sensorfields.chore.app.chore.create.ChoreCreateState
+import com.sensorfields.chore.app.format
 import com.sensorfields.chore.theme.AppPreviewWrapper
 import com.sensorfields.chore.theme.ListItem
 import com.sensorfields.chore.theme.Text
-import com.sensorfields.chore.theme.TitleMediumText
 
 @Composable
 fun ChoreCreateWhen(
-    onRepeatClick: (ChoreCreateState.When.Repeat) -> Unit,
+    onRepeatClick: (ChoreCreateState.Repeat) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier,
     ) {
-        TitleMediumText("Repeat")
-        ListItem(
-            modifier = Modifier.clickable { onRepeatClick(ChoreCreateState.When.Repeat.ONCE) },
-        ) { Text("Once") }
-        ListItem(
-            modifier = Modifier.clickable { onRepeatClick(ChoreCreateState.When.Repeat.DAILY) },
-        ) { Text("Daily") }
-        ListItem(
-            modifier = Modifier.clickable { onRepeatClick(ChoreCreateState.When.Repeat.WEEKLY) },
-        ) { Text("Weekly") }
-        ListItem(
-            modifier = Modifier.clickable { onRepeatClick(ChoreCreateState.When.Repeat.MONTHLY) },
-        ) { Text("Monthly") }
-        ListItem(
-            modifier = Modifier.clickable { onRepeatClick(ChoreCreateState.When.Repeat.YEARLY) },
-        ) { Text("Yearly") }
+        ChoreCreateState.Repeat.entries.forEach { repeat ->
+            ListItem(
+                modifier = Modifier.clickable { onRepeatClick(repeat) },
+            ) { Text(repeat.format()) }
+        }
     }
 }
 

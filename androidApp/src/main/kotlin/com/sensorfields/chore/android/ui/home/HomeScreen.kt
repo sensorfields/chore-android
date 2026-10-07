@@ -24,13 +24,13 @@ import com.sensorfields.chore.android.ui.dashboard.DashboardRoute
 import com.sensorfields.chore.android.ui.settings.SettingsRoute
 import com.sensorfields.chore.android.ui.stats.StatsRoute
 import com.sensorfields.chore.domain.models.Chore
+import com.sensorfields.chore.resources.Icons
 import com.sensorfields.chore.resources.Res
 import com.sensorfields.chore.resources.home_navigation_dashboard
 import com.sensorfields.chore.resources.home_navigation_settings
 import com.sensorfields.chore.resources.home_navigation_stats
 import com.sensorfields.chore.theme.AppPreviewWrapper
 import com.sensorfields.chore.theme.Icon
-import com.sensorfields.chore.theme.Icons
 import com.sensorfields.chore.theme.NavigationBar
 import com.sensorfields.chore.theme.NavigationBarDefaults
 import com.sensorfields.chore.theme.NavigationBarItem
@@ -45,7 +45,7 @@ import org.jetbrains.compose.resources.stringResource
 fun HomeScreen(
     onNavigateToChoreCreate: () -> Unit,
     choreCreateResults: () -> Flow<Chore>,
-    onNavigateToChoreDetails: (Chore.Id) -> Unit,
+    onNavigateToChoreDetails: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val backStack = rememberNavBackStack(TabKey.DASHBOARD)

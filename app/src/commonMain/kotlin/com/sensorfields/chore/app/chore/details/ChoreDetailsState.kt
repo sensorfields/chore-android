@@ -1,8 +1,12 @@
 package com.sensorfields.chore.app.chore.details
 
-import kotlin.time.Instant
+import kotlinx.datetime.LocalDateTime
 
-public data class ChoreDetailsState(
-    val name: String = "",
-    val date: Instant? = null,
-)
+public sealed interface ChoreDetailsState {
+    public data object Empty : ChoreDetailsState
+    public data class Chore(val name: String, val date: LocalDateTime) : ChoreDetailsState
+
+    public companion object {
+        public fun initial(): ChoreDetailsState = Empty
+    }
+}

@@ -6,28 +6,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
+import com.sensorfields.chore.app.SelectableItemState
+import com.sensorfields.chore.app.format
+import com.sensorfields.chore.app.generateSelectableItemState
 import com.sensorfields.chore.theme.AppPreviewWrapper
 import com.sensorfields.chore.theme.Text
 import com.sensorfields.chore.theme.ToggleButton
-import kotlinx.collections.immutable.ImmutableSet
-import kotlinx.collections.immutable.persistentSetOf
-import kotlinx.collections.immutable.toImmutableSet
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.datetime.Month
 
 @Composable
 fun ChoreCreateWhenYear(
-    months: ImmutableSet<Month>,
+    items: ImmutableList<SelectableItemState<Month>>,
     onMonthCheckedChange: (Month, Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
-        Month.entries.forEach { month ->
+        items.forEach { item ->
             ToggleButton(
-                checked = months.contains(month),
-                onCheckedChange = { onMonthCheckedChange(month, it) },
+                checked = item.selected,
+                onCheckedChange = { onMonthCheckedChange(item.value, it) },
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text(month.name) // TODO format month
+                Text(item.value.format())
             }
         }
     }
@@ -38,7 +39,7 @@ fun ChoreCreateWhenYear(
 @Composable
 private fun PreviewEmpty() {
     ChoreCreateWhenYear(
-        months = persistentSetOf(),
+        items = generateSelectableItemState(),
         onMonthCheckedChange = { _, _ -> },
     )
 }
@@ -48,7 +49,13 @@ private fun PreviewEmpty() {
 @Composable
 private fun PreviewSome() {
     ChoreCreateWhenYear(
-        months = persistentSetOf(Month.JANUARY, Month.FEBRUARY, Month.NOVEMBER),
+        items = generateSelectableItemState(
+            setOf(
+                Month.JANUARY,
+                Month.FEBRUARY,
+                Month.NOVEMBER,
+            ),
+        ),
         onMonthCheckedChange = { _, _ -> },
     )
 }
@@ -58,7 +65,7 @@ private fun PreviewSome() {
 @Composable
 private fun PreviewAll() {
     ChoreCreateWhenYear(
-        months = Month.entries.toImmutableSet(),
+        items = generateSelectableItemState(Month.entries.toSet()),
         onMonthCheckedChange = { _, _ -> },
     )
 }

@@ -6,28 +6,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
+import com.sensorfields.chore.app.SelectableItemState
+import com.sensorfields.chore.app.format
+import com.sensorfields.chore.app.generateSelectableItemState
 import com.sensorfields.chore.theme.AppPreviewWrapper
 import com.sensorfields.chore.theme.Text
 import com.sensorfields.chore.theme.ToggleButton
-import kotlinx.collections.immutable.ImmutableSet
-import kotlinx.collections.immutable.persistentSetOf
-import kotlinx.collections.immutable.toImmutableSet
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.datetime.DayOfWeek
 
 @Composable
 fun ChoreCreateWhenWeek(
-    days: ImmutableSet<DayOfWeek>,
+    items: ImmutableList<SelectableItemState<DayOfWeek>>,
     onDayCheckedChange: (DayOfWeek, Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
-        DayOfWeek.entries.forEach { day ->
+        items.forEach { item ->
             ToggleButton(
-                checked = days.contains(day),
-                onCheckedChange = { onDayCheckedChange(day, it) },
+                checked = item.selected,
+                onCheckedChange = { onDayCheckedChange(item.value, it) },
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text(day.name) // TODO format day
+                Text(item.value.format())
             }
         }
     }
@@ -38,7 +39,7 @@ fun ChoreCreateWhenWeek(
 @Composable
 private fun PreviewEmpty() {
     ChoreCreateWhenWeek(
-        days = persistentSetOf(),
+        items = generateSelectableItemState(),
         onDayCheckedChange = { _, _ -> },
     )
 }
@@ -48,10 +49,12 @@ private fun PreviewEmpty() {
 @Composable
 private fun PreviewSome() {
     ChoreCreateWhenWeek(
-        days = persistentSetOf(
-            DayOfWeek.WEDNESDAY,
-            DayOfWeek.SATURDAY,
-            DayOfWeek.SUNDAY,
+        items = generateSelectableItemState(
+            setOf(
+                DayOfWeek.WEDNESDAY,
+                DayOfWeek.SATURDAY,
+                DayOfWeek.SUNDAY,
+            )
         ),
         onDayCheckedChange = { _, _ -> },
     )
@@ -62,7 +65,7 @@ private fun PreviewSome() {
 @Composable
 private fun PreviewAll() {
     ChoreCreateWhenWeek(
-        days = DayOfWeek.entries.toImmutableSet(),
+        items = generateSelectableItemState(DayOfWeek.entries.toSet()),
         onDayCheckedChange = { _, _ -> },
     )
 }

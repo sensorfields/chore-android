@@ -18,7 +18,7 @@ import org.jetbrains.compose.resources.getString
 fun DashboardRoute(
     onNavigateToChoreCreate: () -> Unit,
     choreCreateResults: () -> Flow<Chore>,
-    onNavigateToChoreDetails: (Chore.Id) -> Unit,
+    onNavigateToChoreDetails: (String) -> Unit,
     viewModel: DashboardViewModel = metroViewModel(),
 ) {
     choreCreateResults().collectInEffect(viewModel::onChoreCreateResult)

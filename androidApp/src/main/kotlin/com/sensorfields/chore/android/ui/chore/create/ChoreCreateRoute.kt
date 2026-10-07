@@ -22,7 +22,7 @@ fun ChoreCreateRoute(
     val snackBarState = rememberSnackBarState()
 
     val latestOnFinish by rememberUpdatedState(onFinish)
-    viewModel.action.collectInEffect { action ->
+    viewModel.actions.collectInEffect { action ->
         when (action) {
             is ShowError -> snackBarState.show(message = action.error.getMessage())
             is Finish -> latestOnFinish(action.chore)

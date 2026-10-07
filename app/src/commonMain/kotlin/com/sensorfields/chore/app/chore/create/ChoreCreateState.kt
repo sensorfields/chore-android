@@ -1,57 +1,50 @@
 package com.sensorfields.chore.app.chore.create
 
-import kotlinx.collections.immutable.ImmutableSet
+import com.sensorfields.chore.app.SelectableItemState
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.Month
 
-public sealed class ChoreCreateState(
-    public open val isNextButtonEnabled: Boolean = false,
-    public open val isLoadingVisible: Boolean = false,
+public data class ChoreCreateState(
+    val step: Step,
+    val name: String,
+    val repeat: Repeat?,
+    val date: LocalDate,
+    val time: LocalTime,
+    val daysOfWeek: ImmutableList<SelectableItemState<DayOfWeek>>,
+    val daysOfMonth: ImmutableList<SelectableItemState<Int>>,
+    val months: ImmutableList<SelectableItemState<Month>>,
+    val isNextButtonEnabled: Boolean,
+    val isLoadingVisible: Boolean,
 ) {
-    public data class What(
-        override val isNextButtonEnabled: Boolean = false,
-        val name: String = "",
-    ) : ChoreCreateState()
-
-    public data object When : ChoreCreateState() {
-        public enum class Repeat { ONCE, DAILY, WEEKLY, MONTHLY, YEARLY, }
+    public enum class Step {
+        WHAT,
+        WHEN,
+        WHEN_DATE,
+        WHEN_TIME,
+        WHEN_WEEK,
+        WHEN_MONTH,
+        WHEN_YEAR,
+        SUMMARY,
     }
 
-    public data class WhenDate(
-        override val isNextButtonEnabled: Boolean = false,
-        val date: LocalDate?,
-    ) : ChoreCreateState()
+    public enum class Repeat { ONCE, DAILY, WEEKLY, MONTHLY, YEARLY, }
 
-    public data class WhenTime(
-        override val isNextButtonEnabled: Boolean = false,
-        val time: LocalTime?,
-    ) : ChoreCreateState()
-
-    public data class WhenWeek(
-        override val isNextButtonEnabled: Boolean = false,
-        val days: ImmutableSet<DayOfWeek>,
-    ) : ChoreCreateState()
-
-    public data class WhenMonth(
-        override val isNextButtonEnabled: Boolean = false,
-        val days: ImmutableSet<Int>,
-    ) : ChoreCreateState()
-
-    public data class WhenYear(
-        override val isNextButtonEnabled: Boolean = false,
-        val months: ImmutableSet<Month>,
-    ) : ChoreCreateState()
-
-    public data class Summary(
-        val name: String,
-        val repeat: When.Repeat,
-        val date: LocalDate?,
-        val time: LocalTime?,
-        val daysOfWeek: ImmutableSet<DayOfWeek>,
-        val daysOfMonth: ImmutableSet<Int>,
-        val months: ImmutableSet<Month>,
-        override val isLoadingVisible: Boolean = false,
-    ) : ChoreCreateState(isNextButtonEnabled = true)
+    public companion object {
+        public fun initial(): ChoreCreateState = ChoreCreateState(
+            step = Step.WHAT,
+            name = "",
+            repeat = null,
+            date = LocalDate.fromEpochDays(0),
+            time = LocalTime.fromSecondOfDay(0),
+            daysOfWeek = persistentListOf(),
+            daysOfMonth = persistentListOf(),
+            months = persistentListOf(),
+            isNextButtonEnabled = false,
+            isLoadingVisible = false,
+        )
+    }
 }
