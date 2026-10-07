@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.sensorfields.chore.app.dashboard.DashboardState
 import com.sensorfields.chore.app.format
 import com.sensorfields.chore.domain.models.Chore
+import com.sensorfields.chore.resources.Icons
 import com.sensorfields.chore.resources.Res
 import com.sensorfields.chore.resources.dashboard_chore_sort_ascending
 import com.sensorfields.chore.resources.dashboard_chore_sort_descending
@@ -18,7 +19,6 @@ import com.sensorfields.chore.resources.dashboard_chore_sort_title
 import com.sensorfields.chore.theme.AppTheme
 import com.sensorfields.chore.theme.HorizontalDivider
 import com.sensorfields.chore.theme.Icon
-import com.sensorfields.chore.theme.Icons
 import com.sensorfields.chore.theme.ListItem
 import com.sensorfields.chore.theme.ModalBottomSheet
 import com.sensorfields.chore.theme.Text

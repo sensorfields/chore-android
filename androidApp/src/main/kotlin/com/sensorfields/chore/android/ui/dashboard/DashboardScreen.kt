@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import com.sensorfields.chore.app.dashboard.DashboardState
 import com.sensorfields.chore.domain.models.Chore
+import com.sensorfields.chore.resources.Icons
 import com.sensorfields.chore.resources.Res
 import com.sensorfields.chore.resources.dashboard_chore_create_button
 import com.sensorfields.chore.resources.dashboard_sort_button
@@ -23,7 +24,6 @@ import com.sensorfields.chore.theme.AppPreviewWrapper
 import com.sensorfields.chore.theme.FloatingActionButton
 import com.sensorfields.chore.theme.Icon
 import com.sensorfields.chore.theme.IconButton
-import com.sensorfields.chore.theme.Icons
 import com.sensorfields.chore.theme.Scaffold
 import com.sensorfields.chore.theme.SnackBarState
 import com.sensorfields.chore.theme.Text

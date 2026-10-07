@@ -40,6 +40,7 @@ kotlin {
             implementation(projects.core)
 
             api(libs.compose.components.resources)
+            api(libs.compose.ui)
         }
     }
 
